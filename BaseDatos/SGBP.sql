@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 100428 (10.4.28-MariaDB)
  Source Host           : localhost:3306
- Source Schema         : pcs
+ Source Schema         : sgbp
 
  Target Server Type    : MySQL
  Target Server Version : 100428 (10.4.28-MariaDB)
  File Encoding         : 65001
 
- Date: 21/11/2023 15:57:15
+ Date: 22/11/2023 19:43:15
 */
 
 SET NAMES utf8mb4;
@@ -38,7 +38,7 @@ CREATE TABLE `actividad`  (
   CONSTRAINT `actividad_ibfk_1` FOREIGN KEY (`IdEstadoActividad`) REFERENCES `estadoactividad` (`IdEstadoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `actividad_ibfk_2` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `actividad_ibfk_3` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of actividad
@@ -59,7 +59,7 @@ CREATE TABLE `cambio`  (
   INDEX `idSolicitud`(`idSolicitud` ASC) USING BTREE,
   CONSTRAINT `cambio_ibfk_1` FOREIGN KEY (`IdEstadoActividad`) REFERENCES `estadoactividad` (`IdEstadoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `cambio_ibfk_2` FOREIGN KEY (`idSolicitud`) REFERENCES `solicitudcambios` (`IdSolicitudCambios`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of cambio
@@ -82,7 +82,7 @@ CREATE TABLE `defecto`  (
   INDEX `IdEstudiante`(`IdEstudiante` ASC) USING BTREE,
   CONSTRAINT `defecto_ibfk_1` FOREIGN KEY (`IdEstadoActividad`) REFERENCES `estadoactividad` (`IdEstadoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `defecto_ibfk_2` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of defecto
@@ -96,7 +96,7 @@ CREATE TABLE `estadoactividad`  (
   `IdEstadoActividad` int NOT NULL AUTO_INCREMENT,
   `Estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IdEstadoActividad`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of estadoactividad
@@ -110,7 +110,7 @@ CREATE TABLE `estadoestudiante`  (
   `IdEstadoEstudiante` int NOT NULL AUTO_INCREMENT,
   `Estado` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IdEstadoEstudiante`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of estadoestudiante
@@ -124,7 +124,7 @@ CREATE TABLE `estadosolicitud`  (
   `IdEstadoSolicitud` int NOT NULL AUTO_INCREMENT,
   `Estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IdEstadoSolicitud`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of estadosolicitud
@@ -141,10 +141,11 @@ CREATE TABLE `estudiante`  (
   `ApellidoPaterno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ApellidoMaterno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `IdEstadoEstudiante` int NOT NULL,
+  `Contraseña` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IdEstudiante`) USING BTREE,
   INDEX `IdEstadoEstudiante`(`IdEstadoEstudiante` ASC) USING BTREE,
   CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`IdEstadoEstudiante`) REFERENCES `estadoestudiante` (`IdEstadoEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of estudiante
@@ -163,7 +164,7 @@ CREATE TABLE `realiza`  (
   INDEX `IdCambio`(`IdCambio` ASC) USING BTREE,
   CONSTRAINT `realiza_ibfk_1` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `realiza_ibfk_2` FOREIGN KEY (`IdCambio`) REFERENCES `cambio` (`idCambio`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of realiza
@@ -181,8 +182,9 @@ CREATE TABLE `responsableproyecto`  (
   `ApellidoMaterno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `Correo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Telefono` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `Contraseña` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IdResponsableProyecto`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of responsableproyecto
@@ -212,7 +214,7 @@ CREATE TABLE `solicitudcambios`  (
   CONSTRAINT `solicitudcambios_ibfk_2` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `solicitudcambios_ibfk_3` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `solicitudcambios_ibfk_4` FOREIGN KEY (`idDefecto`) REFERENCES `defecto` (`IdDefecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of solicitudcambios
