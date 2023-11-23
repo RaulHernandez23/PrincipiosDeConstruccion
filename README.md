@@ -30,7 +30,7 @@ Este proyecto está estrechamente relacionado con la materia de "Principios de D
 1. Clona el repositorio en tu entorno de desarrollo local:
 
    ```bash
-   git clone https://github.com/alcrivico/SGBP.git
+   git clone https://github.com/RaulHernandez23/PrincipiosDeConstruccion.git
    ```
 
 2. Abre el proyecto en NetBeans.
