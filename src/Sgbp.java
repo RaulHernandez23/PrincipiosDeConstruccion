@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import utilidades.Utilidades;
 
-public class SGBP extends Application {
+public class Sgbp extends Application {
     public static void main(String[] args) throws Exception {
         launch(args);
     }
