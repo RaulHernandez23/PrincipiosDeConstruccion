@@ -12,12 +12,15 @@ public class Sgbp extends Application {
     @Override
     public void start(Stage escenario) throws Exception {
 
-        Font.loadFont(Utilidades.getInputStream("/recursos/fuentes/Poppins-Regular.ttf"), 12);
+        Font.loadFont(Utilidades.getInputStream(
+                "/recursos/fuentes/Poppins-Regular.ttf"), 12);
 
-        Utilidades.inicializarVentana(escenario,
+        Utilidades.inicializarVentana(
+                escenario,
                 "/vista/FXMLInicioSesion.fxml",
                 "/vista/estilos/escenaInicioSesion.css",
-                "Sistema Gestor de Bitácoras de Proyecto", false);
+                "Sistema Gestor de Bitácoras de Proyecto",
+                false);
 
     }
 

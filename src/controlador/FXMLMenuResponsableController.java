@@ -50,6 +50,14 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnRegistrarActividad(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLRegistrarActividad.fxml",
+                "/vista/estilos/escenaFormulario.css",
+                "Registrar Actividad", true);
+
     }
 
     @FXML
