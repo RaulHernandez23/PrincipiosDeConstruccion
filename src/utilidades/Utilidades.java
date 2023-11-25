@@ -27,7 +27,11 @@ public class Utilidades {
         return Utilidades.class.getResourceAsStream(url);
     }
 
-    public static void inicializarVentana(Stage escenario, String fxml, String css, String titulo, boolean esperar) {
+    public static void inicializarVentana(Stage escenario,
+            String fxml,
+            String css,
+            String titulo,
+            boolean esperar) {
 
         try {
 
