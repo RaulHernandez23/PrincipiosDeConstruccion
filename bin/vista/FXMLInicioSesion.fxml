@@ -13,35 +13,35 @@
          <children>
             <BorderPane prefHeight="480.0" prefWidth="720.0">
                <right>
-                  <Pane prefHeight="480.0" prefWidth="300.0" style="-fx-background-color: #00B88F;" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="480.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                      <children>
                         <ImageView fitHeight="11.0" fitWidth="20.0" layoutX="152.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../recursos/imagenes/logoUV.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="165.0" layoutY="13.0" style="-fx-font-size: 10px;" text="Universidad Veracruzana" textFill="WHITE">
+                        <Label layoutX="165.0" layoutY="13.0" styleClass="universidadVeracruzana" text="Universidad Veracruzana" textFill="WHITE">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </Label>
-                        <Label layoutX="80.0" layoutY="81.0" style="-fx-font-size: 64px;" text="SGBP" textFill="WHITE">
+                        <Label layoutX="80.0" layoutY="81.0" styleClass="sgbp" text="SGBP" textFill="WHITE">
                            <font>
                               <Font size="64.0" />
                            </font>
                         </Label>
-                        <Label layoutX="112.0" layoutY="164.0" style="-fx-font-size: 15px;" text="Iniciar Sesión" textFill="WHITE" />
-                        <TextField fx:id="tfUsuario" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="240.0" prefHeight="25.0" prefWidth="200.0" promptText="Matrícula o No. Personal:" style="-fx-background-color: #fff;">
+                        <Label layoutX="112.0" layoutY="164.0" styleClass="etiquetaIniciarSesion" text="Iniciar Sesión" textFill="WHITE" />
+                        <TextField fx:id="tfUsuario" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="240.0" prefHeight="25.0" prefWidth="200.0" promptText="Matrícula o No. Personal:" styleClass="campoTexto">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="pfPassword" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="292.0" prefHeight="25.0" prefWidth="200.0" promptText="Contraseña:" style="-fx-background-color: #fff;">
+                        <PasswordField fx:id="pfPassword" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="292.0" prefHeight="25.0" prefWidth="200.0" promptText="Contraseña:" styleClass="campoTexto">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </PasswordField>
-                        <Pane fx:id="paneMensaje" layoutX="56.0" layoutY="350.0" prefHeight="20.0" prefWidth="200.0" style="-fx-background-color: #FFF5A0; -fx-background-radius: 10px;">
+                        <Pane fx:id="paneMensaje" layoutX="56.0" layoutY="350.0" prefHeight="20.0" prefWidth="200.0" styleClass="mensajeAdvertencia">
                            <children>
                               <Label fx:id="lblMensaje" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" prefHeight="20.0" prefWidth="199.0" text="Por favor digita el correo y/o la contraseña">
                                  <font>
@@ -50,11 +50,11 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Button fx:id="btnIniciarSesion" layoutX="80.0" layoutY="379.0" mnemonicParsing="false" onAction="#btnIniciarSesionClic" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #0060B8; -fx-text-fill: #FFF;" text="Iniciar Sesión">
+                        <Button fx:id="btnIniciarSesion" layoutX="80.0" layoutY="379.0" mnemonicParsing="false" onAction="#btnIniciarSesionClic" prefHeight="26.0" prefWidth="150.0" styleClass="botonIniciarSesion" text="Iniciar Sesión">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Label layoutX="16.0" layoutY="451.0" style="-fx-font-size: 10px;" text="© 2023 Universidad Veracruzana. Derechos reservados" textFill="WHITE">
+                        <Label layoutX="16.0" layoutY="451.0" styleClass="universidadVeracruzana" text="© 2023 Universidad Veracruzana. Derechos reservados" textFill="WHITE">
                            <font>
                               <Font size="11.0" />
                            </font>
