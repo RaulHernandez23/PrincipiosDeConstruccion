@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="498.0" style="-fx-background-color: ;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="237.0" prefWidth="498.0" style="-fx-background-color: ;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLFinalizarCambioController">
    <children>
       <Label layoutX="24.0" layoutY="14.0" prefHeight="55.0" prefWidth="106.0" text="SGP">
          <font>
@@ -28,7 +28,7 @@
       <Label layoutX="322.0" layoutY="25.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
       <Button layoutX="275.0" layoutY="179.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="106.0" text="Volver" textOverrun="CLIP" />
       <Button layoutX="117.0" layoutY="179.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="106.0" text="Finalizar" textOverrun="CLIP" />
-      <ComboBox layoutX="141.0" layoutY="123.0" prefHeight="30.0" prefWidth="335.0" promptText="Optimizar base de datos" />
+      <ComboBox fx:id="cbCambios" layoutX="141.0" layoutY="123.0" prefHeight="30.0" prefWidth="335.0" />
       <Label layoutX="23.0" layoutY="121.0" prefHeight="33.0" prefWidth="106.0" text="Cambio:">
          <font>
             <Font name="System Bold" size="18.0" />
