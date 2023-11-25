@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="527.0" prefWidth="720.0" style="-fx-background-color: #00B88F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLSolicitudDecambioController">
+   <children>
+      <Label layoutX="42.0" layoutY="31.0" text="SGBP" />
+      <VBox layoutX="32.0" layoutY="100.0" prefHeight="366.0" prefWidth="657.0">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Nombre de la solicitud: " />
+                  <Label fx:id="lblNombreSolcitud" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Fecha:" />
+                  <Label fx:id="lblFecha" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Numero de la solicitud: " />
+                  <Label fx:id="lblNumeroSolicitud" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Solicitado por: " />
+                  <Label fx:id="lblNombreEstudiante" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Descripcion del cambio: " />
+                  <Label fx:id="lblDescripcionCambio" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Razon del cambio: " />
+                  <Label fx:id="lblRazonDeCambio" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Impacto del cambio: " />
+                  <Label fx:id="lblImpactoCambio" text="Campo" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="657.0">
+               <children>
+                  <Label text="Accion propuesta: " />
+                  <Label fx:id="lblAccionPropuesta" text="Campo" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label layoutX="59.0" layoutY="62.0" text="Solicitud de cambio:" />
+      <Label layoutX="512.0" layoutY="31.0" text="Universidad veracruzana" />
+      <Button layoutX="122.0" layoutY="474.0" mnemonicParsing="false" onAction="#btnAprobarSolicitud" text="Aprobar solicitud " />
+      <Button layoutX="270.0" layoutY="474.0" mnemonicParsing="false" onAction="#btnRechazarSolicitud" text="rechazar solicitud" />
+      <Button layoutX="422.0" layoutY="474.0" mnemonicParsing="false" onAction="#btnVolver" text="Volver" />
+      <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="490.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../PrincipiosDeConstruccion/src/recursos/imagenes/logoUV.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

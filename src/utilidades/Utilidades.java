@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class Utilidades {
 
     public static URL getURL(String url) {
-        return Utilidades.class.getResource(".." + url);
+        return Utilidades.class.getResource(".."+ url);
     }
 
     public static FXMLLoader getFXMLLoader(String fxml) {

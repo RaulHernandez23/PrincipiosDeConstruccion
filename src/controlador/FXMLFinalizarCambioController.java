@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import modelo.dao.CambioDAO;
 import modelo.pojo.Cambio;
@@ -34,7 +35,9 @@ public class FXMLFinalizarCambioController implements Initializable {
             cbCambios.setItems(cambios);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            utilidades.Alertas.mostrarAlerta("Error de conexion", 
+                "No se pudo consultar la lista de cambios", 
+                Alert.AlertType.ERROR);
         }
 
     }
