@@ -7,12 +7,12 @@ public class Cambio {
     private int idEstadoActividad;
     private int idSolicitud;
     private String estadoActividad;
-    private String Solicitud;
+    private String solicitud;
 
     public Cambio() {
     }
 
-    public Cambio(int idCambio, String Nombre, String Descripcion, 
+    public Cambio(int idCambio, String Nombre, String Descripcion,
             int idEstadoActividad, int idSolicitud) {
 
         this.idCambio = idCambio;
@@ -96,19 +96,19 @@ public class Cambio {
     }
 
     public String getSolicitud() {
-        return Solicitud;
+        return solicitud;
     }
 
-    public void setSolicitud(String Solicitud) {
+    public void setSolicitud(String solicitud) {
 
-        if (Solicitud != null) {
-            this.Solicitud = Solicitud;
+        if (solicitud != null) {
+            this.solicitud = solicitud;
         }
 
     }
 
     @Override
     public String toString() {
-        return  Nombre ;
+        return Nombre;
     }
 }
