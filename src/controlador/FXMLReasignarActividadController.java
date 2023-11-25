@@ -18,13 +18,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import modelo.dao.EstudianteDAO;
 import modelo.pojo.Actividad;
 import modelo.pojo.Estudiante;
 
-public class FXMLReasignarActividadController implements Initializable{
+public class FXMLReasignarActividadController implements Initializable {
     @FXML
     private TableView<Actividad> tvActividadesPendientes;
 
@@ -42,50 +44,49 @@ public class FXMLReasignarActividadController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         mostrarDatos();
 
     }
-    
+
     private void mostrarDatos() {
-        
-        ObservableList<Actividad> actividades 
-            = FXCollections.observableArrayList();
+
+        ObservableList<Actividad> actividades = FXCollections.observableArrayList();
 
         try {
 
-            ArrayList<Actividad> listaActividades = 
-                modelo.dao.ActividadDAO.consultarActividades();
+            ArrayList<Actividad> listaActividades = modelo.dao.ActividadDAO.consultarActividades();
             actividades.addAll(listaActividades);
 
             tvActividadesPendientes.setItems(actividades);
-            colTitulo.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getTitulo()));
-            colEstudiante.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getEstudiante()));
-            colFechaInicio.setCellValueFactory(cellData -> 
-                new SimpleObjectProperty<>(cellData.getValue().getFechaInicio()));
+            colTitulo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
+            colEstudiante
+                    .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstudiante()));
+            colFechaInicio
+                    .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFechaInicio()));
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            utilidades.Alertas.mostrarAlerta("Error de conexion", 
+                "No se pudo consultar la lista de cambios", 
+                Alert.AlertType.ERROR);
 
         }
 
-        ObservableList<Estudiante> estudiantes 
-            = FXCollections.observableArrayList();
-        
+        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+
         try {
-            
-            ArrayList<Estudiante> listaEstudiantes = 
-                modelo.dao.EstudianteDAO.consultarListaEstudiante();
+
+            ArrayList<Estudiante> listaEstudiantes = EstudianteDAO.consultarListaEstudiante();
             estudiantes.addAll(listaEstudiantes);
 
             cbEstudiantes.setItems(estudiantes);
 
         } catch (Exception e) {
 
-            e.printStackTrace();
+            utilidades.Alertas.mostrarAlerta("Error de conexion", 
+                "No se pudo consultar la lista de cambios", 
+                Alert.AlertType.ERROR);
 
         }
     }
