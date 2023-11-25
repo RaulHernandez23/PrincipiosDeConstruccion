@@ -12,6 +12,9 @@ public class Actividad {
     private int idEstadoActividad;
     private int idEstudiante;
     private int idResponsable;
+    private String estadoActividad;
+    private String Estudiante;
+    private String Responsable;
 
     public Actividad() {
     }
@@ -140,14 +143,51 @@ public class Actividad {
 
     }
 
+    public String getEstadoActividad() {
+        return estadoActividad;
+    }
+
+    public void setEstadoActividad(String estadoActividad) {
+
+        if (estadoActividad != null) {
+            this.estadoActividad = estadoActividad;
+        }
+
+    }
+
+    public String getEstudiante() {
+        return Estudiante;
+    }
+
+    public void setEstudiante(String Estudiante) {
+
+        if (Estudiante != null) {
+            this.Estudiante = Estudiante;
+        }
+
+    }
+
+    public String getResponsable() {
+        return Responsable;
+    }
+
+    public void setResponsable(String Responsable) {
+
+        if (Responsable != null) {
+            this.Responsable = Responsable;
+        }
+
+    }
+
     @Override
     public String toString() {
-        return "Actividad [idActividad=" + idActividad + ", titulo=" + titulo + 
-            ", descripcion=" + descripcion + ", esfuerzoMinutos=" + 
+        return "Actividad{" + "idActividad=" + idActividad + ", titulo=" + 
+            titulo + ", descripcion=" + descripcion + ", esfuerzoMinutos=" + 
             esfuerzoMinutos + ", fechaInicio=" + fechaInicio + ", fechaFin=" + 
-            fechaFin + ", idEstadoActividad=" + idEstadoActividad + 
+            fechaFin + ", idEstadoActividad=" + idEstadoActividad +
             ", idEstudiante=" + idEstudiante + ", idResponsable=" + 
-            idResponsable + "]";
+            idResponsable + ", estadoActividad=" + estadoActividad + 
+            ", Estudiante=" + Estudiante + ", Responsable=" + Responsable + '}';
     }
 
 }

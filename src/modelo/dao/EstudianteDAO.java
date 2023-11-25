@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Estudiante;
@@ -64,4 +65,47 @@ public class EstudianteDAO {
 
     }
 
+    public static ArrayList<Estudiante> consultarListaEstudiante() {
+
+        ArrayList<Estudiante> estudiantes = new ArrayList<Estudiante>();
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT IdEstudiante, Nombre, " +
+                    " ApellidoPaterno, ApellidoMaterno FROM estudiante ORDER" +
+                    " BY Nombre ASC";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                while (resultadoConsulta.next()) {
+
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setIdEstudiante(resultadoConsulta.getInt
+                        ("IdEstudiante"));
+                    estudiante.setNombre(resultadoConsulta.getString
+                        ("Nombre"));
+                    estudiante.setApellidoPaterno(resultadoConsulta.getString
+                        ("ApellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultadoConsulta.getString
+                        ("ApellidoMaterno"));
+
+                    estudiantes.add(estudiante);
+
+                }
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+        }
+
+        return estudiantes;
+
+    }
 }

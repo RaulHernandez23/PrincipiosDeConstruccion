@@ -13,8 +13,9 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(int idEstudiante, String matricula, String nombre, String apellidoPaterno,
-            String apellidoMaterno, int idEstadoEstudiante, String estado, String password) {
+    public Estudiante(int idEstudiante, String matricula, String nombre, 
+            String apellidoPaterno, String apellidoMaterno, 
+            int idEstadoEstudiante, String estado, String password) {
 
         this.idEstudiante = idEstudiante;
         this.matricula = matricula;
