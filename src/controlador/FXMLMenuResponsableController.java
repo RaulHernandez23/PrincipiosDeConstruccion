@@ -74,6 +74,14 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnReasignarActividad(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLReasignarActividad.fxml",
+                "/vista/estilos/FXMLInicioSesion.css",
+                "Reasignar Actividad", true);
+
     }
 
     @FXML
