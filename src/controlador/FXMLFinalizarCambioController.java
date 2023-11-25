@@ -10,18 +10,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import modelo.dao.CambioDAO;
 import modelo.pojo.Cambio;
 
-public class FXMLFinalizarCambioController implements Initializable{
+public class FXMLFinalizarCambioController implements Initializable {
 
     @FXML
     public ComboBox<Cambio> cbCambios;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         mostrarDatos();
-
     }
 
     private void mostrarDatos() {
@@ -29,9 +28,8 @@ public class FXMLFinalizarCambioController implements Initializable{
         ObservableList<Cambio> cambios = FXCollections.observableArrayList();
 
         try {
-            
-            ArrayList<Cambio> listaCambios = 
-                modelo.dao.CambioDAO.consultarCambios();
+
+            ArrayList<Cambio> listaCambios = CambioDAO.consultarCambios();
             cambios.addAll(listaCambios);
 
             cbCambios.setItems(cambios);
@@ -41,7 +39,7 @@ public class FXMLFinalizarCambioController implements Initializable{
                 "No se pudo consultar la lista de cambios", 
                 Alert.AlertType.ERROR);
         }
-        
+
     }
 
 }

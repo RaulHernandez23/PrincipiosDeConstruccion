@@ -13,14 +13,14 @@ public class Actividad {
     private int idEstudiante;
     private int idResponsable;
     private String estadoActividad;
-    private String Estudiante;
-    private String Responsable;
+    private String estudiante;
+    private String responsable;
 
     public Actividad() {
     }
 
-    public Actividad(int idActividad, String titulo, String descripcion, 
-            int esfuerzoMinutos, Date fechaInicio, Date fechaFin, 
+    public Actividad(int idActividad, String titulo, String descripcion,
+            int esfuerzoMinutos, Date fechaInicio, Date fechaFin,
             int idEstadoActividad, int idEstudiante, int idResponsable) {
 
         this.idActividad = idActividad;
@@ -156,38 +156,38 @@ public class Actividad {
     }
 
     public String getEstudiante() {
-        return Estudiante;
+        return estudiante;
     }
 
-    public void setEstudiante(String Estudiante) {
+    public void setEstudiante(String estudiante) {
 
-        if (Estudiante != null) {
-            this.Estudiante = Estudiante;
+        if (estudiante != null) {
+            this.estudiante = estudiante;
         }
 
     }
 
     public String getResponsable() {
-        return Responsable;
+        return responsable;
     }
 
-    public void setResponsable(String Responsable) {
+    public void setResponsable(String responsable) {
 
-        if (Responsable != null) {
-            this.Responsable = Responsable;
+        if (responsable != null) {
+            this.responsable = responsable;
         }
 
     }
 
     @Override
     public String toString() {
-        return "Actividad{" + "idActividad=" + idActividad + ", titulo=" + 
-            titulo + ", descripcion=" + descripcion + ", esfuerzoMinutos=" + 
-            esfuerzoMinutos + ", fechaInicio=" + fechaInicio + ", fechaFin=" + 
-            fechaFin + ", idEstadoActividad=" + idEstadoActividad +
-            ", idEstudiante=" + idEstudiante + ", idResponsable=" + 
-            idResponsable + ", estadoActividad=" + estadoActividad + 
-            ", Estudiante=" + Estudiante + ", Responsable=" + Responsable + '}';
+        return "Actividad{" + "idActividad=" + idActividad + ", titulo=" +
+                titulo + ", descripcion=" + descripcion + ", esfuerzoMinutos=" +
+                esfuerzoMinutos + ", fechaInicio=" + fechaInicio + ", fechaFin=" +
+                fechaFin + ", idEstadoActividad=" + idEstadoActividad +
+                ", idEstudiante=" + idEstudiante + ", idResponsable=" +
+                idResponsable + ", estadoActividad=" + estadoActividad +
+                ", Estudiante=" + estudiante + ", Responsable=" + responsable + '}';
     }
 
 }

@@ -1,0 +1,7 @@
+.root {
+  -fx-background-color: #00b88f;
+  background-color: #00b88f;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}

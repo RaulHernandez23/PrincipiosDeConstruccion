@@ -1,0 +1,85 @@
+.root {
+  -fx-background-color: #00b88f;
+  background-color: #00b88f;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.campoTexto {
+  -fx-background-color: #efefef;
+  background-color: #efefef;
+  -fx-border-color: #efefef;
+  border-color: #efefef;
+  -fx-border-width: 0px;
+  border-width: 0px;
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-text-fill: #00b88f;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.text-field {
+  -fx-prompt-text-fill: #00b88f;
+  -fx-text-fill: #00b88f;
+  -fx-font-style: italic;
+  font-style: italic;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.mensajeAdvertencia {
+  -fx-background-color: #fff5a0;
+  background-color: #fff5a0;
+  -fx-border-color: #fff5a0;
+  border-color: #fff5a0;
+  -fx-border-width: 0px;
+  border-width: 0px;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  border-radius: 10px;
+  -fx-text-fill: #000000;
+}
+
+.mensajeError {
+  -fx-background-color: #ffa0a0;
+  background-color: #ffa0a0;
+  -fx-border-color: #ffa0a0;
+  border-color: #ffa0a0;
+  -fx-border-width: 0px;
+  border-width: 0px;
+  -fx-background-radius: 10px;
+  -fx-border-radius: 10px;
+  border-radius: 10px;
+  -fx-text-fill: #000000;
+}
+
+.botonIniciarSesion {
+  -fx-background-color: #0060b8;
+  background-color: #0060b8;
+  -fx-border-color: #0060b8;
+  border-color: #0060b8;
+  -fx-border-width: 0px;
+  border-width: 0px;
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.universidadVeracruzana {
+  -fx-font-size: 10px;
+  font-size: 10px;
+}
+
+.sgbp {
+  -fx-font-size: 64px;
+  font-size: 64px;
+}
+
+.etiquetaIniciarSesion {
+  -fx-font-size: 15px;
+  font-size: 15px;
+}
