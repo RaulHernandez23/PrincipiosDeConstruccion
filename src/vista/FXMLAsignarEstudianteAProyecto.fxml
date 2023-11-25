@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #00B88F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLAsignarEstudianteAProyectoController">
+   <children>
+      <Button layoutX="440.0" layoutY="412.0" mnemonicParsing="false" onAction="#btnVolver" prefHeight="30.0" prefWidth="190.0" text="Volver" textOverrun="CLIP" />
+      <Button layoutX="89.0" layoutY="412.0" mnemonicParsing="false" onAction="#btnAgregarAProyecto" prefHeight="30.0" prefWidth="190.0" text="Agregar a proyecto" textOverrun="CLIP" />
+      <TextField fx:id="tfNombre" layoutX="207.0" layoutY="193.0" prefHeight="30.0" prefWidth="198.0" />
+      <TextField fx:id="tfApellidos" layoutX="207.0" layoutY="232.0" prefHeight="30.0" prefWidth="198.0" />
+      <TextField fx:id="tfMatricula" layoutX="207.0" layoutY="274.0" prefHeight="30.0" prefWidth="198.0" />
+      <ComboBox fx:id="cbSemestre" layoutX="207.0" layoutY="321.0" prefHeight="30.0" prefWidth="198.0" />
+      <Label layoutX="31.0" layoutY="15.0" style="-fx-font-size: 36px;" text="SGBP" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="511.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../PrincipiosDeConstruccion/src/recursos/imagenes/logoUV.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="535.0" layoutY="31.0" style="-fx-font-size: 15px;" text="Universidad Veracruzana" textFill="WHITE" />
+      <Label layoutX="31.0" layoutY="87.0" style="-fx-font-size: 15px;" text="Asignar estudiante a proyecto" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="141.0" style="-fx-font-size: 15px;" text="Ingrese la informacion del estudiante:" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="121.0" layoutY="198.0" style="-fx-font-size: 15px;" text="Nombre:" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="118.0" layoutY="279.0" style="-fx-font-size: 15px;" text="Matricula:" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="118.0" layoutY="237.0" style="-fx-font-size: 15px;" text="Apellidos:" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="119.0" layoutY="326.0" style="-fx-font-size: 15px;" text="Semestre:" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
