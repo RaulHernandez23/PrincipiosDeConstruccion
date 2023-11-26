@@ -54,4 +54,36 @@ public class ActividadDAO {
         return actividades;
         
     }
+
+    public static boolean reasignarActividad(int idActividad, int idEstudiante) {
+
+        boolean reasignacionExitosa = false;
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+            
+            try {
+                
+                String consulta = "UPDATE actividad SET IdEstudiante = ? WHERE IdActividad = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                sentencia.setInt(1, idEstudiante);
+                sentencia.setInt(2, idActividad);
+
+                int resultadoConsulta = sentencia.executeUpdate();
+
+                if (resultadoConsulta > 0) {
+                    reasignacionExitosa = true;
+                }
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+        }        
+
+        return reasignacionExitosa;
+        
+    }
 }

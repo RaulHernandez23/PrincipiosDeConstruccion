@@ -34,7 +34,7 @@
         </columns>
       </TableView>
       <Button layoutX="388.0" layoutY="506.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Volver" textOverrun="CLIP" />
-      <Button layoutX="115.0" layoutY="506.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="190.0" text="Reasignar actividad" textOverrun="CLIP" />
+      <Button fx:id="btnReasignarActividad" layoutX="115.0" layoutY="506.0" mnemonicParsing="false" onAction="#btnReasignarActividadClic" prefHeight="30.0" prefWidth="190.0" text="Reasignar actividad" textOverrun="CLIP" />
       <Label layoutX="73.0" layoutY="177.0" text="Actividades pendientes:" />
       <ComboBox fx:id="cbEstudiantes" layoutX="195.0" layoutY="440.0" prefHeight="30.0" prefWidth="335.0" />
       <Label layoutX="77.0" layoutY="438.0" prefHeight="33.0" prefWidth="106.0" text="Reasignar a:">
