@@ -16,9 +16,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,6 +43,9 @@ public class FXMLReasignarActividadController implements Initializable {
 
     @FXML
     private ComboBox<Estudiante> cbEstudiantes;
+
+    @FXML
+    private Button btnReasignarActividad;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,4 +95,29 @@ public class FXMLReasignarActividadController implements Initializable {
 
         }
     }
+
+    @FXML
+    private void btnReasignarActividadClic(ActionEvent event) {
+        
+        TableView<Actividad> tableView = tvActividadesPendientes; 
+        Actividad actividadSeleccionada = tableView.getSelectionModel().getSelectedItem();
+
+        Estudiante estudianteSeleccionado = cbEstudiantes.getValue();
+
+        if (modelo.dao.ActividadDAO.reasignarActividad(actividadSeleccionada.getIdActividad(), estudianteSeleccionado.getIdEstudiante())) {
+            
+            utilidades.Alertas.mostrarAlerta("Actividad reasignada", 
+                "La actividad se reasigno correctamente", 
+                Alert.AlertType.INFORMATION);
+            
+        }else{
+
+            utilidades.Alertas.mostrarAlerta("Error al reasignar", 
+                "No se pudo reasignar la actividad", 
+                Alert.AlertType.ERROR);
+
+        }
+
+    }
+
 }
