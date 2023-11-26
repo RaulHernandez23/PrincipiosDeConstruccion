@@ -1,7 +1,7 @@
 /*
 * Autor: Cesar Gonzalez Lopez
 * Fecha de creación: 24/11/2023
-* Fecha de modificación: 24/11/2023
+* Fecha de modificación: 25/11/2023
 * Descripción: clase para reasignar actividades a los estudiantes
 */
 
@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import modelo.dao.EstudianteDAO;
 import modelo.pojo.Actividad;
 import modelo.pojo.Estudiante;
@@ -117,6 +118,11 @@ public class FXMLReasignarActividadController implements Initializable {
                 Alert.AlertType.ERROR);
 
         }
+
+
+        //Blue2 Cambiar esta parte por un cambio de ventana
+        Stage escenario = (Stage) btnReasignarActividad.getScene().getWindow();
+        escenario.close();
 
     }
 
