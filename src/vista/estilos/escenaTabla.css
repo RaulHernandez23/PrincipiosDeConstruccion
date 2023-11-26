@@ -28,6 +28,29 @@
   -fx-text-fill: #efefef;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.botonOperacion:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #0050a0;
+  background-color: #0050a0;
+  -fx-border-color: #0050a0;
+  border-color: #0050a0;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.botonOperacion:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
 }
 
 .botonCancelar {
@@ -43,6 +66,29 @@
   -fx-text-fill: #efefef;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.botonCancelar:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #a00000;
+  background-color: #a00000;
+  -fx-border-color: #a00000;
+  border-color: #a00000;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.botonCancelar:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
 }
 
 .listaDesplegable {
@@ -55,6 +101,23 @@
   -fx-background-radius: 5px;
   -fx-border-radius: 5px;
   border-radius: 5px;
+  -fx-text-fill: #00b88f;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.listaDesplegable:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+}
+
+.listaDesplegable:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+}
+
+.combo-box {
+  -fx-prompt-text-fill: #02795f9b;
   -fx-text-fill: #00b88f;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;

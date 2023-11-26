@@ -47,8 +47,22 @@
 }
 
 .panel:hover {
+  -fx-cursor: hand;
+  cursor: hand;
   -fx-scale-x: 1.05;
   -fx-scale-y: 1.05;
+  -fx-background-color: #e2e2e2;
+  background-color: #e2e2e2;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+  -fx-border-width: 2.5px;
+  border-width: 2.5px;
+}
+
+.panel:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
   -fx-background-color: #e2e2e2;
   background-color: #e2e2e2;
   -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
@@ -77,8 +91,6 @@
 }
 
 .verMas {
-  -fx-cursor: hand;
-  cursor: hand;
   -fx-background-radius: 50%;
   -fx-border-radius: 50%;
   border-radius: 50%;
@@ -89,8 +101,20 @@
 }
 
 .verMas:hover {
+  -fx-cursor: hand;
+  cursor: hand;
   -fx-scale-x: 1.05;
   -fx-scale-y: 1.05;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.verMas:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
   -fx-background-color: #00699950;
   background-color: #00699950;
   -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);

@@ -66,6 +66,29 @@
   -fx-text-fill: #efefef;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.botonIniciarSesion:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #0050a0;
+  background-color: #0050a0;
+  -fx-border-color: #0050a0;
+  border-color: #0050a0;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.botonIniciarSesion:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
 }
 
 .universidadVeracruzana {
