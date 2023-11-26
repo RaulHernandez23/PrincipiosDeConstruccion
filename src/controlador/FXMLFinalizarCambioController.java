@@ -1,3 +1,9 @@
+/*
+* Autor: Cesar Gonzalez Lopez
+* Fecha de creación: 24/11/2023
+* Fecha de modificación: 25/11/2023
+* Descripción: clase para poder finalizar los cambios
+*/
 package controlador;
 
 import java.net.URL;
@@ -13,7 +19,7 @@ import javafx.scene.control.ComboBox;
 import modelo.dao.CambioDAO;
 import modelo.pojo.Cambio;
 
-public class FXMLFinalizarCambioController implements Initializable {
+public class FXMLFinalizarCambioController implements Initializable{
 
     @FXML
     public ComboBox<Cambio> cbCambios;
@@ -41,5 +47,4 @@ public class FXMLFinalizarCambioController implements Initializable {
         }
 
     }
-
 }
