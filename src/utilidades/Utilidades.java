@@ -3,16 +3,20 @@ package utilidades;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Optional;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 public class Utilidades {
 
     public static URL getURL(String url) {
-        return Utilidades.class.getResource(".."+ url);
+        return Utilidades.class.getResource(".." + url);
     }
 
     public static FXMLLoader getFXMLLoader(String fxml) {
@@ -38,8 +42,12 @@ public class Utilidades {
             FXMLLoader fxmlLoader = Utilidades.getFXMLLoader(fxml);
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-
-            escena.getStylesheets().add(Utilidades.getURLString(css));
+            
+            // Se implemento null mientras el css no este completo
+            if (css != null) {
+                escena.getStylesheets().add(Utilidades.getURLString(css));
+            }
+            
             escenario.setScene(escena);
             escenario.setTitle(titulo);
             escenario.setResizable(false);
@@ -54,6 +62,26 @@ public class Utilidades {
             e.printStackTrace();
         }
 
+    }
+    
+    public static void mostrarAlertaSimple(String titulo, String mensaje, AlertType tipo){
+        Alert alertaSimple = new Alert(tipo);
+        alertaSimple.setTitle(titulo);
+        alertaSimple.setContentText(mensaje);
+        alertaSimple.setHeaderText(null);
+        alertaSimple.showAndWait();
+        
+    }
+    
+    public static boolean mostrarAlertaConfirmacion(String titulo, String mensaje){
+        Alert alertaConfirmacion = new Alert(AlertType.CONFIRMATION);
+        alertaConfirmacion.setTitle(titulo);
+        alertaConfirmacion.setContentText(mensaje);
+        alertaConfirmacion.setHeaderText(null);
+        
+        Optional<ButtonType> botonClic = alertaConfirmacion.showAndWait();
+        return (botonClic.get() == ButtonType.OK);
+        
     }
 
 }
