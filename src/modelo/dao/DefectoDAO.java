@@ -22,11 +22,12 @@ public class DefectoDAO {
                 String consulta = "SELECT IdDefecto, Titulo, Descripcion, " + 
                     "EsfuerzoMinutos, FechaReporte, d.IdEstadoActividad, " + 
                     "d.IdEstudiante, ea.Estado AS EstadoActividad, " + 
-                    "CONCAT(e.Nombre, ' ', e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS Estudiante" + 
+                    "CONCAT(e.Nombre, ' ', e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS Estudiantes " + 
                     "FROM defecto d INNER JOIN estadoactividad ea " +
                     "ON ea.IdEstadoActividad = d.IdEstadoActividad INNER JOIN " +
                     "estudiante e ON d.IdEstudiante = e.IdEstudiante " + 
-                    "ORDER BY FechaReporte ASC, Estudiante ASC;";
+                    "ORDER BY FechaReporte ASC, Estudiantes ASC;";
+
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 ResultSet resultado = sentencia.executeQuery();
@@ -42,7 +43,7 @@ public class DefectoDAO {
                     defecto.setIdEstadoActividad(resultado.getInt("IdEstadoActividad"));
                     defecto.setIdEstudiante(resultado.getInt("IdEstudiante"));
                     defecto.setEstadoActividad(resultado.getString("EstadoActividad"));
-                    defecto.setNombreEstudiante(resultado.getString("Estudiante"));
+                    defecto.setNombreEstudiante(resultado.getString("Estudiantes"));
 
                     defectos.add(defecto);
 
