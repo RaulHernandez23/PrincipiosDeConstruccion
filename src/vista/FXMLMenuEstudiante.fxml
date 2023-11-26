@@ -45,16 +45,16 @@
                            </cursor></Pane>
                         <Pane layoutX="366.0" layoutY="98.0" onMouseClicked="#btnCrearSolicitud" prefHeight="152.0" prefWidth="265.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="76.0" prefHeight="70.0" prefWidth="170.0" styleClass="etiqueta" text="Crear Solicitud de Cambio" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true">
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </Label>
                               <ImageView fitHeight="48.46" fitWidth="42.0" layoutX="112.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoCrearSolicitud.png" />
                                  </image>
                               </ImageView>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="76.0" prefHeight="70.0" prefWidth="170.0" styleClass="etiqueta" text="Crear Solicitud de Cambio" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
                            </children>
                            <cursor>
                               <Cursor fx:constant="HAND" />
