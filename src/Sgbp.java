@@ -12,8 +12,7 @@ public class Sgbp extends Application {
     @Override
     public void start(Stage escenario) throws Exception {
 
-        Font.loadFont(Utilidades.getInputStream(
-                "/recursos/fuentes/Poppins-Regular.ttf"), 12);
+        cargarFuentes();
 
         Utilidades.inicializarVentana(
                 escenario,
@@ -21,6 +20,19 @@ public class Sgbp extends Application {
                 "/vista/estilos/escenaInicioSesion.css",
                 "Sistema Gestor de Bitácoras de Proyecto",
                 false);
+
+    }
+
+    private void cargarFuentes() {
+
+        Font.loadFont(Utilidades.getInputStream(
+                "/recursos/fuentes/Poppins-Regular.ttf"), 12);
+
+        Font.loadFont(Utilidades.getInputStream(
+                "/recursos/fuentes/Poppins-Italic.ttf"), 12);
+
+        Font.loadFont(Utilidades.getInputStream(
+                "/recursos/fuentes/Poppins-Bold.ttf"), 12);
 
     }
 

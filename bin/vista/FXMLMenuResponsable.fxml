@@ -13,19 +13,15 @@
          <children>
             <BorderPane prefHeight="480.0" prefWidth="720.0">
                <center>
-                  <Pane prefHeight="480.0" prefWidth="300.0" style="-fx-background-color: #00B88F;" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="480.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="36.0" layoutY="4.0" style="-fx-font-size: 36px;" text="SGBP" textFill="WHITE">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Label>
+                        <Label layoutX="36.0" layoutY="4.0" styleClass="sgbp" text="SGBP" />
                         <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="453.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../recursos/imagenes/logoUV.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="480.0" layoutY="9.0" style="-fx-font-size: 15px;" text="Universidad Veracruzana" textFill="WHITE" />
+                        <Label layoutX="480.0" layoutY="9.0" styleClass="apartado" text="Universidad Veracruzana" />
                         <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="649.0" layoutY="30.0" onMouseClicked="#btnSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../recursos/imagenes/logoSalir.png" />
@@ -34,14 +30,10 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label layoutX="86.0" layoutY="60.0" style="-fx-font-size: 15px;" text="Menu del Responsable del Proyecto" textFill="WHITE" />
-                        <Pane layoutX="86.0" layoutY="102.0" onMouseClicked="#btnRegistrarActividad" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Label layoutX="86.0" layoutY="60.0" styleClass="apartado" text="Menu del Responsable del Proyecto" />
+                        <Pane layoutX="86.0" layoutY="102.0" onMouseClicked="#btnRegistrarActividad" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="43.0" prefWidth="105.0" text="Registrar Actividad" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="27.0" layoutY="50.0" prefHeight="45.0" prefWidth="120.0" styleClass="etiquetaChica" text="Registrar Actividad" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="36.91" fitWidth="36.91" layoutX="69.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoRegistrarActividad.png" />
@@ -51,13 +43,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="272.0" layoutY="102.0" onMouseClicked="#btnEliminarActividad" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="272.0" layoutY="102.0" onMouseClicked="#btnEliminarActividad" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="43.0" prefWidth="105.0" text="Eliminar Actividad" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="45.0" prefWidth="105.0" styleClass="etiquetaChica" text="Eliminar Actividad" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="26.25" fitWidth="30.0" layoutX="73.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoEliminarActividad.png" />
@@ -67,13 +55,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="459.0" layoutY="102.0" onMouseClicked="#btnReasignarActividad" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="459.0" layoutY="102.0" onMouseClicked="#btnReasignarActividad" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="43.0" prefWidth="105.0" text="Reasignar Actividad" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="28.0" layoutY="50.0" prefHeight="45.0" prefWidth="120.0" styleClass="etiquetaChica" text="Reasignar Actividad" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="73.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoReasignarActividad.png" />
@@ -83,13 +67,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="86.0" layoutY="212.0" onMouseClicked="#btnAsignarEstudianteP" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="86.0" layoutY="212.0" onMouseClicked="#btnAsignarEstudianteP" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="19.0" layoutY="50.0" prefHeight="43.0" prefWidth="137.0" text="Asignar Estudiante al Proyecto" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="19.0" layoutY="50.0" prefHeight="45.0" prefWidth="137.0" styleClass="etiquetaChica" text="Asignar Estudiante al Proyecto" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="36.0" fitWidth="76.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoAsignarEstudianteP.png" />
@@ -99,13 +79,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="272.0" layoutY="212.0" onMouseClicked="#btnAsignarEstudianteA" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="272.0" layoutY="212.0" onMouseClicked="#btnAsignarEstudianteA" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="19.0" layoutY="50.0" prefHeight="43.0" prefWidth="137.0" text="Asignar Estudiante a Actividad" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="19.0" layoutY="50.0" prefHeight="45.0" prefWidth="137.0" styleClass="etiquetaChica" text="Asignar Estudiante a Actividad" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="36.91" fitWidth="80.0" layoutX="48.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoAsignarEstudianteA.png" />
@@ -115,13 +91,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="459.0" layoutY="212.0" onMouseClicked="#btnDesasignarEstudianteP" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="459.0" layoutY="212.0" onMouseClicked="#btnDesasignarEstudianteP" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="10.0" layoutY="50.0" prefHeight="43.0" prefWidth="156.0" text="Desasignar Estudiante del Proyecto" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="50.0" prefHeight="45.0" prefWidth="156.0" styleClass="etiquetaChica" text="Desasignar Estudiante del Proyecto" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="37.0" fitWidth="88.0" layoutX="41.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoDesasignarEstudianteP.png" />
@@ -131,13 +103,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="87.0" layoutY="322.0" onMouseClicked="#btnConsultarDefectos" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="87.0" layoutY="322.0" onMouseClicked="#btnConsultarDefectos" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="43.0" prefWidth="105.0" text="Consultar Defectos" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="45.0" prefWidth="105.0" styleClass="etiquetaChica" text="Consultar Defectos" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="70.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoRegistrarDefecto.png" />
@@ -147,13 +115,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="273.0" layoutY="322.0" onMouseClicked="#btnConsultarSolicitudes" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="273.0" layoutY="322.0" onMouseClicked="#btnConsultarSolicitudes" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="12.0" layoutY="50.0" prefHeight="43.0" prefWidth="152.0" text="Consultar Solicitudes de Cambio" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="50.0" prefHeight="45.0" prefWidth="156.0" styleClass="etiquetaChica" text="Consultar Solicitudes de Cambio" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="34.62" fitWidth="30.0" layoutX="73.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoCrearSolicitud.png" />
@@ -163,13 +127,9 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Pane layoutX="460.0" layoutY="322.0" onMouseClicked="#btnConsultarBitacoras" prefHeight="100.0" prefWidth="175.0" style="-fx-background-color: #fff; -fx-background-radius: 5px;">
+                        <Pane layoutX="460.0" layoutY="322.0" onMouseClicked="#btnConsultarBitacoras" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
-                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="43.0" prefWidth="105.0" text="Consultar Bitacoras" textAlignment="CENTER" textFill="#006899" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
+                              <Label alignment="CENTER" layoutX="35.0" layoutY="50.0" prefHeight="45.0" prefWidth="105.0" styleClass="etiquetaChica" text="Consultar Bitacoras" textAlignment="CENTER" wrapText="true" />
                               <ImageView fitHeight="21.88" fitWidth="25.0" layoutX="75.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../recursos/imagenes/logoConsultarBitacoras.png" />
@@ -179,19 +139,18 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Pane>
-                        <Label layoutX="239.0" layoutY="457.0" style="-fx-font-size: 10px;" text="© 2023 Universidad Veracruzana. Derechos reservados" textFill="WHITE">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="21.32" fitWidth="21.88" layoutX="613.0" layoutY="435.0" onMouseClicked="#btnVerMas" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../recursos/imagenes/logoVerMas.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
+                        <Label layoutX="239.0" layoutY="457.0" styleClass="universidadVeracruzana" text="© 2023 Universidad Veracruzana. Derechos reservados" />
+                        <Pane layoutX="613.0" layoutY="427.0" prefHeight="30.0" prefWidth="30.0">
+                           <children>
+                              <ImageView fitHeight="21.32" fitWidth="21.88" layoutX="5.0" layoutY="3.0" onMouseClicked="#btnVerMas" pickOnBounds="true" preserveRatio="true" styleClass="verMas">
+                                 <image>
+                                    <Image url="@../recursos/imagenes/logoVerMas.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                           </children></Pane>
                      </children></Pane>
                </center>
             </BorderPane>
