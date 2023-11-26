@@ -119,3 +119,35 @@
   background-color: #00699950;
   -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
 }
+
+.verMenos {
+  -fx-background-radius: 50%;
+  -fx-border-radius: 50%;
+  border-radius: 50%;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -fx-rotate: 180deg;
+  rotate: 180deg;
+}
+
+.verMenos:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.verMenos:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}

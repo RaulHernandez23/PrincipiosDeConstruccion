@@ -61,6 +61,13 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private void btnRegistrarCambio(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLRegistrarCambio.fxml",
+                "/vista/estilos/escenaFormulario.css",
+                "Registrar Cambio", true);
+
     }
 
 }

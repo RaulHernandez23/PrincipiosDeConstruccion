@@ -65,6 +65,44 @@
   -fx-scale-y: 1;
 }
 
+.botonEliminacion {
+  -fx-background-color: #b80000;
+  background-color: #b80000;
+  -fx-border-color: #b80000;
+  border-color: #b80000;
+  -fx-border-width: 0px;
+  border-width: 0px;
+  -fx-background-radius: 5px;
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.botonEliminacion:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #a00000;
+  background-color: #a00000;
+  -fx-border-color: #a00000;
+  border-color: #a00000;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.botonEliminacion:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+}
+
 .listaDesplegable {
   -fx-background-color: #efefef;
   background-color: #efefef;
@@ -75,6 +113,7 @@
   -fx-background-radius: 5px;
   -fx-border-radius: 5px;
   border-radius: 5px;
+  -fx-prompt-text-fill: #02795f9b;
   -fx-text-fill: #00b88f;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
@@ -85,11 +124,9 @@
   cursor: hand;
 }
 
-.combo-box {
+.text-area {
   -fx-prompt-text-fill: #02795f9b;
   -fx-text-fill: #00b88f;
-  -fx-font-family: "Poppins", sans-serif;
-  font-family: "Poppins", sans-serif;
 }
 
 .universidadVeracruzana {
@@ -112,6 +149,26 @@
   -fx-font-size: 15px;
   font-size: 15px;
   -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.panel {
+  -fx-background-color: #efefef;
+  background-color: #efefef;
+  -fx-background-radius: 5px;
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.etiqueta {
+  -fx-font-size: 10px;
+  font-size: 10px;
+  -fx-text-fill: #00b88f;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
 }

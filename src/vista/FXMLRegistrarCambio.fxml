@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vboxRegistrarActividad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLRegistrarActividadController">
+<VBox fx:id="vboxRegistrarCambio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLRegistrarCambioController">
    <children>
       <AnchorPane prefHeight="480.0" prefWidth="720.0">
          <children>
@@ -15,10 +15,12 @@
                <center>
                   <Pane prefHeight="350.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TextField fx:id="tfTitulo" layoutX="75.0" layoutY="24.0" prefHeight="25.0" prefWidth="327.0" promptText="Título:" styleClass="campoTexto" />
-                        <TextArea fx:id="tfDescripcion" layoutX="75.0" layoutY="78.0" prefHeight="150.0" prefWidth="327.0" promptText="Descripción:" styleClass="campoTexto" />
-                        <ComboBox fx:id="cbTipo" layoutX="75.0" layoutY="250.0" prefHeight="25.0" prefWidth="150.0" promptText="--Tipo--" styleClass="listaDesplegable" />
-                        <Button layoutX="252.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
+                        <TextField fx:id="tfTitulo" layoutX="75.0" layoutY="6.0" prefHeight="25.0" prefWidth="327.0" promptText="Título:" styleClass="campoTexto" />
+                        <TextArea fx:id="tfDescripcion" layoutX="75.0" layoutY="50.0" prefHeight="150.0" prefWidth="327.0" promptText="Descripción:" styleClass="campoTexto" />
+                        <ComboBox fx:id="cbTipo" layoutX="75.0" layoutY="304.0" prefHeight="25.0" prefWidth="150.0" promptText="--Tipo--" styleClass="listaDesplegable" />
+                        <Button layoutX="252.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
+                        <TextField fx:id="tfEsfuerzo" layoutX="75.0" layoutY="255.0" prefHeight="25.0" prefWidth="327.0" promptText="Esfuerzo (min):" styleClass="campoTexto" />
+                        <ComboBox fx:id="cbEstado" layoutX="75.0" layoutY="213.0" prefHeight="25.0" prefWidth="150.0" promptText="--Estado--" styleClass="listaDesplegable" />
                      </children></Pane>
                </center>
                <top>
@@ -39,7 +41,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label layoutX="74.0" layoutY="61.0" styleClass="apartado" text="Registrar Actividad" />
+                        <Label layoutX="79.0" layoutY="58.0" styleClass="apartado" text="Registrar Cambio" />
                      </children>
                   </Pane>
                </top>

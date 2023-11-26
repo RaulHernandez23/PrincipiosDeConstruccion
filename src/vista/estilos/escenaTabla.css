@@ -15,6 +15,11 @@
   font-family: "Poppins", sans-serif;
 }
 
+.text-area {
+  -fx-prompt-text-fill: #02795f9b;
+  -fx-text-fill: #00b88f;
+}
+
 .botonOperacion {
   -fx-background-color: #0060b8;
   background-color: #0060b8;

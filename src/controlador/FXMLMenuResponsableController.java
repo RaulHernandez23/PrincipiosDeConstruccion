@@ -86,6 +86,14 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnDesasignarEstudianteP(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLDesasignarEstudiante.fxml",
+                "/vista/estilos/escenaFormulario.css",
+                "Desasignar Estudiante", true);
+
     }
 
     @FXML
@@ -102,6 +110,24 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnVerMas(MouseEvent event) {
+
+        Stage escenario = (Stage) vboxMenuResponsable.getScene().getWindow();
+
+        if (escenario.getTitle().equals("Menu Responsable <<pagina 1>>")) {
+
+            Utilidades.inicializarVentana(escenario,
+                    "/vista/FXMLMenuResponsableB.fxml",
+                    "/vista/estilos/escenaMenu.css",
+                    "Menu Responsable <<pagina 2>>", false);
+
+        } else {
+
+            Utilidades.inicializarVentana(escenario,
+                    "/vista/FXMLMenuResponsableA.fxml",
+                    "/vista/estilos/escenaMenu.css",
+                    "Menu Responsable <<pagina 1>>", false);
+
+        }
     }
 
 }

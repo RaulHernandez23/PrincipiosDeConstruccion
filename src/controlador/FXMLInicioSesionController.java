@@ -122,9 +122,9 @@ public class FXMLInicioSesionController implements Initializable {
         Stage escenario = (Stage) vboxIniciarSesion.getScene().getWindow();
 
         Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLMenuResponsable.fxml",
+                "/vista/FXMLMenuResponsableA.fxml",
                 "/vista/estilos/escenaMenu.css",
-                "Menu Responsable", false);
+                "Menu Responsable <<pagina 1>>", false);
 
     }
 
