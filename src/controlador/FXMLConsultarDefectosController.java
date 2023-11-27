@@ -2,6 +2,10 @@ package controlador;
 
 import java.net.URL;
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.Date;
+>>>>>>> cb298f40e548bdc604760352385e8ebd43c50e5c
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -56,6 +60,23 @@ public class FXMLConsultarDefectosController implements Initializable {
             utilidades.Alertas.mostrarAlerta("Error de conexion",
                     "No se pudo consultar la lista de cambios",
                     Alert.AlertType.ERROR);
+
+        }
+
+        TableView<Defecto> tableView = tvDefectos;
+        Defecto defectoSeleccionado = tableView.getSelectionModel().getSelectedItem();
+
+        if (defectoSeleccionado != null) {
+            
+            utilidades.Alertas.mostrarAlerta("Defecto seleccionado", 
+                "El defecto seleccionado es: " + defectoSeleccionado, 
+                Alert.AlertType.INFORMATION);
+
+        } else {
+
+            utilidades.Alertas.mostrarAlerta("Defecto no seleccionado", 
+                "No se ha seleccionado ningun defecto", 
+                Alert.AlertType.WARNING);
 
         }
 

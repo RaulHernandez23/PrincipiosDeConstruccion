@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Estudiante;
@@ -106,6 +107,56 @@ public class EstudianteDAO {
         }
 
         return estudiantes;
+        
+    }
+    
+    public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
+        
+        HashMap<String, Object> respuesta = new HashMap<>();
+        
+        respuesta.put("error", true);
+        
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
+        if (conexionBD != null) {
+            
+            try {
+                String sentencia = "INSERT INTO estudiante(Matricula, Nombre, "
+                        + "ApellidoPaterno, ApellidoMaterno, "
+                        + "IdEstadoEstudiante, Contraseña) "
+                        + "values (?,?,?,?,?,?)";
+                
+                PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
+                
+                prepararSentencia.setString(1, estudiante.getMatricula());
+                prepararSentencia.setString(2, estudiante.getNombre());
+                prepararSentencia.setString(3, estudiante.getApellidoPaterno());
+                prepararSentencia.setString(4, estudiante.getApellidoMaterno());
+                prepararSentencia.setInt(5, estudiante.getIdEstadoEstudiante());
+                prepararSentencia.setString(6, estudiante.getPassword());
+
+                int filasAfectadas = prepararSentencia.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", 
+                            "Estudiante agregado correctamente");
+                } else {
+                    respuesta.put("mensaje", 
+                            "Hubo un error al intentar registrar la información del estudiante, "
+                                    + "por favor inténtelo más tarde");
+                }
+            } catch (SQLException e) {
+                respuesta.put("mensaje", "Error de conexion en la base de datos");
+                e.printStackTrace();
+            }finally{
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+        } else {
+            respuesta.put("mensaje", "Error de conexion en la base de datos, "
+                    + "por favor inténtelo más tarde");
+        }
+
+        return respuesta;
     }
 }

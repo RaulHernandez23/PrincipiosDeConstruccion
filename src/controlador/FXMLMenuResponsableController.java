@@ -98,6 +98,13 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnAsignarEstudianteP(MouseEvent event) {
+        
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLAsignarEstudianteAProyecto.fxml",
+                null,
+                "Asignar estudiante a proyecto", true);
     }
 
     @FXML
