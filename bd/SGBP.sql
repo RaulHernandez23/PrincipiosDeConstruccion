@@ -30,7 +30,7 @@ CREATE TABLE `actividad`  (
   `FechaFin` date NULL DEFAULT NULL,
   `IdEstadoActividad` int NOT NULL,
 	`IdTipoActividad` int NOT NULL,
-  `IdEstudiante` int NOT NULL,
+  `IdEstudiante` int NULL DEFAULT NULL,
   `IdResponsable` int NOT NULL,
   PRIMARY KEY (`IdActividad`) USING BTREE,
   INDEX `IdEstadoActividad`(`IdEstadoActividad` ASC) USING BTREE,
