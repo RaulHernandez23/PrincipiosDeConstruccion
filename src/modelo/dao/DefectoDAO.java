@@ -10,23 +10,23 @@ import modelo.ConectorBaseDatos;
 import modelo.pojo.Defecto;
 
 public class DefectoDAO {
-    public static ArrayList<Defecto> consultarDefectos(){
-        
+    public static ArrayList<Defecto> consultarDefectos() {
+
         ArrayList<Defecto> defectos = new ArrayList<Defecto>();
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
-            
+
             try {
-                String consulta = "SELECT IdDefecto, Titulo, Descripcion, " + 
-                    "EsfuerzoMinutos, FechaReporte, d.IdEstadoActividad, " + 
-                    "d.IdEstudiante, ea.Estado AS EstadoActividad, " + 
-                    "CONCAT(e.Nombre, ' ', e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS Estudiantes " + 
-                    "FROM defecto d INNER JOIN estadoactividad ea " +
-                    "ON ea.IdEstadoActividad = d.IdEstadoActividad INNER JOIN " +
-                    "estudiante e ON d.IdEstudiante = e.IdEstudiante " + 
-                    "ORDER BY FechaReporte ASC, Estudiantes ASC;";
+                String consulta = "SELECT IdDefecto, Titulo, Descripcion, " +
+                        "EsfuerzoMinutos, FechaReporte, d.IdEstadoActividad, " +
+                        "d.IdEstudiante, ea.Estado AS EstadoActividad, " +
+                        "CONCAT(e.Nombre, ' ', e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS Estudiantes " +
+                        "FROM defecto d INNER JOIN estadoactividad ea " +
+                        "ON ea.IdEstadoActividad = d.IdEstadoActividad INNER JOIN " +
+                        "estudiante e ON d.IdEstudiante = e.IdEstudiante " +
+                        "ORDER BY FechaReporte ASC, Estudiantes ASC;";
 
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
@@ -39,7 +39,7 @@ public class DefectoDAO {
                     defecto.setTitulo(resultado.getString("Titulo"));
                     defecto.setDescripcion(resultado.getString("Descripcion"));
                     defecto.setEsfuerzoMinutos(resultado.getString("EsfuerzoMinutos"));
-                    defecto.setFechaReporte(resultado.getDate("FechaReporte"));
+                    defecto.setFechaReporte(resultado.getString("FechaReporte"));
                     defecto.setIdEstadoActividad(resultado.getInt("IdEstadoActividad"));
                     defecto.setIdEstudiante(resultado.getInt("IdEstudiante"));
                     defecto.setEstadoActividad(resultado.getString("EstadoActividad"));
@@ -50,13 +50,13 @@ public class DefectoDAO {
                 }
             } catch (SQLException se) {
                 se.printStackTrace();
-            } finally{
+            } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
 
         }
 
         return defectos;
-        
+
     }
 }

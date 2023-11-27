@@ -5,6 +5,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `actividad`;
 DROP TABLE IF EXISTS `cambio`;
 DROP TABLE IF EXISTS `defecto`;
+DROP TABLE IF EXISTS `tipoactividad`;
 DROP TABLE IF EXISTS `estadoactividad`;
 DROP TABLE IF EXISTS `estadoestudiante`;
 DROP TABLE IF EXISTS `estadosolicitud`;

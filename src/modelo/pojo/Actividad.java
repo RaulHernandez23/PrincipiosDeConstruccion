@@ -1,27 +1,27 @@
 package modelo.pojo;
 
-import java.util.Date;
-
 public class Actividad {
     private int idActividad;
     private String titulo;
     private String descripcion;
     private int esfuerzoMinutos;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private String fechaInicio;
+    private String fechaFin;
     private int idEstadoActividad;
     private int idEstudiante;
     private int idResponsable;
+    private int idTipo;
     private String estadoActividad;
     private String estudiante;
     private String responsable;
+    private String tipo;
 
     public Actividad() {
     }
 
     public Actividad(int idActividad, String titulo, String descripcion,
-            int esfuerzoMinutos, Date fechaInicio, Date fechaFin,
-            int idEstadoActividad, int idEstudiante, int idResponsable) {
+            int esfuerzoMinutos, String fechaInicio, String fechaFin,
+            int idEstadoActividad, int idEstudiante, int idResponsable, int idTipo) {
 
         this.idActividad = idActividad;
         this.titulo = titulo;
@@ -32,6 +32,7 @@ public class Actividad {
         this.idEstadoActividad = idEstadoActividad;
         this.idEstudiante = idEstudiante;
         this.idResponsable = idResponsable;
+        this.idTipo = idTipo;
 
     }
 
@@ -83,11 +84,11 @@ public class Actividad {
 
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
 
         if (fechaInicio != null) {
             this.fechaInicio = fechaInicio;
@@ -95,11 +96,11 @@ public class Actividad {
 
     }
 
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
 
         if (fechaFin != null) {
             this.fechaFin = fechaFin;
@@ -143,6 +144,18 @@ public class Actividad {
 
     }
 
+    public int getIdTipo() {
+        return idTipo;
+    }
+
+    public void setIdTipo(int idTipo) {
+
+        if (idTipo > 0) {
+            this.idTipo = idTipo;
+        }
+
+    }
+
     public String getEstadoActividad() {
         return estadoActividad;
     }
@@ -175,6 +188,18 @@ public class Actividad {
 
         if (responsable != null) {
             this.responsable = responsable;
+        }
+
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+
+        if (tipo != null) {
+            this.tipo = tipo;
         }
 
     }

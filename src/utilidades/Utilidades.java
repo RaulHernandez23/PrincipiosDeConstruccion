@@ -3,6 +3,8 @@ package utilidades;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,7 @@ import javafx.stage.Stage;
 public class Utilidades {
 
     public static URL getURL(String url) {
-        return Utilidades.class.getResource(".."+ url);
+        return Utilidades.class.getResource(".." + url);
     }
 
     public static FXMLLoader getFXMLLoader(String fxml) {
@@ -53,6 +55,14 @@ public class Utilidades {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static String obtenerFechaActual() {
+
+        LocalDate fecha = LocalDate.now();
+
+        return fecha.getYear() + "-" + fecha.getMonthValue() + "-" + fecha.getDayOfMonth();
 
     }
 

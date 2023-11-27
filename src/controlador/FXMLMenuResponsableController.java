@@ -1,13 +1,18 @@
 package controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modelo.pojo.ResponsableProyecto;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,6 +25,8 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private VBox vboxMenuResponsable;
+
+    private ResponsableProyecto responsable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,10 +60,23 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLRegistrarActividad.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Registrar Actividad", true);
+        try {
+
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLRegistrarActividad.fxml");
+            Parent vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLRegistrarActividadController controlador = fxmlLoader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
+            controlador.inicializarVentana(responsable.getIdResponsableProyecto(), responsable.getNombre());
+            escenario.setScene(escena);
+            escenario.setTitle("Registrar Actividad");
+            escenario.setResizable(false);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -109,25 +129,50 @@ public class FXMLMenuResponsableController implements Initializable {
     }
 
     @FXML
+    private void btnFinalizarActividad(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnFinalizarCambio(MouseEvent event) {
+    }
+
+    @FXML
     private void btnVerMas(MouseEvent event) {
 
         Stage escenario = (Stage) vboxMenuResponsable.getScene().getWindow();
 
-        if (escenario.getTitle().equals("Menu Responsable <<pagina 1>>")) {
+        try {
 
-            Utilidades.inicializarVentana(escenario,
-                    "/vista/FXMLMenuResponsableB.fxml",
-                    "/vista/estilos/escenaMenu.css",
-                    "Menu Responsable <<pagina 2>>", false);
+            FXMLLoader fxmlLoader = (escenario.getTitle().equals(
+                    "Menu Responsable <<pagina 1>>")
+                            ? Utilidades.getFXMLLoader(
+                                    "/vista/FXMLMenuResponsableB.fxml")
+                            : Utilidades.getFXMLLoader(
+                                    "/vista/FXMLMenuResponsableA.fxml"));
+            Parent vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLMenuResponsableController controlador = fxmlLoader.getController();
 
-        } else {
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaMenu.css"));
+            controlador.inicializarVentana(responsable);
+            escenario.setScene(escena);
+            escenario.setTitle(
+                    (escenario.getTitle().equals(
+                            "Menu Responsable <<pagina 1>>")
+                                    ? "Menu Responsable <<pagina 2>>"
+                                    : "Menu Responsable <<pagina 1>>"));
+            escenario.setResizable(false);
+            escenario.show();
 
-            Utilidades.inicializarVentana(escenario,
-                    "/vista/FXMLMenuResponsableA.fxml",
-                    "/vista/estilos/escenaMenu.css",
-                    "Menu Responsable <<pagina 1>>", false);
-
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
+
+    }
+
+    public void inicializarVentana(ResponsableProyecto responsable) {
+        this.responsable = responsable;
     }
 
 }

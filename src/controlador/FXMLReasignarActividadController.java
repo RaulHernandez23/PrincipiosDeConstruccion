@@ -9,10 +9,8 @@ package controlador;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +38,7 @@ public class FXMLReasignarActividadController implements Initializable {
     private TableColumn<Actividad, String> colEstudiante;
 
     @FXML
-    private TableColumn<Actividad, Date> colFechaInicio;
+    private TableColumn<Actividad, String> colFechaInicio;
 
     @FXML
     private ComboBox<Estudiante> cbEstudiantes;
@@ -69,13 +67,13 @@ public class FXMLReasignarActividadController implements Initializable {
             colEstudiante
                     .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstudiante()));
             colFechaInicio
-                    .setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFechaInicio()));
+                    .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaInicio()));
 
         } catch (Exception e) {
 
-            utilidades.Alertas.mostrarAlerta("Error de conexion", 
-                "No se pudo consultar la lista de cambios", 
-                Alert.AlertType.ERROR);
+            utilidades.Alertas.mostrarAlerta("Error de conexion",
+                    "No se pudo consultar la lista de cambios",
+                    Alert.AlertType.ERROR);
 
         }
 
@@ -90,37 +88,37 @@ public class FXMLReasignarActividadController implements Initializable {
 
         } catch (Exception e) {
 
-            utilidades.Alertas.mostrarAlerta("Error de conexion", 
-                "No se pudo consultar la lista de cambios", 
-                Alert.AlertType.ERROR);
+            utilidades.Alertas.mostrarAlerta("Error de conexion",
+                    "No se pudo consultar la lista de cambios",
+                    Alert.AlertType.ERROR);
 
         }
     }
 
     @FXML
     private void btnReasignarActividadClic(ActionEvent event) {
-        
-        TableView<Actividad> tableView = tvActividadesPendientes; 
+
+        TableView<Actividad> tableView = tvActividadesPendientes;
         Actividad actividadSeleccionada = tableView.getSelectionModel().getSelectedItem();
 
         Estudiante estudianteSeleccionado = cbEstudiantes.getValue();
 
-        if (modelo.dao.ActividadDAO.reasignarActividad(actividadSeleccionada.getIdActividad(), estudianteSeleccionado.getIdEstudiante())) {
-            
-            utilidades.Alertas.mostrarAlerta("Actividad reasignada", 
-                "La actividad se reasigno correctamente", 
-                Alert.AlertType.INFORMATION);
-            
-        }else{
+        if (modelo.dao.ActividadDAO.reasignarActividad(actividadSeleccionada.getIdActividad(),
+                estudianteSeleccionado.getIdEstudiante())) {
 
-            utilidades.Alertas.mostrarAlerta("Error al reasignar", 
-                "No se pudo reasignar la actividad", 
-                Alert.AlertType.ERROR);
+            utilidades.Alertas.mostrarAlerta("Actividad reasignada",
+                    "La actividad se reasigno correctamente",
+                    Alert.AlertType.INFORMATION);
+
+        } else {
+
+            utilidades.Alertas.mostrarAlerta("Error al reasignar",
+                    "No se pudo reasignar la actividad",
+                    Alert.AlertType.ERROR);
 
         }
 
-
-        //Blue2 Cambiar esta parte por un cambio de ventana
+        // Blue2 Cambiar esta parte por un cambio de ventana
         Stage escenario = (Stage) btnReasignarActividad.getScene().getWindow();
         escenario.close();
 

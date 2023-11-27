@@ -16,6 +16,8 @@
   -fx-border-radius: 5px;
   border-radius: 5px;
   -fx-text-fill: #00b88f;
+  -fx-font-size: 10px;
+  font-size: 10px;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
 }
@@ -115,6 +117,8 @@
   border-radius: 5px;
   -fx-prompt-text-fill: #02795f9b;
   -fx-text-fill: #00b88f;
+  -fx-font-size: 10px;
+  font-size: 10px;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
 }

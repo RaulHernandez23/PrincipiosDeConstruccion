@@ -1,13 +1,11 @@
 package modelo.pojo;
 
-import java.util.Date;
-
 public class Defecto {
     private int idDefecto;
     private String titulo;
     private String descripcion;
     private String esfuerzoMinutos;
-    private Date fechaReporte;
+    private String fechaReporte;
     private int idEstadoActividad;
     private int idEstudiante;
     private String estadoActividad;
@@ -16,7 +14,8 @@ public class Defecto {
     public Defecto() {
     }
 
-    public Defecto(int idDefecto, String titulo, String descripcion, String esfuerzoMinutos, Date fechaReporte, int idEstadoActividad, int idEstudiante, String estadoActividad, String nombreEstudiante) {
+    public Defecto(int idDefecto, String titulo, String descripcion, String esfuerzoMinutos, String fechaReporte,
+            int idEstadoActividad, int idEstudiante, String estadoActividad, String nombreEstudiante) {
         this.idDefecto = idDefecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -31,7 +30,7 @@ public class Defecto {
     public int getIdDefecto() {
         return idDefecto;
     }
-    
+
     public void setIdDefecto(int idDefecto) {
         if (idDefecto > 0) {
             this.idDefecto = idDefecto;
@@ -68,11 +67,11 @@ public class Defecto {
         }
     }
 
-    public Date getFechaReporte() {
+    public String getFechaReporte() {
         return fechaReporte;
     }
 
-    public void setFechaReporte(Date fechaReporte) {
+    public void setFechaReporte(String fechaReporte) {
         if (fechaReporte != null) {
             this.fechaReporte = fechaReporte;
         }
@@ -120,7 +119,10 @@ public class Defecto {
 
     @Override
     public String toString() {
-        return "Defecto{" + "idDefecto=" + idDefecto + ", titulo=" + titulo + ", descripcion=" + descripcion + ", esfuerzoMinutos=" + esfuerzoMinutos + ", fechaReporte=" + fechaReporte + ", idEstadoActividad=" + idEstadoActividad + ", idEstudiante=" + idEstudiante + ", estadoActividad=" + estadoActividad + ", nombreEstudiante=" + nombreEstudiante + '}';
+        return "Defecto{" + "idDefecto=" + idDefecto + ", titulo=" + titulo + ", descripcion=" + descripcion
+                + ", esfuerzoMinutos=" + esfuerzoMinutos + ", fechaReporte=" + fechaReporte + ", idEstadoActividad="
+                + idEstadoActividad + ", idEstudiante=" + idEstudiante + ", estadoActividad=" + estadoActividad
+                + ", nombreEstudiante=" + nombreEstudiante + '}';
     }
-    
+
 }

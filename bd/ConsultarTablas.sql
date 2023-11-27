@@ -12,6 +12,8 @@ SELECT * FROM solicitudcambios;
 
 SELECT * FROM estadoestudiante;
 
+SELECT * FROM tipoactividad;
+
 SELECT * FROM estadoactividad;
 
 SELECT * FROM estadosolicitud;

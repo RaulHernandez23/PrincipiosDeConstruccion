@@ -9,9 +9,18 @@ INSERT INTO `estadoestudiante` (`Estado`) VALUES
 ('Asignado'),
 ('No Asignado');
 
+-- Insertar Tipos de Actividad
+INSERT INTO `tipoactividad` (`Tipo`) VALUES
+('Archivos Javascript'),
+('Base de Datos'),
+('Vistas'),
+('Controladores'),
+('Otro Archivo');
+
 -- Insertar Estudiantes
 INSERT INTO `estudiante` (`Matricula`, `Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `IdEstadoEstudiante`, `Contraseña`)
 VALUES
 ('s21010001', 'Carlos', 'Hernández', 'Gómez', 1, 'radisa94'),
 ('s21010002', 'Ana', 'Rodríguez', 'Sánchez', 1, 'A#R2o3l4'),
-('s21010003', 'Juan', 'Pérez', 'López', 2, 'J7u1@P2e3'); 
+('s21010003', 'Juan', 'Pérez', 'López', 2, 'J7u1@P2e3'),
+('s21013876', 'Albhieri', 'Villa', 'Contreras', 1, 'radisa94'); 

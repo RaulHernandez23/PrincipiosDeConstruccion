@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
 
 public class FXMLMenuEstudianteController implements Initializable {
@@ -19,6 +20,8 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private ImageView ivSalir;
+
+    private Estudiante estudiante;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,6 +71,10 @@ public class FXMLMenuEstudianteController implements Initializable {
                 "/vista/estilos/escenaFormulario.css",
                 "Registrar Cambio", true);
 
+    }
+
+    public void inicializarVentana(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
 }

@@ -29,6 +29,7 @@ CREATE TABLE `actividad`  (
   `FechaInicio` date NOT NULL,
   `FechaFin` date NULL DEFAULT NULL,
   `IdEstadoActividad` int NOT NULL,
+	`IdTipoActividad` int NOT NULL,
   `IdEstudiante` int NOT NULL,
   `IdResponsable` int NOT NULL,
   PRIMARY KEY (`IdActividad`) USING BTREE,
@@ -36,8 +37,9 @@ CREATE TABLE `actividad`  (
   INDEX `IdEstudiante`(`IdEstudiante` ASC) USING BTREE,
   INDEX `IdResponsable`(`IdResponsable` ASC) USING BTREE,
   CONSTRAINT `actividad_ibfk_1` FOREIGN KEY (`IdEstadoActividad`) REFERENCES `estadoactividad` (`IdEstadoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `actividad_ibfk_2` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `actividad_ibfk_3` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
+	CONSTRAINT `actividad_ibfk_2` FOREIGN KEY (`IdTipoActividad`) REFERENCES `tipoactividad` (`IdTipoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `actividad_ibfk_3` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `actividad_ibfk_4` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -96,6 +98,20 @@ CREATE TABLE `estadoactividad`  (
   `IdEstadoActividad` int NOT NULL AUTO_INCREMENT,
   `Estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`IdEstadoActividad`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of estadoactividad
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tipoactividad
+-- ----------------------------
+DROP TABLE IF EXISTS `tipoactividad`;
+CREATE TABLE `tipoactividad`  (
+  `IdTipoActividad` int NOT NULL AUTO_INCREMENT,
+  `Tipo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`IdTipoActividad`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------

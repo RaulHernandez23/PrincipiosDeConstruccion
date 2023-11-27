@@ -1,12 +1,15 @@
 package controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -17,6 +20,8 @@ import javafx.stage.Stage;
 
 import modelo.dao.EstudianteDAO;
 import modelo.dao.ResponsableProyectoDAO;
+import modelo.pojo.Estudiante;
+import modelo.pojo.ResponsableProyecto;
 import modelo.pojo.RespuestaInicioSesion;
 import utilidades.Utilidades;
 
@@ -97,34 +102,60 @@ public class FXMLInicioSesionController implements Initializable {
         } else {
 
             if (usuario.toLowerCase().startsWith("s")) {
-                abrirMenuEstudiante();
+                abrirMenuEstudiante(usuarioAutenticado.getEstudiante());
             } else {
-                abrirMenuResponsable();
+                abrirMenuResponsable(usuarioAutenticado.getResponsableProyecto());
             }
 
         }
 
     }
 
-    private void abrirMenuEstudiante() {
+    private void abrirMenuEstudiante(Estudiante estudiante) {
 
         Stage escenario = (Stage) vboxIniciarSesion.getScene().getWindow();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLMenuEstudiante.fxml",
-                "/vista/estilos/escenaMenu.css",
-                "Menu Estudiante", false);
+        try {
+
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLMenuEstudiante.fxml");
+            Pane vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLMenuEstudianteController controlador = fxmlLoader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaMenu.css"));
+            controlador.inicializarVentana(estudiante);
+            escenario.setScene(escena);
+            escenario.setTitle("Menu Estudiante");
+            escenario.setResizable(false);
+            escenario.show();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
 
     }
 
-    private void abrirMenuResponsable() {
+    private void abrirMenuResponsable(ResponsableProyecto responsable) {
 
         Stage escenario = (Stage) vboxIniciarSesion.getScene().getWindow();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLMenuResponsableA.fxml",
-                "/vista/estilos/escenaMenu.css",
-                "Menu Responsable <<pagina 1>>", false);
+        try {
+
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLMenuResponsableA.fxml");
+            Pane vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLMenuResponsableController controlador = fxmlLoader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaMenu.css"));
+            controlador.inicializarVentana(responsable);
+            escenario.setScene(escena);
+            escenario.setTitle("Menu Responsable <<pagina 1>>");
+            escenario.setResizable(false);
+            escenario.show();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
 
     }
 
