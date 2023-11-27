@@ -7,24 +7,24 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for actividad
 DROP TABLE IF EXISTS `actividad`;
 CREATE TABLE `actividad`  (
-  `IdActividad` int NOT NULL AUTO_INCREMENT,
-  `Titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `Descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `EsfuerzoMinutos` int NOT NULL,
-  `FechaInicio` date NOT NULL,
-  `FechaFin` date NULL DEFAULT NULL,
-  `IdEstadoActividad` int NOT NULL,
-	`IdTipoActividad` int NOT NULL,
-  `IdEstudiante` int NOT NULL,
-  `IdResponsable` int NOT NULL,
-  PRIMARY KEY (`IdActividad`) USING BTREE,
-  INDEX `IdEstadoActividad`(`IdEstadoActividad` ASC) USING BTREE,
-  INDEX `IdEstudiante`(`IdEstudiante` ASC) USING BTREE,
-  INDEX `IdResponsable`(`IdResponsable` ASC) USING BTREE,
-  CONSTRAINT `actividad_ibfk_1` FOREIGN KEY (`IdEstadoActividad`) REFERENCES `estadoactividad` (`IdEstadoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-	CONSTRAINT `actividad_ibfk_2` FOREIGN KEY (`IdTipoActividad`) REFERENCES `tipoactividad` (`IdTipoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `actividad_ibfk_3` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `actividad_ibfk_4` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  `idActividad` int NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `descripcion` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `esfuerzoMinutos` int NOT NULL,
+  `fechaInicio` date NOT NULL,
+  `fechaFin` date NULL DEFAULT NULL,
+  `idEstadoActividad` int NOT NULL,
+	`idTipoActividad` int NOT NULL,
+  `idEstudiante` int NULL DEFAULT NULL,
+  `idResponsable` int NOT NULL,
+  PRIMARY KEY (`idActividad`) USING BTREE,
+  INDEX `idEstadoActividad`(`idEstadoActividad` ASC) USING BTREE,
+  INDEX `idEstudiante`(`idEstudiante` ASC) USING BTREE,
+  INDEX `idResponsable`(`idResponsable` ASC) USING BTREE,
+  CONSTRAINT `actividad_ibfk_1` FOREIGN KEY (`idEstadoActividad`) REFERENCES `estadoactividad` (`idEstadoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+	CONSTRAINT `actividad_ibfk_2` FOREIGN KEY (`idTipoActividad`) REFERENCES `tipoactividad` (`idTipoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `actividad_ibfk_3` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `actividad_ibfk_4` FOREIGN KEY (`idResponsable`) REFERENCES `responsableproyecto` (`idResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 DROP TABLE IF EXISTS `tipoactividad`;
