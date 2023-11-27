@@ -201,21 +201,18 @@ CREATE TABLE `solicitudcambios`  (
   `Razon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Impacto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Propuesta` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `FechaCreacion` date NOT NULL,
   `IdEstadoSolicitud` int NOT NULL,
   `IdEstudiante` int NULL DEFAULT NULL,
-  `IdResponsable` int NOT NULL,
-  `idDefecto` int NOT NULL,
+  `IdResponsable` int NULL DEFAULT NULL, 
   PRIMARY KEY (`IdSolicitudCambios`) USING BTREE,
   INDEX `IdEstadoSolicitud`(`IdEstadoSolicitud` ASC) USING BTREE,
   INDEX `IdEstudiante`(`IdEstudiante` ASC) USING BTREE,
   INDEX `IdResponsable`(`IdResponsable` ASC) USING BTREE,
-  INDEX `idDefecto`(`idDefecto` ASC) USING BTREE,
   CONSTRAINT `solicitudcambios_ibfk_1` FOREIGN KEY (`IdEstadoSolicitud`) REFERENCES `estadosolicitud` (`IdEstadoSolicitud`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `solicitudcambios_ibfk_2` FOREIGN KEY (`IdEstudiante`) REFERENCES `estudiante` (`IdEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `solicitudcambios_ibfk_3` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `solicitudcambios_ibfk_4` FOREIGN KEY (`idDefecto`) REFERENCES `defecto` (`IdDefecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `solicitudcambios_ibfk_3` FOREIGN KEY (`IdResponsable`) REFERENCES `responsableproyecto` (`IdResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
-
 -- ----------------------------
 -- Records of solicitudcambios
 -- ----------------------------
