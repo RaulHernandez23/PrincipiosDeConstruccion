@@ -51,6 +51,8 @@ public class FXMLReasignarActividadController implements Initializable {
 
         mostrarDatos();
 
+        cbEstudiantes.getSelectionModel().select(0);
+
     }
 
     private void mostrarDatos() {
@@ -103,18 +105,30 @@ public class FXMLReasignarActividadController implements Initializable {
 
         Estudiante estudianteSeleccionado = cbEstudiantes.getValue();
 
-        if (modelo.dao.ActividadDAO.reasignarActividad(actividadSeleccionada.getIdActividad(),
-                estudianteSeleccionado.getIdEstudiante())) {
+        if (actividadSeleccionada != null && estudianteSeleccionado != null) {
 
-            utilidades.Alertas.mostrarAlerta("Actividad reasignada",
-                    "La actividad se reasigno correctamente",
-                    Alert.AlertType.INFORMATION);
+            try {
+
+                modelo.dao.ActividadDAO.reasignarActividad(actividadSeleccionada.getIdActividad(),
+                        estudianteSeleccionado.getIdEstudiante());
+
+                utilidades.Alertas.mostrarAlerta("Actividad reasignada",
+                        "La actividad se reasigno correctamente",
+                        Alert.AlertType.INFORMATION);
+
+            } catch (Exception e) {
+
+                utilidades.Alertas.mostrarAlerta("Error de conexion",
+                        "No se pudo reasignar la actividad",
+                        Alert.AlertType.ERROR);
+
+            }
 
         } else {
 
-            utilidades.Alertas.mostrarAlerta("Error al reasignar",
-                    "No se pudo reasignar la actividad",
-                    Alert.AlertType.ERROR);
+            utilidades.Alertas.mostrarAlerta("Actividad no seleccionada",
+                    "Por favor selecciona una actividad",
+                    Alert.AlertType.WARNING);
 
         }
 
