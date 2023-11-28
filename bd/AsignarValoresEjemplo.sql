@@ -2,7 +2,7 @@
 INSERT INTO estadoActividad (estado) VALUES
 ('Realizado'),
 ('No realizado'),
-('Pendiente');
+('Sin asignar');
 
 INSERT INTO estadoDefecto (estado) VALUES
 ('Realizado'),

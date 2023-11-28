@@ -136,7 +136,7 @@ CREATE TABLE `responsableProyecto`  (
   PRIMARY KEY (`idResponsableProyecto`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
--- Table structure for solicitudcambios
+-- Table structure for solicitudDeCambio
 DROP TABLE IF EXISTS `solicitudDeCambio`;
 CREATE TABLE `solicitudDeCambio`  (
   `idSolicitudDeCambio` int NOT NULL AUTO_INCREMENT,
@@ -146,6 +146,7 @@ CREATE TABLE `solicitudDeCambio`  (
   `impacto` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, 
   `accionPropuesta` varchar(1500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `fechaCreacion` date NOT NULL,
+  `fechaAprobacion` date NULL DEFAULT NULL,
   `idEstadoSolicitud` int NOT NULL,
   `idEstudiante` int NOT NULL,
   `idResponsableDeProyecto` int NULL DEFAULT NULL, 
