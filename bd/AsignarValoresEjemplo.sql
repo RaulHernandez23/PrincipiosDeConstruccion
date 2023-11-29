@@ -1,8 +1,8 @@
 -- Insertar estados:
 INSERT INTO estadoActividad (estado) VALUES
-('Realizado'),
-('No realizado'),
-('Sin asignar');
+('Realizada'),
+('No realizada'),
+('No Asignada');
 
 INSERT INTO estadoDefecto (estado) VALUES
 ('Realizado'),

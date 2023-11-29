@@ -132,7 +132,7 @@ public class FXMLRegistrarActividadController implements Initializable {
         actividad.setIdResponsable(idResponsable);
         actividad.setResponsable(responsable);
         actividad.setEstadoActividad("No Asignada");
-        actividad.setIdEstadoActividad(1);
+        actividad.setIdEstadoActividad(3);
 
         HashMap<String, Object> respuesta = ActividadDAO.registrarActividad(
                 actividad);
