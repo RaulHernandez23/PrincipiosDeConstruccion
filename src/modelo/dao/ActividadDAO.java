@@ -22,12 +22,12 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "SELECT IdActividad, Titulo, " +
-                        "a.IdEstudiante, CONCAT(e.Nombre, ' ', " +
-                        "e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS" +
-                        " Estudiante, FechaInicio FROM actividad a INNER JOIN" +
-                        " estudiante e ON a.IdEstudiante = e.IdEstudiante " +
-                        "WHERE FechaFin IS NULL ORDER BY FechaInicio ASC;";
+                String consulta = "SELECT idActividad, titulo, " +
+                        "a.idEstudiante, CONCAT(e.nombre, ' ', " +
+                        "e.apellidoPaterno, ' ', e.apellidoMaterno) AS" +
+                        " Estudiante, fechaInicio FROM actividad a INNER JOIN" +
+                        " estudiante e ON a.idEstudiante = e.idEstudiante " +
+                        "WHERE fechaFin IS NULL ORDER BY fechaInicio ASC;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -68,7 +68,7 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "SELECT Tipo FROM tipoactividad;";
+                String consulta = "SELECT tipo FROM tipoactividad;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<String> tiposActividades = new ArrayList<>();
@@ -76,7 +76,7 @@ public class ActividadDAO {
                 respuesta.put("error", false);
 
                 while (resultadoConsulta.next()) {
-                    tiposActividades.add(resultadoConsulta.getString("Tipo"));
+                    tiposActividades.add(resultadoConsulta.getString("tipo"));
                 }
 
                 respuesta.put("error", false);
@@ -139,7 +139,7 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "INSERT INTO actividad (Titulo, Descripcion, IdResponsable, IdTipoActividad, FechaInicio, IdEstadoActividad) VALUES (?, ?, ?, ?, ?, ?);";
+                String consulta = "INSERT INTO actividad (titulo, descripcion, idResponsable, idTipoActividad, fechaInicio, idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?);";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 sentencia.setString(1, actividad.getTitulo());
