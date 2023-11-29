@@ -65,6 +65,7 @@ public class FXMLRegistrarActividadController implements Initializable {
         if (validarCampos()) {
 
             registrarActividad();
+            salir();
 
         } else {
 
@@ -89,8 +90,15 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     @FXML
     private void btnSalir(MouseEvent event) {
+        salir();
+    }
+
+    public void salir() {
+
         Stage escenario = (Stage) vboxRegistrarActividad.getScene().getWindow();
+
         escenario.close();
+
     }
 
     public void inicializarVentana(int idResponsable, String responsable) {

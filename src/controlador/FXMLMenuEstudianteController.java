@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,9 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private ImageView ivSalir;
+
+    @FXML
+    private Label encabezadoEstudiante;
 
     private Estudiante estudiante;
 
@@ -80,6 +84,12 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     public void inicializarVentana(Estudiante estudiante) {
         this.estudiante = estudiante;
+        String[] nombreInternacional = estudiante.getNombre().split(" ");
+        boolean dosNombres = nombreInternacional.length == 2;
+
+        encabezadoEstudiante.setText(
+                estudiante.getApellidoPaterno() + "-" + estudiante.getApellidoMaterno() + " " + nombreInternacional[0]
+                        + (dosNombres ? "-" + nombreInternacional[1] : ""));
     }
 
 }

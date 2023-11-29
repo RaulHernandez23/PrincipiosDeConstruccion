@@ -30,7 +30,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label layoutX="86.0" layoutY="60.0" styleClass="apartado" text="Menu del Responsable del Proyecto" />
+                        <Label fx:id="encabezadoResponsable" layoutX="86.0" layoutY="60.0" styleClass="apartado" text="Menu del Responsable del Proyecto" />
                         <Pane layoutX="86.0" layoutY="102.0" onMouseClicked="#btnRegistrarActividad" prefHeight="100.0" prefWidth="175.0" styleClass="panel">
                            <children>
                               <Label alignment="CENTER" layoutX="27.0" layoutY="50.0" prefHeight="45.0" prefWidth="120.0" styleClass="etiquetaChica" text="Registrar Actividad" textAlignment="CENTER" wrapText="true" />

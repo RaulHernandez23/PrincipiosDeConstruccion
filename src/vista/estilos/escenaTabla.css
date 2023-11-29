@@ -48,7 +48,6 @@
   background-color: #0050a0;
   -fx-border-color: #0050a0;
   border-color: #0050a0;
-  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
 }
 
 .botonOperacion:pressed {
@@ -86,7 +85,6 @@
   background-color: #a00000;
   -fx-border-color: #a00000;
   border-color: #a00000;
-  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
 }
 
 .botonCancelar:pressed {
