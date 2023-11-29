@@ -78,7 +78,7 @@ public class FXMLInicioSesionController implements Initializable {
         RespuestaInicioSesion usuarioAutenticado = null;
 
         if (usuario.toLowerCase().startsWith("s")) {
-            usuarioAutenticado = EstudianteDAO.iniciarSesionEstudiante(usuario, password);
+            usuarioAutenticado = EstudianteDAO.iniciarSesionEstudiante(usuario.toLowerCase(), password);
         } else {
             usuarioAutenticado = ResponsableProyectoDAO.iniciarSesionResponsable(usuario,
                     password);
