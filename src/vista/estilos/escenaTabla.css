@@ -149,3 +149,46 @@
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
 }
+
+.table-view {
+  -fx-control-inner-background: #f4f4f4; /* Fondo del TableView */
+  -fx-table-cell-border-color: #d0d0d0; /* Borde de las celdas */
+}
+
+.table-view .column-header-background {
+  -fx-background-color: #e0e0e0; /* Fondo de las cabeceras de columna */
+  background-color: #e0e0e0;
+}
+
+.table-view .column-header {
+  -fx-text-fill: #333333; /* Color del texto de las cabeceras de columna */
+  -fx-font-weight: 400; /* Negrita en el texto de las cabeceras de columna */
+  font-weight: 400;
+}
+
+.table-row-cell {
+  -fx-background-color: #ffffff; /* Fondo de las filas */
+  -fx-border-width: 0.5; /* Grosor del borde de las filas */
+  border-width: 0.5;
+  -fx-border-color: #000000; /* Color del borde de las filas */
+  border-color: #000000;
+  background-color: #ffffff;
+}
+
+.table-row-cell:odd {
+  -fx-background-color: #f8f8f8; /* Fondo de las filas impares */
+  background-color: #f8f8f8;
+}
+
+.table-row-cell:selected {
+  -fx-background-color: #ccebff; /* Fondo de las filas seleccionadas */
+  background-color: #ccebff;
+}
+
+.table-cell {
+  -fx-text-fill: #333333; /* Color del texto en las celdas */
+}
+
+.table-column {
+  -fx-alignment: CENTER; /* Alineación del contenido de las celdas */
+}
