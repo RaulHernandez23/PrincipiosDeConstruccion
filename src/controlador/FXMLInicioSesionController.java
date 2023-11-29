@@ -43,6 +43,9 @@ public class FXMLInicioSesionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         paneMensaje.setVisible(false);
+        
+        tfUsuario.setText("EMP001");
+        pfPassword.setText("radisa94");
     }
 
     @FXML

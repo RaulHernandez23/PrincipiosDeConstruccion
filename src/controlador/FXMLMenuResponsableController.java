@@ -86,6 +86,12 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnEliminarActividad(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+            "/vista/FXMLEliminarActividad.fxml", 
+            null, 
+            "Eliminar Actividad", true);
     }
 
     @FXML
@@ -109,10 +115,18 @@ public class FXMLMenuResponsableController implements Initializable {
                 "/vista/FXMLAsignarEstudianteAProyecto.fxml",
                 null,
                 "Asignar estudiante a proyecto", true);
+
     }
 
     @FXML
     private void btnAsignarEstudianteA(MouseEvent event) {
+        
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+            "/vista/FXMLAsignarActividad.fxml", 
+            null, 
+            "Asignar actividad a estudiante",true);
     }
 
     @FXML
@@ -141,10 +155,31 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnFinalizarActividad(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLFinalizarActividad.fxml",
+                null,
+                "Finalizar Actividad", true);
+
     }
 
     @FXML
     private void btnFinalizarCambio(MouseEvent event) {
+    }
+
+    //añademe el boton xfa Cristoff
+    @FXML
+    private void btnRegistrarDefecto(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLRegistrarDefecto.fxml",
+                null,
+                "Registrar Defecto", true);
+
     }
 
     @FXML

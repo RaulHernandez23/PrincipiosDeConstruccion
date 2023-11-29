@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS sgbp2; 
-create database sgbp2;
-use sgbp2;
+DROP DATABASE IF EXISTS sgbp; 
+create database sgbp;
+use sgbp;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
