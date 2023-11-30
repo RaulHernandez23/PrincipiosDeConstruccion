@@ -16,14 +16,16 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import utilidades.Utilidades;
 
-
-public class FXMLRegistrarDefectoController implements Initializable{
+public class FXMLRegistrarDefectoController implements Initializable {
 
     @FXML
     private VBox vboxEjemplo;
@@ -44,26 +46,34 @@ public class FXMLRegistrarDefectoController implements Initializable{
 
     @FXML
     void btnVolver(ActionEvent event) {
-
+        salir();
     }
 
     @FXML
-    void btnSalir(ActionEvent event) {
-
+    void btnSalir(MouseEvent event) {
+        salir();
     }
 
     @FXML
-    void hoverInSalir(ActionEvent event) {
-
+    private void hoverOutSalir(MouseEvent event) {
+        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
-    void hoverOutSalir(ActionEvent event) {
-
+    private void hoverInSalir(MouseEvent event) {
+        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir2.png")));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
+
+    }
+
+    public void salir() {
+
+        Stage escenario = (Stage) vboxEjemplo.getScene().getWindow();
+
+        escenario.close();
+
     }
 }

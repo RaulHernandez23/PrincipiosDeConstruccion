@@ -15,12 +15,12 @@
                <center>
                   <Pane prefHeight="350.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="96.0" layoutY="44.0" text="Titulo:" />
-                        <Label layoutX="96.0" layoutY="107.0" text="Descripción:" />
-                        <TextField fx:id="tfTitulo" layoutX="208.0" layoutY="38.0" prefHeight="39.0" prefWidth="399.0" />
-                        <TextArea fx:id="taDescripcion" layoutX="208.0" layoutY="107.0" prefHeight="176.0" prefWidth="400.0" />
-                        <Button layoutX="96.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnRegistrar" text="Registrar" />
-                        <Button layoutX="529.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnVolver" text="Volver" />
+                        <Label layoutX="96.0" layoutY="44.0" styleClass="etiqueta" text="Titulo:" />
+                        <Label layoutX="96.0" layoutY="107.0" styleClass="etiqueta" text="Descripción:" />
+                        <TextField fx:id="tfTitulo" layoutX="208.0" layoutY="38.0" prefHeight="39.0" prefWidth="399.0" styleClass="campoTexto" />
+                        <TextArea fx:id="taDescripcion" layoutX="208.0" layoutY="107.0" prefHeight="176.0" prefWidth="400.0" styleClass="campoTexto" />
+                        <Button layoutX="96.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnRegistrar" styleClass="botonOperacion" text="Registrar" />
+                        <Button layoutX="529.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonEliminacion" text="Volver" />
                      </children></Pane>
                </center>
                <top>

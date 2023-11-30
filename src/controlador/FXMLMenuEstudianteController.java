@@ -74,7 +74,7 @@ public class FXMLMenuEstudianteController implements Initializable {
 
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLRegistrarDefecto.fxml",
-                null,
+                "/vista/estilos/escenaFormulario.css",
                 "Registrar Defecto", true);
 
     }
@@ -96,8 +96,10 @@ public class FXMLMenuEstudianteController implements Initializable {
         boolean dosNombres = nombreInternacional.length == 2;
 
         encabezadoEstudiante.setText(
-                estudiante.getApellidoPaterno() + "-" + estudiante.getApellidoMaterno() + " " + nombreInternacional[0]
-                        + (dosNombres ? "-" + nombreInternacional[1] : ""));
+                estudiante.getApellidoPaterno() + "-" +
+                        estudiante.getApellidoMaterno() + " " +
+                        nombreInternacional[0] +
+                        (dosNombres ? "-" + nombreInternacional[1] : ""));
     }
 
 }
