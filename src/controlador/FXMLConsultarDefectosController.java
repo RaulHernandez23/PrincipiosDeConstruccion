@@ -48,7 +48,7 @@ public class FXMLConsultarDefectosController implements Initializable {
             tvDefectos.setItems(defectos);
             colTituloDefecto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
             colEstadoDefectos.setCellValueFactory(
-                    cellData -> new SimpleStringProperty(cellData.getValue().getEstadoActividad()));
+                    cellData -> new SimpleStringProperty(cellData.getValue().getEstadoDefecto()));
             colFechaReporteDefectos
                     .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaReporte()));
 
