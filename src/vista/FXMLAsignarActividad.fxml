@@ -21,9 +21,9 @@
                             <TableColumn fx:id="colDescripcion" prefWidth="421.0" text="Descripción" />
                           </columns>
                         </TableView>
-                        <ComboBox fx:id="cbEstudiantes" layoutX="169.0" layoutY="228.0" prefHeight="39.0" prefWidth="382.0" />
-                        <Button disable="true" layoutX="91.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnAsignar" text="Asignar" />
-                        <Button layoutX="571.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnVolver" text="Volver" />
+                        <ComboBox fx:id="cbEstudiantes" layoutX="169.0" layoutY="228.0" prefHeight="39.0" prefWidth="382.0" styleClass="listaDesplegable" />
+                        <Button disable="true" layoutX="91.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnAsignar" styleClass="botonOperacion" text="Asignar" />
+                        <Button layoutX="571.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonCancelar" text="Volver" />
                      </children></Pane>
                </center>
                <top>

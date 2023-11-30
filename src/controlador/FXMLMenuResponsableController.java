@@ -125,7 +125,7 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLAsignarActividad.fxml",
-                null,
+                "/vista/estilos/escenaTabla.css",
                 "Asignar actividad a estudiante", true);
     }
 
