@@ -15,7 +15,7 @@
                <center>
                   <Pane prefHeight="350.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ComboBox fx:id="cbActividades" layoutX="69.0" layoutY="14.0" prefHeight="39.0" prefWidth="582.0" />
+                        <ComboBox fx:id="cbActividades" layoutX="69.0" layoutY="14.0" prefHeight="39.0" prefWidth="582.0" styleClass="listaDesplegable" />
                         <Label layoutX="43.0" layoutY="79.0" text="Fecha de inicio:" />
                         <Label layoutX="107.0" layoutY="223.0" text="Estado:" />
                         <Label layoutX="69.0" layoutY="125.0" text="Descripción:" />
@@ -23,11 +23,11 @@
                         <Label layoutX="49.0" layoutY="270.0" text="Esfuerzo (min):" />
                         <DatePicker fx:id="dpFechaInicio" editable="false" layoutX="182.0" layoutY="73.0" prefHeight="39.0" prefWidth="164.0" />
                         <DatePicker fx:id="dpFechaFin" editable="false" layoutX="492.0" layoutY="73.0" prefHeight="39.0" prefWidth="185.0" />
-                        <TextArea fx:id="taDescripcion" editable="false" layoutX="182.0" layoutY="125.0" prefHeight="82.0" prefWidth="507.0" />
-                        <TextField fx:id="tfEstado" editable="false" layoutX="182.0" layoutY="217.0" />
-                        <TextField fx:id="tfEsfuerzo" editable="false" layoutX="182.0" layoutY="264.0" />
-                        <Button layoutX="78.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnEliminar" text="Eliminar" />
-                        <Button layoutX="539.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnVolver" text="Volver" />
+                        <TextArea fx:id="taDescripcion" editable="false" layoutX="182.0" layoutY="125.0" prefHeight="82.0" prefWidth="507.0" styleClass="campoTexto" wrapText="true" />
+                        <TextField fx:id="tfEstado" editable="false" layoutX="182.0" layoutY="217.0" styleClass="campoTexto" />
+                        <TextField fx:id="tfEsfuerzo" editable="false" layoutX="182.0" layoutY="264.0" styleClass="campoTexto" />
+                        <Button layoutX="78.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnEliminar" styleClass="botonEliminacion" text="Eliminar" />
+                        <Button layoutX="539.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonOperacion" text="Volver" />
                      </children></Pane>
                </center>
                <top>

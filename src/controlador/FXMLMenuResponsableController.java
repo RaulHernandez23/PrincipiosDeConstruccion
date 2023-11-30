@@ -89,9 +89,9 @@ public class FXMLMenuResponsableController implements Initializable {
         Stage escenario = new Stage();
 
         Utilidades.inicializarVentana(escenario,
-            "/vista/FXMLEliminarActividad.fxml", 
-            null, 
-            "Eliminar Actividad", true);
+                "/vista/FXMLEliminarActividad.fxml",
+                "/vista/estilos/escenaFormulario.css",
+                "Eliminar Actividad", true);
     }
 
     @FXML
@@ -120,13 +120,13 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnAsignarEstudianteA(MouseEvent event) {
-        
+
         Stage escenario = new Stage();
 
         Utilidades.inicializarVentana(escenario,
-            "/vista/FXMLAsignarActividad.fxml", 
-            null, 
-            "Asignar actividad a estudiante",true);
+                "/vista/FXMLAsignarActividad.fxml",
+                null,
+                "Asignar actividad a estudiante", true);
     }
 
     @FXML

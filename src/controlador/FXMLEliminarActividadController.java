@@ -8,8 +8,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import utilidades.Utilidades;
 
 public class FXMLEliminarActividadController {
 
@@ -62,21 +65,32 @@ public class FXMLEliminarActividadController {
 
     @FXML
     private void btnVolver(ActionEvent event) {
-        // TODO: Implement the logic for going back
+        salir();
     }
 
     @FXML
     private void btnSalir(MouseEvent event) {
-        // TODO: Implement the logic for exiting the application
+        salir();
     }
 
     @FXML
     private void hoverInSalir(MouseEvent event) {
-        // TODO: Implement the logic for hover in effect on the exit button
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
 
     @FXML
     private void hoverOutSalir(MouseEvent event) {
-        // TODO: Implement the logic for hover out effect on the exit button
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
+
+    public void salir() {
+
+        Stage escenario = (Stage) cbActividades.getScene().getWindow();
+
+        escenario.close();
+
+    }
+
 }
