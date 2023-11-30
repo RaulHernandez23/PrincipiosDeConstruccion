@@ -10,38 +10,55 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
  *
  * @author MIGUEL ANGEL
  */
-public class FXMLSolicitudDecambioController implements Initializable {
+public class FXMLSolicitudDeCambioController implements Initializable {
 
     @FXML
-    private Label lblNombreSolcitud;
+    private VBox vboxScrollPane;
     @FXML
-    private Label lblFecha;
+    private ImageView ivSalir;
     @FXML
-    private Label lblNumeroSolicitud;
+    private Label lbNombreSolicitud;
     @FXML
-    private Label lblNombreEstudiante;
+    private Label lbFecha;
     @FXML
-    private Label lblDescripcionCambio;
+    private Label lbNumSolicitud;
     @FXML
-    private Label lblRazonDeCambio;
+    private Label lbSolicitadoPor;
     @FXML
-    private Label lblImpactoCambio;
+    private Label lbDescripcion;
     @FXML
-    private Label lblAccionPropuesta;
+    private Label lbRazon;
+    @FXML
+    private Label lbImpacto;
+    @FXML
+    private Label lbAccionPropuesta;
 
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    @FXML
+    private void hoverOutSalir(MouseEvent event) {
+    }
+
+    @FXML
+    private void hoverInSalir(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnSalir(MouseEvent event) {
+    }
 
     @FXML
     private void btnAprobarSolicitud(ActionEvent event) {

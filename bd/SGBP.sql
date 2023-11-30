@@ -74,6 +74,7 @@ CREATE TABLE `defecto`  (
   CONSTRAINT `defecto_ibfk_2` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
+-- Table structure for estadoDefecto
 DROP TABLE IF EXISTS `estadoDefecto`;
 CREATE TABLE `estadoDefecto`  (
   `idEstadoDefecto` int NOT NULL AUTO_INCREMENT,
