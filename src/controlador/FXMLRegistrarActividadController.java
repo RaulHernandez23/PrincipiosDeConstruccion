@@ -1,6 +1,8 @@
 package controlador;
 
 import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -11,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,6 +26,8 @@ import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Alertas;
 import utilidades.Utilidades;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class FXMLRegistrarActividadController implements Initializable {
 
@@ -41,6 +46,9 @@ public class FXMLRegistrarActividadController implements Initializable {
     @FXML
     private VBox vboxRegistrarActividad;
 
+    @FXML
+    private Button btnRegistrarComponente;
+
     private ObservableList<String> listaTipos;
 
     private int idResponsable;
@@ -56,6 +64,8 @@ public class FXMLRegistrarActividadController implements Initializable {
 
         cargarTipos();
         cbTipo.getSelectionModel().select(0);
+        btnRegistrarComponente.setDisable(true);
+        verificarCamposLlenos();
 
     }
 
@@ -142,17 +152,26 @@ public class FXMLRegistrarActividadController implements Initializable {
         actividad.setEstadoActividad("No Asignada");
         actividad.setIdEstadoActividad(3);
 
-        HashMap<String, Object> respuesta = ActividadDAO.registrarActividad(
-                actividad);
+        HashMap<String, Object> respuesta = null;
 
-        if (!(Boolean) respuesta.get("error")) {
+        try {
 
-            Alertas.mostrarAlerta("Actividad Registrada", respuesta.get(
-                    "mensaje").toString(), Alert.AlertType.INFORMATION);
+            respuesta = ActividadDAO.registrarActividad(
+                    actividad);
 
-        } else {
-            Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
-                    "mensaje").toString(), Alert.AlertType.ERROR);
+            if (!(Boolean) respuesta.get("error")) {
+
+                Alertas.mostrarAlerta("Actividad Registrada", respuesta.get(
+                        "mensaje").toString(), Alert.AlertType.INFORMATION);
+
+            } else {
+                Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
+                        "mensaje").toString(), Alert.AlertType.ERROR);
+            }
+
+        } catch (SQLException e) {
+            Utilidades.mostrarAlertaSimple("Error", "No se pudo conectar a la base de datos, inténtelo más tarde",
+                    Alert.AlertType.ERROR);
         }
 
     }
@@ -176,6 +195,26 @@ public class FXMLRegistrarActividadController implements Initializable {
         fechaInicio = Utilidades.obtenerFechaActual();
 
         return camposValidos;
+
+    }
+
+    private void verificarCamposLlenos() {
+
+        ChangeListener<String> camposLlenos = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                btnRegistrarComponente.setDisable(
+                        tfTitulo.getText().isEmpty() ||
+                                tfDescripcion.getText().isEmpty() ||
+                                cbTipo.getSelectionModel().getSelectedIndex() < 0);
+
+            }
+        };
+
+        tfTitulo.textProperty().addListener(camposLlenos);
+        tfDescripcion.textProperty().addListener(camposLlenos);
+        cbTipo.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
 
     }
 

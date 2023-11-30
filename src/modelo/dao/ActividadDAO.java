@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Actividad;
+import utilidades.Utilidades;
 
 public class ActividadDAO {
     public static ArrayList<Actividad> consultarActividades() {
@@ -127,13 +129,23 @@ public class ActividadDAO {
 
     }
 
-    public static HashMap<String, Object> registrarActividad(Actividad actividad) {
+    public static HashMap<String, Object> registrarActividad(Actividad actividad) throws SQLException {
 
         HashMap<String, Object> respuesta = new HashMap<>();
 
         respuesta.put("error", true);
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        String fechaServidor = Utilidades.obtenerFechaServidor();
+
+        Date fechaServidorDate = Date.valueOf(fechaServidor);
+        Date fechaInicioDate = Date.valueOf(actividad.getFechaInicio());
+
+        if (fechaInicioDate.before(fechaServidorDate)) {
+            throw new SQLException(
+                    "Error en la base de datos: La fecha de inicio no puede ser menor a la fecha actual");
+        }
 
         if (conexion != null) {
 

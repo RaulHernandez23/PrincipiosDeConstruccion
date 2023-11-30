@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -47,6 +48,33 @@ public class FXMLInicioSesionController implements Initializable {
 
     @FXML
     private void btnIniciarSesionClic(ActionEvent event) {
+        iniciarSesion();
+    }
+
+    @FXML
+    void presionarTeclaEnter(KeyEvent event) {
+
+        if (event.getCode().toString().equals("ENTER")) {
+            iniciarSesion();
+        }
+
+    }
+
+    @FXML
+    void presionarTeclaAbajo(KeyEvent event) {
+        if (event.getCode().toString().equals("DOWN") || event.getCode().toString().equals("TAB")) {
+            pfPassword.requestFocus();
+        }
+    }
+
+    @FXML
+    void presionarTeclaArriba(KeyEvent event) {
+        if (event.getCode().toString().equals("UP") || event.getCode().toString().equals("TAB")) {
+            tfUsuario.requestFocus();
+        }
+    }
+
+    private void iniciarSesion() {
 
         if (!verificarCamposLlenos()) {
 

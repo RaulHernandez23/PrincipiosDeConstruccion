@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vboxIniciarSesion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLInicioSesionController">
+<VBox fx:id="vboxIniciarSesion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#presionarTeclaEnter" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLInicioSesionController">
    <children>
       <AnchorPane prefHeight="480.0" prefWidth="720.0">
          <children>
@@ -31,12 +31,12 @@
                            </font>
                         </Label>
                         <Label layoutX="112.0" layoutY="164.0" styleClass="etiquetaIniciarSesion" text="Iniciar Sesión" textFill="WHITE" />
-                        <TextField fx:id="tfUsuario" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="240.0" prefHeight="25.0" prefWidth="200.0" promptText="Matrícula o No. Personal:" styleClass="campoTexto">
+                        <TextField fx:id="tfUsuario" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="240.0" onKeyPressed="#presionarTeclaAbajo" prefHeight="25.0" prefWidth="200.0" promptText="Matrícula o No. Personal:" styleClass="campoTexto">
                            <font>
                               <Font size="12.0" />
                            </font>
                         </TextField>
-                        <PasswordField fx:id="pfPassword" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="292.0" prefHeight="25.0" prefWidth="200.0" promptText="Contraseña:" styleClass="campoTexto">
+                        <PasswordField fx:id="pfPassword" cacheShape="false" focusTraversable="false" layoutX="55.0" layoutY="292.0" onKeyPressed="#presionarTeclaArriba" prefHeight="25.0" prefWidth="200.0" promptText="Contraseña:" styleClass="campoTexto">
                            <font>
                               <Font size="12.0" />
                            </font>

@@ -113,7 +113,7 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLAsignarEstudianteAProyecto.fxml",
-                null,
+                "/vista/estilos/escenaFormulario.css",
                 "Asignar estudiante a proyecto", true);
 
     }
@@ -151,6 +151,12 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnConsultarBitacoras(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLBitacorasEstudiante.fxml",
+                "/vista/estilos/escenaTabla.css",
+                "Bitácoras", true);
     }
 
     @FXML

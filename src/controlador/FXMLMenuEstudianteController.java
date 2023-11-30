@@ -57,6 +57,7 @@ public class FXMLMenuEstudianteController implements Initializable {
     @FXML
     private void btnConsultarBitacoras(MouseEvent event) {
         Stage escenario = new Stage();
+
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLBitacorasEstudiante.fxml",
                 "/vista/estilos/escenaTabla.css",
