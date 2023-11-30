@@ -10,47 +10,60 @@
 
 package controlador;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 
-public class FXMLRegistrarDefectoController {
+public class FXMLRegistrarDefectoController implements Initializable{
+
+    @FXML
+    private VBox vboxEjemplo;
+
     @FXML
     private TextField tfTitulo;
-    
+
+    @FXML
+    private ImageView ivSalir;
+
     @FXML
     private TextArea taDescripcion;
-    
-    @FXML
-    private Button btnRegistrar;
 
     @FXML
-    private Button btnVolver;
+    void btnRegistrar(ActionEvent event) {
 
-    @FXML
-    private void btnRegistrar() {
-        // Lógica para registrar
     }
 
     @FXML
-    private void btnVolver() {
-        // Lógica para volver
+    void btnVolver(ActionEvent event) {
+
     }
 
     @FXML
-    private void btnSalir() {
-        // Lógica para salir
+    void btnSalir(ActionEvent event) {
+
     }
 
     @FXML
-    private void hoverInSalir() {
-        // Lógica para cuando el cursor entra en el botón de salir
+    void hoverInSalir(ActionEvent event) {
+
     }
 
     @FXML
-    private void hoverOutSalir() {
-        // Lógica para cuando el cursor sale del botón de salir
+    void hoverOutSalir(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // TODO Auto-generated method stub
     }
 }

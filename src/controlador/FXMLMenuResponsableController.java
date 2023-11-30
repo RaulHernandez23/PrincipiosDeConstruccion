@@ -169,19 +169,6 @@ public class FXMLMenuResponsableController implements Initializable {
     private void btnFinalizarCambio(MouseEvent event) {
     }
 
-    //añademe el boton xfa Cristoff
-    @FXML
-    private void btnRegistrarDefecto(MouseEvent event) {
-
-        Stage escenario = new Stage();
-
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLRegistrarDefecto.fxml",
-                null,
-                "Registrar Defecto", true);
-
-    }
-
     @FXML
     private void btnVerMas(MouseEvent event) {
 
