@@ -71,11 +71,12 @@ public class FXMLMenuEstudianteController implements Initializable {
     private void btnRegistrarDefecto(MouseEvent event) {
 
         Stage escenario = new Stage();
-        
+
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLRegistrarDefecto.fxml",
                 null,
                 "Registrar Defecto", true);
+
     }
 
     @FXML
