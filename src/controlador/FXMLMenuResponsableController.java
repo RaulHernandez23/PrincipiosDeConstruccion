@@ -160,7 +160,7 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLFinalizarActividad.fxml",
-                null,
+                "/vista/estilos/escenaTabla.css",
                 "Finalizar Actividad", true);
 
     }
