@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Defecto.java
+ * Nombre del autor:
+ * Paquete: modelo.pojo
+ * Fecha de creacion:
+ * Fecha de modificacion: 29/11/2023
+ * Descripcion: Clase Defecto que contiene los atributos de un defecto
+ */
+
 package modelo.pojo;
 
 public class Defecto {
@@ -6,24 +15,24 @@ public class Defecto {
     private String descripcion;
     private String esfuerzoMinutos;
     private String fechaReporte;
-    private int idEstadoActividad;
+    private int idEstadoCambio;
     private int idEstudiante;
-    private String estadoActividad;
+    private String estadoCambio;
     private String nombreEstudiante;
 
     public Defecto() {
     }
 
     public Defecto(int idDefecto, String titulo, String descripcion, String esfuerzoMinutos, String fechaReporte,
-            int idEstadoActividad, int idEstudiante, String estadoActividad, String nombreEstudiante) {
+            int idEstadoCambio, int idEstudiante, String estadoCambio, String nombreEstudiante) {
         this.idDefecto = idDefecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.esfuerzoMinutos = esfuerzoMinutos;
         this.fechaReporte = fechaReporte;
-        this.idEstadoActividad = idEstadoActividad;
+        this.idEstadoCambio = idEstadoCambio;
         this.idEstudiante = idEstudiante;
-        this.estadoActividad = estadoActividad;
+        this.estadoCambio = estadoCambio;
         this.nombreEstudiante = nombreEstudiante;
     }
 
@@ -77,13 +86,13 @@ public class Defecto {
         }
     }
 
-    public int getIdEstadoActividad() {
-        return idEstadoActividad;
+    public int getIdEstadoCambio() {
+        return idEstadoCambio;
     }
 
-    public void setIdEstadoActividad(int idEstadoActividad) {
+    public void setIdEstadoCambio(int idEstadoActividad) {
         if (idEstadoActividad > 0) {
-            this.idEstadoActividad = idEstadoActividad;
+            this.idEstadoCambio = idEstadoActividad;
         }
     }
 
@@ -97,13 +106,13 @@ public class Defecto {
         }
     }
 
-    public String getEstadoActividad() {
-        return estadoActividad;
+    public String getEstadoCambio() {
+        return estadoCambio;
     }
 
-    public void setEstadoActividad(String estadoActividad) {
-        if (estadoActividad != null) {
-            this.estadoActividad = estadoActividad;
+    public void setIdEstadoCambio(String estadoCambio) {
+        if (estadoCambio != null) {
+            this.estadoCambio = estadoCambio;
         }
     }
 
@@ -120,8 +129,8 @@ public class Defecto {
     @Override
     public String toString() {
         return "Defecto{" + "idDefecto=" + idDefecto + ", titulo=" + titulo + ", descripcion=" + descripcion
-                + ", esfuerzoMinutos=" + esfuerzoMinutos + ", fechaReporte=" + fechaReporte + ", idEstadoActividad="
-                + idEstadoActividad + ", idEstudiante=" + idEstudiante + ", estadoActividad=" + estadoActividad
+                + ", esfuerzoMinutos=" + esfuerzoMinutos + ", fechaReporte=" + fechaReporte + ", idEstadoCambio="
+                + idEstadoCambio + ", idEstudiante=" + idEstudiante + ", estadoCambio=" + estadoCambio
                 + ", nombreEstudiante=" + nombreEstudiante + '}';
     }
 

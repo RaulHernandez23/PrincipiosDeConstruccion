@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: FXMLRegistrarDefectoController.java
+ * Autor: Raul Hernandez
+ * Paquete: src.controlador
+ * Fecha de creacion: 29/11/2023
+ * Fecha de modificacion: 29/11/2023
+ * Descripción: archivo que contiene la logica de la interfaz
+ * FXMLRegistrarDefecto
+ */
+
 package controlador;
 
 import javafx.fxml.FXML;
