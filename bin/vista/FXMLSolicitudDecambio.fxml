@@ -12,28 +12,6 @@
       <AnchorPane prefHeight="480.0" prefWidth="720.0">
          <children>
             <BorderPane prefHeight="480.0" prefWidth="720.0">
-               <top>
-                  <Pane prefHeight="85.0" prefWidth="720.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label layoutX="44.0" layoutY="7.0" styleClass="sgbp" text="SGBP" />
-                        <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="461.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../recursos/imagenes/logoUV.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="488.0" layoutY="12.0" styleClass="apartado" text="Universidad Veracruzana" />
-                        <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="657.0" layoutY="33.0" onMouseClicked="#btnSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../recursos/imagenes/logoSalir.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                        <Label layoutX="74.0" layoutY="62.0" styleClass="apartado" text="Solicitud de Cambio" />
-                     </children>
-                  </Pane>
-               </top>
                <bottom>
                   <Pane prefHeight="28.0" prefWidth="720.0" BorderPane.alignment="CENTER">
                      <children>
@@ -42,9 +20,9 @@
                   </Pane>
                </bottom>
                <center>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" styleClass="fondo" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="875.0" prefWidth="718.0" styleClass="fondo">
+                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" styleClass="fondo" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="875.0" prefWidth="718.0" styleClass="fondo">
                            <children>
                               <Pane layoutX="70.0" layoutY="27.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
                                  <children>
@@ -99,9 +77,31 @@
                               <Button layoutX="399.0" layoutY="835.0" mnemonicParsing="false" onAction="#btnVolver" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Volver" />
                            </children>
                         </AnchorPane>
-                    </content>
+                     </content>
                   </ScrollPane>
                </center>
+               <top>
+                  <Pane prefHeight="85.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="44.0" layoutY="7.0" styleClass="sgbp" text="SGBP" />
+                        <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="461.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../PrincipiosDeConstruccion/src/recursos/imagenes/logoUV.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="488.0" layoutY="12.0" styleClass="apartado" text="Universidad Veracruzana" />
+                        <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="657.0" layoutY="33.0" onMouseClicked="#btnSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../../../PrincipiosDeConstruccion/src/recursos/imagenes/logoSalir.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="74.0" layoutY="62.0" styleClass="apartado" text="Solicitud de Cambio" />
+                     </children>
+                  </Pane>
+               </top>
             </BorderPane>
          </children>
       </AnchorPane>

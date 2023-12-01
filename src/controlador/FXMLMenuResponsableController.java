@@ -147,6 +147,12 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnConsultarSolicitudes(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLSolicitudesDeCambio.fxml",
+                null,
+                "Solicitudes de cambio", true);
     }
 
     @FXML

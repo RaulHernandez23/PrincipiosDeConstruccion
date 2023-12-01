@@ -10,6 +10,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -26,21 +28,17 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     @FXML
     private ImageView ivSalir;
     @FXML
-    private Label lbNombreSolicitud;
+    private TextArea taAccionPropuesta;
     @FXML
-    private Label lbFecha;
+    private TextArea taImpactoCambio;
     @FXML
-    private Label lbNumSolicitud;
+    private TextArea taRazonCambio;
     @FXML
-    private Label lbSolicitadoPor;
+    private TextArea taDescripcionCambio;
     @FXML
-    private Label lbDescripcion;
-    @FXML
-    private Label lbRazon;
-    @FXML
-    private Label lbImpacto;
-    @FXML
-    private Label lbAccionPropuesta;
+    private TextField tfNombreSolicitud;
+
+    
 
     
     @Override
@@ -61,15 +59,11 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     }
 
     @FXML
-    private void btnAprobarSolicitud(ActionEvent event) {
-    }
-
-    @FXML
-    private void btnRechazarSolicitud(ActionEvent event) {
-    }
-
-    @FXML
     private void btnVolver(ActionEvent event) {
     }
-    
+
+    @FXML
+    private void btnEnviarSolicitud(ActionEvent event) {
+    }
+
 }
