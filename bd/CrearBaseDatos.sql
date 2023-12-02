@@ -3,6 +3,28 @@ CREATE DATABASE sgbp;
 USE sgbp;
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- Crear tabla EstadoProyecto
+DROP TABLE IF EXISTS `EstadoProyecto`;
+CREATE TABLE `EstadoProyecto` (
+    `idEstadoProyecto` INT NOT NULL AUTO_INCREMENT,
+    `estado` VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (`idEstadoProyecto`)
+);
+
+-- Crear tabla Proyecto
+DROP TABLE IF EXISTS `Proyecto`;
+CREATE TABLE `Proyecto` (
+    `idProyecto` INT NOT NULL AUTO_INCREMENT,
+    `nombre` VARCHAR(255) NOT NULL,
+    `descripcion` VARCHAR(255) NOT NULL,
+    `idEstadoProyecto` INT NOT NULL,
+
+    PRIMARY KEY (`idProyecto`),
+
+    CONSTRAINT `fk_proyecto_estadoproyecto` FOREIGN KEY (`idEstadoProyecto`) REFERENCES `EstadoProyecto`(`idEstadoProyecto`)
+);
+
 -- Crear tabla Actividad
 DROP TABLE IF EXISTS `Actividad`;
 CREATE TABLE `Actividad` (
@@ -110,10 +132,12 @@ CREATE TABLE `Estudiante` (
     `apellidoMaterno` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `idEstadoEstudiante` INT NOT NULL,
+    `idProyecto` INT NULL DEFAULT NULL,
 
     PRIMARY KEY (`idEstudiante`),
 
-    CONSTRAINT `fk_estudiante_estadoEstudiante` FOREIGN KEY (`idEstadoEstudiante`) REFERENCES `EstadoEstudiante`(`idEstadoEstudiante`)
+    CONSTRAINT `fk_estudiante_estadoEstudiante` FOREIGN KEY (`idEstadoEstudiante`) REFERENCES `EstadoEstudiante`(`idEstadoEstudiante`),
+    CONSTRAINT `fk_estudiante_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto`(`idProyecto`)
 );
 
 -- Crear tabla EstadoEstudiante
@@ -220,19 +244,6 @@ CREATE TABLE `Proyecto_PeriodoEscolar` (
 
     CONSTRAINT `fk_proyectoperiodoescolar_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto`(`idProyecto`),
     CONSTRAINT `fk_proyectoperiodoescolar_periodoescolar` FOREIGN KEY (`idPeriodoEscolar`) REFERENCES `PeriodoEscolar`(`idPeriodoEscolar`)
-);
-
--- Crear tabla Proyecto
-DROP TABLE IF EXISTS `Proyecto`;
-CREATE TABLE `Proyecto` (
-    `idProyecto` INT NOT NULL AUTO_INCREMENT,
-    `nombre` VARCHAR(255) NOT NULL,
-    `descripcion` VARCHAR(255) NOT NULL,
-    `idEstadoProyecto` INT NOT NULL,
-
-    PRIMARY KEY (`idProyecto`),
-
-    CONSTRAINT `fk_proyecto_estadoproyecto` FOREIGN KEY (`idEstadoProyecto`) REFERENCES `EstadoProyecto`(`idEstadoProyecto`)
 );
 
 -- Crear tabla ResponsableProyecto_Proyecto
