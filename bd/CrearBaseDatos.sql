@@ -262,17 +262,4 @@ CREATE TABLE `ResponsableProyecto_Proyecto` (
     CONSTRAINT `fk_responsableproyectoproyecto_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto`(`idProyecto`)
 );
 
--- Crear tabla Proyecto_PeriodoEscolar
-DROP TABLE IF EXISTS `Proyecto_PeriodoEscolar`;
-CREATE TABLE `Proyecto_PeriodoEscolar` (
-    `idProyectoPeriodoEscolar` INT NOT NULL AUTO_INCREMENT,
-    `idProyecto` INT NOT NULL,
-    `idPeriodoEscolar` INT NOT NULL,
-
-    PRIMARY KEY (`idProyectoPeriodoEscolar`),
-
-    CONSTRAINT `fk_proyectoperiodoescolar_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto`(`idProyecto`),
-    CONSTRAINT `fk_proyectoperiodoescolar_periodoescolar` FOREIGN KEY (`idPeriodoEscolar`) REFERENCES `PeriodoEscolar`(`idPeriodoEscolar`)
-);
-
 SET FOREIGN_KEY_CHECKS = 1;
