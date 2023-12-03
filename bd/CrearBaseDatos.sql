@@ -195,8 +195,11 @@ DROP TABLE IF EXISTS `SolicitudDeCambio`;
 CREATE TABLE `SolicitudDeCambio` (
     `idSolicitudDeCambio` INT NOT NULL AUTO_INCREMENT,
     `titulo` VARCHAR(255) NOT NULL,
-    `descripcion` VARCHAR(255) NOT NULL,
-    `fechaReporte` DATE NOT NULL,
+    `descripcion` VARCHAR(1000) NOT NULL,
+    `razon` VARCHAR(1000) NOT NULL,
+    `impacto` VARCHAR(1000) NOT NULL,
+    `accionPropuesta` VARCHAR(1000) NOT NULL,
+    `fechaCreacion` DATE NOT NULL,
     `fechaEvaluacion` DATE NULL DEFAULT NULL,
     `idEstudiante` INT NOT NULL,
     `idEstadoSolicitud` INT NOT NULL,
