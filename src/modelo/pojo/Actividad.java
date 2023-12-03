@@ -8,6 +8,7 @@ public class Actividad {
     private String fechaInicio;
     private String fechaFin;
     private int idEstadoActividad;
+    private int idProyecto;
     private int idEstudiante;
     private int idResponsable;
     private int idTipo;
@@ -21,7 +22,7 @@ public class Actividad {
 
     public Actividad(int idActividad, String titulo, String descripcion,
             int esfuerzoMinutos, String fechaInicio, String fechaFin,
-            int idEstadoActividad, int idEstudiante, int idResponsable, int idTipo) {
+            int idEstadoActividad, int idProyecto, int idEstudiante, int idResponsable, int idTipo) {
 
         this.idActividad = idActividad;
         this.titulo = titulo;
@@ -30,6 +31,7 @@ public class Actividad {
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.idEstadoActividad = idEstadoActividad;
+        this.idProyecto = idProyecto;
         this.idEstudiante = idEstudiante;
         this.idResponsable = idResponsable;
         this.idTipo = idTipo;
@@ -116,6 +118,18 @@ public class Actividad {
 
         if (idEstadoActividad > 0) {
             this.idEstadoActividad = idEstadoActividad;
+        }
+
+    }
+
+    public int getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(int idProyecto) {
+
+        if (idProyecto > 0) {
+            this.idProyecto = idProyecto;
         }
 
     }

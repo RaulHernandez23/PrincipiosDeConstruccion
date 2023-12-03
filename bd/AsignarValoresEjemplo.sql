@@ -41,7 +41,7 @@ INSERT INTO periodoEscolar (nombre, fechaInicio, fechaFin) VALUES
 
 -- Insertar proyecto
 INSERT INTO proyecto (nombre, descripcion, idEstadoProyecto) VALUES
-('Gastrocafé', 'Proyecto Gastrocafé pedido por el café para su software de gestión', 1);
+('VaraWeb', 'Aplicación web VaraWeb para el reporte de varamientos de mamíferos marínos', 1);
 
 -- Relacionar proyecto con periodo escolar
 INSERT INTO proyecto_periodoEscolar (idPeriodoEscolar, idProyecto) VALUES
@@ -50,12 +50,14 @@ INSERT INTO proyecto_periodoEscolar (idPeriodoEscolar, idProyecto) VALUES
 
 -- Insertar Responsable de Proyecto
 INSERT INTO responsableProyecto (numPersonal, nombre, apellidoPaterno, apellidoMaterno, correo, telefono, password)
-VALUES ('EMP001', 'Juan Carlos', 'Perez', 'Arriaga', 'correo@ejemplo.com', '2281130978', 'radisa94');
+VALUES 
+('EMP001', 'Juan Carlos', 'Perez', 'Arriaga', 'correo@ejemplo.com', '2281130978', 'radisa94'),
+('EMP002', 'Ana Luz', 'Polo', 'Estrella', 'correo2@ejemplo.com', '2283456723', 'radisa94');
 
 -- Insertar Estudiante
 INSERT INTO estudiante (matricula, nombre, apellidoPaterno, apellidoMaterno, password, idEstadoEstudiante, idProyecto)
 VALUES 
-('s20000000', 'Cristoff', 'Villa', 'Contreras', 'pass', 1, 1),
+('s21013876', 'Albhieri Cristoff', 'Villa', 'Contreras', 'radisa94', 1, 1),
 ('S21026432', 'Raul', 'Hernandez', 'Olivares', 'pass', 1, 1);
 
 -- Relacionar estudiante con periodoEscolar

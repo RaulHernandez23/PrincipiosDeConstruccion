@@ -151,15 +151,16 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "INSERT INTO actividad (titulo, descripcion, idResponsable, idTipoActividad, fechaInicio, idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?);";
+                String consulta = "INSERT INTO actividad (titulo, descripcion, idProyecto, idResponsable, idTipoActividad, fechaInicio, idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?);";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 sentencia.setString(1, actividad.getTitulo());
                 sentencia.setString(2, actividad.getDescripcion());
-                sentencia.setInt(3, actividad.getIdResponsable());
-                sentencia.setInt(4, actividad.getIdTipo());
-                sentencia.setString(5, actividad.getFechaInicio());
-                sentencia.setInt(6, actividad.getIdEstadoActividad());
+                sentencia.setInt(3, actividad.getIdProyecto());
+                sentencia.setInt(4, actividad.getIdResponsable());
+                sentencia.setInt(5, actividad.getIdTipo());
+                sentencia.setString(6, actividad.getFechaInicio());
+                sentencia.setInt(7, actividad.getIdEstadoActividad());
 
                 int resultadoConsulta = sentencia.executeUpdate();
 
