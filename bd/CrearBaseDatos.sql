@@ -195,8 +195,11 @@ DROP TABLE IF EXISTS `SolicitudDeCambio`;
 CREATE TABLE `SolicitudDeCambio` (
     `idSolicitudDeCambio` INT NOT NULL AUTO_INCREMENT,
     `titulo` VARCHAR(255) NOT NULL,
-    `descripcion` VARCHAR(255) NOT NULL,
-    `fechaReporte` DATE NOT NULL,
+    `descripcion` VARCHAR(1000) NOT NULL,
+    `razon` VARCHAR(1000) NOT NULL,
+    `impacto` VARCHAR(1000) NOT NULL,
+    `accionPropuesta` VARCHAR(1000) NOT NULL,
+    `fechaCreacion` DATE NOT NULL,
     `fechaEvaluacion` DATE NULL DEFAULT NULL,
     `idEstudiante` INT NOT NULL,
     `idEstadoSolicitud` INT NOT NULL,
@@ -257,19 +260,6 @@ CREATE TABLE `ResponsableProyecto_Proyecto` (
 
     CONSTRAINT `fk_responsableproyectoproyecto_responsableproyecto` FOREIGN KEY (`idResponsableProyecto`) REFERENCES `ResponsableProyecto`(`idResponsableProyecto`),
     CONSTRAINT `fk_responsableproyectoproyecto_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto`(`idProyecto`)
-);
-
--- Crear tabla Proyecto_PeriodoEscolar
-DROP TABLE IF EXISTS `Proyecto_PeriodoEscolar`;
-CREATE TABLE `Proyecto_PeriodoEscolar` (
-    `idProyectoPeriodoEscolar` INT NOT NULL AUTO_INCREMENT,
-    `idProyecto` INT NOT NULL,
-    `idPeriodoEscolar` INT NOT NULL,
-
-    PRIMARY KEY (`idProyectoPeriodoEscolar`),
-
-    CONSTRAINT `fk_proyectoperiodoescolar_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `Proyecto`(`idProyecto`),
-    CONSTRAINT `fk_proyectoperiodoescolar_periodoescolar` FOREIGN KEY (`idPeriodoEscolar`) REFERENCES `PeriodoEscolar`(`idPeriodoEscolar`)
 );
 
 SET FOREIGN_KEY_CHECKS = 1;
