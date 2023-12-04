@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -175,12 +177,20 @@ public class FXMLRegistrarActividadController implements Initializable {
     private boolean validarCampos() {
 
         boolean camposValidos = true;
+        Pattern patron = Pattern
+                .compile(
+                        "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)?(?: [0-9]+)?$");
+        Matcher matcher = patron.matcher(tfTitulo.getText());
 
-        if (tfTitulo.getText().length() == 0) {
+        if (tfTitulo.getText().length() == 0 || !matcher.matches()) {
             camposValidos = false;
         }
 
-        if (tfDescripcion.getText().length() == 0) {
+        patron = Pattern
+                .compile("^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
+        matcher = patron.matcher(tfDescripcion.getText());
+
+        if (tfDescripcion.getText().length() == 0 || !matcher.matches()) {
             camposValidos = false;
         }
 
