@@ -14,47 +14,82 @@ import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
 public class ActividadDAO {
-    public static ArrayList<Actividad> consultarActividades() {
+    //Modificacion que marcara error en el CU-07
+    public static HashMap<String, Object> obtenerActividadesProyecto(int idProyecto) {
 
-        ArrayList<Actividad> actividades = new ArrayList<Actividad>();
-
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        respuesta.put("error", true);
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
 
             try {
 
-                String consulta = "SELECT idActividad, titulo, " +
-                        "a.idEstudiante, CONCAT(e.nombre, ' ', " +
-                        "e.apellidoPaterno, ' ', e.apellidoMaterno) AS" +
-                        " Estudiante, fechaInicio FROM actividad a INNER JOIN" +
-                        " estudiante e ON a.idEstudiante = e.idEstudiante " +
-                        "WHERE fechaFin IS NULL ORDER BY fechaInicio ASC;";
+                String consulta = "SELECT "
+                        + "idActividad, "
+                        + "titulo, "
+                        + "a.descripcion, "
+                        + "esfuerzoMinutos, "
+                        + "fechaInicio, "
+                        + "fechaFin, "
+                        + "a.idEstadoActividad, "
+                        + "ea.estado AS estadoActividad, "
+                        + "a.idTipoActividad, "
+                        + "ta.tipo AS tipo, "
+                        + "a.idEstudiante, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, ' ', e.apellidoPaterno) AS estudiante, "
+                        + "a.idResponsable, "
+                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, ' ', rp.apellidoPaterno) AS responsable, "
+                        + "a.idProyecto, "
+                        + "p.nombre AS proyecto "
+                        + "FROM actividad a "
+                        + "INNER JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
+                        + "INNER JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
+                        + "INNER JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
+                        + "INNER JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsable "
+                        + "INNER JOIN proyecto p ON a.idProyecto = p.idProyecto;"
+                        + "WHERE a.idEstadoActividad = ? "
+                        + "ORDER BY fechaInicio DESC;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
+                sentencia.setInt(1, idProyecto);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
+                ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
 
                     Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultadoConsulta.getInt("IdActividad"));
-                    actividad.setTitulo(resultadoConsulta.getString("Titulo"));
-                    actividad.setIdEstudiante(resultadoConsulta.getInt("IdEstudiante"));
-                    actividad.setEstudiante(resultadoConsulta.getString("Estudiante"));
-                    actividad.setFechaInicio(resultadoConsulta.getString("FechaInicio"));
-
+                    actividad.setIdActividad(resultadoConsulta.getInt("idActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString("titulo"));
+                    actividad.setDescripcion(resultadoConsulta.getString("descripcion"));
+                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
+                    actividad.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
+                    actividad.setFechaFin(resultadoConsulta.getString("fechaFin"));
+                    actividad.setIdEstadoActividad(resultadoConsulta.getInt("idEstadoActividad"));
+                    actividad.setEstadoActividad(resultadoConsulta.getString("estadoActividad"));
+                    actividad.setIdTipo(resultadoConsulta.getInt("idTipoActividad"));
+                    actividad.setTipo(resultadoConsulta.getString("tipo"));
+                    actividad.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    actividad.setEstudiante(resultadoConsulta.getString("estudiante"));
+                    actividad.setIdResponsable(resultadoConsulta.getInt("idResponsable"));
+                    actividad.setResponsable(resultadoConsulta.getString("responsable"));
+                    actividad.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
+                    actividad.setProyecto(resultadoConsulta.getString("proyecto"));
                     actividades.add(actividad);
 
                 }
+                conexion.close();
+                respuesta.put("error", false);
+                respuesta.put("actividades", actividades);
 
-            } catch (SQLException se) {
-                se.printStackTrace();
-            } finally {
-                ConectorBaseDatos.cerrarConexion(conexion);
+            } catch (SQLException sqlE) {
+                sqlE.printStackTrace();
             }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
 
-        return actividades;
+        return respuesta;
 
     }
 
