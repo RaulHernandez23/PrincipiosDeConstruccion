@@ -61,7 +61,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="133.0" layoutY="90.0">
+      <TextField fx:id="tfTitulo" layoutX="133.0" layoutY="90.0">
          <font>
             <Font size="16.0" />
          </font>
@@ -72,22 +72,22 @@
          </font>
       </TextArea>
       <ComboBox layoutX="134.0" layoutY="134.0" prefHeight="35.0" prefWidth="198.0" />
-      <TextField layoutX="133.0" layoutY="306.0">
+      <TextField fx:id="tfFechaInicio" layoutX="133.0" layoutY="306.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="133.0" layoutY="355.0">
+      <TextField fx:id="tfFechaFin" layoutX="133.0" layoutY="355.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="133.0" layoutY="403.0">
+      <TextField fx:id="tfEstudiante" layoutX="133.0" layoutY="403.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField layoutX="133.0" layoutY="452.0">
+      <TextField fx:id="TfEsfuerzo" layoutX="133.0" layoutY="452.0">
          <font>
             <Font size="16.0" />
          </font>
