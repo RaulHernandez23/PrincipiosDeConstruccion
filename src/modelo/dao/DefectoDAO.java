@@ -2,6 +2,7 @@ package modelo.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ public class DefectoDAO {
 
     public static HashMap<String, Object> registrarDefecto(Defecto defecto) {
 
-        HashMap<String, Object> respuesta = new HashMap();
+        HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
         respuesta.put("error", true);
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 

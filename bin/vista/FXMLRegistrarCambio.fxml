@@ -18,7 +18,7 @@
                         <TextField fx:id="tfTitulo" layoutX="75.0" layoutY="46.0" prefHeight="25.0" prefWidth="327.0" promptText="Título:" styleClass="campoTexto" />
                         <TextArea fx:id="tfDescripcion" layoutX="75.0" layoutY="87.0" prefHeight="150.0" prefWidth="327.0" promptText="Descripción:" styleClass="campoTexto" />
                         <ComboBox fx:id="cbTipo" layoutX="75.0" layoutY="288.0" prefHeight="25.0" prefWidth="150.0" promptText="--Tipo--" styleClass="listaDesplegable" />
-                        <Button layoutX="252.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
+                        <Button fx:id="btnRegistrarComponente" layoutX="252.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
                         <TextField fx:id="tfEsfuerzo" layoutX="75.0" layoutY="247.0" prefHeight="25.0" prefWidth="327.0" promptText="Esfuerzo (min):" styleClass="campoTexto" />
                         <ComboBox fx:id="cbEstado" layoutX="252.0" layoutY="288.0" prefHeight="25.0" prefWidth="150.0" promptText="--Estado--" styleClass="listaDesplegable" />
                         <ComboBox fx:id="cbSolicitud" layoutX="75.0" layoutY="12.0" prefHeight="25.0" prefWidth="150.0" promptText="--Solicitud--" styleClass="listaDesplegable" />

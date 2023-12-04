@@ -1,10 +1,19 @@
 package controlador;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -13,30 +22,62 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modelo.dao.CambioDAO;
+import modelo.dao.SolicitudDeCambioDAO;
+import modelo.pojo.SolicitudDeCambio;
+import utilidades.Alertas;
 import utilidades.Utilidades;
 
 public class FXMLRegistrarCambioController implements Initializable {
 
     @FXML
     private VBox vboxRegistrarCambio;
+
     @FXML
     private ImageView ivSalir;
+
     @FXML
     private TextField tfTitulo;
+
     @FXML
     private TextArea tfDescripcion;
+
     @FXML
-    private ComboBox<?> cbTipo;
+    private ComboBox<SolicitudDeCambio> cbSolicitud;
+
+    @FXML
+    private ComboBox<String> cbTipo;
+
     @FXML
     private TextField tfEsfuerzo;
-    @FXML
-    private ComboBox<?> cbEstado;
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private ComboBox<String> cbEstado;
+
+    @FXML
+    private Button btnRegistrarComponente;
+
+    private ObservableList<String> listaTipos;
+
+    private ObservableList<String> listaEstados;
+
+    private ObservableList<SolicitudDeCambio> listaSolicitudes;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        listaSolicitudes = FXCollections.observableArrayList();
+        listaTipos = FXCollections.observableArrayList();
+        listaEstados = FXCollections.observableArrayList();
+
+        cargarSolicitudes();
+        cargarTipos();
+        cargarEstados();
+        cbSolicitud.getSelectionModel().select(0);
+        cbTipo.getSelectionModel().select(0);
+        cbEstado.getSelectionModel().select(0);
+        btnRegistrarComponente.setDisable(true);
+        verificarCamposLlenos();
 
     }
 
@@ -58,6 +99,105 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     @FXML
     private void btnRegistrar(ActionEvent event) {
+    }
+
+    private void cargarSolicitudes() {
+
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudes();
+
+        if (!(Boolean) respuesta.get("error")) {
+
+            listaSolicitudes = FXCollections.observableArrayList();
+
+            ArrayList<SolicitudDeCambio> lista = (ArrayList<SolicitudDeCambio>) respuesta.get("solicitudes");
+            listaSolicitudes.addAll(lista);
+            cbSolicitud.setItems(listaSolicitudes);
+
+        } else {
+            Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
+                    "mensaje").toString(), Alert.AlertType.ERROR);
+        }
+
+    }
+
+    private void cargarEstados() {
+
+        HashMap<String, Object> respuesta = CambioDAO.consultarEstados();
+
+        if (!(Boolean) respuesta.get("error")) {
+
+            listaEstados = FXCollections.observableArrayList();
+
+            ArrayList<String> lista = (ArrayList<String>) respuesta.get("estados");
+            listaEstados.addAll(lista);
+            cbEstado.setItems(listaEstados);
+
+        } else {
+            Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
+                    "mensaje").toString(), Alert.AlertType.ERROR);
+        }
+
+    }
+
+    private void cargarTipos() {
+
+        HashMap<String, Object> respuesta = CambioDAO.consultarTiposActividades();
+
+        if (!(Boolean) respuesta.get("error")) {
+
+            listaTipos = FXCollections.observableArrayList();
+
+            ArrayList<String> lista = (ArrayList<String>) respuesta.get("tiposActividades");
+            listaTipos.addAll(lista);
+            cbTipo.setItems(listaTipos);
+
+        } else {
+            Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
+                    "mensaje").toString(), Alert.AlertType.ERROR);
+        }
+
+    }
+
+    private void verificarCamposLlenos() {
+
+        ChangeListener<String> camposLlenos = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                btnRegistrarComponente.setDisable(
+                        tfTitulo.getText().isEmpty() ||
+                                tfDescripcion.getText().isEmpty() ||
+                                tfEsfuerzo.getText().isEmpty() ||
+                                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
+                                cbSolicitud.getSelectionModel().getSelectedIndex() < 0 ||
+                                cbEstado.getSelectionModel().getSelectedIndex() < 0);
+
+            }
+        };
+
+        ChangeListener<SolicitudDeCambio> solicitudElegida = new ChangeListener<SolicitudDeCambio>() {
+            @Override
+            public void changed(ObservableValue<? extends SolicitudDeCambio> observable, SolicitudDeCambio oldValue,
+                    SolicitudDeCambio newValue) {
+
+                btnRegistrarComponente.setDisable(
+                        tfTitulo.getText().isEmpty() ||
+                                tfDescripcion.getText().isEmpty() ||
+                                tfEsfuerzo.getText().isEmpty() ||
+                                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
+                                cbSolicitud.getSelectionModel().getSelectedIndex() < 0 ||
+                                cbEstado.getSelectionModel().getSelectedIndex() < 0);
+
+            }
+        };
+
+        tfTitulo.textProperty().addListener(camposLlenos);
+        tfDescripcion.textProperty().addListener(camposLlenos);
+        tfEsfuerzo.textProperty().addListener(camposLlenos);
+        cbSolicitud.getSelectionModel().selectedItemProperty().addListener(solicitudElegida);
+        cbTipo.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
+        cbEstado.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
+
     }
 
 }

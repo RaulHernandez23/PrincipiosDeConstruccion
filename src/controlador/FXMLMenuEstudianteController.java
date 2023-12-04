@@ -66,9 +66,9 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private void btnCrearSolicitud(MouseEvent event) {
-        
+
         Stage escenario = (Stage) vboxMenuEstudiante.getScene().getWindow();
-        
+
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLCrearSolicitudDeCambio.fxml",
                 null,
