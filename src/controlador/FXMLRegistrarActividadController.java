@@ -126,9 +126,7 @@ public class FXMLRegistrarActividadController implements Initializable {
 
             listaTipos = FXCollections.observableArrayList();
 
-            ArrayList<String> lista = (ArrayList<String>) respuesta.get(
-                    "tipoActividades");
-
+            ArrayList<String> lista = (ArrayList<String>) respuesta.get("tiposActividades");
             listaTipos.addAll(lista);
             cbTipo.setItems(listaTipos);
 

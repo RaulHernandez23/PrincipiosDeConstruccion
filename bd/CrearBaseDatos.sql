@@ -33,7 +33,7 @@ CREATE TABLE `Actividad` (
     `descripcion` VARCHAR(255) NOT NULL,
     `esfuerzoMinutos` INT NULL DEFAULT NULL,
     `fechaInicio` date NOT NULL,
-    `fechaFin` date NOT NULL,
+    `fechaFin` date NULL DEFAULT NULL,
     `idEstadoActividad` INT NOT NULL,
     `idTipoActividad` INT NOT NULL,
     `idEstudiante` INT NULL DEFAULT NULL,
