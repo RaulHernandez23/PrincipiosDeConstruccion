@@ -46,8 +46,8 @@ public class ActividadDAO {
                         + "INNER JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
                         + "INNER JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
                         + "INNER JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
-                        + "INNER JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsable "
-                        + "INNER JOIN proyecto p ON a.idProyecto = p.idProyecto;"
+                        + "INNER JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
+                        + "INNER JOIN proyecto p ON a.idProyecto = p.idProyecto "
                         + "WHERE a.idEstadoActividad = ? "
                         + "ORDER BY fechaInicio DESC;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
