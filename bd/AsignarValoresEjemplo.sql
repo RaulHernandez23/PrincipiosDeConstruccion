@@ -86,12 +86,10 @@ INSERT INTO defecto (titulo, descripcion, esfuerzoMinutos, fechaReporte, fechaFi
 ('Defecto 5', 'Descripción 5', 300, '2023-08-09', '2023-08-10', 2, 2, 1);
 
 -- Insertar solicitudes de cambio
-INSERT INTO solicitudDeCambio (titulo, descripcion, fechaReporte, fechaEvaluacion, idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, idDefecto) VALUES
-('Solicitud 1', 'Descripción 1', '2023-08-01', '2023-08-02', 2, 1, 1, 1, 1),
-('Solicitud 2', 'Descripción 2', '2023-08-03', '2023-08-04', 2, 2, 1, 1, 2),
-('Solicitud 3', 'Descripción 3', '2023-08-05', '2023-08-06', 2, 1, 1, 1, 3),
-('Solicitud 4', 'Descripción 4', '2023-08-07', '2023-08-08', 2, 2, 1, 1, 4),
-('Solicitud 5', 'Descripción 5', '2023-08-09', '2023-08-10', 2, 3, 1, 1, 5);
+INSERT INTO solicitudDeCambio (titulo, descripcion, razon, impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, idDefecto) VALUES
+('Solicitud de cambio 1', 'Descripción 1', 'Razón 1', 'Impacto 1', 'Acción propuesta 1', '2023-08-01', '2023-08-02', 2, 1, 1, 1, 1),
+('Solicitud de cambio 2', 'Descripción 2', 'Razón 2', 'Impacto 2', 'Acción propuesta 2', '2023-08-03', '2023-08-04', 2, 2, 1, 1, 1),
+('Solicitud de cambio 3', 'Descripción 3', 'Razón 3', 'Impacto 3', 'Acción propuesta 3', '2023-08-05', '2023-08-06', 2, 1, 1, 1, 2);
 
 -- Insertar cambios
 INSERT INTO cambio (titulo, descripcion, idEstadoCambio, fechaInicio, fechaFin, idSolicitudDeCambio) VALUES
