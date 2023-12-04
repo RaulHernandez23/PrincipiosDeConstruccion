@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -218,12 +220,19 @@ public class FXMLRegistrarCambioController implements Initializable {
     private boolean validarCampos() {
 
         boolean camposValidos = true;
+        Pattern patron = Pattern.compile(
+                "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)?(?: [0-9]+)?$");
+        Matcher matcher = patron.matcher(tfTitulo.getText());
 
-        if (tfTitulo.getText().length() == 0) {
+        if (tfTitulo.getText().length() == 0 || !matcher.matches()) {
             camposValidos = false;
         }
 
-        if (tfDescripcion.getText().length() == 0) {
+        patron = Pattern
+                .compile("^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
+        matcher = patron.matcher(tfDescripcion.getText());
+
+        if (tfDescripcion.getText().length() == 0 || !matcher.matches()) {
             camposValidos = false;
         }
 
@@ -239,7 +248,10 @@ public class FXMLRegistrarCambioController implements Initializable {
             camposValidos = false;
         }
 
-        if (tfEsfuerzo.getText().length() == 0) {
+        patron = Pattern.compile("^[1-9][0-9]{1,2}$");
+        matcher = patron.matcher(tfEsfuerzo.getText());
+
+        if (tfEsfuerzo.getText().length() == 0 || !matcher.matches()) {
             camposValidos = false;
         }
 
