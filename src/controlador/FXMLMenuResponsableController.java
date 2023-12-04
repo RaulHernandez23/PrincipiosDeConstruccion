@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.pojo.ResponsableProyecto;
 import javafx.scene.Parent;
@@ -86,12 +87,24 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnEliminarActividad(MouseEvent event) {
-        Stage escenario = new Stage();
+        try {
+            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLEliminarActividad.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLEliminarActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(1);
+            //me falta pasar el idResponsable
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLEliminarActividad.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Eliminar Actividad", true);
+            Stage escenario = new Stage();
+            escenario.setScene(escena);
+            escenario.setTitle("Eliminar Actividad");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
