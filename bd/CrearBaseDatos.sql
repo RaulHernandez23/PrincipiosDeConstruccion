@@ -73,15 +73,18 @@ CREATE TABLE `Cambio` (
     `idCambio` INT NOT NULL AUTO_INCREMENT,
     `titulo` VARCHAR(255) NOT NULL,
     `descripcion` VARCHAR(255) NOT NULL,
+    `esfuerzoMinutos` INT NULL DEFAULT NULL,
     `idEstadoCambio` INT NOT NULL,
     `fechaInicio` DATE NOT NULL,
     `fechaFin` DATE NULL DEFAULT NULL,
     `idSolicitudDeCambio` INT NOT NULL,
+    `idTipoActividad` INT NOT NULL,
 
     PRIMARY KEY (`idCambio`),
 
     CONSTRAINT `fk_cambio_estadoCambio` FOREIGN KEY (`idEstadoCambio`) REFERENCES `EstadoCambio`(`idEstadoCambio`),
-    CONSTRAINT `fk_cambio_solicitudDeCambio` FOREIGN KEY (`idSolicitudDeCambio`) REFERENCES `SolicitudDeCambio`(`idSolicitudDeCambio`)
+    CONSTRAINT `fk_cambio_solicitudDeCambio` FOREIGN KEY (`idSolicitudDeCambio`) REFERENCES `SolicitudDeCambio`(`idSolicitudDeCambio`),
+    CONSTRAINT `fk_cambio_tipoActividad` FOREIGN KEY (`idTipoActividad`) REFERENCES `TipoActividad`(`idTipoActividad`)
 );
 
 -- Crear tabla EstadoCambio

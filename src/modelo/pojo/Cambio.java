@@ -2,25 +2,35 @@ package modelo.pojo;
 
 public class Cambio {
     private int idCambio;
-    private String Nombre;
+    private String titulo;
     private String Descripcion;
-    private int idEstadoActividad;
+    private int esfuerzoMinutos;
+    private String fechaInicio;
+    private String fechaFin;
+    private int idEstadoCambio;
     private int idSolicitud;
-    private String estadoActividad;
+    private int idTipoActividad;
+    private String estadoCambio;
     private String solicitud;
 
     public Cambio() {
     }
 
-    public Cambio(int idCambio, String Nombre, String Descripcion,
-            int idEstadoActividad, int idSolicitud) {
-
+    public Cambio(int idCambio, String titulo, String Descripcion,
+            int esfuerzoMinutos, String fechaInicio, String fechaFin,
+            int idEstadoCambio, int idSolicitud, int idTipoActividad,
+            String estadoCambio, String solicitud) {
         this.idCambio = idCambio;
-        this.Nombre = Nombre;
+        this.titulo = titulo;
         this.Descripcion = Descripcion;
-        this.idEstadoActividad = idEstadoActividad;
+        this.esfuerzoMinutos = esfuerzoMinutos;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.idEstadoCambio = idEstadoCambio;
         this.idSolicitud = idSolicitud;
-
+        this.idTipoActividad = idTipoActividad;
+        this.estadoCambio = estadoCambio;
+        this.solicitud = solicitud;
     }
 
     public int getIdCambio() {
@@ -35,14 +45,14 @@ public class Cambio {
 
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String Nombre) {
+    public void setTitulo(String titulo) {
 
-        if (Nombre != null) {
-            this.Nombre = Nombre;
+        if (titulo != null) {
+            this.titulo = titulo;
         }
 
     }
@@ -59,14 +69,50 @@ public class Cambio {
 
     }
 
-    public int getIdEstadoActividad() {
-        return idEstadoActividad;
+    public int getEsfuerzoMinutos() {
+        return esfuerzoMinutos;
     }
 
-    public void setIdEstadoActividad(int idEstadoActividad) {
+    public void setEsfuerzoMinutos(int esfuerzoMinutos) {
 
-        if (idEstadoActividad > 0) {
-            this.idEstadoActividad = idEstadoActividad;
+        if (esfuerzoMinutos > 0) {
+            this.esfuerzoMinutos = esfuerzoMinutos;
+        }
+
+    }
+
+    public String getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(String fechaInicio) {
+
+        if (fechaInicio != null) {
+            this.fechaInicio = fechaInicio;
+        }
+
+    }
+
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+
+        if (fechaFin != null) {
+            this.fechaFin = fechaFin;
+        }
+
+    }
+
+    public int getIdEstadoCambio() {
+        return idEstadoCambio;
+    }
+
+    public void setIdEstadoCambio(int idEstadoCambio) {
+
+        if (idEstadoCambio > 0) {
+            this.idEstadoCambio = idEstadoCambio;
         }
 
     }
@@ -83,14 +129,26 @@ public class Cambio {
 
     }
 
-    public String getEstadoActividad() {
-        return estadoActividad;
+    public int getIdTipoActividad() {
+        return idTipoActividad;
     }
 
-    public void setEstadoActividad(String estadoActividad) {
+    public void setIdTipoActividad(int idTipoActividad) {
 
-        if (estadoActividad != null) {
-            this.estadoActividad = estadoActividad;
+        if (idTipoActividad > 0) {
+            this.idTipoActividad = idTipoActividad;
+        }
+
+    }
+
+    public String getEstadoActividad() {
+        return estadoCambio;
+    }
+
+    public void setEstadoActividad(String estadoCambio) {
+
+        if (estadoCambio != null) {
+            this.estadoCambio = estadoCambio;
         }
 
     }
@@ -109,6 +167,6 @@ public class Cambio {
 
     @Override
     public String toString() {
-        return Nombre;
+        return titulo;
     }
 }
