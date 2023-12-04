@@ -1,6 +1,9 @@
 package controlador;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -11,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utilidades.Utilidades;
 
-public class FXMLAsignarActividadController {
+public class FXMLAsignarActividadController implements Initializable{
 
     @FXML
     private TableView<String> tvActividades;
@@ -68,5 +71,17 @@ public class FXMLAsignarActividadController {
         escenario.close();
 
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void inicializarInformacion(int idProyecto) {
+        // TODO Auto-generated method stub
+    }
+
+    
 
 }
