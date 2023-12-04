@@ -26,7 +26,7 @@ public class EstudianteDAO {
             try {
 
                 PreparedStatement consulta = (PreparedStatement) conexion.prepareStatement(
-                        "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno, e.idEstadoEstudiante, s.estado FROM estudiante e INNER JOIN estadoestudiante s ON e.idEstadoEstudiante = s.idEstadoEstudiante WHERE matricula = ? AND contraseña = ?");
+                        "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno, e.idEstadoEstudiante, s.estado FROM estudiante e INNER JOIN estadoestudiante s ON e.idEstadoEstudiante = s.idEstadoEstudiante WHERE matricula = ? AND password = ?");
 
                 consulta.setString(1, matricula);
                 consulta.setString(2, password);
@@ -76,9 +76,9 @@ public class EstudianteDAO {
 
             try {
 
-                String consulta = "SELECT IdEstudiante, Nombre, " +
-                    " ApellidoPaterno, ApellidoMaterno FROM estudiante ORDER" +
-                    " BY Nombre ASC";
+                String consulta = "SELECT idEstudiante, nombre, " +
+                        " apellidoPaterno, apellidoMaterno FROM estudiante ORDER" +
+                        " BY nombre ASC";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -86,14 +86,10 @@ public class EstudianteDAO {
                 while (resultadoConsulta.next()) {
 
                     Estudiante estudiante = new Estudiante();
-                    estudiante.setIdEstudiante(resultadoConsulta.getInt
-                        ("IdEstudiante"));
-                    estudiante.setNombre(resultadoConsulta.getString
-                        ("Nombre"));
-                    estudiante.setApellidoPaterno(resultadoConsulta.getString
-                        ("ApellidoPaterno"));
-                    estudiante.setApellidoMaterno(resultadoConsulta.getString
-                        ("ApellidoMaterno"));
+                    estudiante.setIdEstudiante(resultadoConsulta.getInt("IdEstudiante"));
+                    estudiante.setNombre(resultadoConsulta.getString("Nombre"));
+                    estudiante.setApellidoPaterno(resultadoConsulta.getString("ApellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultadoConsulta.getString("ApellidoMaterno"));
 
                     estudiantes.add(estudiante);
 
@@ -107,27 +103,27 @@ public class EstudianteDAO {
         }
 
         return estudiantes;
-        
+
     }
-    
+
     public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
-        
+
         HashMap<String, Object> respuesta = new HashMap<>();
-        
+
         respuesta.put("error", true);
-        
+
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
-            
+
             try {
-                String sentencia = "INSERT INTO estudiante(Matricula, Nombre, "
-                        + "ApellidoPaterno, ApellidoMaterno, "
-                        + "IdEstadoEstudiante, Contraseña) "
+                String sentencia = "INSERT INTO estudiante(matricula, nombre, "
+                        + "apellidoPaterno, apellidoMaterno, "
+                        + "idEstadoEstudiante, password) "
                         + "values (?,?,?,?,?,?)";
-                
+
                 PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
-                
+
                 prepararSentencia.setString(1, estudiante.getMatricula());
                 prepararSentencia.setString(2, estudiante.getNombre());
                 prepararSentencia.setString(3, estudiante.getApellidoPaterno());
@@ -139,17 +135,17 @@ public class EstudianteDAO {
 
                 if (filasAfectadas > 0) {
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", 
+                    respuesta.put("mensaje",
                             "Estudiante agregado correctamente");
                 } else {
-                    respuesta.put("mensaje", 
+                    respuesta.put("mensaje",
                             "Hubo un error al intentar registrar la información del estudiante, "
                                     + "por favor inténtelo más tarde");
                 }
             } catch (SQLException e) {
                 respuesta.put("mensaje", "Error de conexion en la base de datos");
                 e.printStackTrace();
-            }finally{
+            } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {

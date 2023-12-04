@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,9 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private ImageView ivSalir;
+
+    @FXML
+    private Label encabezadoEstudiante;
 
     private Estudiante estudiante;
 
@@ -52,14 +56,35 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private void btnConsultarBitacoras(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLBitacorasEstudiante.fxml",
+                "/vista/estilos/escenaTabla.css",
+                "Bitácoras", true);
     }
 
     @FXML
     private void btnCrearSolicitud(MouseEvent event) {
+        
+        Stage escenario = (Stage) vboxMenuEstudiante.getScene().getWindow();
+        
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLCrearSolicitudDeCambio.fxml",
+                null,
+                "Crear solicitud de cambio", false);
     }
 
     @FXML
     private void btnRegistrarDefecto(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLRegistrarDefecto.fxml",
+                "/vista/estilos/escenaFormulario.css",
+                "Registrar Defecto", true);
+
     }
 
     @FXML
@@ -75,6 +100,14 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     public void inicializarVentana(Estudiante estudiante) {
         this.estudiante = estudiante;
+        String[] nombreInternacional = estudiante.getNombre().split(" ");
+        boolean dosNombres = nombreInternacional.length == 2;
+
+        encabezadoEstudiante.setText(
+                estudiante.getApellidoPaterno() + "-" +
+                        estudiante.getApellidoMaterno() + " " +
+                        nombreInternacional[0] +
+                        (dosNombres ? "-" + nombreInternacional[1] : ""));
     }
 
 }

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import modelo.pojo.ResponsableProyecto;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -25,6 +26,9 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private VBox vboxMenuResponsable;
+
+    @FXML
+    private Label encabezadoResponsable;
 
     private ResponsableProyecto responsable;
 
@@ -82,6 +86,12 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnEliminarActividad(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLEliminarActividad.fxml",
+                "/vista/estilos/escenaFormulario.css",
+                "Eliminar Actividad", true);
     }
 
     @FXML
@@ -98,17 +108,25 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnAsignarEstudianteP(MouseEvent event) {
-        
+
         Stage escenario = new Stage();
 
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLAsignarEstudianteAProyecto.fxml",
-                null,
+                "/vista/estilos/escenaFormulario.css",
                 "Asignar estudiante a proyecto", true);
+
     }
 
     @FXML
     private void btnAsignarEstudianteA(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLAsignarActividad.fxml",
+                "/vista/estilos/escenaTabla.css",
+                "Asignar actividad a estudiante", true);
     }
 
     @FXML
@@ -129,14 +147,34 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnConsultarSolicitudes(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLSolicitudesDeCambio.fxml",
+                null,
+                "Solicitudes de cambio", true);
     }
 
     @FXML
     private void btnConsultarBitacoras(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLBitacorasEstudiante.fxml",
+                "/vista/estilos/escenaTabla.css",
+                "Bitácoras", true);
     }
 
     @FXML
     private void btnFinalizarActividad(MouseEvent event) {
+
+        Stage escenario = new Stage();
+
+        Utilidades.inicializarVentana(escenario,
+                "/vista/FXMLFinalizarActividad.fxml",
+                "/vista/estilos/escenaTabla.css",
+                "Finalizar Actividad", true);
+
     }
 
     @FXML
@@ -180,6 +218,12 @@ public class FXMLMenuResponsableController implements Initializable {
 
     public void inicializarVentana(ResponsableProyecto responsable) {
         this.responsable = responsable;
+        String[] nombreInternacional = responsable.getNombre().split(" ");
+        boolean dosNombres = nombreInternacional.length == 2;
+
+        encabezadoResponsable.setText(
+                responsable.getApellidoPaterno() + "-" + responsable.getApellidoMaterno() + " " + nombreInternacional[0]
+                        + (dosNombres ? "-" + nombreInternacional[1] : ""));
     }
 
 }

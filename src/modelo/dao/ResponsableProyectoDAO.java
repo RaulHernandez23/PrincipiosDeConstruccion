@@ -25,7 +25,7 @@ public class ResponsableProyectoDAO {
             try {
 
                 PreparedStatement consulta = (PreparedStatement) conexion.prepareStatement(
-                        "SELECT idResponsableProyecto, nombre, apellidoPaterno, apellidoMaterno, correo, telefono FROM ResponsableProyecto WHERE numPersonal = ? AND contraseña = ?");
+                        "SELECT idResponsableProyecto, nombre, apellidoPaterno, apellidoMaterno, correo, telefono FROM ResponsableProyecto WHERE numPersonal = ? AND password = ?");
 
                 consulta.setString(1, numPersonal);
                 consulta.setString(2, password);

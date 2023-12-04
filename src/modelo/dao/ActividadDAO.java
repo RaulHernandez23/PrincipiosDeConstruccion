@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Actividad;
+import utilidades.Utilidades;
 
 public class ActividadDAO {
     public static ArrayList<Actividad> consultarActividades() {
@@ -22,12 +24,12 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "SELECT IdActividad, Titulo, " +
-                        "a.IdEstudiante, CONCAT(e.Nombre, ' ', " +
-                        "e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS" +
-                        " Estudiante, FechaInicio FROM actividad a INNER JOIN" +
-                        " estudiante e ON a.IdEstudiante = e.IdEstudiante " +
-                        "WHERE FechaFin IS NULL ORDER BY FechaInicio ASC;";
+                String consulta = "SELECT idActividad, titulo, " +
+                        "a.idEstudiante, CONCAT(e.nombre, ' ', " +
+                        "e.apellidoPaterno, ' ', e.apellidoMaterno) AS" +
+                        " Estudiante, fechaInicio FROM actividad a INNER JOIN" +
+                        " estudiante e ON a.idEstudiante = e.idEstudiante " +
+                        "WHERE fechaFin IS NULL ORDER BY fechaInicio ASC;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -68,7 +70,7 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "SELECT Tipo FROM tipoactividad;";
+                String consulta = "SELECT tipo FROM tipoactividad;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<String> tiposActividades = new ArrayList<>();
@@ -76,7 +78,7 @@ public class ActividadDAO {
                 respuesta.put("error", false);
 
                 while (resultadoConsulta.next()) {
-                    tiposActividades.add(resultadoConsulta.getString("Tipo"));
+                    tiposActividades.add(resultadoConsulta.getString("tipo"));
                 }
 
                 respuesta.put("error", false);
@@ -127,7 +129,7 @@ public class ActividadDAO {
 
     }
 
-    public static HashMap<String, Object> registrarActividad(Actividad actividad) {
+    public static HashMap<String, Object> registrarActividad(Actividad actividad) throws SQLException {
 
         HashMap<String, Object> respuesta = new HashMap<>();
 
@@ -135,19 +137,30 @@ public class ActividadDAO {
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
+        String fechaServidor = Utilidades.obtenerFechaServidor();
+
+        Date fechaServidorDate = Date.valueOf(fechaServidor);
+        Date fechaInicioDate = Date.valueOf(actividad.getFechaInicio());
+
+        if (fechaInicioDate.before(fechaServidorDate)) {
+            throw new SQLException(
+                    "Error en la base de datos: La fecha de inicio no puede ser menor a la fecha actual");
+        }
+
         if (conexion != null) {
 
             try {
 
-                String consulta = "INSERT INTO actividad (Titulo, Descripcion, IdResponsable, IdTipoActividad, FechaInicio, IdEstadoActividad) VALUES (?, ?, ?, ?, ?, ?);";
+                String consulta = "INSERT INTO actividad (titulo, descripcion, idProyecto, idResponsable, idTipoActividad, fechaInicio, idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?);";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 sentencia.setString(1, actividad.getTitulo());
                 sentencia.setString(2, actividad.getDescripcion());
-                sentencia.setInt(3, actividad.getIdResponsable());
-                sentencia.setInt(4, actividad.getIdTipo());
-                sentencia.setString(5, actividad.getFechaInicio());
-                sentencia.setInt(6, actividad.getIdEstadoActividad());
+                sentencia.setInt(3, actividad.getIdProyecto());
+                sentencia.setInt(4, actividad.getIdResponsable());
+                sentencia.setInt(5, actividad.getIdTipo());
+                sentencia.setString(6, actividad.getFechaInicio());
+                sentencia.setInt(7, actividad.getIdEstadoActividad());
 
                 int resultadoConsulta = sentencia.executeUpdate();
 

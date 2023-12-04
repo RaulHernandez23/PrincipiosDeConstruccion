@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vboxEjemplo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLAsignarActividadController">
+   <children>
+      <AnchorPane prefHeight="480.0" prefWidth="720.0">
+         <children>
+            <BorderPane prefHeight="480.0" prefWidth="720.0">
+               <center>
+                  <Pane prefHeight="350.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TableView fx:id="tvActividades" layoutX="26.0" layoutY="33.0" prefHeight="172.0" prefWidth="668.0">
+                          <columns>
+                            <TableColumn fx:id="colTitulo" prefWidth="246.0" text="Título" />
+                            <TableColumn fx:id="colDescripcion" prefWidth="421.0" text="Descripción" />
+                          </columns>
+                        </TableView>
+                        <ComboBox fx:id="cbEstudiantes" layoutX="169.0" layoutY="228.0" prefHeight="39.0" prefWidth="382.0" styleClass="listaDesplegable" />
+                        <Button disable="true" layoutX="91.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnAsignar" styleClass="botonOperacion" text="Asignar" />
+                        <Button layoutX="571.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonCancelar" text="Volver" />
+                     </children></Pane>
+               </center>
+               <top>
+                  <Pane prefHeight="85.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="44.0" layoutY="7.0" styleClass="sgbp" text="SGBP" />
+                        <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="461.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../recursos/imagenes/logoUV.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="488.0" layoutY="12.0" styleClass="apartado" text="Universidad Veracruzana" />
+                        <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="657.0" layoutY="33.0" onMouseClicked="#btnSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../recursos/imagenes/logoSalir.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label layoutX="74.0" layoutY="62.0" styleClass="apartado" text="Asignar actividad" />
+                     </children>
+                  </Pane>
+               </top>
+               <bottom>
+                  <Pane prefHeight="28.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="239.0" layoutY="7.0" styleClass="universidadVeracruzana" text="© 2023 Universidad Veracruzana. Derechos reservados" />
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

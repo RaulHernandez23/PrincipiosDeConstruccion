@@ -8,16 +8,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #00B88F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLSolicitudesDeCambioController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLSolicitudesDeCambioController">
    <children>
       <Label layoutX="24.0" layoutY="14.0" prefHeight="55.0" prefWidth="106.0" text="SGBP">
          <font>
-            <Font size="36.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <Label layoutX="31.0" layoutY="76.0" prefHeight="35.0" prefWidth="267.0" text="Solicitudes de cambio">
          <font>
-            <Font size="24.0" />
+            <Font size="15.0" />
          </font>
       </Label>
       <Label layoutX="529.0" layoutY="25.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />

@@ -15,6 +15,7 @@ public class SolicitudDeCambio {
     private Date fechaCreacion;
 
     public SolicitudDeCambio() {
+        
     }
 
     public SolicitudDeCambio(Integer idSolicitudDeCambio, String nombre, String descripcion, String razon, String impacto, String propuesta, Integer idEstadoSolicitud, Integer idEstudiante, Date fechaCreacion) {
