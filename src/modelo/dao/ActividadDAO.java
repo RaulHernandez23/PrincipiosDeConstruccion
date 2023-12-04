@@ -14,7 +14,7 @@ import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
 public class ActividadDAO {
-    //Modificacion que marcara error en el CU-07
+    // Modificacion que marcara error en el CU-07
     public static HashMap<String, Object> obtenerActividadesProyecto(int idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();

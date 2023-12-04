@@ -1,14 +1,16 @@
 package modelo.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Cambio;
+import utilidades.Utilidades;
 
 public class CambioDAO {
     public static ArrayList<Cambio> consultarCambios() {
@@ -17,36 +19,94 @@ public class CambioDAO {
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
-            
+
             try {
-                
+
                 String consulta = "SELECT * FROM cambio ORDER BY Nombre ASC";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 
                 while (resultadoConsulta.next()) {
-                    
+
                     Cambio cambio = new Cambio();
                     cambio.setIdCambio(resultadoConsulta.getInt("IdCambio"));
-                    cambio.setNombre(resultadoConsulta.getString("Nombre"));
+                    cambio.setTitulo(resultadoConsulta.getString("Nombre"));
                     cambio.setDescripcion(resultadoConsulta.getString("Descripcion"));
-                    cambio.setIdEstadoActividad(resultadoConsulta.getInt("IdEstadoActividad"));
+                    cambio.setIdEstadoCambio(resultadoConsulta.getInt("IdEstadoCambio"));
                     cambio.setIdSolicitud(resultadoConsulta.getInt("IdSolicitud"));
 
                     cambios.add(cambio);
-                    
+
                 }
 
             } catch (SQLException se) {
                 se.printStackTrace();
-            } finally{
+            } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
 
         }
 
         return cambios;
-        
+
     }
+
+    public static HashMap<String, Object> registrarCambio(Cambio cambio) throws SQLException {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        String fechaServidor = Utilidades.obtenerFechaServidor();
+
+        Date fechaServidorDate = Date.valueOf(fechaServidor);
+        Date fechaInicioDate = Date.valueOf(cambio.getFechaInicio());
+
+        if (fechaInicioDate.before(fechaServidorDate)) {
+            throw new SQLException(
+                    "Error en la base de datos: La fecha de inicio no puede ser menor a la fecha actual");
+        }
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, titulo, descripcion, esfuerzoMinutos, idTipoActividad, idEstadoCambio, fechaInicio) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, cambio.getIdSolicitud());
+                sentencia.setString(2, cambio.getTitulo());
+                sentencia.setString(3, cambio.getDescripcion());
+                sentencia.setInt(4, cambio.getEsfuerzoMinutos());
+                sentencia.setInt(5, cambio.getIdTipoActividad());
+                sentencia.setInt(6, cambio.getIdEstadoCambio());
+                sentencia.setString(7, cambio.getFechaInicio());
+
+                int resultado = sentencia.executeUpdate();
+
+                if (resultado > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "El cambio se registró correctamente");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo registrar el cambio");
+                }
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+    }
+
 }
