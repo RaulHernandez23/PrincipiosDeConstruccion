@@ -13,22 +13,22 @@ import modelo.pojo.Defecto;
 public class DefectoDAO {
 
     public static HashMap<String, Object> registrarDefecto(Defecto defecto) {
-        
+
         HashMap<String, Object> respuesta = new HashMap();
         respuesta.put("error", true);
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
-        if(conexionBD != null) {
+        if (conexionBD != null) {
 
-            try{
+            try {
 
                 String sentencia = "INSERT INTO defecto "
-                + "(Titulo, " 
-                + "Descripcion, "
-                + "FechaReporte, "
-                + "idEstadoDefecto, "
-                + "IdEstudiante) "
-                + "VALUES (?, ?, ?, ?, ?);";
+                        + "(Titulo, "
+                        + "Descripcion, "
+                        + "FechaReporte, "
+                        + "idEstadoDefecto, "
+                        + "IdEstudiante) "
+                        + "VALUES (?, ?, ?, ?, ?);";
 
                 PreparedStatement consulta = conexionBD.prepareStatement(sentencia);
                 consulta.setString(1, defecto.getTitulo());
@@ -38,7 +38,7 @@ public class DefectoDAO {
                 consulta.setInt(5, defecto.getIdEstudiante());
                 int filasAfectadas = consulta.executeUpdate();
 
-                if(filasAfectadas > 0) {
+                if (filasAfectadas > 0) {
 
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Defecto registrado exitosamente");
@@ -47,7 +47,7 @@ public class DefectoDAO {
                     respuesta.put("mensaje", "No se pudo registrar el defecto");
                 }
 
-            } catch(SQLException sqlE) {
+            } catch (SQLException sqlE) {
 
                 sqlE.printStackTrace();
                 respuesta.put("mensaje", "Error al registrar el defecto");
@@ -59,7 +59,7 @@ public class DefectoDAO {
         } else {
             respuesta.put("mensaje", "Error en la conexión con la base de datos");
         }
-        
+
         return respuesta;
     }
 
