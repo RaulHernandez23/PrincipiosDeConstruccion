@@ -49,53 +49,58 @@ public class FXMLReasignarActividadController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        mostrarDatos();
+        // mostrarDatos();
 
         cbEstudiantes.getSelectionModel().select(0);
 
     }
 
-    private void mostrarDatos() {
+    // private void mostrarDatos() {
 
-        ObservableList<Actividad> actividades = FXCollections.observableArrayList();
+    // ObservableList<Actividad> actividades = FXCollections.observableArrayList();
 
-        try {
+    // try {
 
-            ArrayList<Actividad> listaActividades = modelo.dao.ActividadDAO.consultarActividades();
-            actividades.addAll(listaActividades);
+    // ArrayList<Actividad> listaActividades =
+    // modelo.dao.ActividadDAO.consultarActividades();
+    // actividades.addAll(listaActividades);
 
-            tvActividadesPendientes.setItems(actividades);
-            colTitulo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
-            colEstudiante
-                    .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstudiante()));
-            colFechaInicio
-                    .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaInicio()));
+    // tvActividadesPendientes.setItems(actividades);
+    // colTitulo.setCellValueFactory(cellData -> new
+    // SimpleStringProperty(cellData.getValue().getTitulo()));
+    // colEstudiante
+    // .setCellValueFactory(cellData -> new
+    // SimpleStringProperty(cellData.getValue().getEstudiante()));
+    // colFechaInicio
+    // .setCellValueFactory(cellData -> new
+    // SimpleStringProperty(cellData.getValue().getFechaInicio()));
 
-        } catch (Exception e) {
+    // } catch (Exception e) {
 
-            utilidades.Alertas.mostrarAlerta("Error de conexion",
-                    "No se pudo consultar la lista de cambios",
-                    Alert.AlertType.ERROR);
+    // utilidades.Alertas.mostrarAlerta("Error de conexion",
+    // "No se pudo consultar la lista de cambios",
+    // Alert.AlertType.ERROR);
 
-        }
+    // }
 
-        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+    // ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
 
-        try {
+    // try {
 
-            ArrayList<Estudiante> listaEstudiantes = EstudianteDAO.consultarListaEstudiante();
-            estudiantes.addAll(listaEstudiantes);
+    // ArrayList<Estudiante> listaEstudiantes =
+    // EstudianteDAO.consultarListaEstudiante();
+    // estudiantes.addAll(listaEstudiantes);
 
-            cbEstudiantes.setItems(estudiantes);
+    // cbEstudiantes.setItems(estudiantes);
 
-        } catch (Exception e) {
+    // } catch (Exception e) {
 
-            utilidades.Alertas.mostrarAlerta("Error de conexion",
-                    "No se pudo consultar la lista de cambios",
-                    Alert.AlertType.ERROR);
+    // utilidades.Alertas.mostrarAlerta("Error de conexion",
+    // "No se pudo consultar la lista de cambios",
+    // Alert.AlertType.ERROR);
 
-        }
-    }
+    // }
+    // }
 
     @FXML
     private void btnReasignarActividadClic(ActionEvent event) {
