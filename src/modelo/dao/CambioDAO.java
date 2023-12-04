@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Cambio;
@@ -54,7 +55,7 @@ public class CambioDAO {
 
     public static HashMap<String, Object> registrarCambio(Cambio cambio) throws SQLException {
 
-        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+        HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
 
         respuesta.put("error", true);
 
@@ -95,6 +96,83 @@ public class CambioDAO {
                 } else {
                     respuesta.put("mensaje", "No se pudo registrar el cambio");
                 }
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+    }
+
+    public static HashMap<String, Object> consultarEstados() {
+        HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if (conexionBD != null) {
+            try {
+
+                String consulta = "SELECT estado FROM EstadoCambio";
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+                ArrayList<String> estados = new ArrayList<>();
+
+                while (resultadoConsulta.next()) {
+
+                    String estado = resultadoConsulta.getString("estado");
+
+                    estados.add(estado);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("estados", estados);
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+    }
+
+    public static HashMap<String, Object> consultarTiposActividades() {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT tipo FROM TipoActividad;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+                ArrayList<String> tiposActividades = new ArrayList<>();
+
+                respuesta.put("error", false);
+
+                while (resultadoConsulta.next()) {
+                    tiposActividades.add(resultadoConsulta.getString("tipo"));
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("tiposActividades", tiposActividades);
 
             } catch (SQLException se) {
                 respuesta.put("mensaje", "Error: " + se.getMessage());
