@@ -87,7 +87,9 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnEliminarActividad(MouseEvent event) {
+
         try {
+
             FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLEliminarActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
@@ -102,6 +104,7 @@ public class FXMLMenuResponsableController implements Initializable {
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -134,12 +137,25 @@ public class FXMLMenuResponsableController implements Initializable {
     @FXML
     private void btnAsignarEstudianteA(MouseEvent event) {
 
-        Stage escenario = new Stage();
+        try {
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLAsignarActividad.fxml",
-                "/vista/estilos/escenaTabla.css",
-                "Asignar actividad a estudiante", true);
+            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLAsignarActividad.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLAsignarActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(1);
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
+
+            Stage escenario = new Stage();
+            escenario.setScene(escena);
+            escenario.setTitle("Asignar actividad");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

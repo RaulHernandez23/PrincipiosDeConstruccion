@@ -164,6 +164,47 @@ public class ActividadDAO {
 
     }
 
+    //Este metodo puede usarse para asignar y reasignar
+    public static HashMap<String, Object> asignarActividad(int idActividad, int idEstudiante) {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "UPDATE actividad "
+                        + "SET IdEstudiante = ? WHERE IdActividad = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                sentencia.setInt(1, idEstudiante);
+                sentencia.setInt(2, idActividad);
+                int resultadoConsulta = sentencia.executeUpdate();
+                conexion.close();
+
+                if (resultadoConsulta > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "La actividad fue asignada con éxito");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo asignar la actividad");
+                }
+
+            } catch (SQLException sqlE) {
+                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+            }
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
     public static HashMap<String, Object> registrarActividad(Actividad actividad) throws SQLException {
 
         HashMap<String, Object> respuesta = new HashMap<>();
