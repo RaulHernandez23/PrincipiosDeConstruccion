@@ -77,10 +77,8 @@ public class FXMLRegistrarActividadController implements Initializable {
             salir();
 
         } else {
-
-            Alertas.mostrarAlerta("Campos Vacios", "Por favor llena todos los campos",
+            Alertas.mostrarAlerta("Datos Inválidos", "Ingrese datos válidos",
                     Alert.AlertType.WARNING);
-
         }
 
     }

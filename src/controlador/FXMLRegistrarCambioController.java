@@ -1,6 +1,7 @@
 package controlador;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.dao.CambioDAO;
 import modelo.dao.SolicitudDeCambioDAO;
+import modelo.pojo.Cambio;
 import modelo.pojo.SolicitudDeCambio;
 import utilidades.Alertas;
 import utilidades.Utilidades;
@@ -63,6 +65,8 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private ObservableList<SolicitudDeCambio> listaSolicitudes;
 
+    private String fechaInicio;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -99,6 +103,17 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     @FXML
     private void btnRegistrar(ActionEvent event) {
+
+        if (validarCampos()) {
+
+            registrarCambio();
+            Stage escenario = (Stage) vboxRegistrarCambio.getScene().getWindow();
+            escenario.close();
+
+        } else {
+            Alertas.mostrarAlerta("Datos Inválidos", "Ingrese datos válidos",
+                    Alert.AlertType.WARNING);
+        }
     }
 
     private void cargarSolicitudes() {
@@ -197,6 +212,71 @@ public class FXMLRegistrarCambioController implements Initializable {
         cbSolicitud.getSelectionModel().selectedItemProperty().addListener(solicitudElegida);
         cbTipo.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
         cbEstado.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
+
+    }
+
+    private boolean validarCampos() {
+
+        boolean camposValidos = true;
+
+        if (tfTitulo.getText().length() == 0) {
+            camposValidos = false;
+        }
+
+        if (tfDescripcion.getText().length() == 0) {
+            camposValidos = false;
+        }
+
+        if (cbTipo.getSelectionModel().getSelectedIndex() < 0) {
+            camposValidos = false;
+        }
+
+        if (cbSolicitud.getSelectionModel().getSelectedIndex() < 0) {
+            camposValidos = false;
+        }
+
+        if (cbEstado.getSelectionModel().getSelectedIndex() < 0) {
+            camposValidos = false;
+        }
+
+        if (tfEsfuerzo.getText().length() == 0) {
+            camposValidos = false;
+        }
+
+        fechaInicio = Utilidades.obtenerFechaActual();
+
+        return camposValidos;
+
+    }
+
+    private void registrarCambio() {
+
+        Cambio cambio = new Cambio();
+        cambio.setTitulo(tfTitulo.getText());
+        cambio.setDescripcion(tfDescripcion.getText());
+        cambio.setEsfuerzoMinutos(Integer.parseInt(tfEsfuerzo.getText()));
+        cambio.setIdTipoActividad(cbTipo.getSelectionModel().getSelectedIndex() + 1);
+        cambio.setIdSolicitud(cbSolicitud.getSelectionModel().getSelectedItem().getIdSolicitudDeCambio());
+        cambio.setIdEstadoCambio(cbEstado.getSelectionModel().getSelectedIndex() + 1);
+        cambio.setFechaInicio(fechaInicio);
+
+        HashMap<String, Object> respuesta = null;
+        try {
+
+            respuesta = CambioDAO.registrarCambio(cambio);
+
+            if (!(Boolean) respuesta.get("error")) {
+                Alertas.mostrarAlerta("Cambio Registrado", respuesta.get(
+                        "mensaje").toString(), Alert.AlertType.INFORMATION);
+            } else {
+                Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
+                        "mensaje").toString(), Alert.AlertType.ERROR);
+            }
+
+        } catch (SQLException e) {
+            Utilidades.mostrarAlertaSimple("Error", "No se pudo conectar a la base de datos, inténtelo más tarde",
+                    Alert.AlertType.ERROR);
+        }
 
     }
 
