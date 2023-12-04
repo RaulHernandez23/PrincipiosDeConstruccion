@@ -14,6 +14,52 @@ import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
 public class ActividadDAO {
+
+    // Método Deprecado pero guardado por retrocompatibilidad
+    public static ArrayList<Actividad> consultarActividades() {
+
+        ArrayList<Actividad> actividades = new ArrayList<Actividad>();
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT idActividad, titulo, " +
+                        "a.idEstudiante, CONCAT(e.nombre, ' ', " +
+                        "e.apellidoPaterno, ' ', e.apellidoMaterno) AS" +
+                        " Estudiante, fechaInicio FROM actividad a INNER JOIN" +
+                        " estudiante e ON a.idEstudiante = e.idEstudiante " +
+                        "WHERE fechaFin IS NULL ORDER BY fechaInicio ASC;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                while (resultadoConsulta.next()) {
+
+                    Actividad actividad = new Actividad();
+                    actividad.setIdActividad(resultadoConsulta.getInt("IdActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString("Titulo"));
+                    actividad.setIdEstudiante(resultadoConsulta.getInt("IdEstudiante"));
+                    actividad.setEstudiante(resultadoConsulta.getString("Estudiante"));
+                    actividad.setFechaInicio(resultadoConsulta.getString("FechaInicio"));
+
+                    actividades.add(actividad);
+
+                }
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+        }
+
+        return actividades;
+
+    }
+
     // Modificacion que marcara error en el CU-07
     public static HashMap<String, Object> obtenerActividadesProyecto(int idProyecto) {
 
@@ -164,7 +210,7 @@ public class ActividadDAO {
 
     }
 
-    //Este metodo puede usarse para asignar y reasignar
+    // Este metodo puede usarse para asignar y reasignar
     public static HashMap<String, Object> asignarActividad(int idActividad, int idEstudiante) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
