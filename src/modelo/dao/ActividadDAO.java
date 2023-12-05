@@ -94,7 +94,7 @@ public class ActividadDAO {
                         + "INNER JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
                         + "INNER JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
                         + "INNER JOIN proyecto p ON a.idProyecto = p.idProyecto "
-                        + "WHERE a.idEstadoActividad = ? "
+                        + "WHERE a.idProyecto = ? "
                         + "ORDER BY fechaInicio DESC;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
                 sentencia.setInt(1, idProyecto);
@@ -172,7 +172,7 @@ public class ActividadDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
         }
 
         return respuesta;
@@ -244,7 +244,7 @@ public class ActividadDAO {
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
         }
 
         return respuesta;
@@ -301,6 +301,79 @@ public class ActividadDAO {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
 
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
+    //me equivoque e hice esta consulta XD, pueden usarla aquel que la necesite
+    public static HashMap<String, Object> finalizarActividad(int idActividad) {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        respuesta.put("error", true);
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "UPDATE actividad SET fechaFin = NOW() WHERE idActividad = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                sentencia.setInt(1, idActividad);
+                int resultadoConsulta = sentencia.executeUpdate();
+                conexion.close();
+
+                if (resultadoConsulta > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "La actividad fue finalizada con éxito");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo finalizar la actividad");
+                }
+
+            } catch (SQLException sqlE) {
+                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+            }
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
+    public static HashMap<String, Object> eliminarActividad(int idActividad) {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        respuesta.put("error", true);
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "DELETE FROM actividad WHERE idActividad = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                sentencia.setInt(1, idActividad);
+                int resultadoConsulta = sentencia.executeUpdate();
+                conexion.close();
+
+                if (resultadoConsulta > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "La actividad se ha eliminado correctamente");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo eliminar la actividad");
+                }
+
+            } catch (SQLException sqlE) {
+                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+            }
         } else {
             respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
