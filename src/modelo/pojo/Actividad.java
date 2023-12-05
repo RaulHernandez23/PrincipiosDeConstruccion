@@ -1,17 +1,17 @@
 package modelo.pojo;
 
 public class Actividad {
-    private int idActividad;
+    private Integer idActividad;
     private String titulo;
     private String descripcion;
-    private int esfuerzoMinutos;
+    private Integer esfuerzoMinutos;
     private String fechaInicio;
     private String fechaFin;
-    private int idEstadoActividad;
-    private int idProyecto;
-    private int idEstudiante;
-    private int idResponsable;
-    private int idTipo;
+    private Integer idEstadoActividad;
+    private Integer idProyecto;
+    private Integer idEstudiante;
+    private Integer idResponsable;
+    private Integer idTipo;
     private String estadoActividad;
     private String proyecto;
     private String estudiante;
@@ -21,10 +21,10 @@ public class Actividad {
     public Actividad() {
     }
 
-    public Actividad(int idActividad, String titulo, String descripcion,
-            int esfuerzoMinutos, String fechaInicio, String fechaFin,
-            int idEstadoActividad, int idProyecto, int idEstudiante,
-            int idResponsable, int idTipo, String estadoActividad,
+    public Actividad(Integer idActividad, String titulo, String descripcion,
+            Integer esfuerzoMinutos, String fechaInicio, String fechaFin,
+            Integer idEstadoActividad, Integer idProyecto, Integer idEstudiante,
+            Integer idResponsable, Integer idTipo, String estadoActividad,
             String proyecto, String estudiante, String responsable,
             String tipo) {
         this.idActividad = idActividad;
@@ -45,16 +45,12 @@ public class Actividad {
         this.tipo = tipo;
     }
 
-    public int getIdActividad() {
+    public Integer getIdActividad() {
         return idActividad;
     }
 
-    public void setIdActividad(int idActividad) {
-
-        if (idActividad > 0) {
-            this.idActividad = idActividad;
-        }
-
+    public void setIdActividad(Integer idActividad) {
+        this.idActividad = idActividad;
     }
 
     public String getTitulo() {
@@ -62,11 +58,7 @@ public class Actividad {
     }
 
     public void setTitulo(String titulo) {
-
-        if (titulo != null) {
-            this.titulo = titulo;
-        }
-
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -74,23 +66,15 @@ public class Actividad {
     }
 
     public void setDescripcion(String descripcion) {
-
-        if (descripcion != null) {
-            this.descripcion = descripcion;
-        }
-
+        this.descripcion = descripcion;
     }
 
-    public int getEsfuerzoMinutos() {
+    public Integer getEsfuerzoMinutos() {
         return esfuerzoMinutos;
     }
 
-    public void setEsfuerzoMinutos(int esfuerzoMinutos) {
-
-        if (esfuerzoMinutos > 0) {
-            this.esfuerzoMinutos = esfuerzoMinutos;
-        }
-
+    public void setEsfuerzoMinutos(Integer esfuerzoMinutos) {
+        this.esfuerzoMinutos = esfuerzoMinutos;
     }
 
     public String getFechaInicio() {
@@ -98,11 +82,7 @@ public class Actividad {
     }
 
     public void setFechaInicio(String fechaInicio) {
-
-        if (fechaInicio != null) {
-            this.fechaInicio = fechaInicio;
-        }
-
+        this.fechaInicio = fechaInicio;
     }
 
     public String getFechaFin() {
@@ -110,83 +90,47 @@ public class Actividad {
     }
 
     public void setFechaFin(String fechaFin) {
-
-        if (fechaFin != null) {
-            this.fechaFin = fechaFin;
-        }
-
+        this.fechaFin = fechaFin;
     }
 
-    public int getIdEstadoActividad() {
+    public Integer getIdEstadoActividad() {
         return idEstadoActividad;
     }
 
-    public void setIdEstadoActividad(int idEstadoActividad) {
-
-        if (idEstadoActividad > 0) {
-            this.idEstadoActividad = idEstadoActividad;
-        }
-
+    public void setIdEstadoActividad(Integer idEstadoActividad) {
+        this.idEstadoActividad = idEstadoActividad;
     }
 
-    public int getIdProyecto() {
+    public Integer getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(int idProyecto) {
-
-        if (idProyecto > 0) {
-            this.idProyecto = idProyecto;
-        }
-
+    public void setIdProyecto(Integer idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
-    public String getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(String proyecto) {
-
-        if (proyecto != null) {
-            this.proyecto = proyecto;
-        }
-
-    }
-
-    public int getIdEstudiante() {
+    public Integer getIdEstudiante() {
         return idEstudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
-
-        if (idEstudiante > 0) {
-            this.idEstudiante = idEstudiante;
-        }
-
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
 
-    public int getIdResponsable() {
+    public Integer getIdResponsable() {
         return idResponsable;
     }
 
-    public void setIdResponsable(int idResponsable) {
-
-        if (idResponsable > 0) {
-            this.idResponsable = idResponsable;
-        }
-
+    public void setIdResponsable(Integer idResponsable) {
+        this.idResponsable = idResponsable;
     }
 
-    public int getIdTipo() {
+    public Integer getIdTipo() {
         return idTipo;
     }
 
-    public void setIdTipo(int idTipo) {
-
-        if (idTipo > 0) {
-            this.idTipo = idTipo;
-        }
-
+    public void setIdTipo(Integer idTipo) {
+        this.idTipo = idTipo;
     }
 
     public String getEstadoActividad() {
@@ -194,11 +138,15 @@ public class Actividad {
     }
 
     public void setEstadoActividad(String estadoActividad) {
+        this.estadoActividad = estadoActividad;
+    }
 
-        if (estadoActividad != null) {
-            this.estadoActividad = estadoActividad;
-        }
+    public String getProyecto() {
+        return proyecto;
+    }
 
+    public void setProyecto(String proyecto) {
+        this.proyecto = proyecto;
     }
 
     public String getEstudiante() {
@@ -206,11 +154,7 @@ public class Actividad {
     }
 
     public void setEstudiante(String estudiante) {
-
-        if (estudiante != null) {
-            this.estudiante = estudiante;
-        }
-
+        this.estudiante = estudiante;
     }
 
     public String getResponsable() {
@@ -218,11 +162,7 @@ public class Actividad {
     }
 
     public void setResponsable(String responsable) {
-
-        if (responsable != null) {
-            this.responsable = responsable;
-        }
-
+        this.responsable = responsable;
     }
 
     public String getTipo() {
@@ -230,11 +170,7 @@ public class Actividad {
     }
 
     public void setTipo(String tipo) {
-
-        if (tipo != null) {
-            this.tipo = tipo;
-        }
-
+        this.tipo = tipo;
     }
 
     @Override

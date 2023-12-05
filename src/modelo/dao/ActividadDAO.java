@@ -91,7 +91,7 @@ public class ActividadDAO {
                         + "FROM actividad a "
                         + "INNER JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
                         + "INNER JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "INNER JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
+                        + "LEFT JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
                         + "INNER JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
                         + "INNER JOIN proyecto p ON a.idProyecto = p.idProyecto "
                         + "WHERE a.idProyecto = ? "
