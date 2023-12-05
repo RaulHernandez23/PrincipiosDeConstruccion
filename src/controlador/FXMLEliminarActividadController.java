@@ -131,7 +131,7 @@ public class FXMLEliminarActividadController implements Initializable{
 
         } else {
             Utilidades.mostrarAlertaSimple("Error", 
-                    (String) respuesta.get("mensajeError"),
+                    (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);
         }
     }
