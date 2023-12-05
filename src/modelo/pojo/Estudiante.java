@@ -1,21 +1,21 @@
 package modelo.pojo;
 
 public class Estudiante {
-    private int idEstudiante;
+    private Integer idEstudiante;
     private String matricula;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private int idEstadoEstudiante;
+    private Integer idEstadoEstudiante;
     private String estado;
     private String password;
 
     public Estudiante() {
     }
 
-    public Estudiante(int idEstudiante, String matricula, String nombre, 
+    public Estudiante(Integer idEstudiante, String matricula, String nombre, 
             String apellidoPaterno, String apellidoMaterno, 
-            int idEstadoEstudiante, String estado, String password) {
+            Integer idEstadoEstudiante, String estado, String password) {
 
         this.idEstudiante = idEstudiante;
         this.matricula = matricula;
@@ -28,16 +28,12 @@ public class Estudiante {
 
     }
 
-    public int getIdEstudiante() {
+    public Integer getIdEstudiante() {
         return idEstudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
-
-        if (idEstudiante > 0) {
-            this.idEstudiante = idEstudiante;
-        }
-
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
 
     public String getMatricula() {
@@ -45,11 +41,7 @@ public class Estudiante {
     }
 
     public void setMatricula(String matricula) {
-
-        if (matricula != null) {
-            this.matricula = matricula;
-        }
-
+        this.matricula = matricula;
     }
 
     public String getNombre() {
@@ -57,11 +49,7 @@ public class Estudiante {
     }
 
     public void setNombre(String nombre) {
-
-        if (nombre != null) {
-            this.nombre = nombre;
-        }
-
+        this.nombre = nombre;
     }
 
     public String getApellidoPaterno() {
@@ -69,11 +57,7 @@ public class Estudiante {
     }
 
     public void setApellidoPaterno(String apellidoPaterno) {
-
-        if (apellidoPaterno != null) {
-            this.apellidoPaterno = apellidoPaterno;
-        }
-
+        this.apellidoPaterno = apellidoPaterno;
     }
 
     public String getApellidoMaterno() {
@@ -81,23 +65,15 @@ public class Estudiante {
     }
 
     public void setApellidoMaterno(String apellidoMaterno) {
-
-        if (apellidoMaterno != null) {
-            this.apellidoMaterno = apellidoMaterno;
-        }
-
+        this.apellidoMaterno = apellidoMaterno;
     }
 
-    public int getIdEstadoEstudiante() {
+    public Integer getIdEstadoEstudiante() {
         return idEstadoEstudiante;
     }
 
-    public void setIdEstadoEstudiante(int idEstadoEstudiante) {
-
-        if (idEstadoEstudiante > 0) {
-            this.idEstadoEstudiante = idEstadoEstudiante;
-        }
-
+    public void setIdEstadoEstudiante(Integer idEstadoEstudiante) {
+        this.idEstadoEstudiante = idEstadoEstudiante;
     }
 
     public String getEstado() {
@@ -105,11 +81,7 @@ public class Estudiante {
     }
 
     public void setEstadoEstudiante(String estado) {
-
-        if (estado != null) {
-            this.estado = estado;
-        }
-
+        this.estado = estado;
     }
 
     public String getPassword() {
@@ -117,11 +89,7 @@ public class Estudiante {
     }
 
     public void setPassword(String password) {
-
-        if (password != null) {
-            this.password = password;
-        }
-
+        this.password = password;
     }
 
     @Override
