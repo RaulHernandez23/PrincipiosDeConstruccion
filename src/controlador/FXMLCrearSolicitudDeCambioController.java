@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
@@ -21,6 +24,10 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     private TextArea taDescripcionCambio;
     @FXML
     private TextField tfNombreSolicitud;
+    @FXML
+    private VBox vboxScrollPane;
+    @FXML
+    private ImageView ivSalir;
 
     /**
      * Initializes the controller class.
@@ -36,6 +43,18 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
     @FXML
     private void btnEnviarSolicitud(ActionEvent event) {
+    }
+
+    @FXML
+    private void hoverOutSalir(MouseEvent event) {
+    }
+
+    @FXML
+    private void hoverInSalir(MouseEvent event) {
+    }
+
+    @FXML
+    private void btnSalir(MouseEvent event) {
     }
     
 }

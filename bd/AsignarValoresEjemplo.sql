@@ -58,6 +58,7 @@ INSERT INTO estudiante (matricula, nombre, apellidoPaterno, apellidoMaterno, pas
 VALUES 
 ('s21013876', 'Albhieri Cristoff', 'Villa', 'Contreras', 'radisa94', 1, 1),
 ('S21026432', 'Raul', 'Hernandez', 'Olivares', 'pass', 1, 1);
+('S21026433', 'Miguel', 'Morales', 'Cruz', 'Morales300802', 1, 1);
 
 -- Relacionar estudiante con periodoEscolar
 INSERT INTO estudiante_periodoEscolar (idPeriodoEscolar, idEstudiante) VALUES
