@@ -1,15 +1,20 @@
 package controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
@@ -67,12 +72,12 @@ public class FXMLMenuEstudianteController implements Initializable {
     @FXML
     private void btnCrearSolicitud(MouseEvent event) {
 
-        Stage escenario = (Stage) vboxMenuEstudiante.getScene().getWindow();
+        Stage escenario = new Stage();
 
         Utilidades.inicializarVentana(escenario,
                 "/vista/FXMLCrearSolicitudDeCambio.fxml",
                 null,
-                "Crear solicitud de cambio", false);
+                "Crear solicitud de cambio", true);
     }
 
     @FXML
@@ -89,12 +94,26 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private void btnRegistrarCambio(MouseEvent event) {
+
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLRegistrarCambio.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Registrar Cambio", true);
+        try {
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLRegistrarCambio.fxml");
+            Parent vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLRegistrarCambioController controlador = fxmlLoader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
+            controlador.inicializarVentana(1);
+            escenario.setScene(escena);
+            escenario.setTitle("Registrar Actividad");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            escenario.close();
+        }
 
     }
 

@@ -10,15 +10,15 @@ public class Cambio {
     private int idEstadoCambio;
     private int idSolicitud;
     private int idTipoActividad;
+    private Integer idProyecto;
     private String estadoCambio;
     private String solicitud;
 
     public Cambio() {
     }
 
-    public Cambio(int idCambio, String titulo, String Descripcion,
-            int esfuerzoMinutos, String fechaInicio, String fechaFin,
-            int idEstadoCambio, int idSolicitud, int idTipoActividad,
+    public Cambio(int idCambio, String titulo, String Descripcion, int esfuerzoMinutos, String fechaInicio,
+            String fechaFin, int idEstadoCambio, int idSolicitud, int idTipoActividad, Integer idProyecto,
             String estadoCambio, String solicitud) {
         this.idCambio = idCambio;
         this.titulo = titulo;
@@ -29,6 +29,7 @@ public class Cambio {
         this.idEstadoCambio = idEstadoCambio;
         this.idSolicitud = idSolicitud;
         this.idTipoActividad = idTipoActividad;
+        this.idProyecto = idProyecto;
         this.estadoCambio = estadoCambio;
         this.solicitud = solicitud;
     }
@@ -137,6 +138,18 @@ public class Cambio {
 
         if (idTipoActividad > 0) {
             this.idTipoActividad = idTipoActividad;
+        }
+
+    }
+
+    public Integer getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Integer idProyecto) {
+
+        if (idProyecto > 0) {
+            this.idProyecto = idProyecto;
         }
 
     }

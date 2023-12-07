@@ -20,7 +20,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -76,10 +75,15 @@ public class FXMLEliminarActividadController implements Initializable{
     private Label lblDerechosReservados;
 
 
-
     @FXML
-    private void btnEliminar(ActionEvent event) {
-        System.out.println("FUNCIONA!!");
+    private void btnEliminarClic(ActionEvent event) {
+
+        if(Utilidades.mostrarAlertaConfirmacion("Confirmar", 
+                "¿Seguro que desea eliminar la actividad: " 
+                + cbActividades.getValue().getTitulo() + "?") ) {
+                    eliminarActividad();
+                }
+
     }
 
     @FXML
@@ -111,7 +115,6 @@ public class FXMLEliminarActividadController implements Initializable{
     public void salir() {
 
         Stage escenario = (Stage) cbActividades.getScene().getWindow();
-
         escenario.close();
 
     }
@@ -124,11 +127,11 @@ public class FXMLEliminarActividadController implements Initializable{
             ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
             actividades.addAll(lista);
             cbActividades.setItems(actividades);
+            cbActividades.getSelectionModel().select(0);
 
-            //COMO MADRES MUESTRO SOLO EL TITULO?
         } else {
             Utilidades.mostrarAlertaSimple("Error", 
-                    (String) respuesta.get("mensajeError"),
+                    (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);
         }
     }
@@ -144,15 +147,36 @@ public class FXMLEliminarActividadController implements Initializable{
                     taDescripcion.setText(newValue.getDescripcion());
                     tfEstado.setText(newValue.getEstadoActividad());
                     tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
+                    btnEliminar.setDisable(false);
                 }
             }
         });
     }
 
+    private void eliminarActividad() {
+        HashMap<String, Object> respuesta = 
+                ActividadDAO.eliminarActividad(cbActividades.getValue()
+                        .getIdActividad());
+        if(!(boolean) respuesta.get("error")) {
+
+            Utilidades.mostrarAlertaSimple("Actividad eliminada", 
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.INFORMATION);
+            salir();
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Error", 
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //me falta desactivar boton y que el usuario no pueda ingresar informacion
+
         configurarListenerComboActividad();
+        dpFechaInicio.setDisable(true);
+        dpFechaFin.setDisable(true);
 
     }
 }

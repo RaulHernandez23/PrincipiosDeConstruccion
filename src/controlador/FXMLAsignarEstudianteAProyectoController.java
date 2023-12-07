@@ -44,7 +44,7 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     @FXML
     private void btnAgregarAProyecto(ActionEvent event) {
         if (validarCampos()) {
-            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("¿Eliminar paciente?",
+            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar registro",
                     "¿Estas seguro agregar el estudiante " + tfNombre.getText()
                             + " " + tfApellidoPaterno.getText()
                             + " " + tfApellidoMaterno.getText() + ".");

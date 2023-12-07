@@ -75,7 +75,7 @@ public class CambioDAO {
 
             try {
 
-                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, titulo, descripcion, esfuerzoMinutos, idTipoActividad, idEstadoCambio, fechaInicio) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, titulo, descripcion, esfuerzoMinutos, idTipoActividad, idEstadoCambio, fechaInicio, idProyecto) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 sentencia.setInt(1, cambio.getIdSolicitud());
@@ -85,6 +85,7 @@ public class CambioDAO {
                 sentencia.setInt(5, cambio.getIdTipoActividad());
                 sentencia.setInt(6, cambio.getIdEstadoCambio());
                 sentencia.setString(7, cambio.getFechaInicio());
+                sentencia.setInt(8, cambio.getIdProyecto());
 
                 int resultado = sentencia.executeUpdate();
 

@@ -239,13 +239,7 @@ public class Actividad {
 
     @Override
     public String toString() {
-        return "Actividad{" + "idActividad=" + idActividad + ", titulo=" +
-                titulo + ", descripcion=" + descripcion + ", esfuerzoMinutos=" +
-                esfuerzoMinutos + ", fechaInicio=" + fechaInicio + ", fechaFin=" +
-                fechaFin + ", idEstadoActividad=" + idEstadoActividad +
-                ", idEstudiante=" + idEstudiante + ", idResponsable=" +
-                idResponsable + ", estadoActividad=" + estadoActividad +
-                ", Estudiante=" + estudiante + ", Responsable=" + responsable + '}';
+        return titulo;
     }
 
 }

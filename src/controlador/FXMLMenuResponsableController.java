@@ -73,10 +73,11 @@ public class FXMLMenuResponsableController implements Initializable {
             FXMLRegistrarActividadController controlador = fxmlLoader.getController();
 
             escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
-            controlador.inicializarVentana(responsable.getIdResponsableProyecto(), responsable.getNombre());
+            controlador.inicializarVentana(1, responsable.getIdResponsableProyecto(), responsable.getNombre());
             escenario.setScene(escena);
             escenario.setTitle("Registrar Actividad");
             escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
 
         } catch (IOException e) {
@@ -95,7 +96,7 @@ public class FXMLMenuResponsableController implements Initializable {
             Scene escena = new Scene(vista);
             FXMLEliminarActividadController controlador = loader.getController();
             controlador.inicializarInformacion(1);
-            //me falta pasar el idResponsable
+            // me falta pasar el idResponsable
             escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
 
             Stage escenario = new Stage();
@@ -161,12 +162,25 @@ public class FXMLMenuResponsableController implements Initializable {
     @FXML
     private void btnDesasignarEstudianteP(MouseEvent event) {
 
-        Stage escenario = new Stage();
+        try {
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLDesasignarEstudiante.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Desasignar Estudiante", true);
+            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLDesasignarEstudiante.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLDesasignarEstudianteController controlador = loader.getController();
+            controlador.inicializarInformacion(1);
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
+
+            Stage escenario = new Stage();
+            escenario.setScene(escena);
+            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

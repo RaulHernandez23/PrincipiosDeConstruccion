@@ -11,8 +11,7 @@ INSERT INTO estadoDefecto (estado) VALUES
 
 INSERT INTO estadoCambio (estado) VALUES
 ('Realizado'),
-('No realizado'),
-('En proceso');
+('No realizado');
 
 INSERT INTO estadoSolicitud (estado) VALUES
 ('Aprobada'),
@@ -58,7 +57,8 @@ VALUES
 INSERT INTO estudiante (matricula, nombre, apellidoPaterno, apellidoMaterno, password, idEstadoEstudiante, idProyecto)
 VALUES 
 ('s21013876', 'Albhieri Cristoff', 'Villa', 'Contreras', 'radisa94', 1, 1),
-('S21026432', 'Raul', 'Hernandez', 'Olivares', 'pass', 1, 1);
+('S21026432', 'Raul', 'Hernandez', 'Olivares', 'pass', 1, 1),
+('S21026433', 'Miguel', 'Morales', 'Cruz', 'Morales300802', 1, 1);
 
 -- Relacionar estudiante con periodoEscolar
 INSERT INTO estudiante_periodoEscolar (idPeriodoEscolar, idEstudiante) VALUES
@@ -97,4 +97,4 @@ INSERT INTO cambio (titulo, descripcion, esfuerzoMinutos, idEstadoCambio, fechaI
 ('Cambio 2', 'Descripción 2', 120, 2, '2023-08-03', '2023-08-04', 1, 2),
 ('Cambio 3', 'Descripción 3', 180, 1, '2023-08-05', '2023-08-06', 1, 3),
 ('Cambio 4', 'Descripción 4', 240, 2, '2023-08-07', '2023-08-08', 2, 3),
-('Cambio 5', 'Descripción 5', 300, 3, '2023-08-09', '2023-08-10', 3, 1);
+('Cambio 5', 'Descripción 5', 300, 1, '2023-08-09', '2023-08-10', 3, 1);

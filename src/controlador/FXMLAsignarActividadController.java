@@ -1,32 +1,43 @@
 package controlador;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.dao.ActividadDAO;
+import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
-public class FXMLAsignarActividadController implements Initializable{
+public class FXMLAsignarActividadController implements Initializable {
+
+    private ObservableList<Actividad> actividadesSinAsignar;
 
     @FXML
-    private TableView<String> tvActividades;
+    private TableView<Actividad> tvActividades;
 
     @FXML
     private ImageView ivSalir;
 
     @FXML
-    private TableColumn<String, String> colTitulo;
+    private TableColumn colTitulo;
 
     @FXML
-    private TableColumn<String, String> colDescripcion;
+    private TableColumn colDescripcion;
 
     @FXML
     private ComboBox<String> cbEstudiantes;
@@ -38,7 +49,7 @@ public class FXMLAsignarActividadController implements Initializable{
     private Button btnVolver;
 
     @FXML
-    private void btnAsignar() {
+    private void btnAsignarClic() {
 
     }
 
@@ -74,14 +85,59 @@ public class FXMLAsignarActividadController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO Auto-generated method stub
-        
+
+        configurarTabla();
+
     }
 
     public void inicializarInformacion(int idProyecto) {
-        // TODO Auto-generated method stub
+
+        obtenerActividadesSinAsignarProyecto(idProyecto);
+
     }
 
-    
+    private void configurarTabla() {
+        colTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        /*
+         * tvActividades.getSelectionModel().selectedItemProperty().addListener(new
+         * ChangeListener<Actividad>() {
+         * 
+         * @Override
+         * public void changed(ObservableValue<? extends Actividad> observable,
+         * Actividad oldValue, Actividad newValue) {
+         * if(newValue != null) {
+         * cbEstudiantes.setDisable(false);
+         * btnAsignar.setDisable(false);
+         * }
+         * 
+         * });
+         */
+    }
+
+    private void obtenerActividadesSinAsignarProyecto(int idProyecto) {
+
+        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
+
+        if (!(boolean) respuesta.get("error")) {
+            actividadesSinAsignar = FXCollections.observableArrayList();
+            ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
+
+            /*
+             * for(Actividad actividad : lista) {
+             * System.out.println(actividad.getTitulo() + " " + actividad.getEstudiante());
+             * if(actividad.getEstudiante() == null) {
+             * actividadesSinAsignar.add(actividad);
+             * }
+             * }
+             */
+            actividadesSinAsignar.addAll(lista);
+            tvActividades.setItems(actividadesSinAsignar);
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+        }
+    }
 
 }

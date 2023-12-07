@@ -51,7 +51,7 @@ public class SolicitudDeCambioDAO {
         return solicitudes;
     }
 
-    public static HashMap<String, Object> consultarSolicitudes() {
+    public static HashMap<String, Object> consultarSolicitudes(Integer idProyecto) {
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
         respuesta.put("error", true);
@@ -65,9 +65,13 @@ public class SolicitudDeCambioDAO {
                         + "impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, "
                         + "idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, "
                         + "idDefecto "
-                        + "FROM SolicitudDeCambio ORDER BY fechaCreacion DESC";
+                        + "FROM SolicitudDeCambio "
+                        + "WHERE idProyecto = ? "
+                        + "ORDER BY fechaCreacion DESC";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+
+                sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 

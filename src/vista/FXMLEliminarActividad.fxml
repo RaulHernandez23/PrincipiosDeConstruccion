@@ -26,7 +26,7 @@
                         <TextArea fx:id="taDescripcion" editable="false" layoutX="182.0" layoutY="125.0" prefHeight="82.0" prefWidth="507.0" styleClass="campoTexto" wrapText="true" />
                         <TextField fx:id="tfEstado" editable="false" layoutX="182.0" layoutY="217.0" styleClass="campoTexto" />
                         <TextField fx:id="tfEsfuerzo" editable="false" layoutX="182.0" layoutY="264.0" styleClass="campoTexto" />
-                        <Button layoutX="78.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnEliminar" styleClass="botonEliminacion" text="Eliminar" />
+                        <Button fx:id="btnEliminar" layoutX="78.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnEliminarClic" styleClass="botonEliminacion" text="Eliminar" />
                         <Button layoutX="539.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonOperacion" text="Volver" />
                      </children></Pane>
                </center>
