@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.pojo.Estudiante;
+import utilidades.Alertas;
 import utilidades.Utilidades;
 
 public class FXMLMenuEstudianteController implements Initializable {
@@ -52,34 +54,47 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     void hoverInSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir2.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
 
     @FXML
     void hoverOutSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
     private void btnConsultarBitacoras(MouseEvent event) {
+
         Stage escenario = new Stage();
 
         try {
-            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLBitacorasEstudiante.fxml");
+
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLBitacorasEstudiante.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
             FXMLBitacorasEstudianteController controlador = fxmlLoader.getController();
 
-            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaBitacorasEstudiante.css"));
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaBitacorasEstudiante.css"));
             controlador.inicializarVentana(idProyecto);
             escenario.setScene(escena);
             escenario.setTitle("Bitácoras");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+
         } catch (IOException e) {
-            e.printStackTrace();
+
+            Alertas.mostrarAlerta("Error",
+                    "Error al cargar la ventana",
+                    AlertType.ERROR);
+            escenario.close();
+
         }
+
     }
 
     @FXML
@@ -111,21 +126,27 @@ public class FXMLMenuEstudianteController implements Initializable {
         Stage escenario = new Stage();
 
         try {
-            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLRegistrarCambio.fxml");
+
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLRegistrarCambio.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
             FXMLRegistrarCambioController controlador = fxmlLoader.getController();
 
-            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaFormulario.css"));
-            controlador.inicializarVentana(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+            controlador.inicializarVentana(1, estudiante);
             escenario.setScene(escena);
             escenario.setTitle("Registrar Actividad");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+
         } catch (IOException e) {
+
             e.printStackTrace();
             escenario.close();
+
         }
 
     }

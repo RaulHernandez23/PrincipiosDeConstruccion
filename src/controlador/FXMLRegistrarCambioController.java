@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import modelo.dao.CambioDAO;
 import modelo.dao.SolicitudDeCambioDAO;
 import modelo.pojo.Cambio;
+import modelo.pojo.Estudiante;
 import modelo.pojo.SolicitudDeCambio;
 import utilidades.Alertas;
 import utilidades.Utilidades;
@@ -71,6 +72,8 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private Integer idProyecto;
 
+    private Estudiante estudiante;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
@@ -106,9 +109,10 @@ public class FXMLRegistrarCambioController implements Initializable {
         }
     }
 
-    public void inicializarVentana(Integer idProyecto) {
+    public void inicializarVentana(Integer idProyecto, Estudiante estudiante) {
 
         this.idProyecto = idProyecto;
+        this.estudiante = estudiante;
 
         listaSolicitudes = FXCollections.observableArrayList();
         listaTipos = FXCollections.observableArrayList();

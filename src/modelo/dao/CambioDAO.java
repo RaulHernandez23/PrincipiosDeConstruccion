@@ -169,6 +169,31 @@ public class CambioDAO {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
 
+            conexion = ConectorBaseDatos.obtenerConexion();
+
+            try {
+                String consulta = "INSERT INTO estudiante_cambio (idEstudiante, idCambio) VALUES (?, ?)";
+
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, cambio.getIdEstudiante());
+                sentencia.setInt(2, cambio.getIdCambio());
+
+                int resultado = sentencia.executeUpdate();
+
+                if (resultado > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "El cambio se registró correctamente");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo registrar el cambio");
+                }
+
+            } catch (SQLException e) {
+                respuesta.put("mensaje", "Error: " + e.getMessage());
+            }
+
         } else {
             respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }

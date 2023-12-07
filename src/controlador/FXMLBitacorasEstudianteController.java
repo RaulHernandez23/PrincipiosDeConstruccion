@@ -184,7 +184,12 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colEsfuerzoCambio,
                 colTipoCambio,
                 colFechaInicioCambio);
-
+        /*
+         * CambioDAO.consultarCambiosProyecto(idProyecto) retorna un
+         * ArrayList<Cambio> de todos los cambios de un proyecto,
+         * es necesario cambiarlo a los cambios de un proyecto y un estudiante
+         * en especifico.
+         */
         HashMap<String, Object> respuesta = CambioDAO.consultarCambiosProyecto(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
@@ -244,6 +249,12 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colTipoActividad,
                 colFechaInicioActividad);
 
+        /*
+         * ActividadDAO.consultarActividadesProyecto(idProyecto) retorna un
+         * ArrayList<Actividad> de todos las actividades de un proyecto,
+         * es necesario cambiarlo a las actividades de un proyecto y un estudiante
+         * en especifico.
+         */
         HashMap<String, Object> respuesta = ActividadDAO.consultarActividadesProyecto(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
@@ -300,6 +311,12 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colEsfuerzoDefecto,
                 colFechaReporteDefecto);
 
+        /*
+         * DefectoDAO.consultarDefectosProyecto(idProyecto) retorna un
+         * ArrayList<Defecto> de todos los defectos de un proyecto,
+         * es necesario cambiarlo a los defectos de un proyecto y un estudiante
+         * en especifico.
+         */
         HashMap<String, Object> respuesta = DefectoDAO.consultarDefectosProyecto(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
@@ -353,6 +370,12 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colTituloSolicitud,
                 colFechaSolicitud);
 
+        /*
+         * SolicitudDeCambioDAO.consultarSolicitudes(idProyecto) retorna un
+         * ArrayList<SolicitudDeCambio> de todos las solicitudes de un proyecto,
+         * es necesario cambiarlo a las solicitudes de un proyecto y un estudiante
+         * en especifico.
+         */
         HashMap<String, Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudes(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
