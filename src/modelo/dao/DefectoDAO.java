@@ -35,7 +35,7 @@ public class DefectoDAO {
                 consulta.setString(1, defecto.getTitulo());
                 consulta.setString(2, defecto.getDescripcion());
                 consulta.setString(3, defecto.getFechaReporte());
-                consulta.setInt(4, defecto.getIdestadoDefecto());
+                consulta.setInt(4, defecto.getIdEstadoDefecto());
                 consulta.setInt(5, defecto.getIdEstudiante());
                 int filasAfectadas = consulta.executeUpdate();
 
@@ -92,9 +92,9 @@ public class DefectoDAO {
                     defecto.setIdDefecto(resultado.getInt("IdDefecto"));
                     defecto.setTitulo(resultado.getString("Titulo"));
                     defecto.setDescripcion(resultado.getString("Descripcion"));
-                    defecto.setEsfuerzoMinutos(resultado.getString("EsfuerzoMinutos"));
+                    defecto.setEsfuerzoMinutos(resultado.getInt("EsfuerzoMinutos"));
                     defecto.setFechaReporte(resultado.getString("FechaReporte"));
-                    defecto.setIdestadoDefecto(resultado.getInt("IdEstadoActividad"));
+                    defecto.setIdEstadoDefecto(resultado.getInt("IdEstadoActividad"));
                     defecto.setIdEstudiante(resultado.getInt("IdEstudiante"));
                     defecto.setEstadoDefecto(resultado.getString("EstadoActividad"));
                     defecto.setNombreEstudiante(resultado.getString("Estudiantes"));
@@ -113,4 +113,74 @@ public class DefectoDAO {
         return defectos;
 
     }
+
+    public static HashMap<String, Object> consultarDefectosProyecto(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if (conexionBD != null) {
+
+            try {
+
+                String consulta = "SELECT d.idDefecto, " +
+                        "d.titulo, d.descripcion, " +
+                        "d.esfuerzoMinutos, d.fechaReporte, " +
+                        "d.idEstadoDefecto, " +
+                        "ed.estado AS estadoDefecto, " +
+                        "d.idEstudiante, " +
+                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, " +
+                        "' ', e.apellidoMaterno) AS nombreEstudiante " +
+                        "FROM defecto d INNER JOIN estudiante e " +
+                        "ON d.idEstudiante = e.idEstudiante " +
+                        "INNER JOIN estadodefecto ed " +
+                        "ON d.idEstadoDefecto = ed.idEstadoDefecto " +
+                        "WHERE d.idProyecto = ?";
+
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Defecto> defectos = new ArrayList<Defecto>();
+
+                while (resultadoConsulta.next()) {
+
+                    Defecto defecto = new Defecto();
+                    defecto.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    defecto.setTitulo(resultadoConsulta.getString("titulo"));
+                    defecto.setDescripcion(resultadoConsulta.getString("descripcion"));
+                    defecto.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
+                    defecto.setFechaReporte(resultadoConsulta.getString("fechaReporte"));
+                    defecto.setIdEstadoDefecto(resultadoConsulta.getInt("idEstadoDefecto"));
+                    defecto.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    defecto.setEstadoDefecto(resultadoConsulta.getString("estadoDefecto"));
+                    defecto.setNombreEstudiante(resultadoConsulta.getString("nombreEstudiante"));
+
+                    defectos.add(defecto);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("defectos", defectos);
+
+            } catch (SQLException se) {
+
+                respuesta.put("mensaje", "Error" + se.getMessage());
+
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+
+        } else {
+            respuesta.put("mensaje", "Error en la conexión con la base de datos");
+        }
+
+        return respuesta;
+
+    }
+
 }

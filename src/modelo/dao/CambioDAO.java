@@ -14,7 +14,9 @@ import modelo.pojo.Cambio;
 import utilidades.Utilidades;
 
 public class CambioDAO {
+
     public static ArrayList<Cambio> consultarCambios() {
+
         ArrayList<Cambio> cambios = new ArrayList<Cambio>();
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
@@ -50,6 +52,69 @@ public class CambioDAO {
         }
 
         return cambios;
+
+    }
+
+    public static HashMap<String, Object> consultarCambiosProyecto(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, " +
+                        "c.esfuerzoMinutos, c.idTipoActividad, c.idEstadoCambio, " +
+                        "c.fechaInicio, c.idProyecto AS i, tc.tipo, ec.estado " +
+                        "FROM cambio c INNER JOIN tipoactividad tc " +
+                        "ON c.idTipoActividad = tc.idTipoActividad " +
+                        "INNER JOIN estadocambio ec " +
+                        "ON c.idEstadoCambio = ec.idEstadoCambio " +
+                        "WHERE c.idProyecto = ? ORDER BY c.fechaInicio DESC";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Cambio> cambios = new ArrayList<Cambio>();
+
+                while (resultadoConsulta.next()) {
+
+                    Cambio cambio = new Cambio();
+                    cambio.setIdCambio(resultadoConsulta.getInt("idCambio"));
+                    cambio.setTitulo(resultadoConsulta.getString("titulo"));
+                    cambio.setDescripcion(resultadoConsulta.getString("descripcion"));
+                    cambio.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
+                    cambio.setIdTipoActividad(resultadoConsulta.getInt("idTipoActividad"));
+                    cambio.setIdEstadoCambio(resultadoConsulta.getInt("idEstadoCambio"));
+                    cambio.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
+                    cambio.setIdProyecto(resultadoConsulta.getInt("i"));
+                    cambio.setTipoActividad(resultadoConsulta.getString("tipo"));
+                    cambio.setEstadoCambio(resultadoConsulta.getString("estado"));
+
+                    cambios.add(cambio);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("cambios", cambios);
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
 
     }
 

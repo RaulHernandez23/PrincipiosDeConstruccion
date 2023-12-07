@@ -202,10 +202,24 @@ public class FXMLMenuResponsableController implements Initializable {
     private void btnConsultarBitacoras(MouseEvent event) {
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLBitacorasEstudiante.fxml",
-                "/vista/estilos/escenaTabla.css",
-                "Bitácoras", true);
+        try {
+
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLBitacorasEstudiante.fxml");
+            Parent vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLBitacorasEstudianteController controlador = fxmlLoader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaTabla.css"));
+            controlador.inicializarVentana(1);
+            escenario.setScene(escena);
+            escenario.setTitle("Bitácoras");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

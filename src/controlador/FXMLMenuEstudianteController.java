@@ -32,9 +32,10 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     private Estudiante estudiante;
 
+    private Integer idProyecto;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     @FXML
@@ -63,10 +64,22 @@ public class FXMLMenuEstudianteController implements Initializable {
     private void btnConsultarBitacoras(MouseEvent event) {
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLBitacorasEstudiante.fxml",
-                "/vista/estilos/escenaTabla.css",
-                "Bitácoras", true);
+        try {
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLBitacorasEstudiante.fxml");
+            Parent vista = fxmlLoader.load();
+            Scene escena = new Scene(vista);
+            FXMLBitacorasEstudianteController controlador = fxmlLoader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaBitacorasEstudiante.css"));
+            controlador.inicializarVentana(idProyecto);
+            escenario.setScene(escena);
+            escenario.setTitle("Bitácoras");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -118,15 +131,18 @@ public class FXMLMenuEstudianteController implements Initializable {
     }
 
     public void inicializarVentana(Estudiante estudiante) {
+
         this.estudiante = estudiante;
         String[] nombreInternacional = estudiante.getNombre().split(" ");
         boolean dosNombres = nombreInternacional.length == 2;
+        idProyecto = estudiante.getIdProyecto();
 
         encabezadoEstudiante.setText(
                 estudiante.getApellidoPaterno() + "-" +
                         estudiante.getApellidoMaterno() + " " +
                         nombreInternacional[0] +
                         (dosNombres ? "-" + nombreInternacional[1] : ""));
+
     }
 
 }

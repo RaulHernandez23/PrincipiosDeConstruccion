@@ -110,12 +110,17 @@ public class FXMLDesasignarEstudianteController implements Initializable {
     }
 
     private void cargarEstudiantes() {
+
         HashMap<String, Object> respuesta = EstudianteDAO.consultarEstudiantes(idProyecto);
         if (!(Boolean) respuesta.get("error")) {
+
             listaEstudiantes = FXCollections.observableArrayList();
+
             listaEstudiantes.addAll((ArrayList<Estudiante>) respuesta.get("estudiantes"));
             cbEstudiantes.setItems(listaEstudiantes);
+
         } else {
+
             Alertas.mostrarAlerta("Error", "No se pudo cargar la lista de estudiantes",
                     AlertType.ERROR);
 
@@ -124,6 +129,7 @@ public class FXMLDesasignarEstudianteController implements Initializable {
             escenario.close();
 
         }
+
     }
 
     private void desasignarEstudiante() {
