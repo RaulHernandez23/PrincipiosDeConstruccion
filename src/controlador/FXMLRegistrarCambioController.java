@@ -69,22 +69,10 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private String fechaInicio;
 
+    private Integer idProyecto;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        listaSolicitudes = FXCollections.observableArrayList();
-        listaTipos = FXCollections.observableArrayList();
-        listaEstados = FXCollections.observableArrayList();
-
-        cargarSolicitudes();
-        cargarTipos();
-        cargarEstados();
-        cbSolicitud.getSelectionModel().select(0);
-        cbTipo.getSelectionModel().select(0);
-        cbEstado.getSelectionModel().select(0);
-        btnRegistrarComponente.setDisable(true);
-        verificarCamposLlenos();
-
     }
 
     @FXML
@@ -118,9 +106,28 @@ public class FXMLRegistrarCambioController implements Initializable {
         }
     }
 
+    public void inicializarVentana(Integer idProyecto) {
+
+        this.idProyecto = idProyecto;
+
+        listaSolicitudes = FXCollections.observableArrayList();
+        listaTipos = FXCollections.observableArrayList();
+        listaEstados = FXCollections.observableArrayList();
+
+        cargarSolicitudes();
+        cargarTipos();
+        cargarEstados();
+        cbSolicitud.getSelectionModel().select(0);
+        cbTipo.getSelectionModel().select(0);
+        cbEstado.getSelectionModel().select(0);
+        btnRegistrarComponente.setDisable(true);
+        verificarCamposLlenos();
+
+    }
+
     private void cargarSolicitudes() {
 
-        HashMap<String, Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudes();
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudes(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 

@@ -102,7 +102,8 @@ public class ActividadDAO {
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
-                    //Tal vez sea necesario manejar Integer en lugar de Int, para poder manejar valores que vienen nulos
+                    // Tal vez sea necesario manejar Integer en lugar de Int, para poder manejar
+                    // valores que vienen nulos
                     Actividad actividad = new Actividad();
                     actividad.setIdActividad(resultadoConsulta.getInt("idActividad"));
                     actividad.setTitulo(resultadoConsulta.getString("titulo"));
@@ -271,7 +272,9 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "INSERT INTO actividad (titulo, descripcion, idProyecto, idResponsable, idTipoActividad, fechaInicio, idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                String consulta = "INSERT INTO actividad (titulo, descripcion, " +
+                        "idProyecto, idResponsable, idTipoActividad, fechaInicio, " +
+                        "idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 sentencia.setString(1, actividad.getTitulo());
@@ -307,7 +310,7 @@ public class ActividadDAO {
 
     }
 
-    //me equivoque e hice esta consulta XD, pueden usarla aquel que la necesite
+    // me equivoque e hice esta consulta XD, pueden usarla aquel que la necesite
     public static HashMap<String, Object> finalizarActividad(int idActividad) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();

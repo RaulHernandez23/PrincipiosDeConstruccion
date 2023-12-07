@@ -1,38 +1,42 @@
 package modelo.pojo;
 
 public class Estudiante {
-    private int idEstudiante;
+    private Integer idEstudiante;
     private String matricula;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private int idEstadoEstudiante;
+    private Integer idEstadoEstudiante;
+    private Integer idPeriodoEscolar;
+    private String nombrePeriodoEscolar;
     private String estado;
     private String password;
+    private Integer idProyecto;
 
     public Estudiante() {
     }
 
-    public Estudiante(int idEstudiante, String matricula, String nombre, 
-            String apellidoPaterno, String apellidoMaterno, 
-            int idEstadoEstudiante, String estado, String password) {
-
+    public Estudiante(Integer idEstudiante, String matricula, String nombre, String apellidoPaterno,
+            String apellidoMaterno, Integer idEstadoEstudiante, Integer idPeriodoEscolar, String nombrePeriodoEscolar,
+            String estado, String password, Integer idProyecto) {
         this.idEstudiante = idEstudiante;
         this.matricula = matricula;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.idEstadoEstudiante = idEstadoEstudiante;
+        this.idPeriodoEscolar = idPeriodoEscolar;
+        this.nombrePeriodoEscolar = nombrePeriodoEscolar;
         this.estado = estado;
         this.password = password;
-
+        this.idProyecto = idProyecto;
     }
 
-    public int getIdEstudiante() {
+    public Integer getIdEstudiante() {
         return idEstudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
+    public void setIdEstudiante(Integer idEstudiante) {
 
         if (idEstudiante > 0) {
             this.idEstudiante = idEstudiante;
@@ -88,14 +92,38 @@ public class Estudiante {
 
     }
 
-    public int getIdEstadoEstudiante() {
+    public Integer getIdEstadoEstudiante() {
         return idEstadoEstudiante;
     }
 
-    public void setIdEstadoEstudiante(int idEstadoEstudiante) {
+    public void setIdEstadoEstudiante(Integer idEstadoEstudiante) {
 
         if (idEstadoEstudiante > 0) {
             this.idEstadoEstudiante = idEstadoEstudiante;
+        }
+
+    }
+
+    public Integer getIdPeriodoEscolar() {
+        return idPeriodoEscolar;
+    }
+
+    public void setIdPeriodoEscolar(Integer idPeriodoEscolar) {
+
+        if (idPeriodoEscolar > 0) {
+            this.idPeriodoEscolar = idPeriodoEscolar;
+        }
+
+    }
+
+    public String getNombrePeriodoEscolar() {
+        return nombrePeriodoEscolar;
+    }
+
+    public void setNombrePeriodoEscolar(String nombrePeriodoEscolar) {
+
+        if (nombrePeriodoEscolar != null) {
+            this.nombrePeriodoEscolar = nombrePeriodoEscolar;
         }
 
     }
@@ -120,6 +148,18 @@ public class Estudiante {
 
         if (password != null) {
             this.password = password;
+        }
+
+    }
+
+    public Integer getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Integer idProyecto) {
+
+        if (idProyecto > 0) {
+            this.idProyecto = idProyecto;
         }
 
     }

@@ -52,6 +52,8 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     private ObservableList<String> listaTipos;
 
+    private Integer idProyecto;
+
     private int idResponsable;
 
     private String responsable;
@@ -110,8 +112,9 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     }
 
-    public void inicializarVentana(int idResponsable, String responsable) {
+    public void inicializarVentana(Integer idProyecto, int idResponsable, String responsable) {
 
+        this.idProyecto = idProyecto;
         this.idResponsable = idResponsable;
         this.responsable = responsable;
 
@@ -148,7 +151,7 @@ public class FXMLRegistrarActividadController implements Initializable {
         actividad.setResponsable(responsable);
         actividad.setEstadoActividad("No asignada");
         actividad.setIdEstadoActividad(3);
-        actividad.setIdProyecto(1);
+        actividad.setIdProyecto(idProyecto);
 
         HashMap<String, Object> respuesta = null;
 
