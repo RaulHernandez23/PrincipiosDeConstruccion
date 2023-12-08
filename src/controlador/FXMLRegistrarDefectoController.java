@@ -11,11 +11,13 @@
 package controlador;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,9 +25,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modelo.dao.DefectoDAO;
+import modelo.pojo.Defecto;
 import utilidades.Utilidades;
+import javafx.scene.control.Alert;
+
 
 public class FXMLRegistrarDefectoController implements Initializable {
+
+    private Defecto defecto;
+    private int idProyecto;
+    private int idEstudiante; 
 
     @FXML
     private VBox vboxEjemplo;
@@ -40,8 +50,12 @@ public class FXMLRegistrarDefectoController implements Initializable {
     private TextArea taDescripcion;
 
     @FXML
-    void btnRegistrar(ActionEvent event) {
+    private Button btnRegistrar;
 
+    @FXML
+    void btnRegistrarClic (ActionEvent event) {
+        defecto = new Defecto();
+        registrarDefecto();
     }
 
     @FXML
@@ -66,7 +80,8 @@ public class FXMLRegistrarDefectoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        btnRegistrar.setDisable(true);
+        configurarTextFields();
     }
 
     public void salir() {
@@ -74,6 +89,52 @@ public class FXMLRegistrarDefectoController implements Initializable {
         Stage escenario = (Stage) vboxEjemplo.getScene().getWindow();
 
         escenario.close();
+
+    }
+
+    public void inicializarInformacion(int idProyecto, int idEstudiante) {
+
+        this.idProyecto = idProyecto;
+        this.idEstudiante = idEstudiante;
+
+    }
+
+    private void registrarDefecto() {
+
+        defecto.setTitulo(tfTitulo.getText());
+        defecto.setDescripcion(taDescripcion.getText());
+        defecto.setIdProyecto(idProyecto);
+        defecto.setIdEstudiante(idEstudiante);
+        
+        HashMap<String, Object> respuesta = DefectoDAO.registrarDefecto(defecto);
+
+        if ((Boolean) respuesta.get("error") == false) {
+
+            Utilidades.mostrarAlertaSimple("Información",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.INFORMATION);
+
+            salir();
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+        }
+
+    }
+
+    private void configurarTextFields() {
+
+            tfTitulo.textProperty().addListener((observable, oldValue, newValue) -> activarBoton(tfTitulo, taDescripcion, btnRegistrar));
+            taDescripcion.textProperty().addListener((observable, oldValue, newValue) -> activarBoton(tfTitulo, taDescripcion, btnRegistrar));
+
+    }
+
+    private void activarBoton(TextField tfTitulo, TextArea taDescripcion, Button btnRegistrar) {
+
+        boolean camposLLenos = !tfTitulo.getText().isEmpty() && !taDescripcion.getText().isEmpty();
+        btnRegistrar.setDisable(!camposLLenos);
 
     }
 }

@@ -30,7 +30,7 @@ public class DefectoDAO {
                         + "idEstadoDefecto, "
                         + "idEstudiante, "
                         + "idProyecto) "
-                        + "VALUES (?, ?, NOW(), 2, ?);";
+                        + "VALUES (?, ?, NOW(), 2, ?, ?);";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
                 sentencia.setString(1, defecto.getTitulo());
@@ -50,6 +50,7 @@ public class DefectoDAO {
                 }
 
             } catch (SQLException sqlE) {
+                sqlE.printStackTrace();
                 respuesta.put("mensaje", "Error al registrar el defecto");
             }
         } else {

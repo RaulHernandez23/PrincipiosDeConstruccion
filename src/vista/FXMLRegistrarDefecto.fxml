@@ -19,7 +19,7 @@
                         <Label layoutX="96.0" layoutY="107.0" styleClass="etiqueta" text="Descripción:" />
                         <TextField fx:id="tfTitulo" layoutX="208.0" layoutY="38.0" prefHeight="39.0" prefWidth="399.0" styleClass="campoTexto" />
                         <TextArea fx:id="taDescripcion" layoutX="208.0" layoutY="107.0" prefHeight="176.0" prefWidth="400.0" styleClass="campoTexto" />
-                        <Button layoutX="96.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnRegistrar" styleClass="botonOperacion" text="Registrar" />
+                        <Button fx:id="btnRegistrar" layoutX="96.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnRegistrarClic" styleClass="botonOperacion" text="Registrar" />
                         <Button layoutX="529.0" layoutY="306.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonEliminacion" text="Volver" />
                      </children></Pane>
                </center>

@@ -119,7 +119,7 @@ public class FXMLMenuEstudianteController implements Initializable {
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLRegistrarDefectoController controlador = loader.getController();
-            //controlador.inicializarInformacion(1);
+            controlador.inicializarInformacion(1, estudiante.getIdEstudiante());
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
 
