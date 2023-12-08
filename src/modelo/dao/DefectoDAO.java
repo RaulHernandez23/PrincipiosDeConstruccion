@@ -23,22 +23,23 @@ public class DefectoDAO {
 
             try {
 
-                String sentencia = "INSERT INTO defecto "
-                        + "(Titulo, "
-                        + "Descripcion, "
-                        + "FechaReporte, "
+                String consulta = "INSERT INTO defecto "
+                        + "(titulo, "
+                        + "descripcion, "
+                        + "fechaReporte, "
                         + "idEstadoDefecto, "
-                        + "IdEstudiante) "
-                        + "VALUES (?, ?, ?, ?, ?);";
+                        + "idEstudiante, "
+                        + "idProyecto) "
+                        + "VALUES (?, ?, NOW(), 2, ?);";
 
-                PreparedStatement consulta = conexionBD.prepareStatement(sentencia);
-                consulta.setString(1, defecto.getTitulo());
-                consulta.setString(2, defecto.getDescripcion());
-                consulta.setString(3, defecto.getFechaReporte());
-                consulta.setInt(4, defecto.getIdEstadoDefecto());
-                consulta.setInt(5, defecto.getIdEstudiante());
-                int filasAfectadas = consulta.executeUpdate();
-
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setString(1, defecto.getTitulo());
+                sentencia.setString(2, defecto.getDescripcion());
+                sentencia.setInt(3, defecto.getIdEstudiante());
+                sentencia.setInt(4, defecto.getIdProyecto());
+                int filasAfectadas = sentencia.executeUpdate();
+                conexionBD.close();
+                
                 if (filasAfectadas > 0) {
 
                     respuesta.put("error", false);
@@ -49,16 +50,10 @@ public class DefectoDAO {
                 }
 
             } catch (SQLException sqlE) {
-
-                sqlE.printStackTrace();
                 respuesta.put("mensaje", "Error al registrar el defecto");
-
-            } finally {
-                ConectorBaseDatos.cerrarConexion(conexionBD);
             }
-
         } else {
-            respuesta.put("mensaje", "Error en la conexión con la base de datos");
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, intentélo más tarde");
         }
 
         return respuesta;
