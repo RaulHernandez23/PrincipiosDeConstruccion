@@ -175,9 +175,9 @@ public class FXMLMenuResponsableController implements Initializable {
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
 
-        } catch (IOException e) {
+        } catch (IOException ioE) {
 
-            e.printStackTrace();
+            ioE.printStackTrace();
             escenario.close();
 
         }
