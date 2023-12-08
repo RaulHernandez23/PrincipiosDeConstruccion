@@ -9,13 +9,16 @@ public class Estudiante {
     private Integer idEstadoEstudiante;
     private String estado;
     private String password;
+    private Integer idProyecto;
+    private String nombreProyecto;
 
     public Estudiante() {
     }
 
     public Estudiante(Integer idEstudiante, String matricula, String nombre, 
             String apellidoPaterno, String apellidoMaterno, 
-            Integer idEstadoEstudiante, String estado, String password) {
+            Integer idEstadoEstudiante, String estado, String password,
+            Integer idProyecto, String nombreProyecto) {
 
         this.idEstudiante = idEstudiante;
         this.matricula = matricula;
@@ -25,6 +28,8 @@ public class Estudiante {
         this.idEstadoEstudiante = idEstadoEstudiante;
         this.estado = estado;
         this.password = password;
+        this.idProyecto = idProyecto;
+        this.nombreProyecto = nombreProyecto;
 
     }
 
@@ -90,6 +95,22 @@ public class Estudiante {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Integer idProyecto) {
+        this.idProyecto= idProyecto;
+    }
+
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
+
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto= nombreProyecto;
     }
 
     @Override
