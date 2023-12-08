@@ -140,6 +140,80 @@ public class ActividadDAO {
 
     }
 
+    public static HashMap<String, Object> obtenerActividadesSinAsignar(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        respuesta.put("error", true);
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT "
+                        + "idActividad, "
+                        + "titulo, "
+                        + "a.descripcion, "
+                        + "esfuerzoMinutos, "
+                        + "fechaInicio, "
+                        + "fechaFin, "
+                        + "a.idEstadoActividad, "
+                        + "ea.estado AS estadoActividad, "
+                        + "a.idTipoActividad, "
+                        + "ta.tipo AS tipo, "
+                        + "a.idResponsable, "
+                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, ' ', rp.apellidoPaterno) AS responsable, "
+                        + "a.idProyecto, "
+                        + "p.nombre AS proyecto "
+                        + "FROM actividad a "
+                        + "LEFT JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
+                        + "LEFT JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
+                        + "LEFT JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
+                        + "LEFT JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
+                        + "LEFT JOIN proyecto p ON a.idProyecto = p.idProyecto "
+                        + "WHERE a.idProyecto = ? AND idEstudiante IS NULL "
+                        + "ORDER BY fechaInicio DESC;";
+
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                sentencia.setInt(1, idProyecto);
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+                ArrayList<Actividad> actividades = new ArrayList<>();
+
+                while (resultadoConsulta.next()) {
+
+                    Actividad actividad = new Actividad();
+                    actividad.setIdActividad(resultadoConsulta.getInt("idActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString("titulo"));
+                    actividad.setDescripcion(resultadoConsulta.getString("descripcion"));
+                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
+                    actividad.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
+                    actividad.setFechaFin(resultadoConsulta.getString("fechaFin"));
+                    actividad.setIdEstadoActividad(resultadoConsulta.getInt("idEstadoActividad"));
+                    actividad.setEstadoActividad(resultadoConsulta.getString("estadoActividad"));
+                    actividad.setIdTipo(resultadoConsulta.getInt("idTipoActividad"));
+                    actividad.setTipo(resultadoConsulta.getString("tipo"));
+                    actividad.setIdResponsable(resultadoConsulta.getInt("idResponsable"));
+                    actividad.setResponsable(resultadoConsulta.getString("responsable"));
+                    actividad.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
+                    actividad.setProyecto(resultadoConsulta.getString("proyecto"));
+                    actividades.add(actividad);
+
+                }
+
+                conexion.close();
+                respuesta.put("error", false);
+                respuesta.put("actividades", actividades);
+
+            } catch (SQLException sqlE) {
+                sqlE.printStackTrace();
+            } 
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+    }
+
     public static HashMap<String, Object> consultarActividadesProyecto(Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
