@@ -117,22 +117,15 @@ public class FXMLAsignarActividadController implements Initializable {
 
     private void obtenerActividadesSinAsignarProyecto(int idProyecto) {
 
-        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
+        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesSinAsignar(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
+
             actividadesSinAsignar = FXCollections.observableArrayList();
             ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
-
-            /*
-             * for(Actividad actividad : lista) {
-             * System.out.println(actividad.getTitulo() + " " + actividad.getEstudiante());
-             * if(actividad.getEstudiante() == null) {
-             * actividadesSinAsignar.add(actividad);
-             * }
-             * }
-             */
             actividadesSinAsignar.addAll(lista);
             tvActividades.setItems(actividadesSinAsignar);
+            
         } else {
             Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),

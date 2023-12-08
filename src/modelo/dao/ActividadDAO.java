@@ -168,7 +168,6 @@ public class ActividadDAO {
                         + "FROM actividad a "
                         + "LEFT JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
                         + "LEFT JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "LEFT JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
                         + "LEFT JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
                         + "LEFT JOIN proyecto p ON a.idProyecto = p.idProyecto "
                         + "WHERE a.idProyecto = ? AND idEstudiante IS NULL "
