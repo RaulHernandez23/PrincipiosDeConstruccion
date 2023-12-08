@@ -165,6 +165,67 @@ public class EstudianteDAO {
         return respuesta;
     }
 
+    public static HashMap<String, Object> recuperarEstudiantesProyectoFinalFinal (int idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<>();
+        respuesta.put("error", true);
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if(conexionBD != null) {
+            try {
+                String sentencia = "SELECT "
+                        + "idEstudiante, "
+                        + "matricula, "
+                        + "e.nombre, "
+                        + "apellidoPaterno, "
+                        + "apellidoMaterno, "
+                        + "e.idEstadoEstudiante, "
+                        + "ee.estado, "
+                        + "e.idProyecto, "
+                        + "p.nombre AS proyecto "
+                        + "FROM estudiante e "
+                        + "INNER JOIN estadoestudiante ee ON e.idEstadoEstudiante = ee.idEstadoEstudiante "
+                        + "INNER JOIN proyecto p ON e.idProyecto = p.idProyecto "
+                        + "WHERE e.idProyecto = ? AND e.idEstadoEstudiante = 1;";
+
+                PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
+                prepararSentencia.setInt(1, idProyecto);
+                ResultSet resultadoConsulta = prepararSentencia.executeQuery();
+                ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
+                while (resultadoConsulta.next()) {
+                    
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    estudiante.setMatricula(resultadoConsulta.getString("matricula"));
+                    estudiante.setNombre(resultadoConsulta.getString("nombre"));
+                    estudiante.setApellidoPaterno(resultadoConsulta.getString("apellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultadoConsulta.getString("apellidoMaterno"));
+                    estudiante.setIdEstadoEstudiante(resultadoConsulta.getInt("idEstadoEstudiante"));
+                    estudiante.setEstadoEstudiante(resultadoConsulta.getString("estado"));
+                    estudiante.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
+                    estudiante.setNombreProyecto(resultadoConsulta.getString("proyecto"));
+                    estudiantes.add(estudiante);
+
+                }
+
+                conexionBD.close();
+                respuesta.put("error", false);
+                respuesta.put("estudiantes", estudiantes);
+
+            } catch (Exception sqlE) {
+                respuesta.put("mensaje", "Error de conexion en la base de datos");
+                sqlE.printStackTrace();
+            }
+
+        } else {
+            respuesta.put("mensaje", "Error de conexion en la base de datos, "
+                    + "por favor inténtelo más tarde");
+        }
+
+        return respuesta;
+    }
+
     public static HashMap<String, Object> consultarEstudiantes(Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<>();

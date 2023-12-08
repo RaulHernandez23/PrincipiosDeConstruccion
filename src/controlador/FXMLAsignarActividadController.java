@@ -3,6 +3,7 @@ package controlador;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -22,12 +23,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.dao.ActividadDAO;
+import modelo.dao.EstudianteDAO;
 import modelo.pojo.Actividad;
+import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
 
 public class FXMLAsignarActividadController implements Initializable {
 
     private ObservableList<Actividad> actividadesSinAsignar;
+    private ObservableList<Estudiante> estudiantes;
 
     @FXML
     private TableView<Actividad> tvActividades;
@@ -42,7 +46,7 @@ public class FXMLAsignarActividadController implements Initializable {
     private TableColumn colDescripcion;
 
     @FXML
-    private ComboBox<String> cbEstudiantes;
+    private ComboBox<Estudiante> cbEstudiantes;
 
     @FXML
     private Button btnAsignar;
@@ -95,6 +99,28 @@ public class FXMLAsignarActividadController implements Initializable {
     public void inicializarInformacion(int idProyecto) {
 
         obtenerActividadesSinAsignarProyecto(idProyecto);
+        cargarEstudiantes(idProyecto);
+
+    }
+
+    public void cargarEstudiantes(int idProyecto) {
+
+        HashMap<String, Object> respuesta = EstudianteDAO.recuperarEstudiantesProyectoFinalFinal(idProyecto);
+
+        if (!(boolean) respuesta.get("error")) {
+
+            estudiantes = FXCollections.observableArrayList();
+            ArrayList<Estudiante> lista = (ArrayList) respuesta.get("estudiantes");
+            estudiantes.addAll(lista);
+            cbEstudiantes.setItems(estudiantes);
+            btnAsignar.setDisable(true);
+            cbEstudiantes.getSelectionModel().select(0);
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+        }
 
     }
 
@@ -107,7 +133,6 @@ public class FXMLAsignarActividadController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
                 if(newValue != null) {
-                    cbEstudiantes.setDisable(false);
                     btnAsignar.setDisable(false);
                 }
             }
@@ -134,3 +159,5 @@ public class FXMLAsignarActividadController implements Initializable {
     }
 
 }
+
+//ME faltan validaciones y la funcion del boton asignar
