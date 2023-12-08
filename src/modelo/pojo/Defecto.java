@@ -13,18 +13,19 @@ public class Defecto {
     private int idDefecto;
     private String titulo;
     private String descripcion;
-    private String esfuerzoMinutos;
+    private Integer esfuerzoMinutos;
     private String fechaReporte;
     private int idEstadoDefecto;
     private int idEstudiante;
     private String estadoDefecto;
     private String nombreEstudiante;
+    private Integer idProyecto;
 
     public Defecto() {
     }
 
-    public Defecto(int idDefecto, String titulo, String descripcion, String esfuerzoMinutos, String fechaReporte,
-            int idEstadoDefecto, int idEstudiante, String estadoDefecto, String nombreEstudiante) {
+    public Defecto(int idDefecto, String titulo, String descripcion, Integer esfuerzoMinutos, String fechaReporte,
+            int idEstadoDefecto, int idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto) {
         this.idDefecto = idDefecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -34,6 +35,7 @@ public class Defecto {
         this.idEstudiante = idEstudiante;
         this.estadoDefecto = estadoDefecto;
         this.nombreEstudiante = nombreEstudiante;
+        this.idProyecto = idProyecto;
     }
 
     public int getIdDefecto() {
@@ -41,9 +43,11 @@ public class Defecto {
     }
 
     public void setIdDefecto(int idDefecto) {
+
         if (idDefecto > 0) {
             this.idDefecto = idDefecto;
         }
+
     }
 
     public String getTitulo() {
@@ -51,9 +55,11 @@ public class Defecto {
     }
 
     public void setTitulo(String titulo) {
+
         if (titulo != null) {
             this.titulo = titulo;
         }
+
     }
 
     public String getDescripcion() {
@@ -61,19 +67,23 @@ public class Defecto {
     }
 
     public void setDescripcion(String descripcion) {
+
         if (descripcion != null) {
             this.descripcion = descripcion;
         }
+
     }
 
-    public String getEsfuerzoMinutos() {
+    public Integer getEsfuerzoMinutos() {
         return esfuerzoMinutos;
     }
 
-    public void setEsfuerzoMinutos(String esfuerzoMinutos) {
+    public void setEsfuerzoMinutos(Integer esfuerzoMinutos) {
+
         if (esfuerzoMinutos != null) {
             this.esfuerzoMinutos = esfuerzoMinutos;
         }
+
     }
 
     public String getFechaReporte() {
@@ -81,19 +91,23 @@ public class Defecto {
     }
 
     public void setFechaReporte(String fechaReporte) {
+
         if (fechaReporte != null) {
             this.fechaReporte = fechaReporte;
         }
+
     }
 
-    public int getIdestadoDefecto() {
+    public int getIdEstadoDefecto() {
         return idEstadoDefecto;
     }
 
-    public void setIdestadoDefecto(int idEstadoActividad) {
+    public void setIdEstadoDefecto(int idEstadoActividad) {
+
         if (idEstadoActividad > 0) {
             this.idEstadoDefecto = idEstadoActividad;
         }
+
     }
 
     public int getIdEstudiante() {
@@ -101,9 +115,11 @@ public class Defecto {
     }
 
     public void setIdEstudiante(int idEstudiante) {
+
         if (idEstudiante > 0) {
             this.idEstudiante = idEstudiante;
         }
+
     }
 
     public String getEstadoDefecto() {
@@ -111,9 +127,11 @@ public class Defecto {
     }
 
     public void setEstadoDefecto(String estadoDefecto) {
+
         if (estadoDefecto != null) {
             this.estadoDefecto = estadoDefecto;
         }
+
     }
 
     public String getNombreEstudiante() {
@@ -121,17 +139,28 @@ public class Defecto {
     }
 
     public void setNombreEstudiante(String nombreEstudiante) {
+
         if (nombreEstudiante != null) {
             this.nombreEstudiante = nombreEstudiante;
         }
+
+    }
+
+    public Integer getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(Integer idProyecto) {
+
+        if (idProyecto > 0) {
+            this.idProyecto = idProyecto;
+        }
+
     }
 
     @Override
     public String toString() {
-        return "Defecto{" + "idDefecto=" + idDefecto + ", titulo=" + titulo + ", descripcion=" + descripcion
-                + ", esfuerzoMinutos=" + esfuerzoMinutos + ", fechaReporte=" + fechaReporte + ", idEstadoDefecto="
-                + idEstadoDefecto + ", idEstudiante=" + idEstudiante + ", estadoDefecto=" + estadoDefecto
-                + ", nombreEstudiante=" + nombreEstudiante + '}';
+        return titulo;
     }
 
 }

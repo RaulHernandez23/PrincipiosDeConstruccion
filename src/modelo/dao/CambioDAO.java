@@ -14,7 +14,9 @@ import modelo.pojo.Cambio;
 import utilidades.Utilidades;
 
 public class CambioDAO {
+
     public static ArrayList<Cambio> consultarCambios() {
+
         ArrayList<Cambio> cambios = new ArrayList<Cambio>();
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
@@ -53,6 +55,69 @@ public class CambioDAO {
 
     }
 
+    public static HashMap<String, Object> consultarCambiosProyecto(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, " +
+                        "c.esfuerzoMinutos, c.idTipoActividad, c.idEstadoCambio, " +
+                        "c.fechaInicio, c.idProyecto AS i, tc.tipo, ec.estado " +
+                        "FROM cambio c INNER JOIN tipoactividad tc " +
+                        "ON c.idTipoActividad = tc.idTipoActividad " +
+                        "INNER JOIN estadocambio ec " +
+                        "ON c.idEstadoCambio = ec.idEstadoCambio " +
+                        "WHERE c.idProyecto = ? ORDER BY c.fechaInicio DESC";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Cambio> cambios = new ArrayList<Cambio>();
+
+                while (resultadoConsulta.next()) {
+
+                    Cambio cambio = new Cambio();
+                    cambio.setIdCambio(resultadoConsulta.getInt("idCambio"));
+                    cambio.setTitulo(resultadoConsulta.getString("titulo"));
+                    cambio.setDescripcion(resultadoConsulta.getString("descripcion"));
+                    cambio.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
+                    cambio.setIdTipoActividad(resultadoConsulta.getInt("idTipoActividad"));
+                    cambio.setIdEstadoCambio(resultadoConsulta.getInt("idEstadoCambio"));
+                    cambio.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
+                    cambio.setIdProyecto(resultadoConsulta.getInt("i"));
+                    cambio.setTipoActividad(resultadoConsulta.getString("tipo"));
+                    cambio.setEstadoCambio(resultadoConsulta.getString("estado"));
+
+                    cambios.add(cambio);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("cambios", cambios);
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
     public static HashMap<String, Object> registrarCambio(Cambio cambio) throws SQLException {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
@@ -75,7 +140,7 @@ public class CambioDAO {
 
             try {
 
-                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, titulo, descripcion, esfuerzoMinutos, idTipoActividad, idEstadoCambio, fechaInicio) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, titulo, descripcion, esfuerzoMinutos, idTipoActividad, idEstadoCambio, fechaInicio, idProyecto) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 sentencia.setInt(1, cambio.getIdSolicitud());
@@ -85,6 +150,7 @@ public class CambioDAO {
                 sentencia.setInt(5, cambio.getIdTipoActividad());
                 sentencia.setInt(6, cambio.getIdEstadoCambio());
                 sentencia.setString(7, cambio.getFechaInicio());
+                sentencia.setInt(8, cambio.getIdProyecto());
 
                 int resultado = sentencia.executeUpdate();
 
@@ -101,6 +167,31 @@ public class CambioDAO {
                 respuesta.put("mensaje", "Error: " + se.getMessage());
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+            conexion = ConectorBaseDatos.obtenerConexion();
+
+            try {
+                String consulta = "INSERT INTO estudiante_cambio (idEstudiante, idCambio) VALUES (?, ?)";
+
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, cambio.getIdEstudiante());
+                sentencia.setInt(2, cambio.getIdCambio());
+
+                int resultado = sentencia.executeUpdate();
+
+                if (resultado > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "El cambio se registró correctamente");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo registrar el cambio");
+                }
+
+            } catch (SQLException e) {
+                respuesta.put("mensaje", "Error: " + e.getMessage());
             }
 
         } else {

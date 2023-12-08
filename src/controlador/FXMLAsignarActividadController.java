@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,7 +23,7 @@ import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
-public class FXMLAsignarActividadController implements Initializable{
+public class FXMLAsignarActividadController implements Initializable {
 
     private ObservableList<Actividad> actividadesSinAsignar;
 
@@ -87,55 +85,59 @@ public class FXMLAsignarActividadController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         configurarTabla();
-        
+
     }
 
     public void inicializarInformacion(int idProyecto) {
 
         obtenerActividadesSinAsignarProyecto(idProyecto);
-        
+
     }
 
     private void configurarTabla() {
         colTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
-        /*tvActividades.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
-                if(newValue != null) {
-                    cbEstudiantes.setDisable(false);
-                    btnAsignar.setDisable(false);
-            }
-            
-        });*/
+        /*
+         * tvActividades.getSelectionModel().selectedItemProperty().addListener(new
+         * ChangeListener<Actividad>() {
+         * 
+         * @Override
+         * public void changed(ObservableValue<? extends Actividad> observable,
+         * Actividad oldValue, Actividad newValue) {
+         * if(newValue != null) {
+         * cbEstudiantes.setDisable(false);
+         * btnAsignar.setDisable(false);
+         * }
+         * 
+         * });
+         */
     }
 
     private void obtenerActividadesSinAsignarProyecto(int idProyecto) {
 
         HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
 
-        if(!(boolean) respuesta.get("error")) {
+        if (!(boolean) respuesta.get("error")) {
             actividadesSinAsignar = FXCollections.observableArrayList();
             ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
 
-            /*for(Actividad actividad : lista) {
-                System.out.println(actividad.getTitulo() + " " + actividad.getEstudiante());
-                if(actividad.getEstudiante() == null) {
-                    actividadesSinAsignar.add(actividad);
-                }
-            }*/
+            /*
+             * for(Actividad actividad : lista) {
+             * System.out.println(actividad.getTitulo() + " " + actividad.getEstudiante());
+             * if(actividad.getEstudiante() == null) {
+             * actividadesSinAsignar.add(actividad);
+             * }
+             * }
+             */
             actividadesSinAsignar.addAll(lista);
             tvActividades.setItems(actividadesSinAsignar);
         } else {
-            Utilidades.mostrarAlertaSimple("Error", 
+            Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);
         }
     }
-
-    
 
 }

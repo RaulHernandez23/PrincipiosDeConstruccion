@@ -190,3 +190,14 @@
 .table-column {
   -fx-alignment: CENTER; /* Alineación del contenido de las celdas */
 }
+
+.table-view .scroll-bar:horizontal {
+  -fx-opacity: 0;
+  opacity: 0;
+  -fx-pref-height: 0;
+  -fx-min-height: 0;
+  min-height: 0;
+  -fx-max-height: 0;
+  max-height: 0;
+  -fx-visible: false;
+}

@@ -7,6 +7,8 @@ public class Estudiante {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private Integer idEstadoEstudiante;
+    private Integer idPeriodoEscolar;
+    private String nombrePeriodoEscolar;
     private String estado;
     private String password;
     private Integer idProyecto;
@@ -17,7 +19,8 @@ public class Estudiante {
 
     public Estudiante(Integer idEstudiante, String matricula, String nombre, 
             String apellidoPaterno, String apellidoMaterno, 
-            Integer idEstadoEstudiante, String estado, String password,
+            Integer idEstadoEstudiante, Integer idPeriodoEscolar,
+            String nombrePeriodoEscolar, String estado, String password,
             Integer idProyecto, String nombreProyecto) {
 
         this.idEstudiante = idEstudiante;
@@ -26,6 +29,8 @@ public class Estudiante {
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.idEstadoEstudiante = idEstadoEstudiante;
+        this.idPeriodoEscolar = idPeriodoEscolar;
+        this.nombrePeriodoEscolar = nombrePeriodoEscolar;
         this.estado = estado;
         this.password = password;
         this.idProyecto = idProyecto;
@@ -79,6 +84,23 @@ public class Estudiante {
 
     public void setIdEstadoEstudiante(Integer idEstadoEstudiante) {
         this.idEstadoEstudiante = idEstadoEstudiante;
+    }
+
+    public Integer getIdPeriodoEscolar() {
+        return idPeriodoEscolar;
+    }
+
+    public void setIdPeriodoEscolar(Integer idPeriodoEscolar) {
+        this.idPeriodoEscolar = idPeriodoEscolar;
+
+    }
+
+    public String getNombrePeriodoEscolar() {
+        return nombrePeriodoEscolar;
+    }
+
+    public void setNombrePeriodoEscolar(String nombrePeriodoEscolar) {
+        this.nombrePeriodoEscolar = nombrePeriodoEscolar;
     }
 
     public String getEstado() {

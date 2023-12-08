@@ -153,8 +153,68 @@ public class EstudianteDAO {
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (Exception e) {
-                respuesta.put("mensaje", "Error de conexion en la base de datos, "
+                respuesta.put("mensaje", "Error de conexion en la base de datos");
+                e.printStackTrace();
+            }
+
+        } else {
+            respuesta.put("mensaje", "Error de conexion en la base de datos, "
                     + "por favor inténtelo más tarde");
+        }
+
+        return respuesta;
+    }
+
+    public static HashMap<String, Object> consultarEstudiantes(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT e.idEstudiante, e.nombre, " +
+                        "e.apellidoPaterno, e.apellidoMaterno, e.matricula, " +
+                        "pe.nombre AS nombrePeriodoEscolar FROM estudiante e " +
+                        "JOIN estudiante_periodoescolar ep ON " +
+                        "e.idEstudiante = ep.idEstudiante " +
+                        "JOIN periodoescolar pe ON " +
+                        "ep.idPeriodoEscolar = pe.idPeriodoEscolar " +
+                        "WHERE e.idProyecto = ? AND e.idEstadoEstudiante = 1 " +
+                        "ORDER BY e.nombre ASC";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
+                while (resultadoConsulta.next()) {
+
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    estudiante.setNombre(resultadoConsulta.getString("nombre"));
+                    estudiante.setApellidoPaterno(resultadoConsulta.getString("apellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultadoConsulta.getString("apellidoMaterno"));
+                    estudiante.setMatricula(resultadoConsulta.getString("matricula"));
+                    estudiante.setNombrePeriodoEscolar(resultadoConsulta.getString("nombrePeriodoEscolar"));
+
+                    estudiantes.add(estudiante);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("estudiantes", estudiantes);
+
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
             }
         }
 
@@ -209,5 +269,71 @@ public class EstudianteDAO {
         }
 
         return respuesta;
+    }
+
+    public static HashMap<String, Object> desasignarEstudiante(
+            Integer idEstudiante) {
+
+        HashMap<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "UPDATE estudiante SET idEstadoEstudiante = 2," +
+                        "idProyecto = NULL WHERE idEstudiante = ?";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, idEstudiante);
+
+                int filasAfectadas = sentencia.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "El estudiante fue desasignado con éxito");
+                } else {
+                    respuesta.put("mensaje", "No se pudo desasignar al estudiante");
+                }
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+            conexion = ConectorBaseDatos.obtenerConexion();
+
+            try {
+
+                String consulta = "DELETE FROM estudiante_periodoescolar WHERE idEstudiante = ?";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setInt(1, idEstudiante);
+
+                int filasAfectadas = sentencia.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "Estudiante desasignado correctamente");
+                } else {
+                    respuesta.put("mensaje", "No se pudo desasignar al estudiante");
+                }
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos");
+        }
+
+        return respuesta;
+
     }
 }
