@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -99,20 +101,18 @@ public class FXMLAsignarActividadController implements Initializable {
     private void configurarTabla() {
         colTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
-        /*
-         * tvActividades.getSelectionModel().selectedItemProperty().addListener(new
-         * ChangeListener<Actividad>() {
-         * 
-         * @Override
-         * public void changed(ObservableValue<? extends Actividad> observable,
-         * Actividad oldValue, Actividad newValue) {
-         * if(newValue != null) {
-         * cbEstudiantes.setDisable(false);
-         * btnAsignar.setDisable(false);
-         * }
-         * 
-         * });
-         */
+        
+        tvActividades.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
+        
+            @Override
+            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
+                if(newValue != null) {
+                    cbEstudiantes.setDisable(false);
+                    btnAsignar.setDisable(false);
+                }
+            }
+        
+        });
     }
 
     private void obtenerActividadesSinAsignarProyecto(int idProyecto) {
