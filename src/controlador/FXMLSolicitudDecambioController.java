@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -27,15 +28,23 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     @FXML
     private ImageView ivSalir;
     @FXML
-    private TextArea taAccionPropuesta;
+    private Label lbNombreSolicitud;
     @FXML
-    private TextArea taImpactoCambio;
+    private Label lbFecha;
     @FXML
-    private TextArea taRazonCambio;
+    private Label lbNumSolicitud;
     @FXML
-    private TextArea taDescripcionCambio;
+    private Label lbSolicitadoPor;
     @FXML
-    private TextField tfNombreSolicitud;
+    private Label lbDescripcion;
+    @FXML
+    private Label lbRazon;
+    @FXML
+    private Label lbImpacto;
+    @FXML
+    private Label lbAccionPropuesta;
+    @FXML
+    private Label lbDefectoAsociado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,7 +68,11 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     }
 
     @FXML
-    private void btnEnviarSolicitud(ActionEvent event) {
+    private void btnAprobarSolicitud(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnRechazarSolicitud(ActionEvent event) {
     }
 
 }
