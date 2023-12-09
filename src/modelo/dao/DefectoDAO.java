@@ -179,5 +179,56 @@ public class DefectoDAO {
         return respuesta;
 
     }
+    
+    public static HashMap<String, Object> consultarNombresDefectosProyecto(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if (conexionBD != null) {
+
+            try {
+
+                String consulta = "SELECT idDefecto, titulo " +
+                        "FROM defecto " +
+                        "WHERE idProyecto = ?";
+
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Defecto> defectos = new ArrayList<Defecto>();
+
+                while (resultadoConsulta.next()) {
+
+                    Defecto defecto = new Defecto();
+                    defecto.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    defecto.setTitulo(resultadoConsulta.getString("titulo"));
+
+                    defectos.add(defecto);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("defectos", defectos);
+
+            } catch (SQLException se) {
+
+                respuesta.put("mensaje", "Error" + se.getMessage());
+
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+
+        } else {
+            respuesta.put("mensaje", "Error en la conexión con la base de datos");
+        }
+
+        return respuesta;
+    }
 
 }
