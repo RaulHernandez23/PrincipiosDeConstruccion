@@ -28,6 +28,8 @@ import modelo.pojo.Actividad;
 import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
 
+
+//De verdad es necesario cerrar todo luego de una excepcion o al terminar el CU?
 public class FXMLAsignarActividadController implements Initializable {
 
     private ObservableList<Actividad> actividadesSinAsignar;
@@ -56,6 +58,26 @@ public class FXMLAsignarActividadController implements Initializable {
 
     @FXML
     private void btnAsignarClic() {
+
+        Actividad actividad = tvActividades.getSelectionModel().getSelectedItem();
+        Estudiante estudiante = cbEstudiantes.getSelectionModel().getSelectedItem();
+
+        HashMap<String, Object> respuesta = ActividadDAO.asignarActividad(actividad.getIdActividad(), estudiante.getIdEstudiante());
+
+        if (!(boolean) respuesta.get("error")) {
+
+            Utilidades.mostrarAlertaSimple("Asignacion exitosa",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.INFORMATION);
+
+            obtenerActividadesSinAsignarProyecto(estudiante.getIdProyecto());
+            cargarEstudiantes(estudiante.getIdProyecto());
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+        }
 
     }
 
@@ -159,5 +181,3 @@ public class FXMLAsignarActividadController implements Initializable {
     }
 
 }
-
-//ME faltan validaciones y la funcion del boton asignar

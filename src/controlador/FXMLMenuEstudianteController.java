@@ -134,10 +134,28 @@ public class FXMLMenuEstudianteController implements Initializable {
 
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLRegistrarDefecto.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Registrar Defecto", true);
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLRegistrarDefecto.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLRegistrarDefectoController controlador = loader.getController();
+            controlador.inicializarInformacion(1, estudiante.getIdEstudiante());
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+
+            escenario.setScene(escena);
+            escenario.setTitle("Registrar Defecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException ioE) {
+
+            ioE.printStackTrace();
+            escenario.close();
+
+        }
 
     }
 
