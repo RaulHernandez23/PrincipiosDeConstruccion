@@ -65,23 +65,6 @@ public class FXMLConsultarDefectosController implements Initializable {
 
         }
 
-        TableView<Defecto> tableView = tvDefectos;
-        Defecto defectoSeleccionado = tableView.getSelectionModel().getSelectedItem();
-
-        if (defectoSeleccionado != null) {
-
-            utilidades.Alertas.mostrarAlerta("Defecto seleccionado",
-                    "El defecto seleccionado es: " + defectoSeleccionado,
-                    Alert.AlertType.INFORMATION);
-
-        } else {
-
-            utilidades.Alertas.mostrarAlerta("Defecto no seleccionado",
-                    "No se ha seleccionado ningun defecto",
-                    Alert.AlertType.WARNING);
-
-        }
-
     }
 
     @FXML

@@ -22,13 +22,12 @@ public class Defecto {
 
     private String estadoDefecto;
     private String nombreEstudiante;
-    private String nombreEstdiante;
 
     public Defecto() {
     }
 
     public Defecto(int idDefecto, String titulo, String descripcion, int esfuerzoMinutos, String fechaReporte,
-            int idEstadoDefecto, int idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto, String nombreEstdiante) {
+            int idEstadoDefecto, int idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto) {
         this.idDefecto = idDefecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -39,7 +38,6 @@ public class Defecto {
         this.estadoDefecto = estadoDefecto;
         this.nombreEstudiante = nombreEstudiante;
         this.idProyecto = idProyecto;
-        this.nombreEstdiante = nombreEstdiante;
     }
 
     public int getIdDefecto() {
@@ -158,18 +156,6 @@ public class Defecto {
 
         if (idProyecto > 0) {
             this.idProyecto = idProyecto;
-        }
-
-    }
-
-    public String getNombreEstdiante() {
-        return nombreEstdiante;
-    }
-
-    public void setNombreEstdiante(String nombreEstdiante) {
-
-        if (nombreEstdiante != null) {
-            this.nombreEstdiante = nombreEstdiante;
         }
 
     }
