@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -9,10 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import modelo.pojo.Defecto;
 
 public class FXMLConsultarDefectosController implements Initializable {
@@ -81,12 +86,34 @@ public class FXMLConsultarDefectosController implements Initializable {
 
     @FXML
     private void btnAceptarClic(ActionEvent event) {
+        Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
+        if (defectoSeleccionado != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLConsultarDetallesDefectos.fxml"));
+                Parent root = loader.load();
 
+                FXMLConsultarDetallesDefectosController detallesController = loader.getController();
+                detallesController.recibirDefectoSeleccionado(defectoSeleccionado);
+
+                Scene scene = new Scene(root);
+                Stage detallesStage = new Stage();
+                detallesStage.setScene(scene);
+                detallesStage.setTitle("Detalles del Defecto");
+                detallesStage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();  // Manejo de errores, aquí puedes poner tu lógica específica
+            }
+        } else {
+            utilidades.Alertas.mostrarAlerta("Defecto no seleccionado",
+                    "No se ha seleccionado ningún defecto",
+                    Alert.AlertType.WARNING);
+        }
     }
+
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {
 
     }
-
 }
