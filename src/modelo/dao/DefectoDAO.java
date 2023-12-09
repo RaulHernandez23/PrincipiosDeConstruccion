@@ -69,14 +69,14 @@ public class DefectoDAO {
         if (conexion != null) {
 
             try {
-                String consulta = "SELECT IdDefecto, Titulo, Descripcion, " +
-                        "EsfuerzoMinutos, FechaReporte, d.IdEstadoActividad, " +
-                        "d.IdEstudiante, ea.Estado AS EstadoActividad, " +
-                        "CONCAT(e.Nombre, ' ', e.ApellidoPaterno, ' ', e.ApellidoMaterno) AS Estudiantes " +
-                        "FROM defecto d INNER JOIN estadoactividad ea " +
-                        "ON ea.IdEstadoActividad = d.IdEstadoActividad INNER JOIN " +
-                        "estudiante e ON d.IdEstudiante = e.IdEstudiante " +
-                        "ORDER BY FechaReporte ASC, Estudiantes ASC;";
+                String consulta = "SELECT idDefecto, titulo, descripcion, " +
+                "esfuerzoMinutos, fechaReporte, fechaFin, d.idEstadoDefecto, " +
+                "d.idEstudiante, ed.estado AS estadoActividad, " +
+                "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', " +
+                "e.apellidoMaterno) AS estudiante FROM defecto d INNER JOIN " +
+                "estadodefecto ed ON ed.idEstadoDefecto = d.idEstadoDefecto " +
+                "INNER JOIN estudiante e ON d.idEstudiante = e.idEstudiante " +
+                "ORDER BY fechaReporte ASC, estudiante ASC";
 
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
@@ -85,15 +85,16 @@ public class DefectoDAO {
                 while (resultado.next()) {
 
                     Defecto defecto = new Defecto();
-                    defecto.setIdDefecto(resultado.getInt("IdDefecto"));
-                    defecto.setTitulo(resultado.getString("Titulo"));
-                    defecto.setDescripcion(resultado.getString("Descripcion"));
-                    defecto.setEsfuerzoMinutos(resultado.getInt("EsfuerzoMinutos"));
-                    defecto.setFechaReporte(resultado.getString("FechaReporte"));
-                    defecto.setIdEstadoDefecto(resultado.getInt("IdEstadoActividad"));
-                    defecto.setIdEstudiante(resultado.getInt("IdEstudiante"));
-                    defecto.setEstadoDefecto(resultado.getString("EstadoActividad"));
-                    defecto.setNombreEstudiante(resultado.getString("Estudiantes"));
+                    defecto.setIdDefecto(resultado.getInt("idDefecto"));
+                    defecto.setTitulo(resultado.getString("titulo"));
+                    defecto.setDescripcion(resultado.getString("descripcion"));
+                    defecto.setEsfuerzoMinutos(resultado.getInt("esfuerzoMinutos"));
+                    defecto.setFechaReporte(resultado.getString("fechaReporte"));
+                    defecto.setFechaFin(resultado.getString("fechaFin"));
+                    defecto.setIdEstadoDefecto(resultado.getInt("idEstadoDefecto"));
+                    defecto.setIdEstudiante(resultado.getInt("idEstudiante"));
+                    defecto.setEstadoDefecto(resultado.getString("estadoActividad"));
+                    defecto.setNombreEstudiante(resultado.getString("estudiante"));
 
                     defectos.add(defecto);
 
@@ -177,6 +178,57 @@ public class DefectoDAO {
 
         return respuesta;
 
+    }
+    
+    public static HashMap<String, Object> consultarNombresDefectosProyecto(Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if (conexionBD != null) {
+
+            try {
+
+                String consulta = "SELECT idDefecto, titulo " +
+                        "FROM defecto " +
+                        "WHERE idProyecto = ?";
+
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Defecto> defectos = new ArrayList<Defecto>();
+
+                while (resultadoConsulta.next()) {
+
+                    Defecto defecto = new Defecto();
+                    defecto.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    defecto.setTitulo(resultadoConsulta.getString("titulo"));
+
+                    defectos.add(defecto);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("defectos", defectos);
+
+            } catch (SQLException se) {
+
+                respuesta.put("mensaje", "Error" + se.getMessage());
+
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+
+        } else {
+            respuesta.put("mensaje", "Error en la conexión con la base de datos");
+        }
+
+        return respuesta;
     }
 
 }

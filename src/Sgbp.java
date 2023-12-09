@@ -16,7 +16,7 @@ public class Sgbp extends Application {
 
         Utilidades.inicializarVentana(
                 escenario,
-                "/vista/FXMLInicioSesion.fxml",
+                "/vista/FXMLConsultarDefectos.fxml",
                 "/vista/estilos/escenaInicioSesion.css",
                 "Sistema Gestor de Bitácoras de Proyecto",
                 false);

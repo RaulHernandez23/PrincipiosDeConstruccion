@@ -1,9 +1,9 @@
 /*
  * Nombre del archivo: Defecto.java
- * Nombre del autor:
+ * Nombre del autor: César González López
  * Paquete: modelo.pojo
- * Fecha de creacion:
- * Fecha de modificacion: 29/11/2023
+ * Fecha de creacion: 26/11/2023
+ * Fecha de modificacion: 08/12/2023
  * Descripcion: Clase Defecto que contiene los atributos de un defecto
  */
 
@@ -13,18 +13,20 @@ public class Defecto {
     private int idDefecto;
     private String titulo;
     private String descripcion;
-    private Integer esfuerzoMinutos;
+    private int esfuerzoMinutos = 0;
     private String fechaReporte;
+    private String fechaFin;
     private int idEstadoDefecto;
     private int idEstudiante;
+    private int idProyecto;
+
     private String estadoDefecto;
     private String nombreEstudiante;
-    private Integer idProyecto;
 
     public Defecto() {
     }
 
-    public Defecto(int idDefecto, String titulo, String descripcion, Integer esfuerzoMinutos, String fechaReporte,
+    public Defecto(int idDefecto, String titulo, String descripcion, int esfuerzoMinutos, String fechaReporte,
             int idEstadoDefecto, int idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto) {
         this.idDefecto = idDefecto;
         this.titulo = titulo;
@@ -74,13 +76,13 @@ public class Defecto {
 
     }
 
-    public Integer getEsfuerzoMinutos() {
+    public int getEsfuerzoMinutos() {
         return esfuerzoMinutos;
     }
 
-    public void setEsfuerzoMinutos(Integer esfuerzoMinutos) {
+    public void setEsfuerzoMinutos(int esfuerzoMinutos) {
 
-        if (esfuerzoMinutos != null) {
+        if (esfuerzoMinutos > 0) {
             this.esfuerzoMinutos = esfuerzoMinutos;
         }
 
@@ -154,6 +156,17 @@ public class Defecto {
 
         if (idProyecto > 0) {
             this.idProyecto = idProyecto;
+        }
+
+    }
+
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        if (fechaFin != null) {
+            this.fechaFin = fechaFin;            
         }
 
     }
