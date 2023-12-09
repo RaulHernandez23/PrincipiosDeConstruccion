@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modelo.dao.SolicitudDeCambioDAO;
 import modelo.pojo.SolicitudDeCambio;
 import utilidades.Utilidades;
@@ -42,16 +43,17 @@ public class FXMLSolicitudesDeCambioController implements Initializable {
 
     @FXML
     private void clicVolver(ActionEvent event) {
+        cerrarVentana();
     }
     
     private void configurarTabla(){
-        obtenerInformacionPacientes();
-        this.colNombreSolicitud.setCellValueFactory(new PropertyValueFactory("nombre"));
-        this.colNombreAlumno.setCellValueFactory(new PropertyValueFactory("idEstudiante"));
+        obtenerInformacionSolicitudes();
+        this.colNombreSolicitud.setCellValueFactory(new PropertyValueFactory("titulo"));
+        this.colNombreAlumno.setCellValueFactory(new PropertyValueFactory("estudiante"));
         this.colFechaRegistro.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
     }
     
-    private void obtenerInformacionPacientes(){
+    private void obtenerInformacionSolicitudes(){
         Integer idProyecto =1;
         HashMap<String,Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudesPendientes(idProyecto);
         if(!(Boolean) respuesta.get("error")){
@@ -62,5 +64,10 @@ public class FXMLSolicitudesDeCambioController implements Initializable {
         }else{
             Utilidades.mostrarAlertaSimple("Error de carga", "" + respuesta.get("mensaje"), Alert.AlertType.ERROR);// Se podria castear en vez de ""+ ...(String)
         }
+    }
+    
+    private void cerrarVentana() {
+        Stage escenario = (Stage) tvSolicitudesDeCambio.getScene().getWindow();
+        escenario.close();
     }
 }
