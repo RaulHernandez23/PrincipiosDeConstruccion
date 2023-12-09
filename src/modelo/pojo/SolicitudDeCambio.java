@@ -11,6 +11,7 @@ public class SolicitudDeCambio {
     private String fechaCreacion;
     private String fechaEvaluacion;
     private Integer idEstudiante;
+    private String estudiante;
     private Integer idEstadoSolicitud;
     private Integer idProyecto;
     private Integer idResponsable;
@@ -20,10 +21,7 @@ public class SolicitudDeCambio {
 
     }
 
-    public SolicitudDeCambio(Integer idSolicitudDeCambio, String titulo, String descripcion, String razon,
-            String impacto, String accionPropuesta, String fechaCreacion, String fechaEvaluacion,
-            Integer idEstudiante, Integer idEstadoSolicitud, Integer idProyecto, Integer idResponsable,
-            Integer idDefecto) {
+    public SolicitudDeCambio(Integer idSolicitudDeCambio, String titulo, String descripcion, String razon, String impacto, String accionPropuesta, String fechaCreacion, String fechaEvaluacion, Integer idEstudiante, String estudiante, Integer idEstadoSolicitud, Integer idProyecto, Integer idResponsable, Integer idDefecto) {
         this.idSolicitudDeCambio = idSolicitudDeCambio;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -33,6 +31,7 @@ public class SolicitudDeCambio {
         this.fechaCreacion = fechaCreacion;
         this.fechaEvaluacion = fechaEvaluacion;
         this.idEstudiante = idEstudiante;
+        this.estudiante = estudiante;
         this.idEstadoSolicitud = idEstadoSolicitud;
         this.idProyecto = idProyecto;
         this.idResponsable = idResponsable;
@@ -63,12 +62,24 @@ public class SolicitudDeCambio {
         return accionPropuesta;
     }
 
-    public Integer getIdEstadoSolicitud() {
-        return idEstadoSolicitud;
+    public String getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public String getFechaEvaluacion() {
+        return fechaEvaluacion;
     }
 
     public Integer getIdEstudiante() {
         return idEstudiante;
+    }
+
+    public String getEstudiante() {
+        return estudiante;
+    }
+
+    public Integer getIdEstadoSolicitud() {
+        return idEstadoSolicitud;
     }
 
     public Integer getIdProyecto() {
@@ -81,14 +92,6 @@ public class SolicitudDeCambio {
 
     public Integer getIdDefecto() {
         return idDefecto;
-    }
-
-    public String getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public String getFechaEvaluacion() {
-        return fechaEvaluacion;
     }
 
     public void setIdSolicitudDeCambio(Integer idSolicitudDeCambio) {
@@ -115,12 +118,24 @@ public class SolicitudDeCambio {
         this.accionPropuesta = accionPropuesta;
     }
 
-    public void setIdEstadoSolicitud(Integer idEstadoSolicitud) {
-        this.idEstadoSolicitud = idEstadoSolicitud;
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setFechaEvaluacion(String fechaEvaluacion) {
+        this.fechaEvaluacion = fechaEvaluacion;
     }
 
     public void setIdEstudiante(Integer idEstudiante) {
         this.idEstudiante = idEstudiante;
+    }
+
+    public void setEstudiante(String estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public void setIdEstadoSolicitud(Integer idEstadoSolicitud) {
+        this.idEstadoSolicitud = idEstadoSolicitud;
     }
 
     public void setIdProyecto(Integer idProyecto) {
@@ -133,19 +148,6 @@ public class SolicitudDeCambio {
 
     public void setIdDefecto(Integer idDefecto) {
         this.idDefecto = idDefecto;
-    }
-
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public void setFechaEvaluacion(String fechaEvaluacion) {
-        this.fechaEvaluacion = fechaEvaluacion;
-    }
-
-    @Override
-    public String toString() {
-        return titulo + " id: " + idSolicitudDeCambio;
     }
 
 }

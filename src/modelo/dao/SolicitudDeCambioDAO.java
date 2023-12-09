@@ -61,13 +61,14 @@ public class SolicitudDeCambioDAO {
         if (conexionBD != null) {
             try {
 
-                String consulta = "SELECT idSolicitudDeCambio, titulo, descripcion, razon, "
-                        + "impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, "
-                        + "idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, "
-                        + "idDefecto "
-                        + "FROM SolicitudDeCambio "
-                        + "WHERE idProyecto = ? "
-                        + "ORDER BY fechaCreacion DESC";
+                String consulta = "SELECT s.idSolicitudDeCambio, s.titulo, s.descripcion, s.razon, "
+                        + "s.impacto, s.accionPropuesta, DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, s.fechaEvaluacion, "
+                        + "s.idEstudiante, s.idEstadoSolicitud, s.idProyecto, s.idResponsableProyecto, "
+                        + "s.idDefecto, CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante "
+                        + "FROM SolicitudDeCambio s "
+                        + "JOIN Estudiante e ON s.idEstudiante = e.idEstudiante "
+                        + "WHERE s.idProyecto = ? "
+                        + "ORDER BY s.fechaCreacion DESC";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
 
@@ -90,10 +91,12 @@ public class SolicitudDeCambioDAO {
                     solicitud.setFechaCreacion(resultadoConsulta.getString("fechaCreacion"));
                     solicitud.setFechaEvaluacion(resultadoConsulta.getString("fechaEvaluacion"));
                     solicitud.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    solicitud.setEstudiante(resultadoConsulta.getString("estudiante"));
                     solicitud.setIdEstadoSolicitud(resultadoConsulta.getInt("idEstadoSolicitud"));
                     solicitud.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
                     solicitud.setIdResponsable(resultadoConsulta.getInt("idResponsableProyecto"));
                     solicitud.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    
                     solicitudes.add(solicitud);
 
                 }
@@ -191,13 +194,14 @@ public class SolicitudDeCambioDAO {
         if (conexionBD != null) {
             try {
 
-                String consulta = "SELECT idSolicitudDeCambio, titulo, descripcion, razon, "
-                        + "impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, "
-                        + "idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, "
-                        + "idDefecto "
-                        + "FROM SolicitudDeCambio "
-                        + "WHERE idProyecto = ? AND idEstadoSolicitud = 3 "
-                        + "ORDER BY fechaCreacion DESC";
+                String consulta = "SELECT s.idSolicitudDeCambio, s.titulo, s.descripcion, s.razon, "
+                        + "s.impacto, s.accionPropuesta, DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, s.fechaEvaluacion, "
+                        + "s.idEstudiante, s.idEstadoSolicitud, s.idProyecto, s.idResponsableProyecto, "
+                        + "s.idDefecto, CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante "
+                        + "FROM SolicitudDeCambio s "
+                        + "JOIN Estudiante e ON s.idEstudiante = e.idEstudiante "
+                        + "WHERE s.idProyecto = ? AND s.idEstadoSolicitud = 3 "
+                        + "ORDER BY s.fechaCreacion DESC";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
 
@@ -220,10 +224,12 @@ public class SolicitudDeCambioDAO {
                     solicitud.setFechaCreacion(resultadoConsulta.getString("fechaCreacion"));
                     solicitud.setFechaEvaluacion(resultadoConsulta.getString("fechaEvaluacion"));
                     solicitud.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    solicitud.setEstudiante(resultadoConsulta.getString("estudiante"));
                     solicitud.setIdEstadoSolicitud(resultadoConsulta.getInt("idEstadoSolicitud"));
                     solicitud.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
                     solicitud.setIdResponsable(resultadoConsulta.getInt("idResponsableProyecto"));
                     solicitud.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    
                     solicitudes.add(solicitud);
 
                 }
