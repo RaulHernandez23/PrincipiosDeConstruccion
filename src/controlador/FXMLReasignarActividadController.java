@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -49,11 +52,28 @@ public class FXMLReasignarActividadController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        btnReasignarActividad.setDisable(true);
+
+        tvActividadesPendientes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        tvActividadesPendientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
+            @Override
+            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
+                
+                btnReasignarActividad.setDisable(newValue == null);
+
+            }
+        });
+
         mostrarDatos();
 
-        cbEstudiantes.getSelectionModel().select(0);
-
+        // Asegúrate de que la lista de estudiantes no esté vacía antes de seleccionar el primero
+        ObservableList<Estudiante> estudiantes = cbEstudiantes.getItems();
+        if (!estudiantes.isEmpty()) {
+            cbEstudiantes.getSelectionModel().select(0);
+        }
     }
+
 
     private void mostrarDatos() {
 
@@ -131,11 +151,16 @@ public class FXMLReasignarActividadController implements Initializable {
                     Alert.AlertType.WARNING);
 
         }
-
-        // Blue2 Cambiar esta parte por un cambio de ventana
         Stage escenario = (Stage) btnReasignarActividad.getScene().getWindow();
         escenario.close();
 
     }
 
+    @FXML
+    private void btnVolverClic(ActionEvent event) {
+
+        Stage escenario = (Stage) btnReasignarActividad.getScene().getWindow();
+        escenario.close();
+
+    }
 }

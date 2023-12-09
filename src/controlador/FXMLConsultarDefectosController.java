@@ -72,17 +72,17 @@ public class FXMLConsultarDefectosController implements Initializable {
         Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
         if (defectoSeleccionado != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLConsultarDetallesDefectos.fxml"));
-                Parent root = loader.load();
-
-                FXMLConsultarDetallesDefectosController detallesController = loader.getController();
+                FXMLConsultarDetallesDefectosController detallesController = new FXMLConsultarDetallesDefectosController();
                 detallesController.recibirDefectoSeleccionado(defectoSeleccionado);
 
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLConsultarDetallesDefectos.fxml"));
+                loader.setController(detallesController);
+                Parent root = loader.load();
                 Scene scene = new Scene(root);
-                Stage detallesStage = new Stage();
-                detallesStage.setScene(scene);
-                detallesStage.setTitle("Detalles del Defecto");
-                detallesStage.show();
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                
 
             } catch (IOException e) {
                 e.printStackTrace();  // Manejo de errores, aquí puedes poner tu lógica específica
