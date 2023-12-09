@@ -8,21 +8,54 @@ package controlador;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import modelo.dao.CambioDAO;
 import modelo.pojo.Cambio;
+import utilidades.Alertas;
+import utilidades.Utilidades;
 
 public class FXMLFinalizarCambioController implements Initializable{
 
     @FXML
-    public ComboBox<Cambio> cbCambios;
+    private ImageView ivSalir;
+
+    @FXML
+    private TableView<Cambio> tvCambios;
+
+    @FXML
+    private TableColumn<Cambio, String> colTitulo;
+
+    @FXML
+    private TableColumn<Cambio, String> colDescripcion;
+
+    @FXML
+    private TableColumn<Cambio, String> colFechaInicio;
+
+    @FXML
+    private TableColumn<Cambio, String> colTipoActividad;
+
+    @FXML
+    private Button btnFinalizar;
+
+    @FXML
+    private Button btnVolver;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,21 +63,64 @@ public class FXMLFinalizarCambioController implements Initializable{
     }
 
     private void mostrarDatos() {
+        int idProyecto = 123; // Reemplaza con el ID correcto de tu proyecto
+        HashMap<String, Object> respuesta = CambioDAO.consultarCambios();
 
-        ObservableList<Cambio> cambios = FXCollections.observableArrayList();
+        if (!(Boolean) respuesta.get("error")) {
+            ArrayList<Cambio> listaCambios = (ArrayList<Cambio>) respuesta.get("cambios");
 
-        try {
+            ObservableList<Cambio> observableListaCambios = FXCollections.observableArrayList();
+            observableListaCambios.addAll(listaCambios);
 
-            ArrayList<Cambio> listaCambios = CambioDAO.consultarCambios();
-            cambios.addAll(listaCambios);
+            colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+            colDescripcion.setCellValueFactory(new PropertyValueFactory<>("Descripcion"));
+            colFechaInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+            colTipoActividad.setCellValueFactory(new PropertyValueFactory<>("tipoActividad"));
 
-            cbCambios.setItems(cambios);
+            tvCambios.setItems(observableListaCambios);
+        } else {
+            String mensajeError = respuesta.get("mensaje").toString();
+            Alertas.mostrarAlerta("Error", mensajeError, AlertType.ERROR);
 
-        } catch (Exception e) {
-            utilidades.Alertas.mostrarAlerta("Error de conexion", 
-                "No se pudo consultar la lista de cambios", 
-                Alert.AlertType.ERROR);
+            // Cerrar la ventana actual en caso de error
+            Stage escenario = (Stage) tvCambios.getScene().getWindow();
+            escenario.close();
         }
-
     }
+
+    @FXML
+    private void btnFinalizarClic(ActionEvent event) {
+        // Código para manejar el evento
+    }
+
+    @FXML
+    private void btnVolverClic(ActionEvent event) {
+        // Código para manejar el evento
+    }
+
+    @FXML
+    private void btnSalir(MouseEvent event) {
+        // Código para manejar el evento
+        salir(); // Puedes llamar a tu método salir() u otro código que necesites
+    }
+
+
+    @FXML
+    private void hoverInSalir() {
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
+    }
+
+    @FXML
+    private void hoverOutSalir() {
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
+    }
+
+    private void salir() {
+        Stage escenario = (Stage) tvCambios.getScene().getWindow();
+
+        escenario.close();
+    }
+
 }
