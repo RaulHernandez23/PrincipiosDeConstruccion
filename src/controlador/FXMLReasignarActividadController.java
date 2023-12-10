@@ -1,7 +1,7 @@
 /*
 * Autor: Cesar Gonzalez Lopez
 * Fecha de creación: 24/11/2023
-* Fecha de modificación: 25/11/2023
+* Fecha de modificación: 09/12/2023
 * Descripción: clase para reasignar actividades a los estudiantes
 */
 
@@ -107,7 +107,7 @@ public class FXMLReasignarActividadController implements Initializable {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();  // Considera manejar la excepción de manera más adecuada según tus necesidades
+            e.printStackTrace(); 
             utilidades.Alertas.mostrarAlerta("Error", "Error inesperado", Alert.AlertType.ERROR);
         }
 
@@ -115,7 +115,8 @@ public class FXMLReasignarActividadController implements Initializable {
             HashMap<String, Object> respuestaEstudiantes = EstudianteDAO.consultarListaEstudiante();
         
             if (!((Boolean) respuestaEstudiantes.get("error"))) {
-                ArrayList<HashMap<String, Object>> listaEstudiantes = (ArrayList<HashMap<String, Object>>) respuestaEstudiantes.get("estudiantes");
+                ArrayList<HashMap<String, Object>> listaEstudiantes = 
+                    (ArrayList<HashMap<String, Object>>) respuestaEstudiantes.get("estudiantes");
         
                 for (HashMap<String, Object> estudianteMap : listaEstudiantes) {
                     Estudiante estudiante = new Estudiante();
