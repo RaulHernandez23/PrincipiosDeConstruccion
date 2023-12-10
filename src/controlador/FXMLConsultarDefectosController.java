@@ -95,33 +95,19 @@ public class FXMLConsultarDefectosController implements Initializable {
     @FXML
     private void btnAceptarClic(ActionEvent event) {
         Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
-        if (defectoSeleccionado != null) {
-            try {
-                FXMLConsultarDetallesDefectosController detallesController = new FXMLConsultarDetallesDefectosController();
-                detallesController.recibirDefectoSeleccionado(defectoSeleccionado);
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLConsultarDetallesDefectos.fxml"));
-                loader.setController(detallesController);
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.show();
-                
-
-            } catch (IOException e) {
-                e.printStackTrace();  // Manejo de errores, aquí puedes poner tu lógica específica
-            }
-        } else {
-            utilidades.Alertas.mostrarAlerta("Defecto no seleccionado",
-                    "No se ha seleccionado ningún defecto",
-                    Alert.AlertType.WARNING);
-        }
+        
     }
 
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {
+        salir();
+    }
 
+
+    private void salir() {
+        Stage escenario = (Stage) tvDefectos.getScene().getWindow();
+
+        escenario.close();
     }
 }
