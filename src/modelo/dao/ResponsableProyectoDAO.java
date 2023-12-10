@@ -49,8 +49,7 @@ public class ResponsableProyectoDAO {
                         respuesta.setCorrecto(true);
                         respuesta.setMensaje("Inicio de sesión correcto");
                         respuesta.setResponsableProyecto(responsableProyecto);
-                    }
-                    else {
+                    } else {
                         respuesta.setMensaje("El número de personal y/o la contraseña son incorrectos");
                     }
 
