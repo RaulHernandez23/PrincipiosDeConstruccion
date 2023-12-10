@@ -103,6 +103,7 @@ public class FXMLConsultarDefectosController implements Initializable {
     @FXML
     private void btnAceptarClic(ActionEvent event) {
         Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
+        utilidades.Alertas.mostrarAlerta("Prueba", defectoSeleccionado.toString(), Alert.AlertType.INFORMATION);
         consultarDefecto(defectoSeleccionado);
     }
 
