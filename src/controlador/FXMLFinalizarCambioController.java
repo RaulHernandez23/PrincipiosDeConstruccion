@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,9 +30,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.dao.CambioDAO;
+import modelo.pojo.Actividad;
 import modelo.pojo.Cambio;
 import utilidades.Alertas;
 import utilidades.Utilidades;
+
 
 public class FXMLFinalizarCambioController implements Initializable{
 
@@ -62,6 +65,13 @@ public class FXMLFinalizarCambioController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        btnFinalizar.setDisable(true);
+
+        // Cambia el tipo de ObservableValue y ChangeListener a Cambio
+    tvCambios.getSelectionModel().selectedItemProperty().addListener(
+        (ObservableValue<? extends Cambio> observable, Cambio oldValue, Cambio newValue) -> {
+            btnFinalizar.setDisable(newValue == null);
+        });
         mostrarDatos();
     }
 

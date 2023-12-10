@@ -31,7 +31,7 @@ public class CambioDAO {
                         " solicituddecambio sc ON sc.idSolicitudDeCambio = " + 
                         "c.idSolicitudDeCambio INNER JOIN" + 
                         " proyecto p ON sc.idProyecto = p.idProyecto WHERE" + 
-                        " p.idProyecto = 1 " + 
+                        " p.idProyecto = 1 AND c.idEstadoCambio <> 1 " + 
                         "ORDER BY titulo ASC;";
 
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
