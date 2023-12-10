@@ -26,7 +26,7 @@ public class EstudianteDAO {
             try {
 
                 PreparedStatement consulta = (PreparedStatement) conexion.prepareStatement(
-                        "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno, e.idEstadoEstudiante, s.estado FROM estudiante e INNER JOIN estadoestudiante s ON e.idEstadoEstudiante = s.idEstadoEstudiante WHERE matricula = ? AND password = ?");
+                        "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno, e.idEstadoEstudiante, s.estado, e.password FROM estudiante e INNER JOIN estadoestudiante s ON e.idEstadoEstudiante = s.idEstadoEstudiante WHERE matricula = ? AND password = ?");
 
                 consulta.setString(1, matricula);
                 consulta.setString(2, password);
@@ -39,14 +39,20 @@ public class EstudianteDAO {
 
                     estudiante.setIdEstudiante(resultado.getInt("idEstudiante"));
                     estudiante.setMatricula(matricula);
+                    estudiante.setPassword(resultado.getString("password"));
                     estudiante.setNombre(resultado.getString("nombre"));
                     estudiante.setApellidoPaterno(resultado.getString("apellidoPaterno"));
                     estudiante.setApellidoMaterno(resultado.getString("apellidoMaterno"));
                     estudiante.setIdEstadoEstudiante(resultado.getInt("idEstadoEstudiante"));
                     estudiante.setEstadoEstudiante(resultado.getString("estado"));
-                    respuesta.setCorrecto(true);
-                    respuesta.setMensaje("Inicio de sesión correcto");
-                    respuesta.setEstudiante(estudiante);
+                    
+                    if (password.equals(estudiante.getPassword())) {
+                        respuesta.setCorrecto(true);
+                        respuesta.setMensaje("Inicio de sesión correcto");
+                        respuesta.setEstudiante(estudiante);
+                    }else {
+                        respuesta.setMensaje("La matrícula y/o la contraseña son incorrectos");
+                    }                    
 
                 } else {
                     respuesta.setMensaje("La matrícula y/o la contraseña son incorrectos");

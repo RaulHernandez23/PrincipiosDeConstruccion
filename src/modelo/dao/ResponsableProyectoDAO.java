@@ -45,7 +45,7 @@ public class ResponsableProyectoDAO {
                     responsableProyecto.setCorreo(resultado.getString("correo"));
                     responsableProyecto.setTelefono(resultado.getString("telefono"));
                     
-                    if (numPersonal.equals(responsableProyecto.getNumPersonal()) && password.equals(responsableProyecto.getPassword())) {
+                    if (password.equals(responsableProyecto.getPassword())) {
                         respuesta.setCorrecto(true);
                         respuesta.setMensaje("Inicio de sesión correcto");
                         respuesta.setResponsableProyecto(responsableProyecto);
