@@ -11,8 +11,7 @@ import java.util.ResourceBundle;
 
 public class FXMLConsultarDetallesDefectosController implements Initializable {
     
-    @FXML
-    private TextField cbEstadoDefecto;
+    private Defecto defecto;
 
     @FXML
     private TextField tfTitulo;
@@ -31,15 +30,20 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
 
     @FXML
     private TextField tfEsfuerzo;
+    @FXML
+    private TextField tfEstado;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
     }
 
-
-    public void recibirDefectoSeleccionado(Defecto defecto) {
-        tfTitulo.setText(defecto.getTitulo());
-        cbEstadoDefecto.setText(defecto.getEstadoDefecto());
+    public void inicializarVentana(Defecto defectoSeleccionado) {
+        tfTitulo.setText(defectoSeleccionado.getTitulo());
+        tbDescripcion.setText(defectoSeleccionado.getDescripcion());
+        tfFechaInicio.setText(defectoSeleccionado.getFechaReporte());
+        tfFechaFin.setText(defectoSeleccionado.getFechaFin());
+        tfEstudiante.setText(defectoSeleccionado.getNombreEstudiante());
+        tfEsfuerzo.setText(String.valueOf(defectoSeleccionado.getEsfuerzoMinutos()));
+        tfEstado.setText(defectoSeleccionado.getEstadoDefecto());        
     }
 }

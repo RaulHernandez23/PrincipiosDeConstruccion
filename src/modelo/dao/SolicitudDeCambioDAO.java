@@ -61,13 +61,14 @@ public class SolicitudDeCambioDAO {
         if (conexionBD != null) {
             try {
 
-                String consulta = "SELECT idSolicitudDeCambio, titulo, descripcion, razon, "
-                        + "impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, "
-                        + "idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, "
-                        + "idDefecto "
-                        + "FROM SolicitudDeCambio "
-                        + "WHERE idProyecto = ? "
-                        + "ORDER BY fechaCreacion DESC";
+                String consulta = "SELECT s.idSolicitudDeCambio, s.titulo, s.descripcion, s.razon, "
+                        + "s.impacto, s.accionPropuesta, DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, s.fechaEvaluacion, "
+                        + "s.idEstudiante, s.idEstadoSolicitud, s.idProyecto, s.idResponsableProyecto, "
+                        + "s.idDefecto, CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante "
+                        + "FROM SolicitudDeCambio s "
+                        + "JOIN Estudiante e ON s.idEstudiante = e.idEstudiante "
+                        + "WHERE s.idProyecto = ? "
+                        + "ORDER BY s.fechaCreacion DESC";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
 
@@ -90,10 +91,12 @@ public class SolicitudDeCambioDAO {
                     solicitud.setFechaCreacion(resultadoConsulta.getString("fechaCreacion"));
                     solicitud.setFechaEvaluacion(resultadoConsulta.getString("fechaEvaluacion"));
                     solicitud.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    solicitud.setEstudiante(resultadoConsulta.getString("estudiante"));
                     solicitud.setIdEstadoSolicitud(resultadoConsulta.getInt("idEstadoSolicitud"));
                     solicitud.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
                     solicitud.setIdResponsable(resultadoConsulta.getInt("idResponsableProyecto"));
                     solicitud.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    
                     solicitudes.add(solicitud);
 
                 }
@@ -191,13 +194,33 @@ public class SolicitudDeCambioDAO {
         if (conexionBD != null) {
             try {
 
-                String consulta = "SELECT idSolicitudDeCambio, titulo, descripcion, razon, "
-                        + "impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, "
-                        + "idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, "
-                        + "idDefecto "
-                        + "FROM SolicitudDeCambio "
-                        + "WHERE idProyecto = ? AND idEstadoSolicitud = 3 "
-                        + "ORDER BY fechaCreacion DESC";
+                String consulta = "SELECT " +
+                                    "s.idSolicitudDeCambio, " +
+                                    "s.titulo, " +
+                                    "s.descripcion, " +
+                                    "s.razon, " +
+                                    "s.impacto, " +
+                                    "s.accionPropuesta, " +
+                                    "DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, " +
+                                    "s.fechaEvaluacion, " +
+                                    "s.idEstudiante, " +
+                                    "s.idEstadoSolicitud, " +
+                                    "s.idProyecto, " +
+                                    "s.idResponsableProyecto, " +
+                                    "s.idDefecto, " +
+                                    "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante, " +
+                                    "d.titulo AS defecto, " +
+                                    "d.descripcion AS defectoDescripcion " +
+                                "FROM " +
+                                    "SolicitudDeCambio s " +
+                                "JOIN " +
+                                    "Estudiante e ON s.idEstudiante = e.idEstudiante " +
+                                "LEFT JOIN " +
+                                    "Defecto d ON s.idDefecto = d.idDefecto " +
+                                "WHERE " +
+                                    "s.idProyecto = ? AND s.idEstadoSolicitud = 3 " +
+                                "ORDER BY " +
+                                    "s.fechaCreacion DESC";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
 
@@ -220,10 +243,12 @@ public class SolicitudDeCambioDAO {
                     solicitud.setFechaCreacion(resultadoConsulta.getString("fechaCreacion"));
                     solicitud.setFechaEvaluacion(resultadoConsulta.getString("fechaEvaluacion"));
                     solicitud.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
+                    solicitud.setEstudiante(resultadoConsulta.getString("estudiante"));
                     solicitud.setIdEstadoSolicitud(resultadoConsulta.getInt("idEstadoSolicitud"));
                     solicitud.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
                     solicitud.setIdResponsable(resultadoConsulta.getInt("idResponsableProyecto"));
                     solicitud.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
+                    solicitud.setDefecto(resultadoConsulta.getString("defecto"));
                     solicitudes.add(solicitud);
 
                 }
@@ -285,6 +310,43 @@ public class SolicitudDeCambioDAO {
 
             } catch (SQLException ex) {
                 respuesta.put("mensaje", "No se pudo enviar la solicitud a la base de datos");
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
+        }
+
+        return respuesta;
+    }
+    
+    public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud, String nuevaFechaEvaluacion, int nuevoIdEstadoSolicitud) {
+        HashMap<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if (conexionBD != null) {
+            try {
+                String consulta = "UPDATE SolicitudDeCambio SET fechaEvaluacion = ?, idEstadoSolicitud = ? WHERE idSolicitudDeCambio = ?";
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+
+                sentencia.setString(1, nuevaFechaEvaluacion);
+                sentencia.setInt(2, nuevoIdEstadoSolicitud);
+                sentencia.setInt(3, idSolicitud);
+
+                int filasAfectadas = sentencia.executeUpdate();
+
+                if (filasAfectadas > 0) {
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "Solicitud evaluada correctamente");
+                } else {
+                    respuesta.put("mensaje", "No se encontró la solicitud con ID " + idSolicitud);
+                }
+
+            } catch (SQLException ex) {
+                respuesta.put("mensaje", "Error al intentar editar la solicitud, inténtelo de nuevo más tarde");
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }

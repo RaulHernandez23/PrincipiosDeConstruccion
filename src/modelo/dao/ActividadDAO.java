@@ -16,48 +16,52 @@ import utilidades.Utilidades;
 public class ActividadDAO {
 
     // Método Deprecado pero guardado por retrocompatibilidad
-    public static ArrayList<Actividad> consultarActividades() {
-
-        ArrayList<Actividad> actividades = new ArrayList<Actividad>();
-
+    public static HashMap<String, Object> consultarActividades() {
+        HashMap<String, Object> respuesta = new HashMap<>();
+        respuesta.put("error", true);
+    
+        ArrayList<Actividad> actividades = new ArrayList<>();
+    
         Connection conexion = ConectorBaseDatos.obtenerConexion();
-
+    
         if (conexion != null) {
-
             try {
-
-                String consulta = "SELECT idActividad, titulo, " +
-                        "a.idEstudiante, CONCAT(e.nombre, ' ', " +
-                        "e.apellidoPaterno, ' ', e.apellidoMaterno) AS" +
-                        " Estudiante, fechaInicio FROM actividad a INNER JOIN" +
-                        " estudiante e ON a.idEstudiante = e.idEstudiante " +
-                        "WHERE fechaFin IS NULL ORDER BY fechaInicio ASC;";
+                String consulta = "SELECT idActividad, titulo, a.idEstudiante, " +
+                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS Estudiante, " +
+                        "fechaInicio FROM actividad a INNER JOIN estudiante e " +
+                        "ON a.idEstudiante = e.idEstudiante WHERE fechaFin IS NULL " +
+                        "ORDER BY fechaInicio ASC;";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
+    
                 ResultSet resultadoConsulta = sentencia.executeQuery();
-
+    
+                ArrayList<HashMap<String, Object>> listaActividades = new ArrayList<>();
+    
                 while (resultadoConsulta.next()) {
-
-                    Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultadoConsulta.getInt("IdActividad"));
-                    actividad.setTitulo(resultadoConsulta.getString("Titulo"));
-                    actividad.setIdEstudiante(resultadoConsulta.getInt("IdEstudiante"));
-                    actividad.setEstudiante(resultadoConsulta.getString("Estudiante"));
-                    actividad.setFechaInicio(resultadoConsulta.getString("FechaInicio"));
-
-                    actividades.add(actividad);
-
+                    HashMap<String, Object> actividadMap = new HashMap<>();
+                    actividadMap.put("idActividad", resultadoConsulta.getInt("idActividad"));
+                    actividadMap.put("titulo", resultadoConsulta.getString("titulo"));
+                    actividadMap.put("idEstudiante", resultadoConsulta.getInt("idEstudiante"));
+                    actividadMap.put("estudiante", resultadoConsulta.getString("Estudiante"));
+                    actividadMap.put("fechaInicio", resultadoConsulta.getString("fechaInicio"));
+    
+                    listaActividades.add(actividadMap);
                 }
-
+    
+                respuesta.put("error", false);
+                respuesta.put("actividades", listaActividades);
+    
             } catch (SQLException se) {
                 se.printStackTrace();
+                respuesta.put("mensaje", "Error en la base de datos: " + se.getMessage());
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
-
-        return actividades;
-
+    
+        return respuesta;
     }
 
     // Modificacion que marcara error en el CU-07

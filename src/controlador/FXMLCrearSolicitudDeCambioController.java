@@ -59,6 +59,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnEnviarSolicitud.setDisable(true);
         configurarListenerACampos();
     }
     
@@ -106,6 +107,9 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         defectos = FXCollections.observableArrayList();
         defectos.addAll(defectosDeProyecto);
         
+        Defecto ningunDefectoSeleccionado = new Defecto();
+        ningunDefectoSeleccionado.setTitulo("Ningun defecto asociado");
+        defectos.add(ningunDefectoSeleccionado);
         cbDefectos.setItems(defectos);
     }
     
