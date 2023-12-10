@@ -7,10 +7,13 @@
 package controlador;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
+import javax.swing.event.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,7 +66,6 @@ public class FXMLFinalizarCambioController implements Initializable{
     }
 
     private void mostrarDatos() {
-        int idProyecto = 123; // Reemplaza con el ID correcto de tu proyecto
         HashMap<String, Object> respuesta = CambioDAO.consultarCambios();
 
         if (!(Boolean) respuesta.get("error")) {
@@ -86,16 +88,35 @@ public class FXMLFinalizarCambioController implements Initializable{
             Stage escenario = (Stage) tvCambios.getScene().getWindow();
             escenario.close();
         }
+        
     }
 
     @FXML
     private void btnFinalizarClic(ActionEvent event) {
-        // Código para manejar el evento
+        
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        
+        HashMap<String, Object> respuesta = CambioDAO.finalizarCambio(tvCambios.getSelectionModel().getSelectedItem().getIdCambio(), fechaHoraActual.format(formatter));
+        
+        if (!(Boolean) respuesta.get("error")) {
+
+            Alertas.mostrarAlerta("Finalizar Cambio", "Cambio finalizado correctamente", AlertType.INFORMATION);
+
+        }
+        else {
+
+            String mensajeError = respuesta.get("mensaje").toString();
+            Alertas.mostrarAlerta("Error", mensajeError, AlertType.ERROR);
+
+        }
+
+        salir();
     }
 
     @FXML
     private void btnVolverClic(ActionEvent event) {
-        // Código para manejar el evento
+        salir();
     }
 
     @FXML
