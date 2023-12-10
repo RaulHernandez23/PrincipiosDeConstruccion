@@ -25,7 +25,7 @@ public class ResponsableProyectoDAO {
             try {
 
                 PreparedStatement consulta = (PreparedStatement) conexion.prepareStatement(
-                        "SELECT idResponsableProyecto, nombre, apellidoPaterno, apellidoMaterno, correo, telefono FROM ResponsableProyecto WHERE numPersonal = ? AND password = ?");
+                        "SELECT idResponsableProyecto, nombre, apellidoPaterno, apellidoMaterno, correo, telefono, numPersonal, password FROM ResponsableProyecto WHERE numPersonal = ? AND password = ?");
 
                 consulta.setString(1, numPersonal);
                 consulta.setString(2, password);
@@ -37,15 +37,22 @@ public class ResponsableProyectoDAO {
                     ResponsableProyecto responsableProyecto = new ResponsableProyecto();
 
                     responsableProyecto.setIdResponsableProyecto(resultado.getInt("idResponsableProyecto"));
-                    responsableProyecto.setNumPersonal(numPersonal);
+                    responsableProyecto.setNumPersonal(resultado.getString("numPersonal"));
+                    responsableProyecto.setPassword(resultado.getString("password"));
                     responsableProyecto.setNombre(resultado.getString("nombre"));
                     responsableProyecto.setApellidoPaterno(resultado.getString("apellidoPaterno"));
                     responsableProyecto.setApellidoMaterno(resultado.getString("apellidoMaterno"));
                     responsableProyecto.setCorreo(resultado.getString("correo"));
                     responsableProyecto.setTelefono(resultado.getString("telefono"));
-                    respuesta.setCorrecto(true);
-                    respuesta.setMensaje("Inicio de sesión correcto");
-                    respuesta.setResponsableProyecto(responsableProyecto);
+                    
+                    if (numPersonal.equals(responsableProyecto.getNumPersonal()) && password.equals(responsableProyecto.getPassword())) {
+                        respuesta.setCorrecto(true);
+                        respuesta.setMensaje("Inicio de sesión correcto");
+                        respuesta.setResponsableProyecto(responsableProyecto);
+                    }
+                    else {
+                        respuesta.setMensaje("El número de personal y/o la contraseña son incorrectos");
+                    }
 
                 } else {
                     respuesta.setMensaje("El número de personal y/o la contraseña son incorrectos");
