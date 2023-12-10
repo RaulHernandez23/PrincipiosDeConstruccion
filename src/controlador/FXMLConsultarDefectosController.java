@@ -26,7 +26,9 @@ import modelo.pojo.Defecto;
 import utilidades.Utilidades;
 
 public class FXMLConsultarDefectosController implements Initializable {
-
+    
+    private Integer idProyecto;
+    
     @FXML
     private TableView<Defecto> tvDefectos;
 
@@ -53,6 +55,10 @@ public class FXMLConsultarDefectosController implements Initializable {
 
         mostrarDatos();
 
+    }
+    
+    public void inicializarVentana(Integer idProyecto){
+        this.idProyecto = idProyecto;
     }
 
     private void mostrarDatos() {
@@ -104,11 +110,11 @@ public class FXMLConsultarDefectosController implements Initializable {
     private void consultarDefecto(Defecto defectoSeleccionado) {
         Stage escenario = new Stage();
         try{
-            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLConsultarDetallesDefectos.fxml");
+            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLConsultarDetallesDefecto.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLConsultarDetallesDefectosController controlador = loader.getController();
-            controlador.inicializarVentana(defectoSeleccionado, this);
+            controlador.inicializarVentana(defectoSeleccionado);
 
             escenario.setScene(escena);
             escenario.setTitle("Consultar defecto");

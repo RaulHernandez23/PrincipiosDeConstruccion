@@ -13,7 +13,6 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
     
     private Defecto defecto;
 
-    @FXML
     private TextField cbEstadoDefecto;
 
     @FXML
@@ -33,20 +32,22 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
 
     @FXML
     private TextField tfEsfuerzo;
-
+    @FXML
+    private TextField tfEstado;
+    
+    /*
     public FXMLConsultarDetallesDefectosController(Defecto defecto) {
         this.defecto = defecto;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
         tfTitulo.setText(defecto.getTitulo());
         cbEstadoDefecto.setText(defecto.getEstadoDefecto());
     }
+    */
 
-    public void inicializarVentana(Defecto defectoSeleccionado,
-            FXMLConsultarDefectosController fxmlConsultarDefectosController) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
+
+    public void inicializarVentana(Defecto defectoSeleccionado) {
         this.defecto = defectoSeleccionado;
         
     }
