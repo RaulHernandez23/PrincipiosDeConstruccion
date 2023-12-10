@@ -15,44 +15,52 @@ import utilidades.Utilidades;
 
 public class CambioDAO {
 
-    public static ArrayList<Cambio> consultarCambios() {
+    public static HashMap<String, Object> consultarCambios() {
+        HashMap<String, Object> respuesta = new HashMap<>();
+        respuesta.put("error", true);
 
         ArrayList<Cambio> cambios = new ArrayList<Cambio>();
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
-
             try {
+                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, " +
+                        "fechaInicio, ta.tipo FROM cambio c INNER JOIN " + 
+                        "tipoactividad ta ON ta.idTipoActividad = c.idTipoActividad " + 
+                        "INNER JOIN" + 
+                        " solicituddecambio sc ON sc.idSolicitudDeCambio = " + 
+                        "c.idSolicitudDeCambio INNER JOIN" + 
+                        " proyecto p ON sc.idProyecto = p.idProyecto WHERE" + 
+                        " p.idProyecto = 1 AND c.idEstadoCambio <> 1 " + 
+                        "ORDER BY titulo ASC;";
 
-                String consulta = "SELECT * FROM cambio ORDER BY Nombre ASC";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 
                 while (resultadoConsulta.next()) {
-
                     Cambio cambio = new Cambio();
-                    cambio.setIdCambio(resultadoConsulta.getInt("IdCambio"));
-                    cambio.setTitulo(resultadoConsulta.getString("Nombre"));
-                    cambio.setDescripcion(resultadoConsulta.getString("Descripcion"));
-                    cambio.setIdEstadoCambio(resultadoConsulta.getInt("IdEstadoCambio"));
-                    cambio.setIdSolicitud(resultadoConsulta.getInt("IdSolicitud"));
+                    cambio.setIdCambio(resultadoConsulta.getInt("idCambio"));
+                    cambio.setTitulo(resultadoConsulta.getString("titulo"));
+                    cambio.setDescripcion(resultadoConsulta.getString("descripcion"));
+                    cambio.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
+                    cambio.setTipoActividad(resultadoConsulta.getString("tipo"));
 
                     cambios.add(cambio);
-
                 }
 
+                respuesta.put("error", false);
+                respuesta.put("cambios", cambios);
+
             } catch (SQLException se) {
-                se.printStackTrace();
+                respuesta.put("mensaje", "Error: " + se.getMessage());
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
-
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
 
-        return cambios;
-
+        return respuesta;
     }
 
     public static HashMap<String, Object> consultarCambiosProyecto(Integer idProyecto) {
@@ -278,4 +286,46 @@ public class CambioDAO {
         return respuesta;
     }
 
+    public static HashMap<String, Object> finalizarCambio(int idCambio, String fechaFin) {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "UPDATE cambio SET idEstadoCambio = 1, fechaFin= ? WHERE idCambio = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+                sentencia.setString(1, fechaFin);
+                sentencia.setInt(2, idCambio);
+
+                int resultado = sentencia.executeUpdate();
+
+                if (resultado > 0) {
+
+                    respuesta.put("error", false);
+                    respuesta.put("mensaje", "El cambio se finalizó correctamente");
+
+                } else {
+                    respuesta.put("mensaje", "No se pudo finalizar el cambio");
+                }
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
 }
