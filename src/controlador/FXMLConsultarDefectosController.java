@@ -19,9 +19,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.pojo.Cambio;
 import modelo.pojo.Defecto;
+import utilidades.Utilidades;
 
 public class FXMLConsultarDefectosController implements Initializable {
 
@@ -95,9 +97,28 @@ public class FXMLConsultarDefectosController implements Initializable {
     @FXML
     private void btnAceptarClic(ActionEvent event) {
         Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
-        
+        consultarDefecto(defectoSeleccionado);
     }
 
+
+    private void consultarDefecto(Defecto defectoSeleccionado) {
+        Stage escenario = new Stage();
+        try{
+            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLConsultarDetallesDefectos.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLConsultarDetallesDefectosController controlador = loader.getController();
+            controlador.inicializarVentana(defectoSeleccionado, this);
+
+            escenario.setScene(escena);
+            escenario.setTitle("Consultar defecto");
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {

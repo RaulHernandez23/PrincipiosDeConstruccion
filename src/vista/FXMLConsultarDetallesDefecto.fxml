@@ -61,37 +61,37 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="tfTitulo" layoutX="133.0" layoutY="90.0">
+      <TextField fx:id="tfTitulo" editable="false" layoutX="133.0" layoutY="90.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextArea layoutX="132.0" layoutY="183.0" prefHeight="111.0" prefWidth="200.0">
+      <TextArea fx:id="tbDescripcion" editable="false" layoutX="132.0" layoutY="183.0" prefHeight="111.0" prefWidth="200.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextArea>
-      <TextField fx:id="tfEstado" layoutX="134.0" layoutY="134.0" prefHeight="35.0" prefWidth="198.0">
+      <TextField fx:id="tfEstado" editable="false" layoutX="134.0" layoutY="134.0" prefHeight="35.0" prefWidth="198.0">
          <font>
             <Font size="16.0" />
          </font>      
       </TextField>
-      <TextField fx:id="tfFechaInicio" layoutX="133.0" layoutY="306.0">
+      <TextField fx:id="tfFechaInicio" editable="false" layoutX="133.0" layoutY="306.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfFechaFin" layoutX="133.0" layoutY="355.0">
+      <TextField fx:id="tfFechaFin" editable="false" layoutX="133.0" layoutY="355.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfEstudiante" layoutX="133.0" layoutY="403.0">
+      <TextField fx:id="tfEstudiante" editable="false" layoutX="133.0" layoutY="403.0">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="tfEsfuerzo" layoutX="133.0" layoutY="452.0">
+      <TextField fx:id="tfEsfuerzo" editable="false" layoutX="133.0" layoutY="452.0">
          <font>
             <Font size="16.0" />
          </font>
