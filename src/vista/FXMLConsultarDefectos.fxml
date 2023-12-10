@@ -38,7 +38,7 @@
          </font>
       </Label>
       <Label layoutX="270.0" layoutY="-9.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
-      <Button layoutX="98.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnAceptarClic" prefHeight="37.0" prefWidth="83.0" text="Aceptar">
+      <Button fx:id="btnAceptar" layoutX="98.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnAceptarClic" prefHeight="37.0" prefWidth="83.0" text="Aceptar">
          <font>
             <Font size="16.0" />
          </font>

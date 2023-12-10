@@ -64,11 +64,11 @@ public class FXMLFinalizarCambioController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         btnFinalizar.setDisable(true);
 
-        // Cambia el tipo de ObservableValue y ChangeListener a Cambio
-    tvCambios.getSelectionModel().selectedItemProperty().addListener(
-        (ObservableValue<? extends Cambio> observable, Cambio oldValue, Cambio newValue) -> {
-            btnFinalizar.setDisable(newValue == null);
-        });
+        tvCambios.getSelectionModel().selectedItemProperty().addListener(
+            (ObservableValue<? extends Cambio> observable, Cambio oldValue, Cambio newValue) -> {
+                btnFinalizar.setDisable(newValue == null);
+            });
+
         mostrarDatos();
     }
 
