@@ -283,6 +283,7 @@ public class FXMLRegistrarCambioController implements Initializable {
         cambio.setIdEstadoCambio(cbEstado.getSelectionModel().getSelectedIndex() + 1);
         cambio.setFechaInicio(fechaInicio);
         cambio.setIdProyecto(idProyecto);
+        cambio.setIdEstudiante(estudiante.getIdEstudiante());
 
         HashMap<String, Object> respuesta = null;
         try {
