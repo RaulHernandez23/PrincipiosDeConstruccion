@@ -66,45 +66,47 @@ public class EstudianteDAO {
 
     }
 
-    public static ArrayList<Estudiante> consultarListaEstudiante() {
-
-        ArrayList<Estudiante> estudiantes = new ArrayList<Estudiante>();
-
+    public static HashMap<String, Object> consultarListaEstudiante() {
+        HashMap<String, Object> respuesta = new HashMap<>();
+        respuesta.put("error", true);
+    
+        ArrayList<HashMap<String, Object>> listaEstudiantes = new ArrayList<>();
+    
         Connection conexion = ConectorBaseDatos.obtenerConexion();
-
+    
         if (conexion != null) {
-
             try {
-
-                String consulta = "SELECT idEstudiante, nombre, " +
-                        " apellidoPaterno, apellidoMaterno FROM estudiante ORDER" +
-                        " BY nombre ASC";
+                String consulta = "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno FROM estudiante ORDER BY nombre ASC";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
+    
                 ResultSet resultadoConsulta = sentencia.executeQuery();
-
+    
                 while (resultadoConsulta.next()) {
-
-                    Estudiante estudiante = new Estudiante();
-                    estudiante.setIdEstudiante(resultadoConsulta.getInt("IdEstudiante"));
-                    estudiante.setNombre(resultadoConsulta.getString("Nombre"));
-                    estudiante.setApellidoPaterno(resultadoConsulta.getString("ApellidoPaterno"));
-                    estudiante.setApellidoMaterno(resultadoConsulta.getString("ApellidoMaterno"));
-
-                    estudiantes.add(estudiante);
-
+                    HashMap<String, Object> estudianteMap = new HashMap<>();
+                    estudianteMap.put("idEstudiante", resultadoConsulta.getInt("idEstudiante"));
+                    estudianteMap.put("nombre", resultadoConsulta.getString("nombre"));
+                    estudianteMap.put("apellidoPaterno", resultadoConsulta.getString("apellidoPaterno"));
+                    estudianteMap.put("apellidoMaterno", resultadoConsulta.getString("apellidoMaterno"));
+    
+                    listaEstudiantes.add(estudianteMap);
                 }
-
+    
+                respuesta.put("error", false);
+                respuesta.put("estudiantes", listaEstudiantes);
+    
             } catch (SQLException se) {
                 se.printStackTrace();
+                respuesta.put("mensaje", "Error en la base de datos: " + se.getMessage());
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
+        } else {
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
-
-        return estudiantes;
-
+    
+        return respuesta;
     }
+    
 
     public static HashMap<String, Object> recuperarEstudiantesProyecto(int idProyecto) {
         

@@ -9,6 +9,7 @@ package controlador;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -75,45 +76,67 @@ public class FXMLReasignarActividadController implements Initializable {
 
 
     private void mostrarDatos() {
-
         ObservableList<Actividad> actividades = FXCollections.observableArrayList();
-
-        try {
-
-            ArrayList<Actividad> listaActividades = modelo.dao.ActividadDAO.consultarActividades();
-            actividades.addAll(listaActividades);
-
-            tvActividadesPendientes.setItems(actividades);
-            colTitulo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
-            colEstudiante
-                    .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstudiante()));
-            colFechaInicio
-                    .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaInicio()));
-
-        } catch (Exception e) {
-
-            utilidades.Alertas.mostrarAlerta("Error de conexion",
-                    "No se pudo consultar la lista de cambios",
-                    Alert.AlertType.ERROR);
-
-        }
-
         ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
 
         try {
+            HashMap<String, Object> respuesta = modelo.dao.ActividadDAO.consultarActividades();
 
-            ArrayList<Estudiante> listaEstudiantes = EstudianteDAO.consultarListaEstudiante();
-            estudiantes.addAll(listaEstudiantes);
+            if (!(Boolean) respuesta.get("error")) {
+                ArrayList<HashMap<String, Object>> listaActividades = 
+                    (ArrayList<HashMap<String, Object>>) respuesta.get("actividades");
 
-            cbEstudiantes.setItems(estudiantes);
+                for (HashMap<String, Object> actividadMap : listaActividades) {
+                    Actividad actividad = new Actividad();
+                    actividad.setIdActividad((Integer) actividadMap.get("idActividad"));
+                    actividad.setTitulo((String) actividadMap.get("titulo"));
+                    actividad.setIdEstudiante((Integer) actividadMap.get("idEstudiante"));
+                    actividad.setEstudiante((String) actividadMap.get("estudiante"));
+                    actividad.setFechaInicio((String) actividadMap.get("fechaInicio"));
+
+                    actividades.add(actividad);
+                }
+
+                tvActividadesPendientes.setItems(actividades);
+                colTitulo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
+                colEstudiante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstudiante()));
+                colFechaInicio.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaInicio()));
+            } else {
+                String mensajeError = respuesta.get("mensaje").toString();
+                utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+            }
 
         } catch (Exception e) {
-
-            utilidades.Alertas.mostrarAlerta("Error de conexion",
-                    "No se pudo consultar la lista de cambios",
-                    Alert.AlertType.ERROR);
-
+            e.printStackTrace();  // Considera manejar la excepción de manera más adecuada según tus necesidades
+            utilidades.Alertas.mostrarAlerta("Error", "Error inesperado", Alert.AlertType.ERROR);
         }
+
+        try {
+            HashMap<String, Object> respuestaEstudiantes = EstudianteDAO.consultarListaEstudiante();
+        
+            if (!((Boolean) respuestaEstudiantes.get("error"))) {
+                ArrayList<HashMap<String, Object>> listaEstudiantes = (ArrayList<HashMap<String, Object>>) respuestaEstudiantes.get("estudiantes");
+        
+                for (HashMap<String, Object> estudianteMap : listaEstudiantes) {
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setIdEstudiante((int) estudianteMap.get("idEstudiante"));
+                    estudiante.setNombre((String) estudianteMap.get("nombre"));
+                    estudiante.setApellidoPaterno((String) estudianteMap.get("apellidoPaterno"));
+                    estudiante.setApellidoMaterno((String) estudianteMap.get("apellidoMaterno"));
+        
+                    estudiantes.add(estudiante);
+                }
+        
+                cbEstudiantes.setItems(estudiantes);
+            } else {
+                String mensajeError = respuestaEstudiantes.get("mensaje").toString();
+                utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Añadir un manejo de excepciones más adecuado según tus necesidades
+            utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de estudiantes", Alert.AlertType.ERROR);
+        }
+    
     }
 
     @FXML

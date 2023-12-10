@@ -1,7 +1,7 @@
 /*
 * Autor: Cesar Gonzalez Lopez
 * Fecha de creación: 24/11/2023
-* Fecha de modificación: 25/11/2023
+* Fecha de modificación: 09/12/2023
 * Descripción: clase para poder finalizar los cambios
 */
 package controlador;
@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-import javax.swing.event.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,7 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.dao.CambioDAO;
-import modelo.pojo.Actividad;
 import modelo.pojo.Cambio;
 import utilidades.Alertas;
 import utilidades.Utilidades;
