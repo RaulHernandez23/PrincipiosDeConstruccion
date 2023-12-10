@@ -15,7 +15,6 @@ import utilidades.Utilidades;
 
 public class ActividadDAO {
 
-    // Método Deprecado pero guardado por retrocompatibilidad
     public static HashMap<String, Object> consultarActividades() {
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);

@@ -125,7 +125,7 @@ public class FXMLAsignarActividadController implements Initializable {
 
     public void cargarEstudiantes(int idProyecto) {
 
-        HashMap<String, Object> respuesta = EstudianteDAO.recuperarEstudiantesProyectoFinalFinal(idProyecto);
+        HashMap<String, Object> respuesta = EstudianteDAO.recuperarEstudiantesActivosProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 

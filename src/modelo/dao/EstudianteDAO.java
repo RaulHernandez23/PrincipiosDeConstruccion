@@ -173,7 +173,7 @@ public class EstudianteDAO {
         return respuesta;
     }
 
-    public static HashMap<String, Object> recuperarEstudiantesProyectoFinalFinal (int idProyecto) {
+    public static HashMap<String, Object> recuperarEstudiantesActivosProyecto (int idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);

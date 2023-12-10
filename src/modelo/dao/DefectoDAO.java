@@ -30,7 +30,7 @@ public class DefectoDAO {
                         + "idEstadoDefecto, "
                         + "idEstudiante, "
                         + "idProyecto) "
-                        + "VALUES (?, ?, NOW(), 2, ?, ?);";
+                        + "VALUES (?, ?, CURDATE(), 2, ?, ?);";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
                 sentencia.setString(1, defecto.getTitulo());
