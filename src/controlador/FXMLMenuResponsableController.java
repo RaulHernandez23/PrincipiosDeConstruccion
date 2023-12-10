@@ -175,9 +175,9 @@ public class FXMLMenuResponsableController implements Initializable {
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
 
-        } catch (IOException e) {
+        } catch (IOException ioE) {
 
-            e.printStackTrace();
+            ioE.printStackTrace();
             escenario.close();
 
         }
@@ -216,16 +216,60 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnConsultarDefectos(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLConsultarDefectos.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLConsultarDefectosController controlador = loader.getController();
+            controlador.inicializarVentana(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaTabla.css"));
+
+            escenario.setScene(escena);
+            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            escenario.close();
+
+        }
     }
 
     @FXML
     private void btnConsultarSolicitudes(MouseEvent event) {
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLSolicitudesDeCambio.fxml",
-                null,
-                "Solicitudes de cambio", true);
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLSolicitudesDeCambio.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLSolicitudesDeCambioController controlador = loader.getController();
+            controlador.inicializarVentana(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaTabla.css"));
+
+            escenario.setScene(escena);
+            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            escenario.close();
+
+        }
     }
 
     @FXML
@@ -262,10 +306,27 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLFinalizarActividad.fxml",
-                "/vista/estilos/escenaTabla.css",
-                "Finalizar Actividad", true);
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLFinalizarActividad.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLFinalizarActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+            escenario.setScene(escena);
+            escenario.setTitle("Asignar actividad");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+        } catch (IOException ioE) {
+
+            ioE.printStackTrace();
+            escenario.close();
+
+        }
 
     }
 

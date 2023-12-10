@@ -20,61 +20,67 @@
                   </Pane>
                </bottom>
                <center>
-                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" styleClass="fondo" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="531.0" prefWidth="720.0" styleClass="fondo" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="875.0" prefWidth="718.0" styleClass="fondo">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="923.0" prefWidth="718.0" styleClass="fondo">
                            <children>
-                              <Pane layoutX="70.0" layoutY="27.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="59.0" prefHeight="25.0" prefWidth="614.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Nombre de la Solicitud:" />
-                                    <Label fx:id="lbNombreSolicitud" layoutX="170.0" layoutY="2.0" prefHeight="21.0" prefWidth="154.0" styleClass="etiqueta" />
+                                    <Label fx:id="lbNombreSolicitud" layoutX="170.0" layoutY="2.0" prefHeight="21.0" prefWidth="436.0" styleClass="etiqueta" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="67.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="99.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Fecha:" />
                                     <Label fx:id="lbFecha" layoutX="58.0" layoutY="2.0" prefHeight="21.0" prefWidth="265.0" styleClass="etiqueta" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="107.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="139.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Número de la Solicitud:" />
                                     <Label fx:id="lbNumSolicitud" layoutX="170.0" layoutY="2.0" prefHeight="21.0" prefWidth="154.0" styleClass="etiqueta" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="147.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="179.0" prefHeight="25.0" prefWidth="419.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Solicitado por:" />
-                                    <Label fx:id="lbSolicitadoPor" layoutX="107.0" layoutY="2.0" prefHeight="21.0" prefWidth="217.0" styleClass="etiqueta" />
+                                    <Label fx:id="lbSolicitadoPor" layoutX="107.0" layoutY="2.0" prefHeight="21.0" prefWidth="304.0" styleClass="etiqueta" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="187.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="219.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Descripción del Cambio:" />
                                     <Label fx:id="lbDescripcion" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" wrapText="true" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="349.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="381.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Razón del Cambio:" />
-                                    <Label fx:id="lbRazon" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" />
+                                    <Label fx:id="lbRazon" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" wrapText="true" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="511.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="543.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Impacto del Cambio:" />
-                                    <Label fx:id="lbImpacto" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" />
+                                    <Label fx:id="lbImpacto" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" wrapText="true" />
                                  </children>
                               </Pane>
-                              <Pane layoutX="70.0" layoutY="673.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
+                              <Pane layoutX="69.0" layoutY="705.0" prefHeight="150.0" prefWidth="327.0" styleClass="panel">
                                  <children>
                                     <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Acción Propuesta:" />
-                                    <Label fx:id="lbAccionPropuesta" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" />
+                                    <Label fx:id="lbAccionPropuesta" layoutX="8.0" layoutY="23.0" prefHeight="127.0" prefWidth="320.0" styleClass="etiqueta" wrapText="true" />
                                  </children>
                               </Pane>
-                              <Button layoutX="70.0" layoutY="835.0" mnemonicParsing="false" onAction="#btnAprobarSolicitud" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Aprobar Solicitud" />
-                              <Button layoutX="229.0" layoutY="835.0" mnemonicParsing="false" onAction="#btnRechazarSolicitud" prefHeight="26.0" prefWidth="150.0" styleClass="botonEliminacion" text="Rechazar Solicitud" />
-                              <Button layoutX="399.0" layoutY="835.0" mnemonicParsing="false" onAction="#btnVolver" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Volver" />
+                              <Button layoutX="69.0" layoutY="867.0" mnemonicParsing="false" onAction="#clicAprobarSolicitud" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Aprobar Solicitud" />
+                              <Button layoutX="228.0" layoutY="867.0" mnemonicParsing="false" onAction="#ClicRechazarSolicitud" prefHeight="26.0" prefWidth="150.0" styleClass="botonEliminacion" text="Rechazar Solicitud" />
+                              <Button layoutX="398.0" layoutY="867.0" mnemonicParsing="false" onAction="#clicVolver" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Volver" />
+                              <Pane layoutX="69.0" layoutY="24.0" prefHeight="25.0" prefWidth="327.0" styleClass="panel">
+                                 <children>
+                                    <Label layoutX="8.0" layoutY="2.0" styleClass="etiqueta" text="Defecto asociado:" />
+                                    <Label fx:id="lbDefectoAsociado" layoutX="133.0" layoutY="2.0" prefHeight="21.0" prefWidth="191.0" styleClass="etiqueta" />
+                                 </children>
+                              </Pane>
                            </children>
                         </AnchorPane>
                      </content>
@@ -90,7 +96,7 @@
                            </image>
                         </ImageView>
                         <Label layoutX="488.0" layoutY="12.0" styleClass="apartado" text="Universidad Veracruzana" />
-                        <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="657.0" layoutY="33.0" onMouseClicked="#btnSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="657.0" layoutY="33.0" onMouseClicked="#ClicSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

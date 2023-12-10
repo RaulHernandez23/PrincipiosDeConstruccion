@@ -92,7 +92,7 @@ INSERT INTO solicitudDeCambio (titulo, descripcion, razon, impacto, accionPropue
 ('Solicitud de cambio 3', 'Descripción 3', 'Razón 3', 'Impacto 3', 'Acción propuesta 3', '2023-08-05', '2023-08-06', 2, 1, 1, 1, 2);
 
 -- Insertar cambios
-INSERT INTO cambio (titulo, descripcion, esfuerzoMinutos, idEstadoCambio, fechaInicio, fechaFin, idSolicitudDeCambio, idTipoActividad) VALUES
+INSERT INTO cambio (titulo, descripcion, esfuerzoMinutos, idEstadoCambio, fechaInicio, fechaFin, idSolicitudDeCambio, idTipoActividad, idProyecto) VALUES
 ('Cambio 1', 'Descripción 1', 60, 1, '2023-08-01', '2023-08-02', 1, 1, 1),
 ('Cambio 2', 'Descripción 2', 120, 2, '2023-08-03', '2023-08-04', 1, 2, 1),
 ('Cambio 3', 'Descripción 3', 180, 1, '2023-08-05', '2023-08-06', 1, 3, 1),

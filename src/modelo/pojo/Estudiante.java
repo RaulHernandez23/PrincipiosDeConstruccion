@@ -12,13 +12,17 @@ public class Estudiante {
     private String estado;
     private String password;
     private Integer idProyecto;
+    private String nombreProyecto;
 
     public Estudiante() {
     }
 
-    public Estudiante(Integer idEstudiante, String matricula, String nombre, String apellidoPaterno,
-            String apellidoMaterno, Integer idEstadoEstudiante, Integer idPeriodoEscolar, String nombrePeriodoEscolar,
-            String estado, String password, Integer idProyecto) {
+    public Estudiante(Integer idEstudiante, String matricula, String nombre, 
+            String apellidoPaterno, String apellidoMaterno, 
+            Integer idEstadoEstudiante, Integer idPeriodoEscolar,
+            String nombrePeriodoEscolar, String estado, String password,
+            Integer idProyecto, String nombreProyecto) {
+
         this.idEstudiante = idEstudiante;
         this.matricula = matricula;
         this.nombre = nombre;
@@ -30,6 +34,8 @@ public class Estudiante {
         this.estado = estado;
         this.password = password;
         this.idProyecto = idProyecto;
+        this.nombreProyecto = nombreProyecto;
+
     }
 
     public Integer getIdEstudiante() {
@@ -37,11 +43,7 @@ public class Estudiante {
     }
 
     public void setIdEstudiante(Integer idEstudiante) {
-
-        if (idEstudiante > 0) {
-            this.idEstudiante = idEstudiante;
-        }
-
+        this.idEstudiante = idEstudiante;
     }
 
     public String getMatricula() {
@@ -49,11 +51,7 @@ public class Estudiante {
     }
 
     public void setMatricula(String matricula) {
-
-        if (matricula != null) {
-            this.matricula = matricula;
-        }
-
+        this.matricula = matricula;
     }
 
     public String getNombre() {
@@ -61,11 +59,7 @@ public class Estudiante {
     }
 
     public void setNombre(String nombre) {
-
-        if (nombre != null) {
-            this.nombre = nombre;
-        }
-
+        this.nombre = nombre;
     }
 
     public String getApellidoPaterno() {
@@ -73,11 +67,7 @@ public class Estudiante {
     }
 
     public void setApellidoPaterno(String apellidoPaterno) {
-
-        if (apellidoPaterno != null) {
-            this.apellidoPaterno = apellidoPaterno;
-        }
-
+        this.apellidoPaterno = apellidoPaterno;
     }
 
     public String getApellidoMaterno() {
@@ -85,11 +75,7 @@ public class Estudiante {
     }
 
     public void setApellidoMaterno(String apellidoMaterno) {
-
-        if (apellidoMaterno != null) {
-            this.apellidoMaterno = apellidoMaterno;
-        }
-
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public Integer getIdEstadoEstudiante() {
@@ -97,11 +83,7 @@ public class Estudiante {
     }
 
     public void setIdEstadoEstudiante(Integer idEstadoEstudiante) {
-
-        if (idEstadoEstudiante > 0) {
-            this.idEstadoEstudiante = idEstadoEstudiante;
-        }
-
+        this.idEstadoEstudiante = idEstadoEstudiante;
     }
 
     public Integer getIdPeriodoEscolar() {
@@ -109,10 +91,7 @@ public class Estudiante {
     }
 
     public void setIdPeriodoEscolar(Integer idPeriodoEscolar) {
-
-        if (idPeriodoEscolar > 0) {
-            this.idPeriodoEscolar = idPeriodoEscolar;
-        }
+        this.idPeriodoEscolar = idPeriodoEscolar;
 
     }
 
@@ -121,11 +100,7 @@ public class Estudiante {
     }
 
     public void setNombrePeriodoEscolar(String nombrePeriodoEscolar) {
-
-        if (nombrePeriodoEscolar != null) {
-            this.nombrePeriodoEscolar = nombrePeriodoEscolar;
-        }
-
+        this.nombrePeriodoEscolar = nombrePeriodoEscolar;
     }
 
     public String getEstado() {
@@ -133,11 +108,7 @@ public class Estudiante {
     }
 
     public void setEstadoEstudiante(String estado) {
-
-        if (estado != null) {
-            this.estado = estado;
-        }
-
+        this.estado = estado;
     }
 
     public String getPassword() {
@@ -145,11 +116,7 @@ public class Estudiante {
     }
 
     public void setPassword(String password) {
-
-        if (password != null) {
-            this.password = password;
-        }
-
+        this.password = password;
     }
 
     public Integer getIdProyecto() {
@@ -157,11 +124,15 @@ public class Estudiante {
     }
 
     public void setIdProyecto(Integer idProyecto) {
+        this.idProyecto= idProyecto;
+    }
 
-        if (idProyecto > 0) {
-            this.idProyecto = idProyecto;
-        }
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
 
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto= nombreProyecto;
     }
 
     @Override
