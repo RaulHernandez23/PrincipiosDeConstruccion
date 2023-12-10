@@ -269,7 +269,7 @@ public class FXMLMenuResponsableController implements Initializable {
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLFinalizarActividadController controlador = loader.getController();
-            //controlador.inicializarInformacion(1);
+            controlador.inicializarInformacion(1);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
@@ -281,7 +281,7 @@ public class FXMLMenuResponsableController implements Initializable {
 
             ioE.printStackTrace();
             escenario.close();
-            
+
         }
 
     }

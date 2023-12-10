@@ -552,15 +552,13 @@ public class ActividadDAO {
                         + "a.titulo, "
                         + "a.descripcion, "
                         + "a.esfuerzoMinutos, "
-                        + "DATE_FORMAT(a.fechaInicio, '%d/%m/%Y') AS fechaInicio, "
+                        + "fechaInicio, "
                         + "ea.estado, "
-                        + "ta.tipo, "
-                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, ' ', e.apellidoPaterno) AS estudiante "
+                        + "ta.tipo "
                         + "FROM actividad a "
                         + "INNER JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
                         + "INNER JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "LEFT JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
-                        + "WHERE a.idProyecto = ? AND a.idEstadoActividad != 'Realizada';";
+                        + "WHERE a.idProyecto = ? AND ea.estado != 'Realizada';";
 
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
                 sentencia.setInt(1, idProyecto);
@@ -577,7 +575,6 @@ public class ActividadDAO {
                     actividad.setFechaInicio(resultado.getString("fechaInicio"));
                     actividad.setEstadoActividad(resultado.getString("estado"));
                     actividad.setTipo(resultado.getString("tipo"));
-                    actividad.setEstudiante(resultado.getString("estudiante"));
                     actividades.add(actividad);
 
                 }
