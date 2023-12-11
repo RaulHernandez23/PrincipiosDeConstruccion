@@ -67,7 +67,6 @@ public class FXMLReasignarActividadController implements Initializable {
 
         mostrarDatos();
 
-        // Asegúrate de que la lista de estudiantes no esté vacía antes de seleccionar el primero
         ObservableList<Estudiante> estudiantes = cbEstudiantes.getItems();
         if (!estudiantes.isEmpty()) {
             cbEstudiantes.getSelectionModel().select(0);

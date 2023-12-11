@@ -21,7 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import modelo.pojo.Cambio;
 import modelo.pojo.Defecto;
 import utilidades.Utilidades;
 
