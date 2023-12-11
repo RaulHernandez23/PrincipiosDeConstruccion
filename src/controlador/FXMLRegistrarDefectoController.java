@@ -130,7 +130,28 @@ public class FXMLRegistrarDefectoController implements Initializable {
             taDescripcion.textProperty().addListener((observable, oldValue, newValue) -> activarBoton(tfTitulo, taDescripcion, btnRegistrar));
 
     }
+    //Configurar
+    /*private void configurarListenerACampos() {
 
+        ChangeListener<String> cambiosEnCampos = new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Verificar si todos los campos están llenos y habilitar/deshabilitar el botón
+                // en consecuencia
+                btnAgregarProyecto.setDisable(
+                        tfNombre.getText().isEmpty() ||
+                                tfApellidoPaterno.getText().isEmpty() ||
+                                tfApellidoMaterno.getText().isEmpty() ||
+                                tfMatricula.getText().isEmpty() ||
+                                tfMatricula.getText().isEmpty());
+            }
+        };
+
+        tfNombre.textProperty().addListener(cambiosEnCampos);
+        tfApellidoPaterno.textProperty().addListener(cambiosEnCampos);
+        tfApellidoMaterno.textProperty().addListener(cambiosEnCampos);
+        tfMatricula.textProperty().addListener(cambiosEnCampos);
+    }*/
     private void activarBoton(TextField tfTitulo, TextArea taDescripcion, Button btnRegistrar) {
 
         boolean camposLLenos = !tfTitulo.getText().isEmpty() && !taDescripcion.getText().isEmpty();

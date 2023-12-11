@@ -12,22 +12,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="319.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLConsultarDefectosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLConsultarDefectosController">
    <children>
       <Accordion />
-      <TableView fx:id="tvDefectos" layoutX="69.0" layoutY="61.0" prefHeight="200.0" prefWidth="271.0">
+      <TableView fx:id="tvDefectos" layoutX="34.0" layoutY="100.0" prefHeight="296.0" prefWidth="651.0">
         <columns>
-          <TableColumn fx:id="colTituloDefecto" prefWidth="89.0" text="Titulo" />
-          <TableColumn fx:id="colEstadoDefectos" prefWidth="87.0" text="Estado" />
-            <TableColumn fx:id="colFechaReporteDefectos" prefWidth="93.0" text="FechaReporte" />
+          <TableColumn fx:id="colTituloDefecto" prefWidth="257.0" text="Titulo" />
+          <TableColumn fx:id="colEstadoDefectos" prefWidth="260.0" text="Estado" />
+            <TableColumn fx:id="colFechaReporteDefectos" prefWidth="133.0" text="FechaReporte" />
         </columns>
       </TableView>
-      <Label layoutX="116.0" layoutY="14.0" text="Lista de Defectos">
+      <Label layoutX="111.0" layoutY="53.0" text="Lista de Defectos">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button layoutX="229.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnCerrarClic" prefHeight="37.0" prefWidth="83.0" text="Cerrar">
+      <Button layoutX="404.0" layoutY="416.0" mnemonicParsing="false" onAction="#btnCerrarClic" prefHeight="37.0" prefWidth="123.0" text="Cerrar">
          <font>
             <Font size="16.0" />
          </font>
@@ -37,8 +37,8 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Label layoutX="270.0" layoutY="-9.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
-      <Button fx:id="btnAceptar" layoutX="98.0" layoutY="268.0" mnemonicParsing="false" onAction="#btnAceptarClic" prefHeight="37.0" prefWidth="83.0" text="Aceptar">
+      <Label layoutX="545.0" layoutY="14.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
+      <Button fx:id="btnAceptar" layoutX="193.0" layoutY="416.0" mnemonicParsing="false" onAction="#btnAceptarClic" prefHeight="37.0" prefWidth="123.0" text="Aceptar">
          <font>
             <Font size="16.0" />
          </font>

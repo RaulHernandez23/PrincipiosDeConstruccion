@@ -3,9 +3,7 @@ package controlador;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -127,7 +125,7 @@ public class FXMLAsignarActividadController implements Initializable {
 
     public void cargarEstudiantes(int idProyecto) {
 
-        HashMap<String, Object> respuesta = EstudianteDAO.recuperarEstudiantesProyectoFinalFinal(idProyecto);
+        HashMap<String, Object> respuesta = EstudianteDAO.recuperarEstudiantesActivosProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 
