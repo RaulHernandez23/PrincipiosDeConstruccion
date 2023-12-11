@@ -18,7 +18,9 @@ import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
 
 public class FXMLAsignarEstudianteAProyectoController implements Initializable {
-
+    
+    private Integer idProyecto;
+    
     @FXML
     private TextField tfNombre;
     @FXML
@@ -34,6 +36,10 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         btnAgregarProyecto.setDisable(true);
         configurarListenerACampos();
+    }
+    
+    public void inicializarVentana(Integer idProyecto){
+        this.idProyecto = idProyecto;
     }
 
     @FXML
@@ -75,6 +81,7 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         estudiante.setMatricula(tfMatricula.getText());
         estudiante.setIdEstadoEstudiante(2);
         estudiante.setPassword(password);
+        estudiante.setIdProyecto(idProyecto);
 
         HashMap<String, Object> respuesta = EstudianteDAO.registrarEstudiante(estudiante);
         if (!(Boolean) respuesta.get("error")) {

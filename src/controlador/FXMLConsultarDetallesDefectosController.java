@@ -49,6 +49,7 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
 
     public void inicializarVentana(Defecto defectoSeleccionado) {
         this.defecto = defectoSeleccionado;
-        
+        tfTitulo.setText(defecto.getTitulo());
+        cbEstadoDefecto.setText(defecto.getEstadoDefecto());
     }
 }

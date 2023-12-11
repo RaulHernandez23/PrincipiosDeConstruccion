@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Optional;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +21,7 @@ import modelo.ConectorBaseDatos;
 public class Utilidades {
 
     public static URL getURL(String url) {
-        return Utilidades.class.getResource(".." + url);
+        return Utilidades.class.getResource(url);
     }
 
     public static FXMLLoader getFXMLLoader(String fxml) {

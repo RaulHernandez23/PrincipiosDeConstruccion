@@ -87,7 +87,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
             boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar registro",
                     "¿Estas seguro de enviar la solicitud?");
             if (confirmacion) {
-                registrarPaciente();
+                registrarSolicitud();
                 cerrarVentana();
             }
         } else {
@@ -109,6 +109,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         
         Defecto ningunDefectoSeleccionado = new Defecto();
         ningunDefectoSeleccionado.setTitulo("Ningun defecto asociado");
+        ningunDefectoSeleccionado.setIdDefecto(null);
         defectos.add(ningunDefectoSeleccionado);
         cbDefectos.setItems(defectos);
     }
@@ -193,9 +194,10 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         taAccionPropuesta.setStyle("");
     }
     
-    private void registrarPaciente(){
+    private void registrarSolicitud(){
         SolicitudDeCambio solicitudDeCambio = new SolicitudDeCambio();
         Defecto defectoSeleccionado = cbDefectos.getSelectionModel().getSelectedItem();
+        
         solicitudDeCambio.setIdDefecto(defectoSeleccionado.getIdDefecto());
         solicitudDeCambio.setTitulo(tfNombreSolicitud.getText());
         solicitudDeCambio.setDescripcion(taDescripcionCambio.getText());

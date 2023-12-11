@@ -2,6 +2,7 @@
 package controlador;
 
 import interfaces.ObservadorSolicitudesDeCambio;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public class FXMLSolicitudesDeCambioController implements Initializable, Observa
             Utilidades.mostrarAlertaSimple("Error de carga", "" + respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
+  
     
     private void cerrarVentana() {
         Stage escenario = (Stage) tvSolicitudesDeCambio.getScene().getWindow();

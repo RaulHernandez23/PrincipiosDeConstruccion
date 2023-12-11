@@ -10,7 +10,7 @@
 package modelo.pojo;
 
 public class Defecto {
-    private int idDefecto;
+    private Integer idDefecto;
     private String titulo;
     private String descripcion;
     private int esfuerzoMinutos = 0;
@@ -40,16 +40,12 @@ public class Defecto {
         this.idProyecto = idProyecto;
     }
 
-    public int getIdDefecto() {
+    public Integer getIdDefecto() {
         return idDefecto;
     }
 
-    public void setIdDefecto(int idDefecto) {
-
-        if (idDefecto > 0) {
+    public void setIdDefecto(Integer idDefecto) {
             this.idDefecto = idDefecto;
-        }
-
     }
 
     public String getTitulo() {
