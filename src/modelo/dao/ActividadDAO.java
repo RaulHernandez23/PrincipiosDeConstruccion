@@ -85,7 +85,6 @@ public class ActividadDAO {
         return respuesta;
     }
 
-    // Modificacion que marcara error en el CU-07
     public static HashMap<String, Object> obtenerActividadesProyecto(
             int idProyecto) {
 
@@ -580,7 +579,6 @@ public class ActividadDAO {
 
     }
 
-    // Este metodo puede usarse para asignar y reasignar
     public static HashMap<String, Object> asignarActividad(int idActividad,
             int idEstudiante) {
 
