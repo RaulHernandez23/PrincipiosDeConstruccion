@@ -28,7 +28,7 @@ import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
-public class FXMLEliminarActividadController implements Initializable {
+public class FXMLDetalleActividadController implements Initializable {
 
     private ObservableList<Actividad> actividades;
 
