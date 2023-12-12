@@ -28,7 +28,7 @@ import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
-public class FXMLEliminarActividadController implements Initializable {
+public class FXMLDetalleActividadController implements Initializable {
 
     private ObservableList<Actividad> actividades;
 
@@ -128,7 +128,8 @@ public class FXMLEliminarActividadController implements Initializable {
                     .get("actividades");
             actividades.addAll(lista);
             cbActividades.setItems(actividades);
-            cbActividades.getSelectionModel().select(0);
+            cbActividades.getSelectionModel().select(1);
+            System.out.println("realiza todo bien");
 
         } else {
             Utilidades.mostrarAlertaSimple("Error",
@@ -147,6 +148,7 @@ public class FXMLEliminarActividadController implements Initializable {
                 Actividad oldValue,
                     Actividad newValue) {
                 if (newValue != null) {
+<<<<<<< HEAD:src/controlador/FXMLEliminarActividadController.java
                     dpFechaInicio
                     .setValue(LocalDate.parse(newValue.getFechaInicio()));
                     dpFechaFin
@@ -157,6 +159,17 @@ public class FXMLEliminarActividadController implements Initializable {
                     .setText(newValue.getEstadoActividad());
                     tfEsfuerzo
                     .setText(String.valueOf(newValue.getEsfuerzoMinutos()));
+=======
+                    dpFechaInicio.setValue(LocalDate.parse(newValue.getFechaInicio()));
+                    if(newValue.getFechaFin() != null){
+                        dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
+                    } else {
+                        dpFechaFin.setValue(null);
+                    }
+                    taDescripcion.setText(newValue.getDescripcion());
+                    tfEstado.setText(newValue.getEstadoActividad());
+                    tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
+>>>>>>> 6decefaf5fddda6eaff8c2a5cf8c1c3cf348fb3e:src/controlador/FXMLDetalleActividadController.java
                     btnEliminar.setDisable(false);
                 }
             }

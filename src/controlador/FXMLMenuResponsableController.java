@@ -112,7 +112,7 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLEliminarActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLEliminarActividadController controlador = loader.getController();
+            FXMLDetalleActividadController controlador = loader.getController();
             controlador.inicializarInformacion(idProyecto);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
@@ -338,7 +338,7 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLFinalizarActividadController controlador = loader
+            FXMLDetalleActividadController controlador = loader
                     .getController();
 
             controlador.inicializarInformacion(1);
