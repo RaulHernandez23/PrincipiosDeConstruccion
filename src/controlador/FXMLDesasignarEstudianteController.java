@@ -98,21 +98,20 @@ public class FXMLDesasignarEstudianteController implements Initializable {
 
         cargarEstudiantes();
 
-        ChangeListener<Estudiante> listener = new ChangeListener<Estudiante>() {
-            @Override
-            public void changed(
-                    ObservableValue<? extends Estudiante> observable,
-                    Estudiante oldValue,
-                    Estudiante newValue) {
+        ChangeListener<Estudiante> listener = (
+                ObservableValue<? extends Estudiante> observable,
+                Estudiante oldValue, Estudiante newValue) -> {
+
+            if (newValue != null) {
 
                 lbNombre.setText(newValue.getNombre());
-                lbApellidos.setText(newValue.getApellidoPaterno() + " " +
-                        newValue.getApellidoMaterno());
+                lbApellidos.setText(newValue.getApellidoPaterno() + " "
+                        + newValue.getApellidoMaterno());
                 lbMatricula.setText(newValue.getMatricula());
-                lbSemestre.setText(String.valueOf(newValue
-                        .getNombrePeriodoEscolar()));
+                lbSemestre.setText(newValue.getNombrePeriodoEscolar());
 
             }
+
         };
 
         cbEstudiantes.getSelectionModel().selectedItemProperty().addListener(
@@ -123,8 +122,9 @@ public class FXMLDesasignarEstudianteController implements Initializable {
 
     private void cargarEstudiantes() {
 
-        HashMap<String, Object> respuesta = EstudianteDAO.consultarEstudiantesActivosProyecto(
-                idProyecto);
+        HashMap<String, Object> respuesta = EstudianteDAO
+                .consultarEstudiantesActivosProyecto(
+                        idProyecto);
         if (!(Boolean) respuesta.get("error")) {
 
             listaEstudiantes = FXCollections.observableArrayList();

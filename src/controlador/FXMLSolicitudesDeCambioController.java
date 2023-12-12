@@ -26,7 +26,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,7 +38,7 @@ import modelo.dao.SolicitudDeCambioDAO;
 import modelo.pojo.SolicitudDeCambio;
 import utilidades.Utilidades;
 
-public class FXMLSolicitudesDeCambioController implements Initializable, 
+public class FXMLSolicitudesDeCambioController implements Initializable,
         ObservadorSolicitudesDeCambio {
 
     @FXML
@@ -53,10 +52,10 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
 
     @FXML
     private TableColumn colFechaRegistro;
-    
+
     @FXML
     private Button clicVer;
-    
+
     @FXML
     private ImageView ivSalir;
 
@@ -65,7 +64,6 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
     private ObservableList<SolicitudDeCambio> solicitudes;
 
     private SolicitudDeCambio solicitudSeleccionada;
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,13 +71,13 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
         clicVer.setDisable(true);
         configurarListenerATabla();
     }
-    
+
     @Override
     public void operacionExitosa(String tipoOperacion, String nombre) {
-        
+
         System.out.println("Solicitud Evaluada: " + tipoOperacion + nombre);
         obtenerInformacionSolicitudes();
-        
+
     }
 
     @FXML
@@ -90,7 +88,7 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
         consultarSolicitud(idResponsable, solicitudSeleccionada);
 
     }
-    
+
     @FXML
     private void hoverOutSalir(MouseEvent event) {
         ivSalir.setImage(new Image(Utilidades.getInputStream(
@@ -102,8 +100,8 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
         ivSalir.setImage(new Image(Utilidades.getInputStream(
                 "/recursos/imagenes/logoSalir2.png")));
     }
-    
-     @FXML
+
+    @FXML
     private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
@@ -116,44 +114,48 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
 
         obtenerInformacionSolicitudes();
         this.colNombreSolicitud
-                .setCellValueFactory(new PropertyValueFactory("titulo"));
+                .setCellValueFactory(new PropertyValueFactory(
+                        "titulo"));
         this.colNombreAlumno
-                .setCellValueFactory(new PropertyValueFactory("estudiante"));
+                .setCellValueFactory(new PropertyValueFactory(
+                        "estudiante"));
         this.colFechaRegistro
-                .setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+                .setCellValueFactory(new PropertyValueFactory(
+                        "fechaCreacion"));
 
     }
 
     private void obtenerInformacionSolicitudes() {
-        
+
         Integer idProyecto = 1;
-        
+
         HashMap<String, Object> respuesta = SolicitudDeCambioDAO
                 .consultarSolicitudesPendientes(idProyecto);
-        
+
         if (!(Boolean) respuesta.get("error")) {
-            
+
             solicitudes = FXCollections.observableArrayList();
-            
-            ArrayList<SolicitudDeCambio> lista 
-                    = (ArrayList<SolicitudDeCambio>) respuesta.get("solicitudes");
-            
+
+            ArrayList<SolicitudDeCambio> lista;
+            lista = (ArrayList<SolicitudDeCambio>) respuesta
+                    .get("solicitudes");
+
             solicitudes.addAll(lista);
             tvSolicitudesDeCambio.setItems(solicitudes);
-            
+
         } else {
-            Utilidades.mostrarAlertaSimple("Error de carga", "" 
+            Utilidades.mostrarAlertaSimple("Error de carga", ""
                     + respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
-        
+
     }
 
     private void cerrarVentana() {
-        
+
         Stage escenario = (Stage) tvSolicitudesDeCambio.getScene().getWindow();
-        
+
         escenario.close();
-        
+
     }
 
     private void consultarSolicitud(Integer idResponsable,
@@ -162,16 +164,17 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
         Stage escenario = new Stage();
 
         try {
-            
+
             FXMLLoader loader = Utilidades
                     .getFXMLLoader("/vista/FXMLSolicitudDeCambio.fxml");
-            
+
             Parent vista = loader.load();
-            
+
             Scene escena = new Scene(vista);
-            
-            FXMLSolicitudDeCambioController controlador = loader.getController();
-            
+
+            FXMLSolicitudDeCambioController controlador = loader
+                    .getController();
+
             controlador.inicializarVentana(idResponsable, solicitud, this);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
@@ -180,32 +183,32 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
             escenario.setTitle("Consultar solicitud");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-            
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        
+
     }
 
     private void configurarListenerATabla() {
 
         tvSolicitudesDeCambio.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<Object>() {
-            
-            @Override
-            public void changed(ObservableValue<?> observable, 
-                    Object oldValue, Object newValue) {
-                
-                if (newValue != null) {
-                    clicVer.setDisable(false);
-                } else {
-                    clicVer.setDisable(true);
-                }
-                
-            }
-            
-        });
-        
+
+                    @Override
+                    public void changed(ObservableValue<?> observable,
+                            Object oldValue, Object newValue) {
+
+                        if (newValue != null) {
+                            clicVer.setDisable(false);
+                        } else {
+                            clicVer.setDisable(true);
+                        }
+
+                    }
+
+                });
+
     }
 
 }

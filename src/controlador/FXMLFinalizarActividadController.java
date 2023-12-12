@@ -23,7 +23,7 @@ import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 import javafx.scene.control.Alert;
 
-public class FXMLFinalizarActividadController implements Initializable{
+public class FXMLFinalizarActividadController implements Initializable {
 
     private ObservableList<Actividad> actividades;
     @FXML
@@ -85,7 +85,7 @@ public class FXMLFinalizarActividadController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         configurarTabla();
 
     }
@@ -98,37 +98,46 @@ public class FXMLFinalizarActividadController implements Initializable{
 
     private void configurarTabla() {
 
-        colTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
-        colFechaInicio.setCellValueFactory(new PropertyValueFactory("fechaInicio"));
-        colEstado.setCellValueFactory(new PropertyValueFactory("estadoActividad"));
-        colEsfuerzo.setCellValueFactory(new PropertyValueFactory("esfuerzoMinutos"));
+        colTitulo.setCellValueFactory(new PropertyValueFactory(
+                "titulo"));
+        colFechaInicio.setCellValueFactory(new PropertyValueFactory(
+                "fechaInicio"));
+        colEstado.setCellValueFactory(new PropertyValueFactory(
+                "estadoActividad"));
+        colEsfuerzo.setCellValueFactory(new PropertyValueFactory(
+                "esfuerzoMinutos"));
 
         tvActividades.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
 
             @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
-                
-                if(newValue != null){
+            public void changed(
+                    ObservableValue<? extends Actividad> observable,
+                    Actividad oldValue,
+                    Actividad newValue) {
+
+                if (newValue != null) {
                     btnFinalizar.setDisable(false);
                 }
             }
-            
+
         });
 
     }
 
     private void obtenerActividadesSinFinalizar(int idProyecto) {
 
-        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesSinFinalizar(idProyecto);
+        HashMap<String, Object> respuesta = ActividadDAO
+                .obtenerActividadesSinFinalizar(idProyecto);
 
-        if(!(boolean) respuesta.get("error")){
+        if (!(boolean) respuesta.get("error")) {
 
             actividades = FXCollections.observableArrayList();
-            ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
+            ArrayList<Actividad> lista = (ArrayList) respuesta
+                    .get("actividades");
             actividades.addAll(lista);
             tvActividades.setItems(actividades);
-        
-        }else{
+
+        } else {
             Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);

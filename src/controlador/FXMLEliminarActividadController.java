@@ -119,11 +119,13 @@ public class FXMLEliminarActividadController implements Initializable {
     }
 
     private void recuperarActividades(int idProyecto) {
-        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
+        HashMap<String, Object> respuesta = ActividadDAO
+                .obtenerActividadesProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
             actividades = FXCollections.observableArrayList();
-            ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
+            ArrayList<Actividad> lista = (ArrayList) respuesta
+                    .get("actividades");
             actividades.addAll(lista);
             cbActividades.setItems(actividades);
             cbActividades.getSelectionModel().select(0);
@@ -136,17 +138,25 @@ public class FXMLEliminarActividadController implements Initializable {
     }
 
     private void configurarListenerComboActividad() {
-        cbActividades.valueProperty().addListener(new ChangeListener<Actividad>() {
+        cbActividades.valueProperty().addListener(
+            new ChangeListener<Actividad>() {
 
             @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue,
+            public void changed(
+                ObservableValue<? extends Actividad> observable, 
+                Actividad oldValue,
                     Actividad newValue) {
                 if (newValue != null) {
-                    dpFechaInicio.setValue(LocalDate.parse(newValue.getFechaInicio()));
-                    dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
-                    taDescripcion.setText(newValue.getDescripcion());
-                    tfEstado.setText(newValue.getEstadoActividad());
-                    tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
+                    dpFechaInicio
+                    .setValue(LocalDate.parse(newValue.getFechaInicio()));
+                    dpFechaFin
+                    .setValue(LocalDate.parse(newValue.getFechaFin()));
+                    taDescripcion
+                    .setText(newValue.getDescripcion());
+                    tfEstado
+                    .setText(newValue.getEstadoActividad());
+                    tfEsfuerzo
+                    .setText(String.valueOf(newValue.getEsfuerzoMinutos()));
                     btnEliminar.setDisable(false);
                 }
             }
@@ -154,8 +164,9 @@ public class FXMLEliminarActividadController implements Initializable {
     }
 
     private void eliminarActividad() {
-        HashMap<String, Object> respuesta = ActividadDAO.eliminarActividad(cbActividades.getValue()
-                .getIdActividad());
+        HashMap<String, Object> respuesta = ActividadDAO.eliminarActividad(
+                cbActividades.getValue()
+                        .getIdActividad());
         if (!(boolean) respuesta.get("error")) {
 
             Utilidades.mostrarAlertaSimple("Actividad eliminada",

@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FXMLConsultarDetallesDefectosController implements Initializable {
-    
+
     private Defecto defecto;
 
     @FXML
@@ -47,8 +47,9 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
         tfFechaInicio.setText(defectoSeleccionado.getFechaReporte());
         tfFechaFin.setText(defectoSeleccionado.getFechaFin());
         tfEstudiante.setText(defectoSeleccionado.getNombreEstudiante());
-        tfEsfuerzo.setText(String.valueOf(defectoSeleccionado.getEsfuerzoMinutos()));
-        tfEstado.setText(defectoSeleccionado.getEstadoDefecto());        
+        tfEsfuerzo.setText(String.valueOf(defectoSeleccionado
+                .getEsfuerzoMinutos()));
+        tfEstado.setText(defectoSeleccionado.getEstadoDefecto());
 
     }
 }

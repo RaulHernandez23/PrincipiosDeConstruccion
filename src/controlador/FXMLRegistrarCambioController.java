@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -202,28 +201,22 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private void verificarCamposLlenos() {
 
-        boolean verificar = tfTitulo.getText().isEmpty() ||
-                tfDescripcion.getText().isEmpty() ||
-                tfEsfuerzo.getText().isEmpty() ||
-                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
-                cbEstado.getSelectionModel().getSelectedIndex() < 0 ||
-                cbSolicitud.getSelectionModel().getSelectedIndex() < 0;
-
-        ChangeListener<String> camposLlenos = new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                    String oldValue,
-                    String newValue) {
-
-                btnRegistrarComponente.setDisable(verificar);
-
-            }
-        };
+        ChangeListener<String> camposLlenos = ((observable, oldValue,
+                newValue) -> verificar());
 
         tfTitulo.textProperty().addListener(camposLlenos);
         tfDescripcion.textProperty().addListener(camposLlenos);
         tfEsfuerzo.textProperty().addListener(camposLlenos);
 
+    }
+
+    private void verificar() {
+        btnRegistrarComponente.setDisable(tfTitulo.getText().isEmpty() ||
+                tfDescripcion.getText().isEmpty() ||
+                tfEsfuerzo.getText().isEmpty() ||
+                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
+                cbEstado.getSelectionModel().getSelectedIndex() < 0 ||
+                cbSolicitud.getSelectionModel().getSelectedIndex() < 0);
     }
 
     private boolean validarCampos() {

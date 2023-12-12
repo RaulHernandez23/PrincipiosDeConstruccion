@@ -4,18 +4,17 @@
  * Paquete: controlador
  * Fecha de creación: 20/11/2023
  * Fecha de modificación: 10/12/2023
- * Descripción: Controlador para la ventana de creación de solicitudes de cambio.
+ * Descripción: Controlador para la ventana de creación de 
+ *              solicitudes de cambio.
  */
 package controlador;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,7 +38,7 @@ import modelo.pojo.SolicitudDeCambio;
 import utilidades.Utilidades;
 
 public class FXMLCrearSolicitudDeCambioController implements Initializable {
-        
+
     @FXML
     private TextArea taAccionPropuesta;
 
@@ -69,13 +68,13 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
     @FXML
     private ScrollPane scrollPanePanelPrincipal;
-    
+
     private int idProyecto;
 
     private int idEstudiante;
 
     private ObservableList<Defecto> defectos;
-   
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -85,28 +84,28 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         Platform.runLater(() -> {
             scrollPanePanelPrincipal.setVvalue(0);
         });
-        
+
     }
-    
+
     @FXML
     private void hoverInSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.
-                getInputStream("/recursos/imagenes/logoSalir2.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
-    
+
     @FXML
     private void hoverOutSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.
-                getInputStream("/recursos/imagenes/logoSalir.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
     private void clicEnviarSolicitud(ActionEvent event) {
 
         if (validarCampos()) {
-            
-            boolean confirmacion = Utilidades.
-                    mostrarAlertaConfirmacion("Confirmar registro",
+
+            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion(
+                    "Confirmar registro",
                     "¿Estás seguro de enviar la solicitud?");
 
             if (confirmacion) {
@@ -123,16 +122,16 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         }
 
     }
-    
+
     public void inicializarVentana(int idProyecto, int idEstudiante) {
 
         this.idProyecto = idProyecto;
         this.idEstudiante = idEstudiante;
 
-        cargarInformacionDefectos(); 
+        cargarInformacionDefectos();
 
     }
-    
+
     private void cerrarVentana() {
 
         Stage escenario = (Stage) tfNombreSolicitud.getScene().getWindow();
@@ -145,34 +144,36 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
-    
-    private void cargarInformacionDefectos() {
-        
-        HashMap respuesta = DefectoDAO.
-                consultarNombresDefectosProyecto(idProyecto);
 
-        ArrayList<Defecto> defectosDeProyecto = 
-                (ArrayList<Defecto>) respuesta.get("defectos");
+    private void cargarInformacionDefectos() {
+
+        HashMap respuesta = DefectoDAO.consultarNombresDefectosProyecto(
+                idProyecto);
+
+        ArrayList<Defecto> defectosDeProyecto = (ArrayList<Defecto>) respuesta
+                .get("defectos");
 
         defectos = FXCollections.observableArrayList();
 
         defectos.addAll(defectosDeProyecto);
-        
+
         Defecto ningunDefectoSeleccionado = new Defecto();
-        
+
         ningunDefectoSeleccionado.setTitulo("Ningún defecto asociado");
         ningunDefectoSeleccionado.setIdDefecto(null);
         defectos.add(ningunDefectoSeleccionado);
         cbDefectos.setItems(defectos);
     }
-    
+
     private void configurarListenerACampos() {
 
-        ChangeListener<String> cambiosEnCampos = 
-                (observable, oldValue, newValue) -> verificarCampos();
-        ChangeListener<Object> cambiosEnComboBox = 
-                (observable, oldValue, newValue) -> verificarCampos();
-            
+        ChangeListener<String> cambiosEnCampos = (observable,
+                oldValue,
+                newValue) -> verificarCampos();
+        ChangeListener<Object> cambiosEnComboBox = (observable,
+                oldValue,
+                newValue) -> verificarCampos();
+
         cbDefectos.valueProperty().addListener(cambiosEnComboBox);
         tfNombreSolicitud.textProperty().addListener(cambiosEnCampos);
         taDescripcionCambio.textProperty().addListener(cambiosEnCampos);
@@ -181,19 +182,19 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         taAccionPropuesta.textProperty().addListener(cambiosEnCampos);
 
     }
-    
+
     private void verificarCampos() {
 
         btnEnviarSolicitud.setDisable(
-                    cbDefectos.getValue() == null
-                || tfNombreSolicitud.getText().isEmpty()
-                || taDescripcionCambio.getText().isEmpty()
-                || taRazonCambio.getText().isEmpty()
-                || taImpactoCambio.getText().isEmpty()
-                || taAccionPropuesta.getText().isEmpty());
+                cbDefectos.getValue() == null
+                        || tfNombreSolicitud.getText().isEmpty()
+                        || taDescripcionCambio.getText().isEmpty()
+                        || taRazonCambio.getText().isEmpty()
+                        || taImpactoCambio.getText().isEmpty()
+                        || taAccionPropuesta.getText().isEmpty());
 
     }
-    
+
     private boolean validarCampos() {
 
         boolean esValido = true;
@@ -227,7 +228,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         return esValido;
 
     }
-    
+
     private void limpiarEstiloCampos() {
 
         cbDefectos.setStyle("");
@@ -238,14 +239,14 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         taAccionPropuesta.setStyle("");
 
     }
-    
+
     private void registrarSolicitud() {
 
         SolicitudDeCambio solicitudDeCambio = new SolicitudDeCambio();
-        
+
         Defecto defectoSeleccionado = cbDefectos.getSelectionModel()
                 .getSelectedItem();
-        
+
         solicitudDeCambio.setIdDefecto(defectoSeleccionado.getIdDefecto());
         solicitudDeCambio.setTitulo(tfNombreSolicitud.getText());
         solicitudDeCambio.setDescripcion(taDescripcionCambio.getText());
@@ -259,9 +260,9 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         solicitudDeCambio.setIdEstadoSolicitud(3);
         solicitudDeCambio.setIdEstudiante(idEstudiante);
         solicitudDeCambio.setIdProyecto(idProyecto);
-        
-        HashMap<String, Object> respuesta = SolicitudDeCambioDAO.
-                registrarSolicitud(solicitudDeCambio);
+
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO
+                .registrarSolicitud(solicitudDeCambio);
 
         if (!(Boolean) respuesta.get("error")) {
 
@@ -272,8 +273,9 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         } else {
 
             Utilidades.mostrarAlertaSimple("Error en el registro",
-                    (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
-        
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+
         }
 
     }
