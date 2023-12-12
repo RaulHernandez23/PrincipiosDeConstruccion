@@ -112,11 +112,9 @@ public class FXMLMenuResponsableController implements Initializable {
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLDetalleActividadController controlador = loader.getController();
-            controlador.inicializarInformacion(1);
-            // me falta pasar el idResponsable
+            controlador.inicializarInformacion(idProyecto, false);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
-
             escenario.setScene(escena);
             escenario.setTitle("Eliminar Actividad");
             escenario.setResizable(false);
@@ -330,18 +328,19 @@ public class FXMLMenuResponsableController implements Initializable {
         try {
 
             FXMLLoader loader = Utilidades.getFXMLLoader(
-                    "/vista/FXMLFinalizarActividad.fxml");
+                    "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLFinalizarActividadController controlador = loader.getController();
-            controlador.inicializarInformacion(1);
+            FXMLDetalleActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(idProyecto, true);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
-            escenario.setTitle("Asignar actividad");
+            escenario.setTitle("Fianlizar actividad");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+            
         } catch (IOException ioE) {
 
             ioE.printStackTrace();
