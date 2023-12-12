@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
@@ -142,47 +141,56 @@ public class FXMLBitacorasEstudianteController implements Initializable {
 
     private void configurarTabla() {
 
-        this.colTituloActividad.setCellValueFactory(
-                new PropertyValueFactory<>("titulo"));
-        this.colEstadoActividad.setCellValueFactory(
-                new PropertyValueFactory<>("estado"));
-        this.colEsfuerzoActividad.setCellValueFactory(
-                new PropertyValueFactory<>("esfuerzo"));
-        this.colTipoActividad.setCellValueFactory(
-                new PropertyValueFactory<>("tipo"));
-        this.colFechaInicioActividad.setCellValueFactory(
-                new PropertyValueFactory<>("fechaInicio"));
+        configurarTablaCambios();
 
-        this.colTituloCambio.setCellValueFactory(
-                new PropertyValueFactory<>("titulo"));
-        this.colEstadoCambio.setCellValueFactory(
-                new PropertyValueFactory<>("estado"));
-        this.colEsfuerzoCambio.setCellValueFactory(
-                new PropertyValueFactory<>("esfuerzo"));
-        this.colTipoCambio.setCellValueFactory(
-                new PropertyValueFactory<>("tipo"));
-        this.colFechaInicioCambio.setCellValueFactory(
-                new PropertyValueFactory<>("fechaInicio"));
+        configurarTablaActividades();
 
-        this.colTituloDefecto.setCellValueFactory(
-                new PropertyValueFactory<>("titulo"));
-        this.colEstadoDefecto.setCellValueFactory(
-                new PropertyValueFactory<>("estado"));
-        this.colEsfuerzoDefecto.setCellValueFactory(
-                new PropertyValueFactory<>("esfuerzo"));
-        this.colFechaReporteDefecto.setCellValueFactory(
-                new PropertyValueFactory<>("fechaReporte"));
+        configurarTablaDefectos();
 
-        this.colTituloSolicitud.setCellValueFactory(
-                new PropertyValueFactory<>("titulo"));
-        this.colNumeroSolicitud.setCellValueFactory(
-                new PropertyValueFactory<>("numeroSolicitud"));
-        this.colFechaSolicitud.setCellValueFactory(
-                new PropertyValueFactory<>("fechaSolicitud"));
+        configurarTablaSolicitudes();
 
     }
 
     private void cambiarTablaCambios() {
+
+        ajustarTablaCambios();
+
+        HashMap<String, Object> respuesta = CambioDAO
+                .consultarCambiosEstudiante(
+                        cbEstudiante.getSelectionModel().getSelectedItem()
+                                .getIdEstudiante(),
+                        idProyecto);
+
+        if (!(Boolean) respuesta.get("error")) {
+
+            listaCambios = FXCollections.observableArrayList();
+
+            listaCambios.addAll((ArrayList<Cambio>) respuesta.get(
+                    "cambios"));
+
+            ObservableList<Bitacora> listaBitacoras = FXCollections
+                    .observableArrayList();
+
+            listaBitacoras = convetirListaCambiosABitacoras(listaCambios);
+
+            tvBitacoras.setItems(listaBitacoras);
+
+        } else {
+
+            Alertas.mostrarAlerta("Error", respuesta.get("mensaje")
+                    .toString(),
+                    AlertType.ERROR);
+
+            Stage escenario = (Stage) vboxBitacorasEstudiante.getScene()
+                    .getWindow();
+
+            escenario.close();
+
+        }
+
+    }
+
+    private void ajustarTablaCambios() {
 
         int numeroColumnas = 5;
 
@@ -206,35 +214,69 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colTipoCambio,
                 colFechaInicioCambio);
 
-        HashMap<String, Object> respuesta = CambioDAO
-                .consultarCambiosEstudiante(
+    }
+
+    private void configurarTablaCambios() {
+
+        this.colTituloCambio.setCellValueFactory(
+                new PropertyValueFactory<>("titulo"));
+        this.colEstadoCambio.setCellValueFactory(
+                new PropertyValueFactory<>("estado"));
+        this.colEsfuerzoCambio.setCellValueFactory(
+                new PropertyValueFactory<>("esfuerzo"));
+        this.colTipoCambio.setCellValueFactory(
+                new PropertyValueFactory<>("tipo"));
+        this.colFechaInicioCambio.setCellValueFactory(
+                new PropertyValueFactory<>("fechaInicio"));
+
+    }
+
+    private ObservableList<Bitacora> convetirListaCambiosABitacoras(
+            ObservableList<Cambio> cambios) {
+
+        ObservableList<Bitacora> listaBitacoras = FXCollections
+                .observableArrayList();
+
+        for (Cambio cambio : cambios) {
+
+            Bitacora bitacora = new Bitacora();
+
+            bitacora.setTitulo(cambio.getTitulo());
+            bitacora.setEstado(cambio.getEstadoCambio());
+            bitacora.setEsfuerzo(cambio.getEsfuerzoMinutos());
+            bitacora.setTipo(cambio.getTipoActividad());
+            bitacora.setFechaInicio(cambio.getFechaInicio());
+
+            listaBitacoras.add(bitacora);
+
+        }
+
+        return listaBitacoras;
+
+    }
+
+    private void cambiarTablaActividades() {
+
+        ajustarTablaActividades();
+
+        HashMap<String, Object> respuesta = ActividadDAO
+                .consultarActividadesEstudiante(
                         cbEstudiante.getSelectionModel().getSelectedItem()
                                 .getIdEstudiante(),
                         idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
-            listaCambios = FXCollections.observableArrayList();
+            listaActividades = FXCollections.observableArrayList();
 
-            listaCambios.addAll((ArrayList<Cambio>) respuesta.get(
-                    "cambios"));
+            listaActividades.addAll((ArrayList<Actividad>) respuesta.get(
+                    "actividades"));
 
             ObservableList<Bitacora> listaBitacoras = FXCollections
                     .observableArrayList();
 
-            for (Cambio cambio : listaCambios) {
-
-                Bitacora bitacora = new Bitacora();
-
-                bitacora.setTitulo(cambio.getTitulo());
-                bitacora.setEstado(cambio.getEstadoCambio());
-                bitacora.setEsfuerzo(cambio.getEsfuerzoMinutos());
-                bitacora.setTipo(cambio.getTipoActividad());
-                bitacora.setFechaInicio(cambio.getFechaInicio());
-
-                listaBitacoras.add(bitacora);
-
-            }
+            listaBitacoras = convertirListaActividadesABitacoras(
+                    listaActividades);
 
             tvBitacoras.setItems(listaBitacoras);
 
@@ -253,7 +295,7 @@ public class FXMLBitacorasEstudianteController implements Initializable {
 
     }
 
-    private void cambiarTablaActividades() {
+    private void ajustarTablaActividades() {
 
         int numeroColumnas = 5;
 
@@ -278,35 +320,68 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colTipoActividad,
                 colFechaInicioActividad);
 
-        HashMap<String, Object> respuesta = ActividadDAO
-                .consultarActividadesEstudiante(
-                        cbEstudiante.getSelectionModel().getSelectedItem()
-                                .getIdEstudiante(),
-                        idProyecto);
+    }
+
+    private void configurarTablaActividades() {
+
+        this.colTituloActividad.setCellValueFactory(
+                new PropertyValueFactory<>("titulo"));
+        this.colEstadoActividad.setCellValueFactory(
+                new PropertyValueFactory<>("estado"));
+        this.colEsfuerzoActividad.setCellValueFactory(
+                new PropertyValueFactory<>("esfuerzo"));
+        this.colTipoActividad.setCellValueFactory(
+                new PropertyValueFactory<>("tipo"));
+        this.colFechaInicioActividad.setCellValueFactory(
+                new PropertyValueFactory<>("fechaInicio"));
+
+    }
+
+    private ObservableList<Bitacora> convertirListaActividadesABitacoras(
+            ObservableList<Actividad> actividades) {
+
+        ObservableList<Bitacora> listaBitacoras = FXCollections
+                .observableArrayList();
+
+        for (Actividad actividad : actividades) {
+
+            Bitacora bitacora = new Bitacora();
+
+            bitacora.setTitulo(actividad.getTitulo());
+            bitacora.setEstado(actividad.getEstadoActividad());
+            bitacora.setEsfuerzo(actividad.getEsfuerzoMinutos());
+            bitacora.setTipo(actividad.getTipo());
+            bitacora.setFechaInicio(actividad.getFechaInicio());
+
+            listaBitacoras.add(bitacora);
+
+        }
+
+        return listaBitacoras;
+
+    }
+
+    private void cambiarTablaDefectos() {
+
+        ajustarTablaDefectos();
+
+        HashMap<String, Object> respuesta;
+        respuesta = DefectoDAO.consultarDefectosEstudiante(
+                cbEstudiante.getSelectionModel().getSelectedItem()
+                        .getIdEstudiante(),
+                idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
-            listaActividades = FXCollections.observableArrayList();
+            listaDefectos = FXCollections.observableArrayList();
 
-            listaActividades.addAll((ArrayList<Actividad>) respuesta.get(
-                    "actividades"));
+            listaDefectos.addAll((ArrayList<Defecto>) respuesta.get(
+                    "defectos"));
 
             ObservableList<Bitacora> listaBitacoras = FXCollections
                     .observableArrayList();
 
-            for (Actividad actividad : listaActividades) {
-
-                Bitacora bitacora = new Bitacora();
-
-                bitacora.setTitulo(actividad.getTitulo());
-                bitacora.setEstado(actividad.getEstadoActividad());
-                bitacora.setEsfuerzo(actividad.getEsfuerzoMinutos());
-                bitacora.setTipo(actividad.getTipo());
-                bitacora.setFechaInicio(actividad.getFechaInicio());
-
-                listaBitacoras.add(bitacora);
-
-            }
+            listaBitacoras = convertirListaDefectosABitacoras(listaDefectos);
 
             tvBitacoras.setItems(listaBitacoras);
 
@@ -325,7 +400,7 @@ public class FXMLBitacorasEstudianteController implements Initializable {
 
     }
 
-    private void cambiarTablaDefectos() {
+    private void ajustarTablaDefectos() {
 
         int numeroColumnas = 4;
 
@@ -346,34 +421,66 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colEsfuerzoDefecto,
                 colFechaReporteDefecto);
 
-        HashMap<String, Object> respuesta;
-        respuesta = DefectoDAO.consultarDefectosEstudiante(
-                cbEstudiante.getSelectionModel().getSelectedItem()
-                        .getIdEstudiante(),
-                idProyecto);
+    }
+
+    private void configurarTablaDefectos() {
+
+        this.colTituloDefecto.setCellValueFactory(
+                new PropertyValueFactory<>("titulo"));
+        this.colEstadoDefecto.setCellValueFactory(
+                new PropertyValueFactory<>("estado"));
+        this.colEsfuerzoDefecto.setCellValueFactory(
+                new PropertyValueFactory<>("esfuerzo"));
+        this.colFechaReporteDefecto.setCellValueFactory(
+                new PropertyValueFactory<>("fechaReporte"));
+
+    }
+
+    private ObservableList<Bitacora> convertirListaDefectosABitacoras(
+            ObservableList<Defecto> defectos) {
+
+        ObservableList<Bitacora> listaBitacoras = FXCollections
+                .observableArrayList();
+
+        for (Defecto defecto : defectos) {
+
+            Bitacora bitacora = new Bitacora();
+
+            bitacora.setTitulo(defecto.getTitulo());
+            bitacora.setEstado(defecto.getEstadoDefecto());
+            bitacora.setEsfuerzo(defecto.getEsfuerzoMinutos());
+            bitacora.setFechaReporte(defecto.getFechaReporte());
+
+            listaBitacoras.add(bitacora);
+
+        }
+
+        return listaBitacoras;
+
+    }
+
+    private void cambiarTablaSolicitudes() {
+
+        ajustarTablaSolicitudes();
+
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO
+                .consultarSolicitudesEstudiante(
+                        cbEstudiante.getSelectionModel().getSelectedItem()
+                                .getIdEstudiante(),
+                        idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
-            listaDefectos = FXCollections.observableArrayList();
+            listaSolicitudes = FXCollections.observableArrayList();
 
-            listaDefectos.addAll((ArrayList<Defecto>) respuesta.get(
-                    "defectos"));
+            listaSolicitudes.addAll((ArrayList<SolicitudDeCambio>) respuesta
+                    .get("solicitudes"));
 
             ObservableList<Bitacora> listaBitacoras = FXCollections
                     .observableArrayList();
 
-            for (Defecto defecto : listaDefectos) {
-
-                Bitacora bitacora = new Bitacora();
-
-                bitacora.setTitulo(defecto.getTitulo());
-                bitacora.setEstado(defecto.getEstadoDefecto());
-                bitacora.setEsfuerzo(defecto.getEsfuerzoMinutos());
-                bitacora.setFechaReporte(defecto.getFechaReporte());
-
-                listaBitacoras.add(bitacora);
-
-            }
+            listaBitacoras = convertirListaSolicitudesABitacoras(
+                    listaSolicitudes);
 
             tvBitacoras.setItems(listaBitacoras);
 
@@ -392,7 +499,7 @@ public class FXMLBitacorasEstudianteController implements Initializable {
 
     }
 
-    private void cambiarTablaSolicitudes() {
+    private void ajustarTablaSolicitudes() {
 
         int numeroColumnas = 3;
 
@@ -410,48 +517,38 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 colTituloSolicitud,
                 colFechaSolicitud);
 
-        HashMap<String, Object> respuesta = SolicitudDeCambioDAO
-                .consultarSolicitudesEstudiante(
-                        cbEstudiante.getSelectionModel().getSelectedItem()
-                                .getIdEstudiante(),
-                        idProyecto);
+    }
 
-        if (!(Boolean) respuesta.get("error")) {
+    private void configurarTablaSolicitudes() {
 
-            listaSolicitudes = FXCollections.observableArrayList();
+        this.colTituloSolicitud.setCellValueFactory(
+                new PropertyValueFactory<>("titulo"));
+        this.colNumeroSolicitud.setCellValueFactory(
+                new PropertyValueFactory<>("numeroSolicitud"));
+        this.colFechaSolicitud.setCellValueFactory(
+                new PropertyValueFactory<>("fechaSolicitud"));
 
-            listaSolicitudes.addAll((ArrayList<SolicitudDeCambio>) respuesta
-                    .get("solicitudes"));
+    }
 
-            ObservableList<Bitacora> listaBitacoras = FXCollections
-                    .observableArrayList();
+    private ObservableList<Bitacora> convertirListaSolicitudesABitacoras(
+            ObservableList<SolicitudDeCambio> solicitudes) {
 
-            for (SolicitudDeCambio solicitud : listaSolicitudes) {
+        ObservableList<Bitacora> listaBitacoras = FXCollections
+                .observableArrayList();
 
-                Bitacora bitacora = new Bitacora();
+        for (SolicitudDeCambio solicitud : solicitudes) {
 
-                bitacora.setTitulo(solicitud.getTitulo());
-                bitacora.setNumeroSolicitud(solicitud.getIdSolicitudDeCambio());
-                bitacora.setFechaSolicitud(solicitud.getFechaCreacion());
+            Bitacora bitacora = new Bitacora();
 
-                listaBitacoras.add(bitacora);
+            bitacora.setTitulo(solicitud.getTitulo());
+            bitacora.setNumeroSolicitud(solicitud.getIdSolicitudDeCambio());
+            bitacora.setFechaSolicitud(solicitud.getFechaCreacion());
 
-            }
-
-            tvBitacoras.setItems(listaBitacoras);
-
-        } else {
-
-            Alertas.mostrarAlerta("Error", respuesta.get("mensaje")
-                    .toString(),
-                    AlertType.ERROR);
-
-            Stage escenario = (Stage) vboxBitacorasEstudiante.getScene()
-                    .getWindow();
-
-            escenario.close();
+            listaBitacoras.add(bitacora);
 
         }
+
+        return listaBitacoras;
 
     }
 

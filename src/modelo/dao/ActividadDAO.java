@@ -86,7 +86,7 @@ public class ActividadDAO {
     }
 
     public static HashMap<String, Object> obtenerActividadesProyecto(
-            int idProyecto) {
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);

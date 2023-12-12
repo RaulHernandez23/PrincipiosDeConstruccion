@@ -107,7 +107,7 @@ public class FXMLDetalleActividadController implements Initializable {
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(int idProyecto) {
+    public void inicializarInformacion(Integer idProyecto) {
         recuperarActividades(idProyecto);
     }
 
@@ -118,7 +118,7 @@ public class FXMLDetalleActividadController implements Initializable {
 
     }
 
-    private void recuperarActividades(int idProyecto) {
+    private void recuperarActividades(Integer idProyecto) {
         HashMap<String, Object> respuesta = ActividadDAO
                 .obtenerActividadesProyecto(idProyecto);
 
@@ -140,40 +140,31 @@ public class FXMLDetalleActividadController implements Initializable {
 
     private void configurarListenerComboActividad() {
         cbActividades.valueProperty().addListener(
-            new ChangeListener<Actividad>() {
+                new ChangeListener<Actividad>() {
 
-            @Override
-            public void changed(
-                ObservableValue<? extends Actividad> observable, 
-                Actividad oldValue,
-                    Actividad newValue) {
-                if (newValue != null) {
-<<<<<<< HEAD:src/controlador/FXMLEliminarActividadController.java
-                    dpFechaInicio
-                    .setValue(LocalDate.parse(newValue.getFechaInicio()));
-                    dpFechaFin
-                    .setValue(LocalDate.parse(newValue.getFechaFin()));
-                    taDescripcion
-                    .setText(newValue.getDescripcion());
-                    tfEstado
-                    .setText(newValue.getEstadoActividad());
-                    tfEsfuerzo
-                    .setText(String.valueOf(newValue.getEsfuerzoMinutos()));
-=======
-                    dpFechaInicio.setValue(LocalDate.parse(newValue.getFechaInicio()));
-                    if(newValue.getFechaFin() != null){
-                        dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
-                    } else {
-                        dpFechaFin.setValue(null);
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Actividad> observable,
+                            Actividad oldValue,
+                            Actividad newValue) {
+                        if (newValue != null) {
+                            dpFechaInicio
+                                    .setValue(LocalDate.parse(
+                                            newValue.getFechaInicio()));
+                            dpFechaFin
+                                    .setValue(LocalDate.parse(
+                                            newValue.getFechaFin()));
+                            taDescripcion
+                                    .setText(newValue.getDescripcion());
+                            tfEstado
+                                    .setText(newValue.getEstadoActividad());
+                            tfEsfuerzo
+                                    .setText(String.valueOf(
+                                            newValue.getEsfuerzoMinutos()));
+                            btnEliminar.setDisable(false);
+                        }
                     }
-                    taDescripcion.setText(newValue.getDescripcion());
-                    tfEstado.setText(newValue.getEstadoActividad());
-                    tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
->>>>>>> 6decefaf5fddda6eaff8c2a5cf8c1c3cf348fb3e:src/controlador/FXMLDetalleActividadController.java
-                    btnEliminar.setDisable(false);
-                }
-            }
-        });
+                });
     }
 
     private void eliminarActividad() {
