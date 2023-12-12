@@ -338,7 +338,7 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLFinalizarActividadController controlador = loader
+            FXMLDetalleActividadController controlador = loader
                     .getController();
 
             controlador.inicializarInformacion(1);
