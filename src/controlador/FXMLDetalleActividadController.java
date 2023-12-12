@@ -28,9 +28,10 @@ import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
-public class FXMLEliminarActividadController implements Initializable{
+public class FXMLDetalleActividadController implements Initializable{
 
     private ObservableList<Actividad> actividades;
+    private Boolean esFinalizar = false;
 
     @FXML
     private ComboBox<Actividad> cbActividades;
@@ -108,8 +109,9 @@ public class FXMLEliminarActividadController implements Initializable{
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(int idProyecto) {
+    public void inicializarInformacion(int idProyecto, boolean esFinalizar) {
         recuperarActividades(idProyecto);
+        this.esFinalizar = esFinalizar;
     }
 
     public void salir() {

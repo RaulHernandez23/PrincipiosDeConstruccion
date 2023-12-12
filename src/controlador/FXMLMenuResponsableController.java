@@ -22,6 +22,8 @@ import modelo.pojo.ResponsableProyecto;
 
 public class FXMLMenuResponsableController implements Initializable {
 
+    private Integer idProyecto = 1;
+
     @FXML
     private ImageView ivSalir;
 
@@ -107,16 +109,20 @@ public class FXMLMenuResponsableController implements Initializable {
         try {
 
             FXMLLoader loader = Utilidades.getFXMLLoader(
-                    "/vista/FXMLEliminarActividad.fxml");
+                    "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
+<<<<<<< HEAD
             FXMLEliminarActividadController controlador = loader
                     .getController();
             controlador.inicializarInformacion(1);
             // me falta pasar el idResponsable
+=======
+            FXMLDetalleActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(idProyecto, false);
+>>>>>>> ea54c2bc093c0387f6f8ec0c8f20314499d0cd33
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
-
             escenario.setScene(escena);
             escenario.setTitle("Eliminar Actividad");
             escenario.setResizable(false);
@@ -148,10 +154,29 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLAsignarEstudianteAProyecto.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Asignar estudiante a proyecto", true);
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLAsignarEstudianteAProyecto.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLAsignarEstudianteAProyectoController controlador = loader.getController();
+            controlador.inicializarVentana(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+
+            escenario.setScene(escena);
+            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            escenario.close();
+
+        }
 
     }
 
@@ -166,9 +191,14 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLAsignarActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
+<<<<<<< HEAD
             FXMLAsignarActividadController controlador = loader
                     .getController();
             controlador.inicializarInformacion(1);
+=======
+            FXMLAsignarActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(idProyecto);
+>>>>>>> ea54c2bc093c0387f6f8ec0c8f20314499d0cd33
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
 
@@ -316,20 +346,30 @@ public class FXMLMenuResponsableController implements Initializable {
         try {
 
             FXMLLoader loader = Utilidades.getFXMLLoader(
-                    "/vista/FXMLFinalizarActividad.fxml");
+                    "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
+<<<<<<< HEAD
             FXMLFinalizarActividadController controlador = loader
                     .getController();
 
             controlador.inicializarInformacion(1);
+=======
+            FXMLDetalleActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(idProyecto, true);
+>>>>>>> ea54c2bc093c0387f6f8ec0c8f20314499d0cd33
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
-            escenario.setTitle("Asignar actividad");
+            escenario.setTitle("Fianlizar actividad");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+<<<<<<< HEAD
+=======
+            
+        } catch (IOException ioE) {
+>>>>>>> ea54c2bc093c0387f6f8ec0c8f20314499d0cd33
 
         } catch (IOException e) {
 

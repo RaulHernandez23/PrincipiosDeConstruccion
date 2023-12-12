@@ -26,8 +26,6 @@ import modelo.pojo.Actividad;
 import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
 
-
-//De verdad es necesario cerrar todo luego de una excepcion o al terminar el CU?
 public class FXMLAsignarActividadController implements Initializable {
 
     private ObservableList<Actividad> actividadesSinAsignar;
