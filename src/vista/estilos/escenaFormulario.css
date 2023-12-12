@@ -162,7 +162,7 @@
   -fx-border-radius: 5px;
   border-radius: 5px;
   -fx-scale-x: 1;
-  -fx-scale-y: 1;
+  -fx-scale-y: 1;   
   -fx-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
@@ -171,6 +171,14 @@
   -fx-font-size: 10px;
   font-size: 10px;
   -fx-text-fill: #00b88f;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.etiquetaSimple {
+  -fx-font-size: 10px;
+  font-size: 10px;
+  -fx-text-fill: #000000;
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
 }

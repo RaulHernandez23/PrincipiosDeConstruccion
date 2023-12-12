@@ -10,24 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLSolicitudesDeCambioController">
    <children>
-      <Label layoutX="24.0" layoutY="14.0" prefHeight="55.0" prefWidth="106.0" text="SGBP">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="31.0" layoutY="76.0" prefHeight="35.0" prefWidth="267.0" text="Solicitudes de cambio">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="529.0" layoutY="25.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
-      <Button fx:id="btnVer" layoutX="456.0" layoutY="422.0" mnemonicParsing="false" onAction="#clicVer" prefHeight="30.0" prefWidth="198.0" styleClass="botonOperacion" text="Ver" textOverrun="CLIP" />
-      <Button layoutX="60.0" layoutY="422.0" mnemonicParsing="false" onAction="#clicVolver" prefHeight="30.0" prefWidth="198.0" text="Volver" textOverrun="CLIP" />
-      <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="507.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../PrincipiosDeConstruccion/src/recursos/imagenes/logoUV.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="clicVer" layoutX="263.0" layoutY="420.0" mnemonicParsing="false" onAction="#clicVer" prefHeight="30.0" prefWidth="198.0" styleClass="botonOperacion" text="Ver" textOverrun="CLIP" />
       <TableView fx:id="tvSolicitudesDeCambio" layoutX="30.0" layoutY="122.0" prefHeight="284.0" prefWidth="663.0">
         <columns>
           <TableColumn fx:id="colNombreSolicitud" prefWidth="213.0" text="Nombre de la solicitud" />
@@ -35,5 +18,16 @@
             <TableColumn fx:id="colFechaRegistro" prefWidth="193.0" text="Fecha de registro" />
         </columns>
       </TableView>
+      <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="667.0" layoutY="43.0" onMouseClicked="#clicSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <image>
+            <Image url="@../recursos/imagenes/logoSalir.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="498.0" layoutY="22.0" styleClass="apartado" text="Universidad Veracruzana" />
+      <Label layoutX="54.0" layoutY="17.0" styleClass="sgbp" text="SGBP" />
+      <Label layoutX="84.0" layoutY="71.0" prefHeight="20.0" prefWidth="177.0" styleClass="apartado" text="Solicitudes de cambio" />
    </children>
 </Pane>

@@ -45,11 +45,7 @@ public class Defecto {
     }
 
     public void setIdDefecto(Integer idDefecto) {
-
-        if (idDefecto > 0) {
             this.idDefecto = idDefecto;
-        }
-
     }
 
     public String getTitulo() {

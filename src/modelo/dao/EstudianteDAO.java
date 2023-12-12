@@ -301,10 +301,10 @@ public class EstudianteDAO {
         if (conexionBD != null) {
 
             try {
-                String sentencia = "INSERT INTO estudiante(matricula, nombre, "
+                String sentencia = "INSERT INTO estudiante( matricula, nombre, "
                         + "apellidoPaterno, apellidoMaterno, "
-                        + "idEstadoEstudiante, password) "
-                        + "values (?,?,?,?,?,?)";
+                        + "idEstadoEstudiante, password, idProyecto) "
+                        + "values (?,?,?,?,?,?,?)";
 
                 PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
 
@@ -314,6 +314,7 @@ public class EstudianteDAO {
                 prepararSentencia.setString(4, estudiante.getApellidoMaterno());
                 prepararSentencia.setInt(5, estudiante.getIdEstadoEstudiante());
                 prepararSentencia.setString(6, estudiante.getPassword());
+                prepararSentencia.setInt(7, estudiante.getIdProyecto());
 
                 int filasAfectadas = prepararSentencia.executeUpdate();
 

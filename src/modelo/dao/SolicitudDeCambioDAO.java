@@ -295,7 +295,12 @@ public class SolicitudDeCambioDAO {
                 sentencia.setInt(7, solicitud.getIdEstudiante());
                 sentencia.setInt(8, solicitud.getIdEstadoSolicitud());
                 sentencia.setInt(9, solicitud.getIdProyecto());
-                sentencia.setInt(10, solicitud.getIdDefecto());
+                
+                if (solicitud.getIdDefecto() != null) {
+                    sentencia.setInt(10, solicitud.getIdDefecto());
+                } else {
+                    sentencia.setNull(10, java.sql.Types.INTEGER);
+                }
 
                 int filasAfectadas = sentencia.executeUpdate();
 
@@ -320,6 +325,7 @@ public class SolicitudDeCambioDAO {
 
         return respuesta;
     }
+    
     
     public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud, String nuevaFechaEvaluacion, int nuevoIdEstadoSolicitud) {
         HashMap<String, Object> respuesta = new HashMap<>();

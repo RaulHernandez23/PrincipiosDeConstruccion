@@ -148,10 +148,29 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLAsignarEstudianteAProyecto.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Asignar estudiante a proyecto", true);
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLAsignarEstudianteAProyecto.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLAsignarEstudianteAProyectoController controlador = loader.getController();
+            controlador.inicializarVentana(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+
+            escenario.setScene(escena);
+            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            escenario.close();
+
+        }
 
     }
 
