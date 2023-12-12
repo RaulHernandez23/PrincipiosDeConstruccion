@@ -310,6 +310,7 @@ public class SolicitudDeCambioDAO {
 
             } catch (SQLException ex) {
                 respuesta.put("mensaje", "No se pudo enviar la solicitud a la base de datos");
+                ex.printStackTrace();
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }

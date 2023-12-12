@@ -22,6 +22,8 @@ import utilidades.Utilidades;
 
 public class FXMLMenuResponsableController implements Initializable {
 
+    private Integer idProyecto = 1;
+
     @FXML
     private ImageView ivSalir;
 
@@ -165,7 +167,7 @@ public class FXMLMenuResponsableController implements Initializable {
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLAsignarActividadController controlador = loader.getController();
-            controlador.inicializarInformacion(1);
+            controlador.inicializarInformacion(idProyecto);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
 

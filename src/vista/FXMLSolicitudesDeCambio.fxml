@@ -21,7 +21,7 @@
          </font>
       </Label>
       <Label layoutX="529.0" layoutY="25.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
-      <Button fx:id="btnVer" layoutX="456.0" layoutY="422.0" mnemonicParsing="false" onAction="#clicVer" prefHeight="30.0" prefWidth="198.0" text="Ver" textOverrun="CLIP" />
+      <Button fx:id="btnVer" layoutX="456.0" layoutY="422.0" mnemonicParsing="false" onAction="#clicVer" prefHeight="30.0" prefWidth="198.0" styleClass="botonOperacion" text="Ver" textOverrun="CLIP" />
       <Button layoutX="60.0" layoutY="422.0" mnemonicParsing="false" onAction="#clicVolver" prefHeight="30.0" prefWidth="198.0" text="Volver" textOverrun="CLIP" />
       <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="507.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
