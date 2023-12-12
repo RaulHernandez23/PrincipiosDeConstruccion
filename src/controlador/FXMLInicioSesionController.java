@@ -62,14 +62,16 @@ public class FXMLInicioSesionController implements Initializable {
 
     @FXML
     void presionarTeclaAbajo(KeyEvent event) {
-        if (event.getCode().toString().equals("DOWN") || event.getCode().toString().equals("TAB")) {
+        if (event.getCode().toString().equals("DOWN") ||
+                event.getCode().toString().equals("TAB")) {
             pfPassword.requestFocus();
         }
     }
 
     @FXML
     void presionarTeclaArriba(KeyEvent event) {
-        if (event.getCode().toString().equals("UP") || event.getCode().toString().equals("TAB")) {
+        if (event.getCode().toString().equals("UP") ||
+                event.getCode().toString().equals("TAB")) {
             tfUsuario.requestFocus();
         }
     }
@@ -78,7 +80,8 @@ public class FXMLInicioSesionController implements Initializable {
 
         if (!verificarCamposLlenos()) {
 
-            lblMensaje.setText("Por favor digita el usuario y/o la contraseña");
+            lblMensaje.setText(
+                    "Por favor digita el usuario y/o la contraseña");
 
             ObservableList<String> estilo = paneMensaje.getStyleClass();
 
@@ -98,7 +101,8 @@ public class FXMLInicioSesionController implements Initializable {
     }
 
     private boolean verificarCamposLlenos() {
-        return !tfUsuario.getText().isEmpty() && !pfPassword.getText().isEmpty();
+        return !tfUsuario.getText().isEmpty() &&
+                !pfPassword.getText().isEmpty();
     }
 
     private void verificarConexion(String usuario, String password) {
@@ -106,10 +110,11 @@ public class FXMLInicioSesionController implements Initializable {
         RespuestaInicioSesion usuarioAutenticado = null;
 
         if (usuario.toLowerCase().startsWith("s")) {
-            usuarioAutenticado = EstudianteDAO.iniciarSesionEstudiante(usuario.toLowerCase(), password);
+            usuarioAutenticado = EstudianteDAO.iniciarSesionEstudiante(
+                    usuario.toLowerCase(), password);
         } else {
-            usuarioAutenticado = ResponsableProyectoDAO.iniciarSesionResponsable(usuario,
-                    password);
+            usuarioAutenticado = ResponsableProyectoDAO
+                    .iniciarSesionResponsable(usuario, password);
         }
 
         if (!usuarioAutenticado.isCorrecto()) {
@@ -132,7 +137,8 @@ public class FXMLInicioSesionController implements Initializable {
             if (usuario.toLowerCase().startsWith("s")) {
                 abrirMenuEstudiante(usuarioAutenticado.getEstudiante());
             } else {
-                abrirMenuResponsable(usuarioAutenticado.getResponsableProyecto());
+                abrirMenuResponsable(
+                        usuarioAutenticado.getResponsableProyecto());
             }
 
         }
@@ -145,20 +151,23 @@ public class FXMLInicioSesionController implements Initializable {
 
         try {
 
-            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLMenuEstudiante.fxml");
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLMenuEstudiante.fxml");
             Pane vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLMenuEstudianteController controlador = fxmlLoader.getController();
+            FXMLMenuEstudianteController controlador = fxmlLoader
+                    .getController();
 
-            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaMenu.css"));
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaMenu.css"));
             controlador.inicializarVentana(estudiante);
             escenario.setScene(escena);
             escenario.setTitle("Menu Estudiante");
             escenario.setResizable(false);
             escenario.show();
 
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -169,20 +178,23 @@ public class FXMLInicioSesionController implements Initializable {
 
         try {
 
-            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader("/vista/FXMLMenuResponsableA.fxml");
+            FXMLLoader fxmlLoader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLMenuResponsableA.fxml");
             Pane vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLMenuResponsableController controlador = fxmlLoader.getController();
+            FXMLMenuResponsableController controlador = fxmlLoader
+                    .getController();
 
-            escena.getStylesheets().add(Utilidades.getURLString("/vista/estilos/escenaMenu.css"));
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaMenu.css"));
             controlador.inicializarVentana(responsable);
             escenario.setScene(escena);
             escenario.setTitle("Menu Responsable <<pagina 1>>");
             escenario.setResizable(false);
             escenario.show();
 
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

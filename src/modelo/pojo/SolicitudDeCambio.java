@@ -21,7 +21,10 @@ public class SolicitudDeCambio {
     public SolicitudDeCambio() {
     }
 
-    public SolicitudDeCambio(Integer idSolicitudDeCambio, String titulo, String descripcion, String razon, String impacto, String accionPropuesta, String fechaCreacion, String fechaEvaluacion, Integer idEstudiante, String estudiante, Integer idEstadoSolicitud, Integer idProyecto, Integer idResponsable, Integer idDefecto, String defecto) {
+    public SolicitudDeCambio(Integer idSolicitudDeCambio, String titulo, String descripcion, String razon,
+            String impacto, String accionPropuesta, String fechaCreacion, String fechaEvaluacion, Integer idEstudiante,
+            String estudiante, Integer idEstadoSolicitud, Integer idProyecto, Integer idResponsable, Integer idDefecto,
+            String defecto) {
         this.idSolicitudDeCambio = idSolicitudDeCambio;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -158,6 +161,9 @@ public class SolicitudDeCambio {
     public void setDefecto(String defecto) {
         this.defecto = defecto;
     }
-    
-    
+
+    public String toString() {
+        return titulo;
+    }
+
 }

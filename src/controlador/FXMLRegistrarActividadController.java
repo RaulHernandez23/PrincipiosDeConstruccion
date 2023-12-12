@@ -1,3 +1,10 @@
+/*
+* Autor: Albhieri Cristoff Villa Contreras
+* Fecha de creación: 03/12/2023
+* Fecha de modificación: 10/12/2023
+* Descripción: Clase del controlador para poder registrar una actividad
+*/
+
 package controlador;
 
 import java.net.URL;
@@ -23,12 +30,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Alertas;
 import utilidades.Utilidades;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 public class FXMLRegistrarActividadController implements Initializable {
 
@@ -81,7 +89,8 @@ public class FXMLRegistrarActividadController implements Initializable {
             salir();
 
         } else {
-            Alertas.mostrarAlerta("Datos Inválidos", "Ingrese datos válidos",
+            Alertas.mostrarAlerta("Datos Inválidos",
+                    "Ingrese datos válidos",
                     Alert.AlertType.WARNING);
         }
 
@@ -112,7 +121,8 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     }
 
-    public void inicializarVentana(Integer idProyecto, int idResponsable, String responsable) {
+    public void inicializarVentana(
+            Integer idProyecto, int idResponsable, String responsable) {
 
         this.idProyecto = idProyecto;
         this.idResponsable = idResponsable;
@@ -122,13 +132,15 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     private void cargarTipos() {
 
-        HashMap<String, Object> respuesta = ActividadDAO.consultarTiposActividades();
+        HashMap<String, Object> respuesta = ActividadDAO
+                .consultarTiposActividades();
 
         if (!(Boolean) respuesta.get("error")) {
 
             listaTipos = FXCollections.observableArrayList();
 
-            ArrayList<String> lista = (ArrayList<String>) respuesta.get("tiposActividades");
+            ArrayList<String> lista = (ArrayList<String>) respuesta.get(
+                    "tiposActividades");
             listaTipos.addAll(lista);
             cbTipo.setItems(listaTipos);
 
@@ -142,6 +154,7 @@ public class FXMLRegistrarActividadController implements Initializable {
     private void registrarActividad() {
 
         Actividad actividad = new Actividad();
+
         actividad.setTitulo(tfTitulo.getText());
         actividad.setDescripcion(tfDescripcion.getText());
         actividad.setIdTipo(cbTipo.getSelectionModel().getSelectedIndex() + 1);
@@ -162,16 +175,21 @@ public class FXMLRegistrarActividadController implements Initializable {
 
             if (!(Boolean) respuesta.get("error")) {
 
-                Alertas.mostrarAlerta("Actividad Registrada", respuesta.get(
-                        "mensaje").toString(), Alert.AlertType.INFORMATION);
+                Alertas.mostrarAlerta("Actividad Registrada",
+                        respuesta.get("mensaje").toString(),
+                        Alert.AlertType.INFORMATION);
 
             } else {
-                Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
-                        "mensaje").toString(), Alert.AlertType.ERROR);
+                Alertas.mostrarAlerta("Error de Conexion",
+                        respuesta.get(
+                                "mensaje").toString(),
+                        Alert.AlertType.ERROR);
             }
 
         } catch (SQLException e) {
-            Utilidades.mostrarAlertaSimple("Error", "No se pudo conectar a la base de datos, inténtelo más tarde",
+            Utilidades.mostrarAlertaSimple("Error",
+                    "No se pudo conectar a la base de datos,"
+                            + " inténtelo más tarde",
                     Alert.AlertType.ERROR);
         }
 
@@ -182,7 +200,10 @@ public class FXMLRegistrarActividadController implements Initializable {
         boolean camposValidos = true;
         Pattern patron = Pattern
                 .compile(
-                        "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)?(?: [0-9]+)?$");
+                        "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]"
+                                + "[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*"
+                                + "(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]"
+                                + "[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)?(?: [0-9]+)?$");
         Matcher matcher = patron.matcher(tfTitulo.getText());
 
         if (tfTitulo.getText().length() == 0 || !matcher.matches()) {
@@ -190,7 +211,9 @@ public class FXMLRegistrarActividadController implements Initializable {
         }
 
         patron = Pattern
-                .compile("^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
+                .compile(
+                        "^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóúÁÉ"
+                                + "ÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
         matcher = patron.matcher(tfDescripcion.getText());
 
         if (tfDescripcion.getText().length() == 0 || !matcher.matches()) {
@@ -209,21 +232,23 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     private void verificarCamposLlenos() {
 
+        boolean verificar = tfTitulo.getText().isEmpty() ||
+                tfDescripcion.getText().isEmpty() ||
+                cbTipo.getSelectionModel().getSelectedIndex() < 0;
+
         ChangeListener<String> camposLlenos = new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue,
+                    String newValue) {
 
-                btnRegistrarComponente.setDisable(
-                        tfTitulo.getText().isEmpty() ||
-                                tfDescripcion.getText().isEmpty() ||
-                                cbTipo.getSelectionModel().getSelectedIndex() < 0);
+                btnRegistrarComponente.setDisable(verificar);
 
             }
         };
 
         tfTitulo.textProperty().addListener(camposLlenos);
         tfDescripcion.textProperty().addListener(camposLlenos);
-        cbTipo.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
 
     }
 
