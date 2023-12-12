@@ -87,18 +87,17 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     @FXML
     private void hoverOutSalir(MouseEvent event) {
         ivSalir.setImage(new Image(Utilidades.getInputStream(
-                "/recursos/imagenes/logoSalir2.png")));
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
     private void hoverInSalir(MouseEvent event) {
         ivSalir.setImage(new Image(Utilidades.getInputStream(
-                "/recursos/imagenes/logoSalir.png")));
-
+                "/recursos/imagenes/logoSalir2.png")));
     }
     
     @FXML
-    private void ClicSalir(MouseEvent event) {
+    private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
 
@@ -132,11 +131,6 @@ public class FXMLSolicitudDeCambioController implements Initializable {
                 
             }
             
-    }
-
-    @FXML
-    private void clicVolver(ActionEvent event) {
-        cerrarVentana();
     }
     
     public void inicializarVentana(Integer idResposable, 
@@ -189,7 +183,7 @@ public class FXMLSolicitudDeCambioController implements Initializable {
             
             Utilidades.mostrarAlertaSimple("Confirmación correcta", "" 
                     + respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
-            observador.operacionExitosa("Registro", 
+            observador.operacionExitosa("Registro completo de: ", 
                     solicitudDeCambio.getTitulo());
             
         }else{

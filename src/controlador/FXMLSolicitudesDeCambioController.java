@@ -30,6 +30,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.dao.SolicitudDeCambioDAO;
@@ -50,20 +53,24 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
 
     @FXML
     private TableColumn colFechaRegistro;
-
+    
     @FXML
-    private Button btnVer;
+    private Button clicVer;
+    
+    @FXML
+    private ImageView ivSalir;
 
     private Integer idResponsable;
 
     private ObservableList<SolicitudDeCambio> solicitudes;
 
     private SolicitudDeCambio solicitudSeleccionada;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
-        btnVer.setDisable(true);
+        clicVer.setDisable(true);
         configurarListenerATabla();
     }
     
@@ -83,9 +90,21 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
         consultarSolicitud(idResponsable, solicitudSeleccionada);
 
     }
+    
+    @FXML
+    private void hoverOutSalir(MouseEvent event) {
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
+    }
 
     @FXML
-    private void clicVolver(ActionEvent event) {
+    private void hoverInSalir(MouseEvent event) {
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
+    }
+    
+     @FXML
+    private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
 
@@ -154,6 +173,8 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
             FXMLSolicitudDeCambioController controlador = loader.getController();
             
             controlador.inicializarVentana(idResponsable, solicitud, this);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
 
             escenario.setScene(escena);
             escenario.setTitle("Consultar solicitud");
@@ -176,9 +197,9 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
                     Object oldValue, Object newValue) {
                 
                 if (newValue != null) {
-                    btnVer.setDisable(false);
+                    clicVer.setDisable(false);
                 } else {
-                    btnVer.setDisable(true);
+                    clicVer.setDisable(true);
                 }
                 
             }
@@ -186,5 +207,5 @@ public class FXMLSolicitudesDeCambioController implements Initializable,
         });
         
     }
-    
+
 }

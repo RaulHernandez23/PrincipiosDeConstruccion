@@ -132,11 +132,6 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         cargarInformacionDefectos();
 
     }
-
-    @FXML
-    private void clicVolver(ActionEvent event) {
-        cerrarVentana();
-    }
     
     private void cerrarVentana() {
 
