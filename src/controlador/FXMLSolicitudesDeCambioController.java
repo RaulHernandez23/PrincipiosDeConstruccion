@@ -1,8 +1,14 @@
-
+/*
+ * Nombre del archivo: FXMLSolicitudesDeCambioController.java
+ * Autor: Miguel Angel Morales Cruz
+ * Paquete: controlador
+ * Fecha de creación: 20/11/2023
+ * Fecha de modificación: 11/12/2023
+ * Descripción: Controlador para la ventana de Solicitudes de cambio.
+ */
 package controlador;
 
 import interfaces.ObservadorSolicitudesDeCambio;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,22 +36,29 @@ import modelo.dao.SolicitudDeCambioDAO;
 import modelo.pojo.SolicitudDeCambio;
 import utilidades.Utilidades;
 
-public class FXMLSolicitudesDeCambioController implements Initializable, ObservadorSolicitudesDeCambio {
-    
-    private Integer idResponsable;
-    private ObservableList<SolicitudDeCambio> solicitudes;
-    private SolicitudDeCambio solicitudSeleccionada;
-    
+public class FXMLSolicitudesDeCambioController implements Initializable, 
+        ObservadorSolicitudesDeCambio {
+
     @FXML
     private TableView<SolicitudDeCambio> tvSolicitudesDeCambio;
+
     @FXML
-    private TableColumn<?, ?> colNombreSolicitud;
+    private TableColumn colNombreSolicitud;
+
     @FXML
-    private TableColumn<?, ?> colNombreAlumno;
+    private TableColumn colNombreAlumno;
+
     @FXML
-    private TableColumn<?, ?> colFechaRegistro;
+    private TableColumn colFechaRegistro;
+
     @FXML
     private Button btnVer;
+
+    private Integer idResponsable;
+
+    private ObservableList<SolicitudDeCambio> solicitudes;
+
+    private SolicitudDeCambio solicitudSeleccionada;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,86 +66,125 @@ public class FXMLSolicitudesDeCambioController implements Initializable, Observa
         btnVer.setDisable(true);
         configurarListenerATabla();
     }
-
-    public void inicializarVentana(Integer idResponsable){
-        this.idResponsable = idResponsable;
+    
+    @Override
+    public void operacionExitosa(String tipoOperacion, String nombre) {
+        
+        System.out.println("Solicitud Evaluada: " + tipoOperacion + nombre);
+        obtenerInformacionSolicitudes();
+        
     }
 
     @FXML
     private void clicVer(ActionEvent event) {
-        solicitudSeleccionada = tvSolicitudesDeCambio.getSelectionModel().getSelectedItem();
+
+        solicitudSeleccionada = tvSolicitudesDeCambio.getSelectionModel()
+                .getSelectedItem();
         consultarSolicitud(idResponsable, solicitudSeleccionada);
+
     }
 
     @FXML
     private void clicVolver(ActionEvent event) {
         cerrarVentana();
     }
-    
-    private void configurarTabla(){
-        obtenerInformacionSolicitudes();
-        this.colNombreSolicitud.setCellValueFactory(new PropertyValueFactory("titulo"));
-        this.colNombreAlumno.setCellValueFactory(new PropertyValueFactory("estudiante"));
-        this.colFechaRegistro.setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+
+    public void inicializarVentana(Integer idResponsable) {
+        this.idResponsable = idResponsable;
     }
-    
-    private void obtenerInformacionSolicitudes(){
-        Integer idProyecto =1;
-        HashMap<String,Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudesPendientes(idProyecto);
-        if(!(Boolean) respuesta.get("error")){
+
+    private void configurarTabla() {
+
+        obtenerInformacionSolicitudes();
+        this.colNombreSolicitud
+                .setCellValueFactory(new PropertyValueFactory("titulo"));
+        this.colNombreAlumno
+                .setCellValueFactory(new PropertyValueFactory("estudiante"));
+        this.colFechaRegistro
+                .setCellValueFactory(new PropertyValueFactory("fechaCreacion"));
+
+    }
+
+    private void obtenerInformacionSolicitudes() {
+        
+        Integer idProyecto = 1;
+        
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO
+                .consultarSolicitudesPendientes(idProyecto);
+        
+        if (!(Boolean) respuesta.get("error")) {
+            
             solicitudes = FXCollections.observableArrayList();
-            ArrayList<SolicitudDeCambio> lista = (ArrayList<SolicitudDeCambio>)respuesta.get("solicitudes");
+            
+            ArrayList<SolicitudDeCambio> lista 
+                    = (ArrayList<SolicitudDeCambio>) respuesta.get("solicitudes");
+            
             solicitudes.addAll(lista);
             tvSolicitudesDeCambio.setItems(solicitudes);
-        }else{
-            Utilidades.mostrarAlertaSimple("Error de carga", "" + respuesta.get("mensaje"), Alert.AlertType.ERROR);
-        }
-    }
-  
-    
-    private void cerrarVentana() {
-        Stage escenario = (Stage) tvSolicitudesDeCambio.getScene().getWindow();
-        escenario.close();
-    }
-    
-    private void consultarSolicitud(Integer idResponsable, SolicitudDeCambio solicitud){
-        
-        Stage escenario = new Stage();
-        
-        try {
-            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLSolicitudDeCambio.fxml");
-            Parent vista = loader.load();
-            Scene escena = new Scene(vista);
-            FXMLSolicitudDeCambioController controlador = loader.getController();
-            controlador.inicializarVentana(idResponsable, solicitud, this);
             
+        } else {
+            Utilidades.mostrarAlertaSimple("Error de carga", "" 
+                    + respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }
+        
+    }
+
+    private void cerrarVentana() {
+        
+        Stage escenario = (Stage) tvSolicitudesDeCambio.getScene().getWindow();
+        
+        escenario.close();
+        
+    }
+
+    private void consultarSolicitud(Integer idResponsable,
+            SolicitudDeCambio solicitud) {
+
+        Stage escenario = new Stage();
+
+        try {
+            
+            FXMLLoader loader = Utilidades
+                    .getFXMLLoader("/vista/FXMLSolicitudDeCambio.fxml");
+            
+            Parent vista = loader.load();
+            
+            Scene escena = new Scene(vista);
+            
+            FXMLSolicitudDeCambioController controlador = loader.getController();
+            
+            controlador.inicializarVentana(idResponsable, solicitud, this);
+
             escenario.setScene(escena);
             escenario.setTitle("Consultar solicitud");
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        
     }
-    
-    private void configurarListenerATabla(){
-        tvSolicitudesDeCambio.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        tvSolicitudesDeCambio.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
+    private void configurarListenerATabla() {
+
+        tvSolicitudesDeCambio.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<Object>() {
+            
             @Override
-            public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+            public void changed(ObservableValue<?> observable, 
+                    Object oldValue, Object newValue) {
+                
                 if (newValue != null) {
                     btnVer.setDisable(false);
                 } else {
                     btnVer.setDisable(true);
                 }
+                
             }
+            
         });
+        
     }
-
-    @Override
-    public void operacionExitosa(String tipoOperacion, String nombre) {
-        System.out.println("Operación: "+tipoOperacion + nombre);
-        obtenerInformacionSolicitudes();
-    }
+    
 }

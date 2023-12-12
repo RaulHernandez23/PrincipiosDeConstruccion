@@ -20,7 +20,7 @@
                   </Pane>
                </bottom>
                <center>
-                  <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="531.0" prefWidth="720.0" styleClass="fondo" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+                  <ScrollPane fx:id="scrollPanePanelPrincipal" hbarPolicy="NEVER" pannable="true" prefHeight="531.0" prefWidth="720.0" styleClass="fondo" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="923.0" prefWidth="718.0" styleClass="fondo">
                            <children>

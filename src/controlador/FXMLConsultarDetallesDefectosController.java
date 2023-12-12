@@ -38,11 +38,10 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
     }
 
     public void inicializarVentana(Defecto defectoSeleccionado) {
-<<<<<<< HEAD
+
         this.defecto = defectoSeleccionado;
         tfTitulo.setText(defecto.getTitulo());
-        cbEstadoDefecto.setText(defecto.getEstadoDefecto());
-=======
+
         tfTitulo.setText(defectoSeleccionado.getTitulo());
         tbDescripcion.setText(defectoSeleccionado.getDescripcion());
         tfFechaInicio.setText(defectoSeleccionado.getFechaReporte());
@@ -50,6 +49,6 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
         tfEstudiante.setText(defectoSeleccionado.getNombreEstudiante());
         tfEsfuerzo.setText(String.valueOf(defectoSeleccionado.getEsfuerzoMinutos()));
         tfEstado.setText(defectoSeleccionado.getEstadoDefecto());        
->>>>>>> d511377d3d62cbba53cbab98d7ec850c2aa465a2
+
     }
 }
