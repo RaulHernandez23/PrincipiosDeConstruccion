@@ -113,16 +113,10 @@ public class FXMLMenuEstudianteController implements Initializable {
             FXMLCrearSolicitudDeCambioController controlador;
             controlador = fxmlLoader.getController();
 
-<<<<<<< HEAD
             // escena.getStylesheets().add(Utilidades.getURLString(
             // "/vista/estilos/escenaBitacorasEstudiante.css"));
             controlador.inicializarVentana(
                     1, estudiante.getIdEstudiante());
-=======
-            escena.getStylesheets().add(Utilidades.getURLString(
-                    "/vista/estilos/escenaFormulario.css"));
-            controlador.inicializarVentana(1,estudiante.getIdEstudiante());
->>>>>>> ea54c2bc093c0387f6f8ec0c8f20314499d0cd33
             escenario.setScene(escena);
             escenario.setTitle("Crear solicitud de cambio");
             escenario.setResizable(false);

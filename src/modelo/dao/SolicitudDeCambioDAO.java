@@ -394,7 +394,7 @@ public class SolicitudDeCambioDAO {
                 sentencia.setInt(7, solicitud.getIdEstudiante());
                 sentencia.setInt(8, solicitud.getIdEstadoSolicitud());
                 sentencia.setInt(9, solicitud.getIdProyecto());
-                
+
                 if (solicitud.getIdDefecto() != null) {
                     sentencia.setInt(10, solicitud.getIdDefecto());
                 } else {
@@ -424,15 +424,9 @@ public class SolicitudDeCambioDAO {
 
         return respuesta;
     }
-<<<<<<< HEAD
 
     public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud, String nuevaFechaEvaluacion,
             int nuevoIdEstadoSolicitud) {
-=======
-    
-    
-    public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud, String nuevaFechaEvaluacion, int nuevoIdEstadoSolicitud) {
->>>>>>> ea54c2bc093c0387f6f8ec0c8f20314499d0cd33
         HashMap<String, Object> respuesta = new HashMap<>();
 
         respuesta.put("error", true);

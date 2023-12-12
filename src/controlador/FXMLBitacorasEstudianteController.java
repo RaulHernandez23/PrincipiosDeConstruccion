@@ -122,11 +122,6 @@ public class FXMLBitacorasEstudianteController implements Initializable {
         salir();
     }
 
-    @FXML
-    private void btnVolver(ActionEvent event) {
-        salir();
-    }
-
     public void inicializarVentana(Integer idProyecto) {
 
         this.idProyecto = idProyecto;
