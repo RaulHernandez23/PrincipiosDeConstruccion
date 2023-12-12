@@ -19,6 +19,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.dao.EstudianteDAO;
 import modelo.pojo.Estudiante;
@@ -42,6 +45,8 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     private Button btnAgregarProyecto;
 
     private Integer idProyecto;
+    @FXML
+    private ImageView ivSalir;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,7 +57,19 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     }
 
     @FXML
-    private void clicVolver(ActionEvent event) {
+    private void hoverOutSalir(MouseEvent event) {
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
+    }
+
+    @FXML
+    private void hoverInSalir(MouseEvent event) {
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
+    }
+    
+     @FXML
+    private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
 
@@ -166,34 +183,24 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
                 || !tfNombre.getText()
                         .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+"
                                 + "( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)?")) {
-            tfNombre.setStyle("-fx-border-color: red;");
             esValido = false;
         }
 
         if (tfApellidoPaterno.getText().isEmpty()
                 || !tfApellidoPaterno.getText()
                         .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+")) {
-
-            tfApellidoPaterno.setStyle("-fx-border-color: red;");
             esValido = false;
-
         }
 
         if (!tfApellidoMaterno.getText().isEmpty()
                 && !tfApellidoMaterno.getText()
                         .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+")) {
-
-            tfApellidoMaterno.setStyle("-fx-border-color: red;");
             esValido = false;
-
         }
 
         if (tfMatricula.getText().isEmpty()
                 || !tfMatricula.getText().matches("[sS]\\d+")) {
-
-            tfMatricula.setStyle("-fx-border-color: red;");
             esValido = false;
-
         }
 
         return esValido;
