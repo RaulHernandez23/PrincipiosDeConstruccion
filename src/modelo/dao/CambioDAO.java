@@ -24,26 +24,33 @@ public class CambioDAO {
 
         if (conexion != null) {
             try {
-                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, " +
-                        "fechaInicio, ta.tipo FROM cambio c INNER JOIN " + 
-                        "tipoactividad ta ON ta.idTipoActividad = c.idTipoActividad " + 
-                        "INNER JOIN" + 
-                        " solicituddecambio sc ON sc.idSolicitudDeCambio = " + 
-                        "c.idSolicitudDeCambio INNER JOIN" + 
-                        " proyecto p ON sc.idProyecto = p.idProyecto WHERE" + 
-                        " p.idProyecto = 1 AND c.idEstadoCambio <> 1 " + 
-                        "ORDER BY titulo ASC;";
+                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, "
+                        + "fechaInicio, ta.tipo FROM cambio c INNER JOIN "
+                        + "tipoactividad ta ON "
+                        + "ta.idTipoActividad = c.idTipoActividad "
+                        + "INNER JOIN"
+                        + " solicituddecambio sc ON sc.idSolicitudDeCambio = "
+                        + "c.idSolicitudDeCambio INNER JOIN"
+                        + " proyecto p ON sc.idProyecto = p.idProyecto WHERE"
+                        + " p.idProyecto = 1 AND c.idEstadoCambio <> 1 "
+                        + "ORDER BY titulo ASC;";
 
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 
                 while (resultadoConsulta.next()) {
                     Cambio cambio = new Cambio();
-                    cambio.setIdCambio(resultadoConsulta.getInt("idCambio"));
-                    cambio.setTitulo(resultadoConsulta.getString("titulo"));
-                    cambio.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    cambio.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
-                    cambio.setTipoActividad(resultadoConsulta.getString("tipo"));
+                    cambio.setIdCambio(resultadoConsulta.getInt(
+                            "idCambio"));
+                    cambio.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    cambio.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    cambio.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    cambio.setTipoActividad(resultadoConsulta.getString(
+                            "tipo"));
 
                     cambios.add(cambio);
                 }
@@ -57,13 +64,16 @@ public class CambioDAO {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
     }
 
-    public static HashMap<String, Object> consultarCambiosProyecto(Integer idProyecto) {
+    public static HashMap<String, Object> consultarCambiosProyecto(
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
@@ -75,15 +85,18 @@ public class CambioDAO {
 
             try {
 
-                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, " +
-                        "c.esfuerzoMinutos, c.idTipoActividad, c.idEstadoCambio, " +
-                        "c.fechaInicio, c.idProyecto AS i, tc.tipo, ec.estado " +
-                        "FROM cambio c INNER JOIN tipoactividad tc " +
-                        "ON c.idTipoActividad = tc.idTipoActividad " +
-                        "INNER JOIN estadocambio ec " +
-                        "ON c.idEstadoCambio = ec.idEstadoCambio " +
-                        "WHERE c.idProyecto = ? ORDER BY c.fechaInicio DESC";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, "
+                        + "c.esfuerzoMinutos, c.idTipoActividad, "
+                        + "c.idEstadoCambio, "
+                        + "c.fechaInicio, c.idProyecto, "
+                        + "tc.tipo, ec.estado "
+                        + "FROM cambio c INNER JOIN tipoactividad tc "
+                        + "ON c.idTipoActividad = tc.idTipoActividad "
+                        + "INNER JOIN estadocambio ec "
+                        + "ON c.idEstadoCambio = ec.idEstadoCambio "
+                        + "WHERE c.idProyecto = ? ORDER BY c.fechaInicio DESC";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 sentencia.setInt(1, idProyecto);
 
@@ -94,16 +107,26 @@ public class CambioDAO {
                 while (resultadoConsulta.next()) {
 
                     Cambio cambio = new Cambio();
-                    cambio.setIdCambio(resultadoConsulta.getInt("idCambio"));
-                    cambio.setTitulo(resultadoConsulta.getString("titulo"));
-                    cambio.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    cambio.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
-                    cambio.setIdTipoActividad(resultadoConsulta.getInt("idTipoActividad"));
-                    cambio.setIdEstadoCambio(resultadoConsulta.getInt("idEstadoCambio"));
-                    cambio.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
-                    cambio.setIdProyecto(resultadoConsulta.getInt("i"));
-                    cambio.setTipoActividad(resultadoConsulta.getString("tipo"));
-                    cambio.setEstadoCambio(resultadoConsulta.getString("estado"));
+                    cambio.setIdCambio(resultadoConsulta.getInt(
+                            "idCambio"));
+                    cambio.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    cambio.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    cambio.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    cambio.setIdTipoActividad(resultadoConsulta.getInt(
+                            "idTipoActividad"));
+                    cambio.setIdEstadoCambio(resultadoConsulta.getInt(
+                            "idEstadoCambio"));
+                    cambio.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    cambio.setIdProyecto(resultadoConsulta.getInt(
+                            "idProyecto"));
+                    cambio.setTipoActividad(resultadoConsulta.getString(
+                            "tipo"));
+                    cambio.setEstadoCambio(resultadoConsulta.getString(
+                            "estado"));
 
                     cambios.add(cambio);
 
@@ -119,14 +142,104 @@ public class CambioDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
 
     }
 
-    public static HashMap<String, Object> registrarCambio(Cambio cambio) throws SQLException {
+    public static HashMap<String, Object> consultarCambiosEstudiante(
+            Integer idEstudiante,
+            Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, "
+                        + "c.esfuerzoMinutos, c.idTipoActividad, "
+                        + "c.idEstadoCambio, "
+                        + "c.fechaInicio, c.idProyecto, "
+                        + "ta.tipo, etc.estado "
+                        + "FROM Estudiante_Cambio ec "
+                        + "JOIN Cambio c ON ec.idCambio = c.idCambio "
+                        + "JOIN TipoActividad ta ON c.idTipoActividad = "
+                        + "ta.idTipoActividad "
+                        + "JOIN EstadoCambio etc ON c.idEstadoCambio = "
+                        + "etc.idEstadoCambio "
+                        + "JOIN Estudiante e "
+                        + "ON ec.idEstudiante = e.idEstudiante "
+                        + "WHERE e.idEstudiante = ? AND c.idProyecto = ? "
+                        + "ORDER BY c.fechaInicio DESC";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
+
+                sentencia.setInt(1, idEstudiante);
+                sentencia.setInt(2, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Cambio> cambios = new ArrayList<Cambio>();
+
+                while (resultadoConsulta.next()) {
+
+                    Cambio cambio = new Cambio();
+                    cambio.setIdCambio(resultadoConsulta.getInt(
+                            "idCambio"));
+                    cambio.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    cambio.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    cambio.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    cambio.setIdTipoActividad(resultadoConsulta.getInt(
+                            "idTipoActividad"));
+                    cambio.setIdEstadoCambio(resultadoConsulta.getInt(
+                            "idEstadoCambio"));
+                    cambio.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    cambio.setIdProyecto(resultadoConsulta.getInt(
+                            "idProyecto"));
+                    cambio.setTipoActividad(resultadoConsulta.getString(
+                            "tipo"));
+                    cambio.setEstadoCambio(resultadoConsulta.getString(
+                            "estado"));
+
+                    cambios.add(cambio);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("cambios", cambios);
+
+            } catch (SQLException e) {
+                respuesta.put("mensaje", "Error: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+
+        } else {
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
+    public static HashMap<String, Object> registrarCambio(
+            Cambio cambio) throws SQLException {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
 
@@ -141,15 +254,20 @@ public class CambioDAO {
 
         if (fechaInicioDate.before(fechaServidorDate)) {
             throw new SQLException(
-                    "Error en la base de datos: La fecha de inicio no puede ser menor a la fecha actual");
+                    "Error en la base de datos: La fecha de "
+                            + "inicio no puede ser menor a la fecha actual");
         }
 
         if (conexion != null) {
 
             try {
 
-                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, titulo, descripcion, esfuerzoMinutos, idTipoActividad, idEstadoCambio, fechaInicio, idProyecto) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "INSERT INTO cambio (idSolicitudDeCambio, "
+                        + "titulo, descripcion, esfuerzoMinutos, "
+                        + "idTipoActividad, idEstadoCambio, fechaInicio,"
+                        + " idProyecto) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 sentencia.setInt(1, cambio.getIdSolicitud());
                 sentencia.setString(2, cambio.getTitulo());
@@ -165,10 +283,12 @@ public class CambioDAO {
                 if (resultado > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "El cambio se registró correctamente");
+                    respuesta.put("mensaje",
+                            "El cambio se registró correctamente");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo registrar el cambio");
+                    respuesta.put("mensaje",
+                            "No se pudo registrar el cambio");
                 }
 
             } catch (SQLException se) {
@@ -180,9 +300,11 @@ public class CambioDAO {
             conexion = ConectorBaseDatos.obtenerConexion();
 
             try {
-                String consulta = "INSERT INTO estudiante_cambio (idEstudiante, idCambio) VALUES (?, ?)";
+                String consulta = "INSERT INTO estudiante_cambio "
+                        + "(idEstudiante, idCambio) VALUES (?, ?)";
 
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 sentencia.setInt(1, cambio.getIdEstudiante());
                 sentencia.setInt(2, cambio.getIdCambio());
@@ -192,10 +314,12 @@ public class CambioDAO {
                 if (resultado > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "El cambio se registró correctamente");
+                    respuesta.put("mensaje",
+                            "El cambio se registró correctamente");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo registrar el cambio");
+                    respuesta.put("mensaje",
+                            "No se pudo registrar el cambio");
                 }
 
             } catch (SQLException e) {
@@ -203,7 +327,9 @@ public class CambioDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos,"
+                            + " inténtelo más tarde");
         }
 
         return respuesta;
@@ -220,13 +346,15 @@ public class CambioDAO {
             try {
 
                 String consulta = "SELECT estado FROM EstadoCambio";
-                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                PreparedStatement sentencia = conexionBD.prepareStatement(
+                        consulta);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<String> estados = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
 
-                    String estado = resultadoConsulta.getString("estado");
+                    String estado = resultadoConsulta.getString(
+                            "estado");
 
                     estados.add(estado);
 
@@ -241,7 +369,9 @@ public class CambioDAO {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos,"
+                            + " inténtelo más tarde");
         }
 
         return respuesta;
@@ -260,14 +390,16 @@ public class CambioDAO {
             try {
 
                 String consulta = "SELECT tipo FROM TipoActividad;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<String> tiposActividades = new ArrayList<>();
 
                 respuesta.put("error", false);
 
                 while (resultadoConsulta.next()) {
-                    tiposActividades.add(resultadoConsulta.getString("tipo"));
+                    tiposActividades.add(resultadoConsulta.getString(
+                            "tipo"));
                 }
 
                 respuesta.put("error", false);
@@ -280,13 +412,16 @@ public class CambioDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
     }
 
-    public static HashMap<String, Object> finalizarCambio(int idCambio, String fechaFin) {
+    public static HashMap<String, Object> finalizarCambio(int idCambio,
+            String fechaFin) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
 
@@ -298,8 +433,10 @@ public class CambioDAO {
 
             try {
 
-                String consulta = "UPDATE cambio SET idEstadoCambio = 1, fechaFin= ? WHERE idCambio = ?;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "UPDATE cambio SET idEstadoCambio = 1,"
+                        + " fechaFin= ? WHERE idCambio = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 sentencia.setString(1, fechaFin);
                 sentencia.setInt(2, idCambio);
@@ -309,10 +446,12 @@ public class CambioDAO {
                 if (resultado > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "El cambio se finalizó correctamente");
+                    respuesta.put("mensaje",
+                            "El cambio se finalizó correctamente");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo finalizar el cambio");
+                    respuesta.put("mensaje",
+                            "No se pudo finalizar el cambio");
                 }
 
             } catch (SQLException se) {
@@ -322,7 +461,9 @@ public class CambioDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;

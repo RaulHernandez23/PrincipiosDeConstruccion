@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import modelo.dao.EstudianteDAO;
 import modelo.pojo.Estudiante;
 import utilidades.Alertas;
@@ -58,17 +59,20 @@ public class FXMLDesasignarEstudianteController implements Initializable {
 
     @FXML
     private void hoverOutSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
     private void hoverInSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir2.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
 
     @FXML
     private void btnSalir(MouseEvent event) {
-        Stage escenario = (Stage) vboxDesasignarEstudiante.getScene().getWindow();
+        Stage escenario = (Stage) vboxDesasignarEstudiante.getScene()
+                .getWindow();
         escenario.close();
     }
 
@@ -81,7 +85,8 @@ public class FXMLDesasignarEstudianteController implements Initializable {
         if (respuesta) {
 
             desasignarEstudiante();
-            Stage escenario = (Stage) vboxDesasignarEstudiante.getScene().getWindow();
+            Stage escenario = (Stage) vboxDesasignarEstudiante.getScene()
+                    .getWindow();
             escenario.close();
 
         }
@@ -95,36 +100,47 @@ public class FXMLDesasignarEstudianteController implements Initializable {
 
         ChangeListener<Estudiante> listener = new ChangeListener<Estudiante>() {
             @Override
-            public void changed(ObservableValue<? extends Estudiante> observable, Estudiante oldValue,
+            public void changed(
+                    ObservableValue<? extends Estudiante> observable,
+                    Estudiante oldValue,
                     Estudiante newValue) {
+
                 lbNombre.setText(newValue.getNombre());
-                lbApellidos.setText(newValue.getApellidoPaterno() + " " + newValue.getApellidoMaterno());
+                lbApellidos.setText(newValue.getApellidoPaterno() + " " +
+                        newValue.getApellidoMaterno());
                 lbMatricula.setText(newValue.getMatricula());
-                lbSemestre.setText(String.valueOf(newValue.getNombrePeriodoEscolar()));
+                lbSemestre.setText(String.valueOf(newValue
+                        .getNombrePeriodoEscolar()));
+
             }
         };
 
-        cbEstudiantes.getSelectionModel().selectedItemProperty().addListener(listener);
+        cbEstudiantes.getSelectionModel().selectedItemProperty().addListener(
+                listener);
         cbEstudiantes.getSelectionModel().selectFirst();
 
     }
 
     private void cargarEstudiantes() {
 
-        HashMap<String, Object> respuesta = EstudianteDAO.consultarEstudiantes(idProyecto);
+        HashMap<String, Object> respuesta = EstudianteDAO.consultarEstudiantesActivosProyecto(
+                idProyecto);
         if (!(Boolean) respuesta.get("error")) {
 
             listaEstudiantes = FXCollections.observableArrayList();
 
-            listaEstudiantes.addAll((ArrayList<Estudiante>) respuesta.get("estudiantes"));
+            listaEstudiantes.addAll((ArrayList<Estudiante>) respuesta.get(
+                    "estudiantes"));
             cbEstudiantes.setItems(listaEstudiantes);
 
         } else {
 
-            Alertas.mostrarAlerta("Error", "No se pudo cargar la lista de estudiantes",
+            Alertas.mostrarAlerta("Error",
+                    "No se pudo cargar la lista de estudiantes",
                     AlertType.ERROR);
 
-            Stage escenario = (Stage) vboxDesasignarEstudiante.getScene().getWindow();
+            Stage escenario = (Stage) vboxDesasignarEstudiante.getScene()
+                    .getWindow();
 
             escenario.close();
 
@@ -133,8 +149,10 @@ public class FXMLDesasignarEstudianteController implements Initializable {
     }
 
     private void desasignarEstudiante() {
-        Estudiante estudiante = cbEstudiantes.getSelectionModel().getSelectedItem();
-        HashMap<String, Object> respuesta = EstudianteDAO.desasignarEstudiante(estudiante.getIdEstudiante());
+        Estudiante estudiante = cbEstudiantes.getSelectionModel()
+                .getSelectedItem();
+        HashMap<String, Object> respuesta = EstudianteDAO.desasignarEstudiante(
+                estudiante.getIdEstudiante());
         if (!(Boolean) respuesta.get("error")) {
             Alertas.mostrarAlerta("Desasignación exitosa",
                     respuesta.get("mensaje").toString(),
@@ -144,7 +162,8 @@ public class FXMLDesasignarEstudianteController implements Initializable {
                     respuesta.get("mensaje").toString(),
                     AlertType.ERROR);
 
-            Stage escenario = (Stage) vboxDesasignarEstudiante.getScene().getWindow();
+            Stage escenario = (Stage) vboxDesasignarEstudiante.getScene()
+                    .getWindow();
 
             escenario.close();
 

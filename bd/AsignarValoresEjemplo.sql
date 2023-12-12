@@ -63,15 +63,17 @@ VALUES
 -- Relacionar estudiante con periodoEscolar
 INSERT INTO estudiante_periodoEscolar (idPeriodoEscolar, idEstudiante) VALUES
 (1, 2),
-(2, 2);
+(2, 1),
+(2, 2),
+(2, 3);
 
 -- Insertar actividades
 INSERT INTO actividad (titulo, descripcion, esfuerzoMinutos, fechaInicio, fechaFin, idEstadoActividad, idTipoActividad, idEstudiante, idResponsable, idProyecto) VALUES
 ('Actividad 1', 'Descripción 1', 60, '2023-08-15', '2023-08-16', 1, 1, 2, 1, 1),
-('Actividad 2', 'Descripción 2', 120, '2023-09-20', '2023-09-21', 2, 2, 2, 1, 1),
+('Actividad 2', 'Descripción 2', 120, '2023-09-20', '2023-09-21', 2, 2, 1, 1, 1),
 ('Actividad 3', 'Descripción 3', 180, '2023-10-10', '2023-10-11', 3, 3, 2, 1, 1),
-('Actividad 4', 'Descripción 4', 240, '2023-10-25', '2023-10-26', 1, 4, 2, 1, 1),
-('Actividad 5', 'Descripción 5', 300, '2023-11-05', '2023-11-06', 2, 5, 2, 1, 1);
+('Actividad 4', 'Descripción 4', 240, '2023-10-25', '2023-10-26', 1, 4, 1, 1, 1),
+('Actividad 5', 'Descripción 5', 300, '2023-11-05', '2023-11-06', 2, 5, 3, 1, 1);
 
 -- Relacionar responsable con proyecto
 INSERT INTO responsableProyecto_Proyecto (idResponsableProyecto, idProyecto) VALUES
@@ -79,17 +81,17 @@ INSERT INTO responsableProyecto_Proyecto (idResponsableProyecto, idProyecto) VAL
 
 -- Insertar defectos
 INSERT INTO defecto (titulo, descripcion, esfuerzoMinutos, fechaReporte, fechaFin, idEstadoDefecto, idEstudiante, idProyecto) VALUES
-('Defecto 1', 'Descripción 1', 60, '2023-08-01', '2023-08-02', 1, 2, 1),
+('Defecto 1', 'Descripción 1', 60, '2023-08-01', '2023-08-02', 1, 1, 1),
 ('Defecto 2', 'Descripción 2', 120, '2023-08-03', '2023-08-04', 1, 2, 1),
-('Defecto 3', 'Descripción 3', 180, '2023-08-05', '2023-08-06', 2, 2, 1),
-('Defecto 4', 'Descripción 4', 240, '2023-08-07', '2023-08-08', 1, 2, 1),
-('Defecto 5', 'Descripción 5', 300, '2023-08-09', '2023-08-10', 2, 2, 1);
+('Defecto 3', 'Descripción 3', 180, '2023-08-05', '2023-08-06', 2, 1, 1),
+('Defecto 4', 'Descripción 4', 240, '2023-08-07', '2023-08-08', 1, 3, 1),
+('Defecto 5', 'Descripción 5', 300, '2023-08-09', '2023-08-10', 2, 3, 1);
 
 -- Insertar solicitudes de cambio
 INSERT INTO solicitudDeCambio (titulo, descripcion, razon, impacto, accionPropuesta, fechaCreacion, fechaEvaluacion, idEstudiante, idEstadoSolicitud, idProyecto, idResponsableProyecto, idDefecto) VALUES
 ('Solicitud de cambio 1', 'Descripción 1', 'Razón 1', 'Impacto 1', 'Acción propuesta 1', '2023-08-01', '2023-08-02', 2, 1, 1, 1, 1),
-('Solicitud de cambio 2', 'Descripción 2', 'Razón 2', 'Impacto 2', 'Acción propuesta 2', '2023-08-03', '2023-08-04', 2, 2, 1, 1, 1),
-('Solicitud de cambio 3', 'Descripción 3', 'Razón 3', 'Impacto 3', 'Acción propuesta 3', '2023-08-05', '2023-08-06', 2, 1, 1, 1, 2);
+('Solicitud de cambio 2', 'Descripción 2', 'Razón 2', 'Impacto 2', 'Acción propuesta 2', '2023-08-03', '2023-08-04', 1, 2, 1, 1, 1),
+('Solicitud de cambio 3', 'Descripción 3', 'Razón 3', 'Impacto 3', 'Acción propuesta 3', '2023-08-05', '2023-08-06', 3, 1, 1, 1, 2);
 
 -- Insertar cambios
 INSERT INTO cambio (titulo, descripcion, esfuerzoMinutos, idEstadoCambio, fechaInicio, fechaFin, idSolicitudDeCambio, idTipoActividad, idProyecto) VALUES
@@ -98,3 +100,14 @@ INSERT INTO cambio (titulo, descripcion, esfuerzoMinutos, idEstadoCambio, fechaI
 ('Cambio 3', 'Descripción 3', 180, 1, '2023-08-05', '2023-08-06', 1, 3, 1),
 ('Cambio 4', 'Descripción 4', 240, 2, '2023-08-07', '2023-08-08', 2, 3, 1),
 ('Cambio 5', 'Descripción 5', 300, 1, '2023-08-09', '2023-08-10', 3, 1, 1);
+
+-- Insertar asignaciones de cambios
+INSERT INTO estudiante_cambio (idEstudiante, idCambio) VALUES
+(2, 1),
+(2, 2),
+(2, 3),
+(1, 1),
+(1, 2),
+(1, 4),
+(1, 5),
+(3, 3);
