@@ -129,7 +129,8 @@ public class FXMLDetalleActividadController implements Initializable{
             ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
             actividades.addAll(lista);
             cbActividades.setItems(actividades);
-            cbActividades.getSelectionModel().select(0);
+            cbActividades.getSelectionModel().select(1);
+            System.out.println("realiza todo bien");
 
         } else {
             Utilidades.mostrarAlertaSimple("Error", 
@@ -145,7 +146,11 @@ public class FXMLDetalleActividadController implements Initializable{
             public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
                 if(newValue != null) {
                     dpFechaInicio.setValue(LocalDate.parse(newValue.getFechaInicio()));
-                    dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
+                    if(newValue.getFechaFin() != null){
+                        dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
+                    } else {
+                        dpFechaFin.setValue(null);
+                    }
                     taDescripcion.setText(newValue.getDescripcion());
                     tfEstado.setText(newValue.getEstadoActividad());
                     tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
