@@ -4,18 +4,17 @@
  * Paquete: controlador
  * Fecha de creación: 20/11/2023
  * Fecha de modificación: 10/12/2023
- * Descripción: Controlador para la ventana de creación de solicitudes de cambio.
+ * Descripción: Controlador para la ventana de creación de 
+ *              solicitudes de cambio.
  */
 package controlador;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,13 +68,17 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     
     @FXML
     private ScrollPane scrollPanePanelPrincipal;
-    
+
     private int idProyecto;
 
     private int idEstudiante;
 
     private ObservableList<Defecto> defectos;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -85,19 +88,19 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         Platform.runLater(() -> {
             scrollPanePanelPrincipal.setVvalue(0);
         });
-        
+
     }
-    
+
     @FXML
     private void hoverInSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.
-                getInputStream("/recursos/imagenes/logoSalir2.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
 
     @FXML
     private void hoverOutSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.
-                getInputStream("/recursos/imagenes/logoSalir.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
@@ -105,8 +108,13 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
         if (validarCampos()) {
 
+<<<<<<< HEAD
             boolean confirmacion = Utilidades.
                     mostrarAlertaConfirmacion("Confirmar registro",
+=======
+            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion(
+                    "Confirmar registro",
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
                     "¿Estás seguro de enviar la solicitud?");
 
             if (confirmacion) {
@@ -132,7 +140,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         cargarInformacionDefectos();
 
     }
-    
+
     private void cerrarVentana() {
 
         Stage escenario = (Stage) tfNombreSolicitud.getScene().getWindow();
@@ -145,14 +153,22 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
+<<<<<<< HEAD
 
     private void cargarInformacionDefectos() {
 
         HashMap respuesta = DefectoDAO.
                 consultarNombresDefectosProyecto(idProyecto);
+=======
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
 
-        ArrayList<Defecto> defectosDeProyecto = 
-                (ArrayList<Defecto>) respuesta.get("defectos");
+    private void cargarInformacionDefectos() {
+
+        HashMap respuesta = DefectoDAO.consultarNombresDefectosProyecto(
+                idProyecto);
+
+        ArrayList<Defecto> defectosDeProyecto = (ArrayList<Defecto>) respuesta
+                .get("defectos");
 
         defectos = FXCollections.observableArrayList();
 
@@ -168,10 +184,19 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
     private void configurarListenerACampos() {
 
+<<<<<<< HEAD
         ChangeListener<String> cambiosEnCampos = 
                 (observable, oldValue, newValue) -> verificarCampos();
         ChangeListener<Object> cambiosEnComboBox = 
                 (observable, oldValue, newValue) -> verificarCampos();
+=======
+        ChangeListener<String> cambiosEnCampos = (observable,
+                oldValue,
+                newValue) -> verificarCampos();
+        ChangeListener<Object> cambiosEnComboBox = (observable,
+                oldValue,
+                newValue) -> verificarCampos();
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
 
         cbDefectos.valueProperty().addListener(cambiosEnComboBox);
         tfNombreSolicitud.textProperty().addListener(cambiosEnCampos);
@@ -186,11 +211,19 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
         btnEnviarSolicitud.setDisable(
                 cbDefectos.getValue() == null
+<<<<<<< HEAD
                 || tfNombreSolicitud.getText().isEmpty()
                 || taDescripcionCambio.getText().isEmpty()
                 || taRazonCambio.getText().isEmpty()
                 || taImpactoCambio.getText().isEmpty()
                 || taAccionPropuesta.getText().isEmpty());
+=======
+                        || tfNombreSolicitud.getText().isEmpty()
+                        || taDescripcionCambio.getText().isEmpty()
+                        || taRazonCambio.getText().isEmpty()
+                        || taImpactoCambio.getText().isEmpty()
+                        || taAccionPropuesta.getText().isEmpty());
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
 
     }
 
@@ -276,8 +309,13 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         solicitudDeCambio.setIdEstudiante(idEstudiante);
         solicitudDeCambio.setIdProyecto(idProyecto);
 
+<<<<<<< HEAD
         HashMap<String, Object> respuesta = SolicitudDeCambioDAO.
                 registrarSolicitud(solicitudDeCambio);
+=======
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO
+                .registrarSolicitud(solicitudDeCambio);
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
 
         if (!(Boolean) respuesta.get("error")) {
 
@@ -288,7 +326,12 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         } else {
 
             Utilidades.mostrarAlertaSimple("Error en el registro",
+<<<<<<< HEAD
                     (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+=======
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+>>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
 
         }
 

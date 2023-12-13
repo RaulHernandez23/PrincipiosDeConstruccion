@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import modelo.pojo.Estudiante;
 import utilidades.Alertas;
 import utilidades.Utilidades;
@@ -75,10 +76,11 @@ public class FXMLMenuEstudianteController implements Initializable {
                     "/vista/FXMLBitacorasEstudiante.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLBitacorasEstudianteController controlador = fxmlLoader.getController();
+            FXMLBitacorasEstudianteController controlador;
+            controlador = fxmlLoader.getController();
 
             escena.getStylesheets().add(Utilidades.getURLString(
-                    "/vista/estilos/escenaBitacorasEstudiante.css"));
+                    "/vista/estilos/escenaTabla.css"));
             controlador.inicializarVentana(idProyecto);
             escenario.setScene(escena);
             escenario.setTitle("Bitácoras");
@@ -99,20 +101,22 @@ public class FXMLMenuEstudianteController implements Initializable {
 
     @FXML
     private void btnCrearSolicitud(MouseEvent event) {
-        
+
         Stage escenario = new Stage();
-        
+
         try {
 
             FXMLLoader fxmlLoader = Utilidades.getFXMLLoader(
                     "/vista/FXMLCrearSolicitudDeCambio.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLCrearSolicitudDeCambioController controlador = fxmlLoader.getController();
+            FXMLCrearSolicitudDeCambioController controlador;
+            controlador = fxmlLoader.getController();
 
-            escena.getStylesheets().add(Utilidades.getURLString(
-                    "/vista/estilos/escenaFormulario.css"));
-            controlador.inicializarVentana(1,estudiante.getIdEstudiante());
+            // escena.getStylesheets().add(Utilidades.getURLString(
+            // "/vista/estilos/escenaBitacorasEstudiante.css"));
+            controlador.inicializarVentana(
+                    1, estudiante.getIdEstudiante());
             escenario.setScene(escena);
             escenario.setTitle("Crear solicitud de cambio");
             escenario.setResizable(false);
@@ -136,11 +140,14 @@ public class FXMLMenuEstudianteController implements Initializable {
 
         try {
 
-            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLRegistrarDefecto.fxml");
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLRegistrarDefecto.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLRegistrarDefectoController controlador = loader.getController();
-            controlador.inicializarInformacion(1, estudiante.getIdEstudiante());
+            FXMLRegistrarDefectoController controlador;
+            controlador = loader.getController();
+            controlador.inicializarInformacion(
+                    1, estudiante.getIdEstudiante());
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
 
@@ -150,9 +157,9 @@ public class FXMLMenuEstudianteController implements Initializable {
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
 
-        } catch (IOException ioE) {
+        } catch (IOException e) {
 
-            ioE.printStackTrace();
+            e.printStackTrace();
             escenario.close();
 
         }
@@ -170,7 +177,8 @@ public class FXMLMenuEstudianteController implements Initializable {
                     "/vista/FXMLRegistrarCambio.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLRegistrarCambioController controlador = fxmlLoader.getController();
+            FXMLRegistrarCambioController controlador;
+            controlador = fxmlLoader.getController();
 
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
@@ -195,7 +203,7 @@ public class FXMLMenuEstudianteController implements Initializable {
         this.estudiante = estudiante;
         String[] nombreInternacional = estudiante.getNombre().split(" ");
         boolean dosNombres = nombreInternacional.length == 2;
-        idProyecto = estudiante.getIdProyecto();
+        this.idProyecto = estudiante.getIdEstudiante();
 
         encabezadoEstudiante.setText(
                 estudiante.getApellidoPaterno() + "-" +

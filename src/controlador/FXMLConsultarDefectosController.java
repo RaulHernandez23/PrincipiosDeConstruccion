@@ -1,3 +1,9 @@
+/*
+* Autor: Cesar Gonzalez Lopez
+* Fecha de creación: 25/11/2023
+* Fecha de modificación: 12/12/2023
+* Descripción: Muestra la información los defectos de un proyecto
+*/
 package controlador;
 
 import java.io.IOException;
@@ -21,14 +27,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import modelo.pojo.Cambio;
 import modelo.pojo.Defecto;
 import utilidades.Utilidades;
 
 public class FXMLConsultarDefectosController implements Initializable {
-    
+
     private Integer idProyecto;
-    
+
     @FXML
     private TableView<Defecto> tvDefectos;
 
@@ -49,67 +54,99 @@ public class FXMLConsultarDefectosController implements Initializable {
 
         btnAceptar.setDisable(true);
         tvDefectos.getSelectionModel().selectedItemProperty().addListener(
-            (ObservableValue<? extends Defecto> observable, Defecto oldValue, Defecto newValue) -> {
-                btnAceptar.setDisable(newValue == null);
-            });
+                (ObservableValue<? extends Defecto> observable, Defecto oldValue, Defecto newValue) -> {
+                    btnAceptar.setDisable(newValue == null);
+                });
 
         mostrarDatos();
 
     }
-    
-    public void inicializarVentana(Integer idProyecto){
+
+    public void inicializarVentana(Integer idProyecto) {
+
         this.idProyecto = idProyecto;
+
     }
 
     private void mostrarDatos() {
+
         ObservableList<Defecto> defectos = FXCollections.observableArrayList();
 
         try {
-            HashMap<String, Object> respuestaDefectos = modelo.dao.DefectoDAO.consultarDefectos();
+
+            HashMap<String, Object> respuestaDefectos = modelo.dao.DefectoDAO
+                    .consultarDefectos();
 
             if (!((Boolean) respuestaDefectos.get("error"))) {
-                ArrayList<HashMap<String, Object>> listaDefectos = (ArrayList<HashMap<String, Object>>) respuestaDefectos.get("defectos");
+
+                ArrayList<HashMap<String, Object>> listaDefectos;
+                listaDefectos = (ArrayList<HashMap<String, Object>>) 
+                        respuestaDefectos.get("defectos");
 
                 for (HashMap<String, Object> defectoMap : listaDefectos) {
+
                     Defecto defecto = new Defecto();
                     defecto.setIdDefecto((int) defectoMap.get("idDefecto"));
                     defecto.setTitulo((String) defectoMap.get("titulo"));
-                    defecto.setDescripcion((String) defectoMap.get("descripcion"));
-                    defecto.setEsfuerzoMinutos((int) defectoMap.get("esfuerzoMinutos"));
-                    defecto.setFechaReporte((String) defectoMap.get("fechaReporte"));
-                    defecto.setFechaFin((String) defectoMap.get("fechaFin"));
-                    defecto.setIdEstadoDefecto((int) defectoMap.get("idEstadoDefecto"));
-                    defecto.setIdEstudiante((int) defectoMap.get("idEstudiante"));
-                    defecto.setEstadoDefecto((String) defectoMap.get("estadoActividad"));
-                    defecto.setNombreEstudiante((String) defectoMap.get("estudiante"));
+                    defecto.setDescripcion((String) defectoMap.get(
+                            "descripcion"));
+                    defecto.setEsfuerzoMinutos((int) defectoMap.get(
+                            "esfuerzoMinutos"));
+                    defecto.setFechaReporte((String) defectoMap.get(
+                            "fechaReporte"));
+                    defecto.setFechaFin((String) defectoMap.get(
+                            "fechaFin"));
+                    defecto.setIdEstadoDefecto((int) defectoMap.get(
+                            "idEstadoDefecto"));
+                    defecto.setIdEstudiante((int) defectoMap.get(
+                            "idEstudiante"));
+                    defecto.setEstadoDefecto((String) defectoMap.get(
+                            "estadoActividad"));
+                    defecto.setNombreEstudiante((String) defectoMap.get(
+                            "estudiante"));
 
                     defectos.add(defecto);
+
                 }
 
                 tvDefectos.setItems(defectos);
-                colTituloDefecto.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
-                colEstadoDefectos.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstadoDefecto()));
-                colFechaReporteDefectos.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaReporte()));
+                colTituloDefecto
+                        .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
+                colEstadoDefectos.setCellValueFactory(
+                        cellData -> new SimpleStringProperty(cellData.getValue().getEstadoDefecto()));
+                colFechaReporteDefectos.setCellValueFactory(
+                        cellData -> new SimpleStringProperty(cellData.getValue().getFechaReporte()));
+
             } else {
+
                 String mensajeError = respuestaDefectos.get("mensaje").toString();
                 utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Añadir un manejo de excepciones más adecuado según tus necesidades
-            utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de defectos", Alert.AlertType.ERROR);
+
+            e.printStackTrace(); 
+
+            utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de defectos",
+                    Alert.AlertType.ERROR);
+
         }
     }
 
     @FXML
     private void btnAceptarClic(ActionEvent event) {
+
         Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
         consultarDefecto(defectoSeleccionado);
+
     }
 
-
     private void consultarDefecto(Defecto defectoSeleccionado) {
+
         Stage escenario = new Stage();
-        try{
+
+        try {
+
             FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLConsultarDetallesDefecto.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
@@ -121,20 +158,25 @@ public class FXMLConsultarDefectosController implements Initializable {
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
 
-        } catch(IOException ex){
+        } catch (IOException ex) {
+
             ex.printStackTrace();
+
         }
     }
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {
+
         salir();
+
     }
 
-
     private void salir() {
+
         Stage escenario = (Stage) tvDefectos.getScene().getWindow();
 
         escenario.close();
+
     }
 }

@@ -16,55 +16,77 @@ import utilidades.Utilidades;
 public class ActividadDAO {
 
     public static HashMap<String, Object> consultarActividades() {
+
         HashMap<String, Object> respuesta = new HashMap<>();
+
         respuesta.put("error", true);
-    
-        ArrayList<Actividad> actividades = new ArrayList<>();
-    
+
         Connection conexion = ConectorBaseDatos.obtenerConexion();
-    
+
         if (conexion != null) {
             try {
-                String consulta = "SELECT idActividad, titulo, a.idEstudiante, " +
-                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS Estudiante, " +
-                        "fechaInicio FROM actividad a INNER JOIN estudiante e " +
-                        "ON a.idEstudiante = e.idEstudiante WHERE fechaFin IS NULL " +
-                        "ORDER BY fechaInicio ASC;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
-    
+                String consulta = "SELECT idActividad, titulo, a.idEstudiante, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoPaterno, "
+                        + "' ', e.apellidoMaterno) AS Estudiante, "
+                        + "fechaInicio FROM actividad a INNER JOIN estudiante e"
+                        + " ON a.idEstudiante = "
+                        + "e.idEstudiante WHERE fechaFin IS NULL "
+                        + "ORDER BY fechaInicio ASC;";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
+
                 ResultSet resultadoConsulta = sentencia.executeQuery();
-    
-                ArrayList<HashMap<String, Object>> listaActividades = new ArrayList<>();
-    
+
+                ArrayList<HashMap<String, Object>> listaActividades;
+                listaActividades = new ArrayList<>();
+
                 while (resultadoConsulta.next()) {
                     HashMap<String, Object> actividadMap = new HashMap<>();
-                    actividadMap.put("idActividad", resultadoConsulta.getInt("idActividad"));
-                    actividadMap.put("titulo", resultadoConsulta.getString("titulo"));
-                    actividadMap.put("idEstudiante", resultadoConsulta.getInt("idEstudiante"));
-                    actividadMap.put("estudiante", resultadoConsulta.getString("Estudiante"));
-                    actividadMap.put("fechaInicio", resultadoConsulta.getString("fechaInicio"));
-    
+                    actividadMap.put(
+                            "idActividad",
+                            resultadoConsulta.getInt(
+                                    "idActividad"));
+                    actividadMap.put(
+                            "titulo",
+                            resultadoConsulta.getString(
+                                    "titulo"));
+                    actividadMap.put(
+                            "idEstudiante",
+                            resultadoConsulta.getInt(
+                                    "idEstudiante"));
+                    actividadMap.put(
+                            "estudiante",
+                            resultadoConsulta.getString(
+                                    "Estudiante"));
+                    actividadMap.put(
+                            "fechaInicio",
+                            resultadoConsulta.getString(
+                                    "fechaInicio"));
+
                     listaActividades.add(actividadMap);
                 }
-    
+
                 respuesta.put("error", false);
                 respuesta.put("actividades", listaActividades);
-    
+
             } catch (SQLException se) {
                 se.printStackTrace();
-                respuesta.put("mensaje", "Error en la base de datos: " + se.getMessage());
+                respuesta.put("mensaje", "Error en la base de datos: "
+                        + se.getMessage());
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
-    
+
         return respuesta;
     }
 
-    // Modificacion que marcara error en el CU-07
-    public static HashMap<String, Object> obtenerActividadesProyecto(int idProyecto) {
+    public static HashMap<String, Object> obtenerActividadesProyecto(
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -86,44 +108,66 @@ public class ActividadDAO {
                         + "a.idTipoActividad, "
                         + "ta.tipo AS tipo, "
                         + "a.idEstudiante, "
-                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, ' ', e.apellidoPaterno) AS estudiante, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, "
+                        + "' ', e.apellidoPaterno) AS estudiante, "
                         + "a.idResponsable, "
-                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, ' ', rp.apellidoPaterno) AS responsable, "
+                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, "
+                        + "' ', rp.apellidoPaterno) AS responsable, "
                         + "a.idProyecto, "
                         + "p.nombre AS proyecto "
                         + "FROM actividad a "
-                        + "INNER JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
-                        + "INNER JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "LEFT JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
-                        + "INNER JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
-                        + "INNER JOIN proyecto p ON a.idProyecto = p.idProyecto "
+                        + "INNER JOIN estadoactividad ea "
+                        + "ON a.idEstadoActividad = ea.idEstadoActividad "
+                        + "INNER JOIN tipoactividad ta "
+                        + "ON a.idTipoActividad = ta.idTipoActividad "
+                        + "LEFT JOIN estudiante e "
+                        + "ON a.idEstudiante = e.idEstudiante "
+                        + "INNER JOIN responsableproyecto rp "
+                        + "ON a.idResponsable = rp.idResponsableProyecto "
+                        + "INNER JOIN proyecto p "
+                        + "ON a.idProyecto = p.idProyecto "
                         + "WHERE a.idProyecto = ? "
                         + "ORDER BY fechaInicio DESC;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 sentencia.setInt(1, idProyecto);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
-                    // Tal vez sea necesario manejar Integer en lugar de Int, para poder manejar
-                    // valores que vienen nulos
                     Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultadoConsulta.getInt("idActividad"));
-                    actividad.setTitulo(resultadoConsulta.getString("titulo"));
-                    actividad.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
-                    actividad.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
-                    actividad.setFechaFin(resultadoConsulta.getString("fechaFin"));
-                    actividad.setIdEstadoActividad(resultadoConsulta.getInt("idEstadoActividad"));
-                    actividad.setEstadoActividad(resultadoConsulta.getString("estadoActividad"));
-                    actividad.setIdTipo(resultadoConsulta.getInt("idTipoActividad"));
-                    actividad.setTipo(resultadoConsulta.getString("tipo"));
-                    actividad.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
-                    actividad.setEstudiante(resultadoConsulta.getString("estudiante"));
-                    actividad.setIdResponsable(resultadoConsulta.getInt("idResponsable"));
-                    actividad.setResponsable(resultadoConsulta.getString("responsable"));
-                    actividad.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
-                    actividad.setProyecto(resultadoConsulta.getString("proyecto"));
+                    actividad.setIdActividad(resultadoConsulta.getInt(
+                            "idActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    actividad.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    actividad.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    actividad.setFechaFin(resultadoConsulta.getString(
+                            "fechaFin"));
+                    actividad.setIdEstadoActividad(resultadoConsulta.getInt(
+                            "idEstadoActividad"));
+                    actividad.setEstadoActividad(resultadoConsulta.getString(
+                            "estadoActividad"));
+                    actividad.setIdTipo(resultadoConsulta.getInt(
+                            "idTipoActividad"));
+                    actividad.setTipo(resultadoConsulta.getString(
+                            "tipo"));
+                    actividad.setIdEstudiante(resultadoConsulta.getInt(
+                            "idEstudiante"));
+                    actividad.setEstudiante(resultadoConsulta.getString(
+                            "estudiante"));
+                    actividad.setIdResponsable(resultadoConsulta.getInt(
+                            "idResponsable"));
+                    actividad.setResponsable(resultadoConsulta.getString(
+                            "responsable"));
+                    actividad.setIdProyecto(resultadoConsulta.getInt(
+                            "idProyecto"));
+                    actividad.setProyecto(resultadoConsulta.getString(
+                            "proyecto"));
                     actividades.add(actividad);
 
                 }
@@ -136,14 +180,17 @@ public class ActividadDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
 
     }
 
-    public static HashMap<String, Object> obtenerActividadesSinAsignar(Integer idProyecto) {
+    public static HashMap<String, Object> obtenerActividadesSinAsignar(
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -165,18 +212,24 @@ public class ActividadDAO {
                         + "a.idTipoActividad, "
                         + "ta.tipo AS tipo, "
                         + "a.idResponsable, "
-                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, ' ', rp.apellidoPaterno) AS responsable, "
+                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, "
+                        + "' ', rp.apellidoPaterno) AS responsable, "
                         + "a.idProyecto, "
                         + "p.nombre AS proyecto "
                         + "FROM actividad a "
-                        + "LEFT JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
-                        + "LEFT JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "LEFT JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
-                        + "LEFT JOIN proyecto p ON a.idProyecto = p.idProyecto "
+                        + "LEFT JOIN estadoactividad ea "
+                        + "ON a.idEstadoActividad = ea.idEstadoActividad "
+                        + "LEFT JOIN tipoactividad ta "
+                        + "ON a.idTipoActividad = ta.idTipoActividad "
+                        + "LEFT JOIN responsableproyecto rp "
+                        + "ON a.idResponsable = rp.idResponsableProyecto "
+                        + "LEFT JOIN proyecto p "
+                        + "ON a.idProyecto = p.idProyecto "
                         + "WHERE a.idProyecto = ? AND idEstudiante IS NULL "
                         + "ORDER BY fechaInicio DESC;";
 
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 sentencia.setInt(1, idProyecto);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<Actividad> actividades = new ArrayList<>();
@@ -184,20 +237,34 @@ public class ActividadDAO {
                 while (resultadoConsulta.next()) {
 
                     Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultadoConsulta.getInt("idActividad"));
-                    actividad.setTitulo(resultadoConsulta.getString("titulo"));
-                    actividad.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
-                    actividad.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
-                    actividad.setFechaFin(resultadoConsulta.getString("fechaFin"));
-                    actividad.setIdEstadoActividad(resultadoConsulta.getInt("idEstadoActividad"));
-                    actividad.setEstadoActividad(resultadoConsulta.getString("estadoActividad"));
-                    actividad.setIdTipo(resultadoConsulta.getInt("idTipoActividad"));
-                    actividad.setTipo(resultadoConsulta.getString("tipo"));
-                    actividad.setIdResponsable(resultadoConsulta.getInt("idResponsable"));
-                    actividad.setResponsable(resultadoConsulta.getString("responsable"));
-                    actividad.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
-                    actividad.setProyecto(resultadoConsulta.getString("proyecto"));
+                    actividad.setIdActividad(resultadoConsulta.getInt(
+                            "idActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    actividad.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    actividad.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    actividad.setFechaFin(resultadoConsulta.getString(
+                            "fechaFin"));
+                    actividad.setIdEstadoActividad(resultadoConsulta.getInt(
+                            "idEstadoActividad"));
+                    actividad.setEstadoActividad(resultadoConsulta.getString(
+                            "estadoActividad"));
+                    actividad.setIdTipo(resultadoConsulta.getInt(
+                            "idTipoActividad"));
+                    actividad.setTipo(resultadoConsulta.getString(
+                            "tipo"));
+                    actividad.setIdResponsable(resultadoConsulta.getInt(
+                            "idResponsable"));
+                    actividad.setResponsable(resultadoConsulta.getString(
+                            "responsable"));
+                    actividad.setIdProyecto(resultadoConsulta.getInt(
+                            "idProyecto"));
+                    actividad.setProyecto(resultadoConsulta.getString(
+                            "proyecto"));
                     actividades.add(actividad);
 
                 }
@@ -208,15 +275,18 @@ public class ActividadDAO {
 
             } catch (SQLException sqlE) {
                 sqlE.printStackTrace();
-            } 
+            }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
     }
 
-    public static HashMap<String, Object> consultarActividadesProyecto(Integer idProyecto) {
+    public static HashMap<String, Object> consultarActividadesProyecto(
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -238,20 +308,28 @@ public class ActividadDAO {
                         + "a.idTipoActividad, "
                         + "ta.tipo AS tipo, "
                         + "a.idEstudiante, "
-                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, ' ', e.apellidoPaterno) AS estudiante, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, "
+                        + "' ', e.apellidoPaterno) AS estudiante, "
                         + "a.idResponsable, "
-                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, ' ', rp.apellidoPaterno) AS responsable, "
+                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, "
+                        + "' ', rp.apellidoPaterno) AS responsable, "
                         + "a.idProyecto, "
                         + "p.nombre AS proyecto "
                         + "FROM actividad a "
-                        + "LEFT JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
-                        + "LEFT JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "LEFT JOIN estudiante e ON a.idEstudiante = e.idEstudiante "
-                        + "LEFT JOIN responsableproyecto rp ON a.idResponsable = rp.idResponsableProyecto "
-                        + "LEFT JOIN proyecto p ON a.idProyecto = p.idProyecto "
+                        + "LEFT JOIN estadoactividad ea "
+                        + "ON a.idEstadoActividad = ea.idEstadoActividad "
+                        + "LEFT JOIN tipoactividad ta "
+                        + "ON a.idTipoActividad = ta.idTipoActividad "
+                        + "LEFT JOIN estudiante e "
+                        + "ON a.idEstudiante = e.idEstudiante "
+                        + "LEFT JOIN responsableproyecto rp "
+                        + "ON a.idResponsable = rp.idResponsableProyecto "
+                        + "LEFT JOIN proyecto p "
+                        + "ON a.idProyecto = p.idProyecto "
                         + "WHERE a.idProyecto = ? "
                         + "ORDER BY fechaInicio DESC;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 sentencia.setInt(1, idProyecto);
 
@@ -261,22 +339,38 @@ public class ActividadDAO {
                 while (resultadoConsulta.next()) {
 
                     Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultadoConsulta.getInt("idActividad"));
-                    actividad.setTitulo(resultadoConsulta.getString("titulo"));
-                    actividad.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
-                    actividad.setFechaInicio(resultadoConsulta.getString("fechaInicio"));
-                    actividad.setFechaFin(resultadoConsulta.getString("fechaFin"));
-                    actividad.setIdEstadoActividad(resultadoConsulta.getInt("idEstadoActividad"));
-                    actividad.setEstadoActividad(resultadoConsulta.getString("estadoActividad"));
-                    actividad.setIdTipo(resultadoConsulta.getInt("idTipoActividad"));
-                    actividad.setTipo(resultadoConsulta.getString("tipo"));
-                    actividad.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
-                    actividad.setEstudiante(resultadoConsulta.getString("estudiante"));
-                    actividad.setIdResponsable(resultadoConsulta.getInt("idResponsable"));
-                    actividad.setResponsable(resultadoConsulta.getString("responsable"));
-                    actividad.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
-                    actividad.setProyecto(resultadoConsulta.getString("proyecto"));
+                    actividad.setIdActividad(resultadoConsulta.getInt(
+                            "idActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    actividad.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    actividad.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    actividad.setFechaFin(resultadoConsulta.getString(
+                            "fechaFin"));
+                    actividad.setIdEstadoActividad(resultadoConsulta.getInt(
+                            "idEstadoActividad"));
+                    actividad.setEstadoActividad(resultadoConsulta.getString(
+                            "estadoActividad"));
+                    actividad.setIdTipo(resultadoConsulta.getInt(
+                            "idTipoActividad"));
+                    actividad.setTipo(resultadoConsulta.getString(
+                            "tipo"));
+                    actividad.setIdEstudiante(resultadoConsulta.getInt(
+                            "idEstudiante"));
+                    actividad.setEstudiante(resultadoConsulta.getString(
+                            "estudiante"));
+                    actividad.setIdResponsable(resultadoConsulta.getInt(
+                            "idResponsable"));
+                    actividad.setResponsable(resultadoConsulta.getString(
+                            "responsable"));
+                    actividad.setIdProyecto(resultadoConsulta.getInt(
+                            "idProyecto"));
+                    actividad.setProyecto(resultadoConsulta.getString(
+                            "proyecto"));
                     actividades.add(actividad);
 
                 }
@@ -290,7 +384,114 @@ public class ActividadDAO {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
+    public static HashMap<String, Object> consultarActividadesEstudiante(
+            Integer idEstudiante,
+            Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        respuesta.put("error", true);
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "SELECT "
+                        + "a.idActividad, a.titulo, a.descripcion, "
+                        + "a.esfuerzoMinutos, a.fechaInicio, a.fechaFin, "
+                        + "a.idEstadoActividad, "
+                        + "ea.estado AS estadoActividad, a.idTipoActividad, "
+                        + "ta.tipo AS tipo, "
+                        + "a.idEstudiante, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoMaterno, "
+                        + "' ', e.apellidoPaterno) AS estudiante, "
+                        + "a.idResponsable, "
+                        + "CONCAT(rp.nombre, ' ', rp.apellidoMaterno, "
+                        + "' ', rp.apellidoPaterno) AS responsable, "
+                        + "a.idProyecto, "
+                        + "p.nombre AS proyecto "
+                        + "FROM actividad a "
+                        + "JOIN estadoactividad ea "
+                        + "ON a.idEstadoActividad = ea.idEstadoActividad "
+                        + "JOIN tipoactividad ta "
+                        + "ON a.idTipoActividad = ta.idTipoActividad "
+                        + "JOIN estudiante e "
+                        + "ON a.idEstudiante = e.idEstudiante "
+                        + "JOIN responsableproyecto rp "
+                        + "ON a.idResponsable = rp.idResponsableProyecto "
+                        + "JOIN proyecto p "
+                        + "ON a.idProyecto = p.idProyecto "
+                        + "WHERE a.idProyecto = ? AND a.idEstudiante = ? "
+                        + "ORDER BY fechaInicio DESC;";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
+
+                sentencia.setInt(1, idProyecto);
+                sentencia.setInt(2, idEstudiante);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+                ArrayList<Actividad> actividades = new ArrayList<>();
+
+                while (resultadoConsulta.next()) {
+
+                    Actividad actividad = new Actividad();
+                    actividad.setIdActividad(resultadoConsulta.getInt(
+                            "idActividad"));
+                    actividad.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    actividad.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    actividad.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    actividad.setFechaInicio(resultadoConsulta.getString(
+                            "fechaInicio"));
+                    actividad.setFechaFin(resultadoConsulta.getString(
+                            "fechaFin"));
+                    actividad.setIdEstadoActividad(resultadoConsulta.getInt(
+                            "idEstadoActividad"));
+                    actividad.setEstadoActividad(resultadoConsulta.getString(
+                            "estadoActividad"));
+                    actividad.setIdTipo(resultadoConsulta.getInt(
+                            "idTipoActividad"));
+                    actividad.setTipo(resultadoConsulta.getString(
+                            "tipo"));
+                    actividad.setIdEstudiante(resultadoConsulta.getInt(
+                            "idEstudiante"));
+                    actividad.setEstudiante(resultadoConsulta.getString(
+                            "estudiante"));
+                    actividad.setIdResponsable(resultadoConsulta.getInt(
+                            "idResponsable"));
+                    actividad.setResponsable(resultadoConsulta.getString(
+                            "responsable"));
+                    actividad.setIdProyecto(resultadoConsulta.getInt(
+                            "idProyecto"));
+                    actividad.setProyecto(resultadoConsulta.getString(
+                            "proyecto"));
+                    actividades.add(actividad);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("actividades", actividades);
+
+            } catch (SQLException sqlE) {
+                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+        } else {
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
@@ -310,14 +511,16 @@ public class ActividadDAO {
             try {
 
                 String consulta = "SELECT tipo FROM tipoactividad;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<String> tiposActividades = new ArrayList<>();
 
                 respuesta.put("error", false);
 
                 while (resultadoConsulta.next()) {
-                    tiposActividades.add(resultadoConsulta.getString("tipo"));
+                    tiposActividades.add(resultadoConsulta.getString(
+                            "tipo"));
                 }
 
                 respuesta.put("error", false);
@@ -330,13 +533,16 @@ public class ActividadDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo de nuevo más tarde");
         }
 
         return respuesta;
     }
 
-    public static boolean reasignarActividad(int idActividad, int idEstudiante) {
+    public static boolean reasignarActividad(int idActividad,
+            int idEstudiante) {
 
         boolean reasignacionExitosa = false;
 
@@ -346,8 +552,10 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "UPDATE actividad SET IdEstudiante = ? WHERE IdActividad = ?;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "UPDATE actividad SET IdEstudiante = ? "
+                        + "WHERE IdActividad = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 sentencia.setInt(1, idEstudiante);
                 sentencia.setInt(2, idActividad);
 
@@ -368,8 +576,8 @@ public class ActividadDAO {
 
     }
 
-    // Este metodo puede usarse para asignar y reasignar
-    public static HashMap<String, Object> asignarActividad(int idActividad, int idEstudiante) {
+    public static HashMap<String, Object> asignarActividad(int idActividad,
+            int idEstudiante) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -381,7 +589,8 @@ public class ActividadDAO {
 
                 String consulta = "UPDATE actividad "
                         + "SET IdEstudiante = ? WHERE IdActividad = ?;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 sentencia.setInt(1, idEstudiante);
                 sentencia.setInt(2, idActividad);
                 int resultadoConsulta = sentencia.executeUpdate();
@@ -390,24 +599,29 @@ public class ActividadDAO {
                 if (resultadoConsulta > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "La actividad fue asignada con éxito");
+                    respuesta.put("mensaje",
+                            "La actividad fue asignada con éxito");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo asignar la actividad");
+                    respuesta.put("mensaje",
+                            "No se pudo asignar la actividad");
                 }
 
             } catch (SQLException sqlE) {
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo de nuevo más tarde");
         }
 
         return respuesta;
 
     }
 
-    public static HashMap<String, Object> registrarActividad(Actividad actividad) throws SQLException {
+    public static HashMap<String, Object> registrarActividad(
+            Actividad actividad) throws SQLException {
 
         HashMap<String, Object> respuesta = new HashMap<>();
 
@@ -422,35 +636,47 @@ public class ActividadDAO {
 
         if (fechaInicioDate.before(fechaServidorDate)) {
             throw new SQLException(
-                    "Error en la base de datos: La fecha de inicio no puede ser menor a la fecha actual");
+                    "Error en la base de datos: "
+                            + "La fecha de inicio no puede ser menor "
+                            + "a la fecha actual");
         }
 
         if (conexion != null) {
 
             try {
 
-                String consulta = "INSERT INTO actividad (titulo, descripcion, " +
-                        "idProyecto, idResponsable, idTipoActividad, fechaInicio, " +
-                        "idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "INSERT INTO actividad "
+                        + "(titulo, descripcion, "
+                        + "idProyecto, idResponsable, idTipoActividad, "
+                        + "fechaInicio, "
+                        + "idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 sentencia.setString(1, actividad.getTitulo());
-                sentencia.setString(2, actividad.getDescripcion());
+                sentencia.setString(2,
+                        actividad.getDescripcion());
                 sentencia.setInt(3, actividad.getIdProyecto());
-                sentencia.setInt(4, actividad.getIdResponsable());
-                sentencia.setInt(5, actividad.getIdTipo());
-                sentencia.setString(6, actividad.getFechaInicio());
-                sentencia.setInt(7, actividad.getIdEstadoActividad());
+                sentencia.setInt(4,
+                        actividad.getIdResponsable());
+                sentencia.setInt(5,
+                        actividad.getIdTipo());
+                sentencia.setString(6,
+                        actividad.getFechaInicio());
+                sentencia.setInt(7,
+                        actividad.getIdEstadoActividad());
 
                 int resultadoConsulta = sentencia.executeUpdate();
 
                 if (resultadoConsulta > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "La actividad fue registrada con éxito");
+                    respuesta.put("mensaje",
+                            "La actividad fue registrada con éxito");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo registrar la actividad");
+                    respuesta.put("mensaje",
+                            "No se pudo registrar la actividad");
                 }
 
             } catch (SQLException se) {
@@ -460,14 +686,16 @@ public class ActividadDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
 
     }
 
-    public static HashMap<String, Object> finalizarActividad(int idActividad) {
+    public static HashMap<String, Object> finalizarActividad(int idActividad, int esfuerzoMinutos) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -477,19 +705,25 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "UPDATE actividad SET fechaFin = NOW(), idEstadoActividad = 1 WHERE idActividad = ?;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
-                sentencia.setInt(1, idActividad);
+                String consulta = "UPDATE actividad SET fechaFin = NOW(), "
+                        + "esfuerzoMinutos = ?, "
+                        + "idEstadoActividad = 1 WHERE idActividad = ?;";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
+                sentencia.setInt(1, esfuerzoMinutos);
+                sentencia.setInt(2, idActividad);
                 int resultadoConsulta = sentencia.executeUpdate();
                 conexion.close();
 
                 if (resultadoConsulta > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "La actividad fue finalizada con éxito");
+                    respuesta.put("mensaje",
+                            "La actividad fue finalizada con éxito");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo finalizar la actividad");
+                    respuesta.put("mensaje",
+                            "No se pudo finalizar la actividad");
                 }
 
             } catch (SQLException sqlE) {
@@ -497,7 +731,9 @@ public class ActividadDAO {
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
@@ -514,8 +750,9 @@ public class ActividadDAO {
 
             try {
 
-                String consulta = "DELETE FROM actividad WHERE idActividad = ?;";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "DELETE FROM actividad WHERE idActividad = ?";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
                 sentencia.setInt(1, idActividad);
                 int resultadoConsulta = sentencia.executeUpdate();
                 conexion.close();
@@ -523,79 +760,25 @@ public class ActividadDAO {
                 if (resultadoConsulta > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "La actividad se ha eliminado correctamente");
+                    respuesta.put("mensaje",
+                            "La actividad se ha eliminado correctamente");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo eliminar la actividad");
+                    respuesta.put("mensaje",
+                            "No se pudo eliminar la actividad");
                 }
 
             } catch (SQLException sqlE) {
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    "No se pudo conectar a la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
 
-    }
-
-    public static HashMap<String, Object> obtenerActividadesSinFinalizar(int idProyecto) {
-
-        HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        respuesta.put("error", true);
-        Connection conexion = ConectorBaseDatos.obtenerConexion();
-
-        if (conexion != null) {
-
-            try {
-                
-                String consulta = "SELECT "
-                        + "a.idActividad, "
-                        + "a.titulo, "
-                        + "a.descripcion, "
-                        + "a.esfuerzoMinutos, "
-                        + "fechaInicio, "
-                        + "ea.estado, "
-                        + "ta.tipo "
-                        + "FROM actividad a "
-                        + "INNER JOIN estadoactividad ea ON a.idEstadoActividad = ea.idEstadoActividad "
-                        + "INNER JOIN tipoactividad ta ON a.idTipoActividad = ta.idTipoActividad "
-                        + "WHERE a.idProyecto = ? AND ea.estado != 'Realizada';";
-
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
-                sentencia.setInt(1, idProyecto);
-                ResultSet resultado = sentencia.executeQuery();
-                ArrayList<Actividad> actividades = new ArrayList<>();
-
-                while(resultado.next()) {
-
-                    Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultado.getInt("idActividad"));
-                    actividad.setTitulo(resultado.getString("titulo"));
-                    actividad.setDescripcion(resultado.getString("descripcion"));
-                    actividad.setEsfuerzoMinutos(resultado.getInt("esfuerzoMinutos"));
-                    actividad.setFechaInicio(resultado.getString("fechaInicio"));
-                    actividad.setEstadoActividad(resultado.getString("estado"));
-                    actividad.setTipo(resultado.getString("tipo"));
-                    actividades.add(actividad);
-
-                }
-
-                conexion.close();
-                respuesta.put("error", false);
-                respuesta.put("actividades", actividades);
-
-            } catch (SQLException sqlE) {
-                sqlE.printStackTrace();
-                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
-            }
-
-        } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
-        }
-
-        return respuesta;
     }
 
 }

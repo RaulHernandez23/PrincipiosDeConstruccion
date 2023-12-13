@@ -26,8 +26,6 @@ import modelo.pojo.Actividad;
 import modelo.pojo.Estudiante;
 import utilidades.Utilidades;
 
-
-//De verdad es necesario cerrar todo luego de una excepcion o al terminar el CU?
 public class FXMLAsignarActividadController implements Initializable {
 
     private ObservableList<Actividad> actividadesSinAsignar;
@@ -57,10 +55,14 @@ public class FXMLAsignarActividadController implements Initializable {
     @FXML
     private void btnAsignarClic() {
 
-        Actividad actividad = tvActividades.getSelectionModel().getSelectedItem();
-        Estudiante estudiante = cbEstudiantes.getSelectionModel().getSelectedItem();
+        Actividad actividad = tvActividades.getSelectionModel()
+                .getSelectedItem();
+        Estudiante estudiante = cbEstudiantes.getSelectionModel()
+                .getSelectedItem();
 
-        HashMap<String, Object> respuesta = ActividadDAO.asignarActividad(actividad.getIdActividad(), estudiante.getIdEstudiante());
+        HashMap<String, Object> respuesta = ActividadDAO.asignarActividad(
+                actividad.getIdActividad(),
+                estudiante.getIdEstudiante());
 
         if (!(boolean) respuesta.get("error")) {
 
@@ -125,12 +127,14 @@ public class FXMLAsignarActividadController implements Initializable {
 
     public void cargarEstudiantes(int idProyecto) {
 
-        HashMap<String, Object> respuesta = EstudianteDAO.recuperarEstudiantesActivosProyecto(idProyecto);
+        HashMap<String, Object> respuesta = EstudianteDAO
+                .recuperarEstudiantesActivosProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 
             estudiantes = FXCollections.observableArrayList();
-            ArrayList<Estudiante> lista = (ArrayList) respuesta.get("estudiantes");
+            ArrayList<Estudiante> lista = (ArrayList) respuesta.get(
+                    "estudiantes");
             estudiantes.addAll(lista);
             cbEstudiantes.setItems(estudiantes);
             btnAsignar.setDisable(true);
@@ -145,32 +149,40 @@ public class FXMLAsignarActividadController implements Initializable {
     }
 
     private void configurarTabla() {
-        colTitulo.setCellValueFactory(new PropertyValueFactory("titulo"));
-        colDescripcion.setCellValueFactory(new PropertyValueFactory("descripcion"));
-        
-        tvActividades.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
-        
-            @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
-                if(newValue != null) {
-                    btnAsignar.setDisable(false);
-                }
-            }
-        
-        });
+        colTitulo.setCellValueFactory(new PropertyValueFactory(
+                "titulo"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory(
+                "descripcion"));
+
+        tvActividades.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Actividad>() {
+
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Actividad> observable,
+                            Actividad oldValue,
+                            Actividad newValue) {
+                        if (newValue != null) {
+                            btnAsignar.setDisable(false);
+                        }
+                    }
+
+                });
     }
 
     private void obtenerActividadesSinAsignarProyecto(int idProyecto) {
 
-        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesSinAsignar(idProyecto);
+        HashMap<String, Object> respuesta = ActividadDAO
+                .obtenerActividadesSinAsignar(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 
             actividadesSinAsignar = FXCollections.observableArrayList();
-            ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
+            ArrayList<Actividad> lista = (ArrayList) respuesta.get(
+                    "actividades");
             actividadesSinAsignar.addAll(lista);
             tvActividades.setItems(actividadesSinAsignar);
-            
+
         } else {
             Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),

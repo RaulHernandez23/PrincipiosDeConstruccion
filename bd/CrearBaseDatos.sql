@@ -131,7 +131,7 @@ CREATE TABLE `EstadoDefecto` (
 DROP TABLE IF EXISTS `Estudiante`;
 CREATE TABLE `Estudiante` (
     `idEstudiante` INT NOT NULL AUTO_INCREMENT,
-    `matricula` VARCHAR(255) NOT NULL,
+    `matricula` VARCHAR(255) NOT NULL UNIQUE,
     `nombre` VARCHAR(255) NOT NULL,
     `apellidoPaterno` VARCHAR(255) NOT NULL,
     `apellidoMaterno` VARCHAR(255) NOT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE `Estudiante_Cambio` (
 DROP TABLE IF EXISTS `ResponsableProyecto`;
 CREATE TABLE `ResponsableProyecto` (
     `idResponsableProyecto` INT NOT NULL AUTO_INCREMENT,
-    `numPersonal` VARCHAR(255) NOT NULL,
+    `numPersonal` VARCHAR(255) NOT NULL UNIQUE,
     `nombre` VARCHAR(255) NOT NULL,
     `apellidoPaterno` VARCHAR(255) NOT NULL,
     `apellidoMaterno` VARCHAR(255) NOT NULL,

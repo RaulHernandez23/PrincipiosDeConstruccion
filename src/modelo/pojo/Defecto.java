@@ -13,12 +13,12 @@ public class Defecto {
     private Integer idDefecto;
     private String titulo;
     private String descripcion;
-    private int esfuerzoMinutos = 0;
+    private Integer esfuerzoMinutos = 0;
     private String fechaReporte;
     private String fechaFin;
-    private int idEstadoDefecto;
-    private int idEstudiante;
-    private int idProyecto;
+    private Integer idEstadoDefecto;
+    private Integer idEstudiante;
+    private Integer idProyecto;
 
     private String estadoDefecto;
     private String nombreEstudiante;
@@ -26,8 +26,8 @@ public class Defecto {
     public Defecto() {
     }
 
-    public Defecto(int idDefecto, String titulo, String descripcion, int esfuerzoMinutos, String fechaReporte,
-            int idEstadoDefecto, int idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto) {
+    public Defecto(Integer idDefecto, String titulo, String descripcion, Integer esfuerzoMinutos, String fechaReporte,
+            Integer idEstadoDefecto, Integer idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto) {
         this.idDefecto = idDefecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -72,11 +72,11 @@ public class Defecto {
 
     }
 
-    public int getEsfuerzoMinutos() {
+    public Integer getEsfuerzoMinutos() {
         return esfuerzoMinutos;
     }
 
-    public void setEsfuerzoMinutos(int esfuerzoMinutos) {
+    public void setEsfuerzoMinutos(Integer esfuerzoMinutos) {
 
         if (esfuerzoMinutos > 0) {
             this.esfuerzoMinutos = esfuerzoMinutos;
@@ -96,11 +96,11 @@ public class Defecto {
 
     }
 
-    public int getIdEstadoDefecto() {
+    public Integer getIdEstadoDefecto() {
         return idEstadoDefecto;
     }
 
-    public void setIdEstadoDefecto(int idEstadoActividad) {
+    public void setIdEstadoDefecto(Integer idEstadoActividad) {
 
         if (idEstadoActividad > 0) {
             this.idEstadoDefecto = idEstadoActividad;
@@ -108,11 +108,11 @@ public class Defecto {
 
     }
 
-    public int getIdEstudiante() {
+    public Integer getIdEstudiante() {
         return idEstudiante;
     }
 
-    public void setIdEstudiante(int idEstudiante) {
+    public void setIdEstudiante(Integer idEstudiante) {
 
         if (idEstudiante > 0) {
             this.idEstudiante = idEstudiante;

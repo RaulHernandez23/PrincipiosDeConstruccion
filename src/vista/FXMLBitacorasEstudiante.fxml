@@ -26,7 +26,6 @@
                               <TableColumn fx:id="colFechaInicio" maxWidth="126.0" prefWidth="126.0" text="Fecha de Inicio" />
                           </columns>
                         </TableView>
-                        <Button layoutX="525.0" layoutY="322.0" mnemonicParsing="false" onAction="#btnVolver" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Volver" />
                      </children></Pane>
                </center>
                <top>
