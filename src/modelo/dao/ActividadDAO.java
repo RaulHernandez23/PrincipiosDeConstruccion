@@ -698,7 +698,7 @@ public class ActividadDAO {
 
     }
 
-    public static HashMap<String, Object> finalizarActividad(int idActividad) {
+    public static HashMap<String, Object> finalizarActividad(int idActividad, int esfuerzoMinutos) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -709,10 +709,12 @@ public class ActividadDAO {
             try {
 
                 String consulta = "UPDATE actividad SET fechaFin = NOW(), "
+                        + "esfuerzoMinutos = ?, "
                         + "idEstadoActividad = 1 WHERE idActividad = ?;";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-                sentencia.setInt(1, idActividad);
+                sentencia.setInt(1, esfuerzoMinutos);
+                sentencia.setInt(2, idActividad);
                 int resultadoConsulta = sentencia.executeUpdate();
                 conexion.close();
 
@@ -780,76 +782,6 @@ public class ActividadDAO {
 
         return respuesta;
 
-    }
-
-    public static HashMap<String, Object> obtenerActividadesSinFinalizar(
-            int idProyecto) {
-
-        HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        respuesta.put("error", true);
-        Connection conexion = ConectorBaseDatos.obtenerConexion();
-
-        if (conexion != null) {
-
-            try {
-
-                String consulta = "SELECT "
-                        + "a.idActividad, "
-                        + "a.titulo, "
-                        + "a.descripcion, "
-                        + "a.esfuerzoMinutos, "
-                        + "fechaInicio, "
-                        + "ea.estado, "
-                        + "ta.tipo "
-                        + "FROM actividad a "
-                        + "INNER JOIN estadoactividad ea "
-                        + "ON a.idEstadoActividad = ea.idEstadoActividad "
-                        + "INNER JOIN tipoactividad ta "
-                        + "ON a.idTipoActividad = ta.idTipoActividad "
-                        + "WHERE a.idProyecto = ? AND ea.estado != 'Realizada'";
-
-                PreparedStatement sentencia = conexion.prepareStatement(
-                        consulta);
-                sentencia.setInt(1, idProyecto);
-                ResultSet resultado = sentencia.executeQuery();
-                ArrayList<Actividad> actividades = new ArrayList<>();
-
-                while (resultado.next()) {
-
-                    Actividad actividad = new Actividad();
-                    actividad.setIdActividad(resultado.getInt(
-                            "idActividad"));
-                    actividad.setTitulo(resultado.getString(
-                            "titulo"));
-                    actividad.setDescripcion(resultado.getString(
-                            "descripcion"));
-                    actividad.setEsfuerzoMinutos(resultado.getInt(
-                            "esfuerzoMinutos"));
-                    actividad.setFechaInicio(resultado.getString(
-                            "fechaInicio"));
-                    actividad.setEstadoActividad(resultado.getString(
-                            "estado"));
-                    actividad.setTipo(resultado.getString("tipo"));
-                    actividades.add(actividad);
-
-                }
-
-                conexion.close();
-                respuesta.put("error", false);
-                respuesta.put("actividades", actividades);
-
-            } catch (SQLException sqlE) {
-                sqlE.printStackTrace();
-                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
-            }
-
-        } else {
-            respuesta.put("mensaje",
-                    "No se pudo conectar a la base de datos, "
-                            + "inténtelo más tarde");
-        }
-
-        return respuesta;
     }
 
 }

@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vboxEjemplo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLEliminarActividadController">
+<VBox fx:id="vboxEjemplo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLDetalleActividadController">
    <children>
       <AnchorPane prefHeight="480.0" prefWidth="720.0">
          <children>
@@ -29,8 +29,8 @@
                         <Button fx:id="btnEliminar" layoutX="78.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnEliminarClic" styleClass="botonEliminacion" text="Eliminar" />
                         <Button layoutX="539.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonOperacion" text="Volver" />
                         <Label layoutX="25.0" layoutY="215.0" text="Tipo de actividad:" />
-                        <TextField fx:id="tfTIpo" editable="false" layoutX="179.0" layoutY="209.0" prefHeight="39.0" prefWidth="167.0" styleClass="campoTexto" />
-                        <Label layoutX="538.0" layoutY="274.0" prefHeight="27.0" prefWidth="153.0" text="Label">
+                        <TextField fx:id="tfTipo" editable="false" layoutX="179.0" layoutY="209.0" prefHeight="39.0" prefWidth="167.0" styleClass="campoTexto" />
+                        <Label fx:id="lblDatosInvalidos" layoutX="538.0" layoutY="274.0" prefHeight="27.0" prefWidth="153.0" text="Label">
                            <font>
                               <Font size="13.0" />
                            </font>

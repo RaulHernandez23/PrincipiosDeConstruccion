@@ -31,6 +31,7 @@ import utilidades.Utilidades;
 public class FXMLDetalleActividadController implements Initializable {
 
     private ObservableList<Actividad> actividades;
+    private boolean esFinalizar;
 
     @FXML
     private ComboBox<Actividad> cbActividades;
@@ -46,6 +47,9 @@ public class FXMLDetalleActividadController implements Initializable {
 
     @FXML
     private TextField tfEstado;
+
+    @FXML
+    private TextField tfTipo;
 
     @FXML
     private TextField tfEsfuerzo;
@@ -71,16 +75,27 @@ public class FXMLDetalleActividadController implements Initializable {
     @FXML
     private Label lblEliminarActividad;
 
+    @FXML 
+    private Label lblDatosInvalidos;
+
     @FXML
     private Label lblDerechosReservados;
 
     @FXML
     private void btnEliminarClic(ActionEvent event) {
-
-        if (Utilidades.mostrarAlertaConfirmacion("Confirmar",
-                "¿Seguro que desea eliminar la actividad: "
-                        + cbActividades.getValue().getTitulo() + "?")) {
-            eliminarActividad();
+        if (esFinalizar) {
+    
+            if (Utilidades.mostrarAlertaConfirmacion("Confirmar",
+                    "¿Seguro que desea finalizar la actividad: "
+                            + cbActividades.getValue().getTitulo() + "?")) {
+                finalizarActividad();
+            }
+        } else {
+            if (Utilidades.mostrarAlertaConfirmacion("Confirmar",
+                    "¿Seguro que desea eliminar la actividad: "
+                            + cbActividades.getValue().getTitulo() + "?")) {
+                eliminarActividad();;
+            }
         }
 
     }
@@ -107,8 +122,13 @@ public class FXMLDetalleActividadController implements Initializable {
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(int idProyecto) {
+    public void inicializarInformacion(int idProyecto, boolean esFinalizar) {
+
+        this.esFinalizar = esFinalizar;
+        tfEsfuerzo.setEditable(this.esFinalizar);
+        lblDatosInvalidos.setText("");
         recuperarActividades(idProyecto);
+
     }
 
     public void salir() {
@@ -122,12 +142,21 @@ public class FXMLDetalleActividadController implements Initializable {
         HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
+
             actividades = FXCollections.observableArrayList();
             ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
-            actividades.addAll(lista);
+            if(!esFinalizar){
+                actividades.addAll(lista);
+            } else {
+                for(Actividad actividad : lista){
+                    if(!actividad.getEstadoActividad().equals("Realizada")) {
+                        actividades.add(actividad);
+                    }
+                }
+            }
+            
             cbActividades.setItems(actividades);
-            cbActividades.getSelectionModel().select(1);
-            System.out.println("realiza todo bien");
+            cbActividades.getSelectionModel().select(0);
 
         } else {
             Utilidades.mostrarAlertaSimple("Error",
@@ -152,6 +181,7 @@ public class FXMLDetalleActividadController implements Initializable {
                     taDescripcion.setText(newValue.getDescripcion());
                     tfEstado.setText(newValue.getEstadoActividad());
                     tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
+                    tfTipo.setText(newValue.getTipo());
                     btnEliminar.setDisable(false);
                 }
             }
@@ -159,8 +189,8 @@ public class FXMLDetalleActividadController implements Initializable {
     }
 
     private void eliminarActividad() {
-        HashMap<String, Object> respuesta = ActividadDAO.eliminarActividad(cbActividades.getValue()
-                .getIdActividad());
+        HashMap<String, Object> respuesta = ActividadDAO.eliminarActividad(
+            cbActividades.getValue().getIdActividad());
         if (!(boolean) respuesta.get("error")) {
 
             Utilidades.mostrarAlertaSimple("Actividad eliminada",
@@ -179,8 +209,43 @@ public class FXMLDetalleActividadController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         configurarListenerComboActividad();
+        configurarListenerEsfuerzo();
         dpFechaInicio.setDisable(true);
         dpFechaFin.setDisable(true);
+
+    }
+
+    private void configurarListenerEsfuerzo() {
+        tfEsfuerzo.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                    String newValue) {
+
+                if (newValue.length() > 0 && newValue.length() <= 11) {
+                    if (newValue.matches("\\d*")) {
+                        if(Integer.parseInt(newValue) >= 0){
+                            lblDatosInvalidos.setText("");
+                        } else {
+                            lblDatosInvalidos.setText("El esfuerzo no puede ser negativo");
+                        }
+                    } else {
+                        lblDatosInvalidos.setText("Debe ingresar solo numeros");
+                    }
+                } else {
+                    lblDatosInvalidos.setText("El esfuerzo no puede ser vacío");
+                }
+
+            }
+        });
+    }
+
+    private void finalizarActividad() {
+
+        HashMap<String, Object> respuesta = ActividadDAO.finalizarActividad
+                (cbActividades.getValue().getIdActividad(),
+                Integer.parseInt(tfEsfuerzo.getText()));
+
 
     }
 }
