@@ -96,7 +96,7 @@ public class SolicitudDeCambioDAO {
                     solicitud.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
                     solicitud.setIdResponsable(resultadoConsulta.getInt("idResponsableProyecto"));
                     solicitud.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
-                    
+
                     solicitudes.add(solicitud);
 
                 }
@@ -183,7 +183,7 @@ public class SolicitudDeCambioDAO {
 
         return respuesta;
     }
-    
+
     public static HashMap<String, Object> consultarSolicitudesPendientes(Integer idProyecto) {
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
@@ -195,32 +195,32 @@ public class SolicitudDeCambioDAO {
             try {
 
                 String consulta = "SELECT " +
-                                    "s.idSolicitudDeCambio, " +
-                                    "s.titulo, " +
-                                    "s.descripcion, " +
-                                    "s.razon, " +
-                                    "s.impacto, " +
-                                    "s.accionPropuesta, " +
-                                    "DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, " +
-                                    "s.fechaEvaluacion, " +
-                                    "s.idEstudiante, " +
-                                    "s.idEstadoSolicitud, " +
-                                    "s.idProyecto, " +
-                                    "s.idResponsableProyecto, " +
-                                    "s.idDefecto, " +
-                                    "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante, " +
-                                    "d.titulo AS defecto, " +
-                                    "d.descripcion AS defectoDescripcion " +
-                                "FROM " +
-                                    "SolicitudDeCambio s " +
-                                "JOIN " +
-                                    "Estudiante e ON s.idEstudiante = e.idEstudiante " +
-                                "LEFT JOIN " +
-                                    "Defecto d ON s.idDefecto = d.idDefecto " +
-                                "WHERE " +
-                                    "s.idProyecto = ? AND s.idEstadoSolicitud = 3 " +
-                                "ORDER BY " +
-                                    "s.fechaCreacion DESC";
+                        "s.idSolicitudDeCambio, " +
+                        "s.titulo, " +
+                        "s.descripcion, " +
+                        "s.razon, " +
+                        "s.impacto, " +
+                        "s.accionPropuesta, " +
+                        "DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, " +
+                        "s.fechaEvaluacion, " +
+                        "s.idEstudiante, " +
+                        "s.idEstadoSolicitud, " +
+                        "s.idProyecto, " +
+                        "s.idResponsableProyecto, " +
+                        "s.idDefecto, " +
+                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante, " +
+                        "d.titulo AS defecto, " +
+                        "d.descripcion AS defectoDescripcion " +
+                        "FROM " +
+                        "SolicitudDeCambio s " +
+                        "JOIN " +
+                        "Estudiante e ON s.idEstudiante = e.idEstudiante " +
+                        "LEFT JOIN " +
+                        "Defecto d ON s.idDefecto = d.idDefecto " +
+                        "WHERE " +
+                        "s.idProyecto = ? AND s.idEstadoSolicitud = 3 " +
+                        "ORDER BY " +
+                        "s.fechaCreacion DESC";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
 
@@ -267,7 +267,7 @@ public class SolicitudDeCambioDAO {
 
         return respuesta;
     }
-    
+
     public static HashMap<String, Object> registrarSolicitud(SolicitudDeCambio solicitud) {
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
@@ -295,7 +295,7 @@ public class SolicitudDeCambioDAO {
                 sentencia.setInt(7, solicitud.getIdEstudiante());
                 sentencia.setInt(8, solicitud.getIdEstadoSolicitud());
                 sentencia.setInt(9, solicitud.getIdProyecto());
-                
+
                 if (solicitud.getIdDefecto() != null) {
                     sentencia.setInt(10, solicitud.getIdDefecto());
                 } else {
@@ -325,20 +325,12 @@ public class SolicitudDeCambioDAO {
 
         return respuesta;
     }
-<<<<<<< HEAD
 
-    public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud, String nuevaFechaEvaluacion,
-            int nuevoIdEstadoSolicitud) {
-=======
-    
-    
-    public static HashMap<String, Object> 
-        registrarEvaluacionDeSolicitud(int idSolicitud, 
-        String nuevaFechaEvaluacion, 
-        int nuevoIdEstadoSolicitud,
-        int idResponsable) {
-            
->>>>>>> 8c01cd52eb1a64d0709f88e2a27597048ea67f22
+    public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud,
+            String nuevaFechaEvaluacion,
+            int nuevoIdEstadoSolicitud,
+            int idResponsable) {
+
         HashMap<String, Object> respuesta = new HashMap<>();
 
         respuesta.put("error", true);
@@ -352,12 +344,8 @@ public class SolicitudDeCambioDAO {
 
                 sentencia.setString(1, nuevaFechaEvaluacion);
                 sentencia.setInt(2, nuevoIdEstadoSolicitud);
-<<<<<<< HEAD
-                sentencia.setInt(3, idSolicitud);
-=======
                 sentencia.setInt(3, idResponsable);
                 sentencia.setInt(4, idSolicitud);
->>>>>>> 8c01cd52eb1a64d0709f88e2a27597048ea67f22
 
                 int filasAfectadas = sentencia.executeUpdate();
 
