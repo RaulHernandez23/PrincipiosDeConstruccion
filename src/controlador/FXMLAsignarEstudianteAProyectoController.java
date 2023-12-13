@@ -3,7 +3,7 @@
  * Autor: Miguel Angel Morales Cruz
  * Paquete: controlador
  * Fecha de creación: 20/11/2023
- * Fecha de modificación: 11/12/2023
+ * Fecha de modificación: 12/12/2023
  * Descripción: Controlador para la ventana de asignar estudiante a proyecto.
  */
 package controlador;

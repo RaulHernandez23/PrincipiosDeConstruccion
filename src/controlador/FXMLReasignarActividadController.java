@@ -136,7 +136,8 @@ public class FXMLReasignarActividadController implements Initializable {
                     .consultarListaEstudiante();
 
             if (!((Boolean) respuestaEstudiantes.get("error"))) {
-                ArrayList<HashMap<String, Object>> listaEstudiantes = (ArrayList<HashMap<String, Object>>) respuestaEstudiantes
+                ArrayList<HashMap<String, Object>> listaEstudiantes = 
+                (ArrayList<HashMap<String, Object>>) respuestaEstudiantes
                         .get("estudiantes");
 
                 for (HashMap<String, Object> estudianteMap : listaEstudiantes) {

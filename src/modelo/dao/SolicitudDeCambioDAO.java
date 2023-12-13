@@ -185,7 +185,9 @@ public class SolicitudDeCambioDAO {
         return respuesta;
     }
 
-    public static HashMap<String, Object> consultarSolicitudesPendientes(Integer idProyecto) {
+    public static HashMap<String, Object> consultarSolicitudesPendientes
+            (Integer idProyecto) {
+        
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
         respuesta.put("error", true);
@@ -193,37 +195,41 @@ public class SolicitudDeCambioDAO {
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
+
             try {
 
-                String consulta = "SELECT " +
-                        "s.idSolicitudDeCambio, " +
-                        "s.titulo, " +
-                        "s.descripcion, " +
-                        "s.razon, " +
-                        "s.impacto, " +
-                        "s.accionPropuesta, " +
-                        "DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y') AS fechaCreacion, " +
-                        "s.fechaEvaluacion, " +
-                        "s.idEstudiante, " +
-                        "s.idEstadoSolicitud, " +
-                        "s.idProyecto, " +
-                        "s.idResponsableProyecto, " +
-                        "s.idDefecto, " +
-                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', e.apellidoMaterno) AS estudiante, " +
-                        "d.titulo AS defecto, " +
-                        "d.descripcion AS defectoDescripcion " +
-                        "FROM " +
-                        "SolicitudDeCambio s " +
-                        "JOIN " +
-                        "Estudiante e ON s.idEstudiante = e.idEstudiante " +
-                        "LEFT JOIN " +
-                        "Defecto d ON s.idDefecto = d.idDefecto " +
-                        "WHERE " +
-                        "s.idProyecto = ? AND s.idEstadoSolicitud = 3 " +
-                        "ORDER BY " +
-                        "s.fechaCreacion DESC";
+                String consulta = "SELECT "
+                        + "s.idSolicitudDeCambio, "
+                        + "s.titulo, "
+                        + "s.descripcion, "
+                        + "s.razon, "
+                        + "s.impacto, "
+                        + "s.accionPropuesta, "
+                        + "DATE_FORMAT(s.fechaCreacion, '%d-%m-%Y')" 
+                        + "AS fechaCreacion, "
+                        + "s.fechaEvaluacion, "
+                        + "s.idEstudiante, "
+                        + "s.idEstadoSolicitud, "
+                        + "s.idProyecto, "
+                        + "s.idResponsableProyecto, "
+                        + "s.idDefecto, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', "
+                        + "e.apellidoMaterno) AS estudiante, "
+                        + "d.titulo AS defecto, "
+                        + "d.descripcion AS defectoDescripcion "
+                        + "FROM "
+                        + "SolicitudDeCambio s "
+                        + "JOIN "
+                        + "Estudiante e ON s.idEstudiante = e.idEstudiante "
+                        + "LEFT JOIN "
+                        + "Defecto d ON s.idDefecto = d.idDefecto "
+                        + "WHERE "
+                        + "s.idProyecto = ? AND s.idEstadoSolicitud = 3 "
+                        + "ORDER BY "
+                        + "s.fechaCreacion DESC";
 
-                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                PreparedStatement sentencia = conexionBD
+                .prepareStatement(consulta);
 
                 sentencia.setInt(1, idProyecto);
 
@@ -235,21 +241,36 @@ public class SolicitudDeCambioDAO {
 
                     SolicitudDeCambio solicitud = new SolicitudDeCambio();
 
-                    solicitud.setIdSolicitudDeCambio(resultadoConsulta.getInt("idSolicitudDeCambio"));
-                    solicitud.setTitulo(resultadoConsulta.getString("titulo"));
-                    solicitud.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    solicitud.setRazon(resultadoConsulta.getString("razon"));
-                    solicitud.setImpacto(resultadoConsulta.getString("impacto"));
-                    solicitud.setAccionPropuesta(resultadoConsulta.getString("accionPropuesta"));
-                    solicitud.setFechaCreacion(resultadoConsulta.getString("fechaCreacion"));
-                    solicitud.setFechaEvaluacion(resultadoConsulta.getString("fechaEvaluacion"));
-                    solicitud.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
-                    solicitud.setEstudiante(resultadoConsulta.getString("estudiante"));
-                    solicitud.setIdEstadoSolicitud(resultadoConsulta.getInt("idEstadoSolicitud"));
-                    solicitud.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
-                    solicitud.setIdResponsable(resultadoConsulta.getInt("idResponsableProyecto"));
-                    solicitud.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
-                    solicitud.setDefecto(resultadoConsulta.getString("defecto"));
+                    solicitud.setIdSolicitudDeCambio(resultadoConsulta
+                            .getInt("idSolicitudDeCambio"));
+                    solicitud.setTitulo(resultadoConsulta
+                            .getString("titulo"));
+                    solicitud.setDescripcion(resultadoConsulta
+                            .getString("descripcion"));
+                    solicitud.setRazon(resultadoConsulta
+                            .getString("razon"));
+                    solicitud.setImpacto(resultadoConsulta
+                            .getString("impacto"));
+                    solicitud.setAccionPropuesta(resultadoConsulta
+                            .getString("accionPropuesta"));
+                    solicitud.setFechaCreacion(resultadoConsulta
+                            .getString("fechaCreacion"));
+                    solicitud.setFechaEvaluacion(resultadoConsulta
+                            .getString("fechaEvaluacion"));
+                    solicitud.setIdEstudiante(resultadoConsulta
+                            .getInt("idEstudiante"));
+                    solicitud.setEstudiante(resultadoConsulta
+                            .getString("estudiante"));
+                    solicitud.setIdEstadoSolicitud(resultadoConsulta
+                            .getInt("idEstadoSolicitud"));
+                    solicitud.setIdProyecto(resultadoConsulta
+                            .getInt("idProyecto"));
+                    solicitud.setIdResponsable(resultadoConsulta
+                            .getInt("idResponsableProyecto"));
+                    solicitud.setIdDefecto(resultadoConsulta
+                            .getInt("idDefecto"));
+                    solicitud.setDefecto(resultadoConsulta
+                            .getString("defecto"));
                     solicitudes.add(solicitud);
 
                 }
@@ -258,12 +279,12 @@ public class SolicitudDeCambioDAO {
                 respuesta.put("solicitudes", solicitudes);
 
             } catch (SQLException se) {
-                respuesta.put("mensaje", "Error: " + se.getMessage());
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
