@@ -278,7 +278,7 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/estilos/escenaTabla.css"));
 
             escenario.setScene(escena);
-            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setTitle("Solicitudes de cambio");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();

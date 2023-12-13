@@ -69,7 +69,7 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     @FXML
     private ScrollPane scrollPanePanelPrincipal;
     
-    private Integer idResposable;
+    private int idResponsable;
     
     private ObservadorSolicitudesDeCambio observador;
     
@@ -133,11 +133,11 @@ public class FXMLSolicitudDeCambioController implements Initializable {
             
     }
     
-    public void inicializarVentana(Integer idResposable, 
+    public void inicializarVentana(Integer idResponsable, 
             SolicitudDeCambio solicitud, 
             ObservadorSolicitudesDeCambio observador){
         
-        this.idResposable = idResposable;
+        this.idResponsable = idResponsable;
         this.solicitudDeCambio = solicitud;
         this.observador = observador;
         cargarInformacionDeSolicitud();
@@ -172,12 +172,12 @@ public class FXMLSolicitudDeCambioController implements Initializable {
     }
     
     private void registrarEvaluacion(int evaluacion){
-        
+
         HashMap<String,Object> respuesta = SolicitudDeCambioDAO
-                .registrarEvaluacionDeSolicitud
-                (solicitudDeCambio.getIdSolicitudDeCambio(), 
-                Utilidades.obtenerFechaActual(), 
-                evaluacion);
+            .registrarEvaluacionDeSolicitud
+            (solicitudDeCambio.getIdSolicitudDeCambio(), 
+            Utilidades.obtenerFechaActual(), 
+            evaluacion, idResponsable);
         
         if(!(Boolean) respuesta.get("error")){
             

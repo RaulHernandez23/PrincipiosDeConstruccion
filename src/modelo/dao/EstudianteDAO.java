@@ -10,6 +10,7 @@ import java.util.HashMap;
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Estudiante;
 import modelo.pojo.RespuestaInicioSesion;
+import utilidades.Constantes;
 
 public class EstudianteDAO {
 
@@ -301,6 +302,7 @@ public class EstudianteDAO {
         if (conexionBD != null) {
 
             try {
+                
                 String sentencia = "INSERT INTO estudiante( matricula, nombre, "
                         + "apellidoPaterno, apellidoMaterno, "
                         + "idEstadoEstudiante, password, idProyecto) "
@@ -319,23 +321,26 @@ public class EstudianteDAO {
                 int filasAfectadas = prepararSentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
+                    
                     respuesta.put("error", false);
                     respuesta.put("mensaje",
                             "Estudiante agregado correctamente");
+                    
                 } else {
-                    respuesta.put("mensaje",
-                            "Hubo un error al intentar registrar la información del estudiante, "
-                                    + "por favor inténtelo más tarde");
+                    respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 }
+                
             } catch (SQLException e) {
-                respuesta.put("mensaje", "Error de conexion en la base de datos");
+                
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 e.printStackTrace();
+                
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
+            
         } else {
-            respuesta.put("mensaje", "Error de conexion en la base de datos, "
-                    + "por favor inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;

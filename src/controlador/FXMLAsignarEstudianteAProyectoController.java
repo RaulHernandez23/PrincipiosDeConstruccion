@@ -25,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.dao.EstudianteDAO;
 import modelo.pojo.Estudiante;
+import utilidades.Constantes;
 import utilidades.Utilidades;
 
 public class FXMLAsignarEstudianteAProyectoController implements Initializable {
@@ -94,7 +95,8 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
         } else {
             Utilidades.mostrarAlertaSimple("Advertencia",
-                    "Ingrese datos validos", Alert.AlertType.WARNING);
+                    Constantes.MENSAJE_DATOS_INVALIDOS,
+                    Alert.AlertType.WARNING);
         }
 
     }
@@ -183,24 +185,34 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
                 || !tfNombre.getText()
                         .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+"
                                 + "( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)?")) {
+            tfNombre.setStyle("-fx-border-color: red;");
             esValido = false;
         }
 
         if (tfApellidoPaterno.getText().isEmpty()
                 || !tfApellidoPaterno.getText()
                         .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+")) {
+
+            tfApellidoPaterno.setStyle("-fx-border-color: red;");
             esValido = false;
+
         }
 
         if (!tfApellidoMaterno.getText().isEmpty()
                 && !tfApellidoMaterno.getText()
                         .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+")) {
+
+            tfApellidoMaterno.setStyle("-fx-border-color: red;");
             esValido = false;
+
         }
 
         if (tfMatricula.getText().isEmpty()
                 || !tfMatricula.getText().matches("[sS]\\d+")) {
+
+            tfMatricula.setStyle("-fx-border-color: red;");
             esValido = false;
+
         }
 
         return esValido;
