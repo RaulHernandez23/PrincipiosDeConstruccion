@@ -1,5 +1,6 @@
 package modelo.dao;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -317,7 +318,6 @@ public class EstudianteDAO {
     public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
-
         respuesta.put("error", true);
 
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
@@ -325,11 +325,18 @@ public class EstudianteDAO {
         if (conexionBD != null) {
 
             try {
-                
+
                 String sentencia = "INSERT INTO estudiante( matricula, nombre, "
                         + "apellidoPaterno, apellidoMaterno, "
                         + "idEstadoEstudiante, password, idProyecto) "
-                        + "values (?,?,?,?,?,?,?)";
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                        "nombre = VALUES(nombre), " +
+                        "apellidoPaterno = VALUES(apellidoPaterno), " +
+                        "apellidoMaterno = VALUES(apellidoMaterno), " +
+                        "idEstadoEstudiante = VALUES(idEstadoEstudiante), " +
+                        "password = VALUES(password), " +
+                        "idProyecto = VALUES(idProyecto)";
 
                 PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
 
@@ -344,30 +351,28 @@ public class EstudianteDAO {
                 int filasAfectadas = prepararSentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
-                    
                     respuesta.put("error", false);
-                    respuesta.put("mensaje",
-                            "Estudiante agregado correctamente");
-                    
+                    respuesta.put("mensaje", "Estudiante registrado"
+                            + " anteriormente actualización y reasignación "
+                            + "completa");
                 } else {
                     respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 }
-                
+
             } catch (SQLException e) {
-                
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 e.printStackTrace();
-                
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
-            
+
         } else {
             respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
     }
+
 
     public static HashMap<String, Object> desasignarEstudiante(
             Integer idEstudiante) {

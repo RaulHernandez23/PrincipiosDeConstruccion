@@ -123,7 +123,7 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         estudiante.setApellidoPaterno(tfApellidoPaterno.getText());
         estudiante.setApellidoMaterno(tfApellidoMaterno.getText());
         estudiante.setMatricula(tfMatricula.getText());
-        estudiante.setIdEstadoEstudiante(2);
+        estudiante.setIdEstadoEstudiante(1);
         estudiante.setPassword(password);
         estudiante.setIdProyecto(idProyecto);
 
@@ -221,7 +221,7 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     }
 
     private String crearPasswordEstudiante() {
-        return tfNombre.getText().toLowerCase() + tfMatricula.getText();
+        return tfNombre.getText().toLowerCase() + tfApellidoPaterno.getText();
     }
 
 }
