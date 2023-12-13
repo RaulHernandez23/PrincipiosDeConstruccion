@@ -11,6 +11,7 @@ import java.util.HashMap;
 import modelo.ConectorBaseDatos;
 import modelo.pojo.EstadoSolicitud;
 import modelo.pojo.SolicitudDeCambio;
+import utilidades.Constantes;
 
 public class SolicitudDeCambioDAO {
 
@@ -430,9 +431,16 @@ public class SolicitudDeCambioDAO {
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
+
             try {
-                String consulta = "UPDATE SolicitudDeCambio SET fechaEvaluacion = ?, idEstadoSolicitud = ? WHERE idSolicitudDeCambio = ?";
-                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+
+                String consulta = "UPDATE SolicitudDeCambio "
+                        + "SET fechaEvaluacion = ?,"
+                        + " idEstadoSolicitud = ?, "
+                        + " idResponsableProyecto = ? "
+                        + "WHERE idSolicitudDeCambio = ?";
+                PreparedStatement sentencia = conexionBD
+                        .prepareStatement(consulta);
 
                 sentencia.setString(1, nuevaFechaEvaluacion);
                 sentencia.setInt(2, nuevoIdEstadoSolicitud);
@@ -442,21 +450,31 @@ public class SolicitudDeCambioDAO {
                 int filasAfectadas = sentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
+
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "Solicitud evaluada correctamente");
+                    respuesta.put("mensaje",
+                            "Solicitud evaluada correctamente");
+
                 } else {
-                    respuesta.put("mensaje", "No se encontró la solicitud con ID " + idSolicitud);
+                    respuesta.put("mensaje",
+                            Constantes.MENSAJE_ERROR_REGISTRO);
                 }
 
             } catch (SQLException ex) {
-                respuesta.put("mensaje", "Error al intentar editar la solicitud, inténtelo de nuevo más tarde");
+
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+                ex.printStackTrace();
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
+
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
+
     }
+
 }
