@@ -1,3 +1,9 @@
+/*
+* Autor: Cesar Gonzalez Lopez
+* Fecha de creación: 25/11/2023
+* Fecha de modificación: 12/12/2023
+* Descripción: Muestra detalladamente la información de un defecto
+*/
 package controlador;
 
 import javafx.fxml.FXML;
@@ -41,7 +47,6 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
 
         this.defecto = defectoSeleccionado;
         tfTitulo.setText(defecto.getTitulo());
-
         tfTitulo.setText(defectoSeleccionado.getTitulo());
         tbDescripcion.setText(defectoSeleccionado.getDescripcion());
         tfFechaInicio.setText(defectoSeleccionado.getFechaReporte());

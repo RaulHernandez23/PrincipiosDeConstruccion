@@ -1,3 +1,10 @@
+/*
+* Autor: Cesar Gonzalez Lopez
+* Fecha de creación: 24/11/2023
+* Fecha de modificación: 12/12/2023
+* Descripción: clase para finalizar actividades
+*/
+
 package controlador;
 
 import java.net.URL;
@@ -52,35 +59,46 @@ public class FXMLFinalizarActividadController implements Initializable {
 
     @FXML
     private void btnFinalizarClic(ActionEvent event) {
-        // TODO: Implement the logic for the "Finalizar" button
+
+        salir();
+
     }
 
     @FXML
     private void btnVolver() {
+
         salir();
     }
 
     @FXML
     private void btnSalir() {
+
         salir();
+
     }
 
     @FXML
     private void hoverInSalir() {
+
         ivSalir.setImage(new Image(Utilidades.getInputStream(
                 "/recursos/imagenes/logoSalir2.png")));
+
     }
 
     @FXML
     private void hoverOutSalir() {
+
         ivSalir.setImage(new Image(Utilidades.getInputStream(
                 "/recursos/imagenes/logoSalir.png")));
+
     }
 
     private void salir() {
+
         Stage escenario = (Stage) tvActividades.getScene().getWindow();
 
         escenario.close();
+
     }
 
     @Override
@@ -138,9 +156,11 @@ public class FXMLFinalizarActividadController implements Initializable {
             tvActividades.setItems(actividades);
 
         } else {
+
             Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);
+                    
         }
 
     }

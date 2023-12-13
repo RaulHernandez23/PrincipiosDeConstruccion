@@ -1,3 +1,9 @@
+/*
+* Autor: Cesar Gonzalez Lopez
+* Fecha de creación: 25/11/2023
+* Fecha de modificación: 12/12/2023
+* Descripción: Muestra la información los defectos de un proyecto
+*/
 package controlador;
 
 import java.io.IOException;
@@ -57,22 +63,28 @@ public class FXMLConsultarDefectosController implements Initializable {
     }
 
     public void inicializarVentana(Integer idProyecto) {
+
         this.idProyecto = idProyecto;
+
     }
 
     private void mostrarDatos() {
+
         ObservableList<Defecto> defectos = FXCollections.observableArrayList();
 
         try {
+
             HashMap<String, Object> respuestaDefectos = modelo.dao.DefectoDAO
                     .consultarDefectos();
 
             if (!((Boolean) respuestaDefectos.get("error"))) {
+
                 ArrayList<HashMap<String, Object>> listaDefectos;
-                listaDefectos = (ArrayList<HashMap<String, Object>>) respuestaDefectos
-                        .get("defectos");
+                listaDefectos = (ArrayList<HashMap<String, Object>>) 
+                        respuestaDefectos.get("defectos");
 
                 for (HashMap<String, Object> defectoMap : listaDefectos) {
+
                     Defecto defecto = new Defecto();
                     defecto.setIdDefecto((int) defectoMap.get("idDefecto"));
                     defecto.setTitulo((String) defectoMap.get("titulo"));
@@ -94,6 +106,7 @@ public class FXMLConsultarDefectosController implements Initializable {
                             "estudiante"));
 
                     defectos.add(defecto);
+
                 }
 
                 tvDefectos.setItems(defectos);
@@ -103,26 +116,37 @@ public class FXMLConsultarDefectosController implements Initializable {
                         cellData -> new SimpleStringProperty(cellData.getValue().getEstadoDefecto()));
                 colFechaReporteDefectos.setCellValueFactory(
                         cellData -> new SimpleStringProperty(cellData.getValue().getFechaReporte()));
+
             } else {
+
                 String mensajeError = respuestaDefectos.get("mensaje").toString();
                 utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Añadir un manejo de excepciones más adecuado según tus necesidades
+
+            e.printStackTrace(); 
+
             utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de defectos",
                     Alert.AlertType.ERROR);
+
         }
     }
 
     @FXML
     private void btnAceptarClic(ActionEvent event) {
+
         Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
         consultarDefecto(defectoSeleccionado);
+
     }
 
     private void consultarDefecto(Defecto defectoSeleccionado) {
+
         Stage escenario = new Stage();
+
         try {
+
             FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLConsultarDetallesDefecto.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
@@ -135,18 +159,24 @@ public class FXMLConsultarDefectosController implements Initializable {
             escenario.showAndWait();
 
         } catch (IOException ex) {
+
             ex.printStackTrace();
+
         }
     }
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {
+
         salir();
+
     }
 
     private void salir() {
+
         Stage escenario = (Stage) tvDefectos.getScene().getWindow();
 
         escenario.close();
+
     }
 }
