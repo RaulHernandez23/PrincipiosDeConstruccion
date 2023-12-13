@@ -31,7 +31,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
@@ -232,24 +231,18 @@ public class FXMLRegistrarActividadController implements Initializable {
 
     private void verificarCamposLlenos() {
 
-        boolean verificar = tfTitulo.getText().isEmpty() ||
-                tfDescripcion.getText().isEmpty() ||
-                cbTipo.getSelectionModel().getSelectedIndex() < 0;
-
-        ChangeListener<String> camposLlenos = new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable,
-                    String oldValue,
-                    String newValue) {
-
-                btnRegistrarComponente.setDisable(verificar);
-
-            }
-        };
+        ChangeListener<String> camposLlenos = (observable, oldValue,
+                newValue) -> verificar();
 
         tfTitulo.textProperty().addListener(camposLlenos);
         tfDescripcion.textProperty().addListener(camposLlenos);
 
+    }
+
+    public void verificar() {
+        btnRegistrarComponente.setDisable(tfTitulo.getText().isEmpty() ||
+                tfDescripcion.getText().isEmpty() ||
+                cbTipo.getSelectionModel().getSelectedIndex() < 0);
     }
 
 }

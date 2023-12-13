@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,8 +66,8 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         ivSalir.setImage(new Image(Utilidades.getInputStream(
                 "/recursos/imagenes/logoSalir2.png")));
     }
-    
-     @FXML
+
+    @FXML
     private void clicSalir(MouseEvent event) {
         cerrarVentana();
     }
@@ -80,10 +79,10 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
             boolean confirmacion = Utilidades
                     .mostrarAlertaConfirmacion("Confirmar registro",
-                    "¿Estas seguro agregar el estudiante " 
-                    + tfNombre.getText()
-                    + " " + tfApellidoPaterno.getText()
-                    + " " + tfApellidoMaterno.getText() + ".");
+                            "¿Estas seguro agregar el estudiante "
+                                    + tfNombre.getText()
+                                    + " " + tfApellidoPaterno.getText()
+                                    + " " + tfApellidoMaterno.getText() + ".");
 
             if (confirmacion) {
 
@@ -133,13 +132,14 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
             Utilidades.mostrarAlertaSimple("Registro exitoso",
                     (String) respuesta.get("mensaje")
-                    + "\nLa contraseña del estudiante es: " + password,
+                            + "\nLa contraseña del estudiante es: " + password,
                     Alert.AlertType.INFORMATION);
             cerrarVentana();
 
         } else {
             Utilidades.mostrarAlertaSimple("Error en el registro",
-                    (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
         }
 
     }
@@ -153,8 +153,9 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
     private void configurarListenerACampos() {
 
-        ChangeListener<String> cambiosEnCampos
-                = (observable, oldValue, newValue) -> verificarCampos();
+        ChangeListener<String> cambiosEnCampos = (observable,
+                oldValue,
+                newValue) -> verificarCampos();
 
         tfNombre.textProperty().addListener(cambiosEnCampos);
         tfApellidoPaterno.textProperty().addListener(cambiosEnCampos);
@@ -167,10 +168,10 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
         btnAgregarProyecto.setDisable(
                 tfNombre.getText().isEmpty()
-                || tfApellidoPaterno.getText().isEmpty()
-                || tfApellidoMaterno.getText().isEmpty()
-                || tfMatricula.getText().isEmpty()
-                || tfMatricula.getText().isEmpty());
+                        || tfApellidoPaterno.getText().isEmpty()
+                        || tfApellidoMaterno.getText().isEmpty()
+                        || tfMatricula.getText().isEmpty()
+                        || tfMatricula.getText().isEmpty());
 
     }
 

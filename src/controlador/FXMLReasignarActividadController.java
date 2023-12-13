@@ -54,97 +54,127 @@ public class FXMLReasignarActividadController implements Initializable {
 
         btnReasignarActividad.setDisable(true);
 
-        tvActividadesPendientes.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tvActividadesPendientes.getSelectionModel().setSelectionMode(
+                SelectionMode.SINGLE);
 
-        tvActividadesPendientes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
-            @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
-                
-                btnReasignarActividad.setDisable(newValue == null);
+        tvActividadesPendientes.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<Actividad>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Actividad> observable,
+                            Actividad oldValue,
+                            Actividad newValue) {
 
-            }
-        });
+                        btnReasignarActividad.setDisable(newValue == null);
+
+                    }
+                });
 
         mostrarDatos();
 
-        // Asegúrate de que la lista de estudiantes no esté vacía antes de seleccionar el primero
         ObservableList<Estudiante> estudiantes = cbEstudiantes.getItems();
         if (!estudiantes.isEmpty()) {
             cbEstudiantes.getSelectionModel().select(0);
         }
     }
 
-
     private void mostrarDatos() {
-        ObservableList<Actividad> actividades = FXCollections.observableArrayList();
-        ObservableList<Estudiante> estudiantes = FXCollections.observableArrayList();
+        ObservableList<Actividad> actividades = FXCollections
+                .observableArrayList();
+        ObservableList<Estudiante> estudiantes = FXCollections
+                .observableArrayList();
 
         try {
-            HashMap<String, Object> respuesta = modelo.dao.ActividadDAO.consultarActividades();
+            HashMap<String, Object> respuesta = modelo.dao.ActividadDAO
+                    .consultarActividades();
 
             if (!(Boolean) respuesta.get("error")) {
-                ArrayList<HashMap<String, Object>> listaActividades = 
-                    (ArrayList<HashMap<String, Object>>) respuesta.get("actividades");
+                ArrayList<HashMap<String, Object>> listaActividades = (ArrayList<HashMap<String, Object>>) respuesta
+                        .get("actividades");
 
                 for (HashMap<String, Object> actividadMap : listaActividades) {
                     Actividad actividad = new Actividad();
-                    actividad.setIdActividad((Integer) actividadMap.get("idActividad"));
-                    actividad.setTitulo((String) actividadMap.get("titulo"));
-                    actividad.setIdEstudiante((Integer) actividadMap.get("idEstudiante"));
-                    actividad.setEstudiante((String) actividadMap.get("estudiante"));
-                    actividad.setFechaInicio((String) actividadMap.get("fechaInicio"));
+                    actividad.setIdActividad((Integer) actividadMap.get(
+                            "idActividad"));
+                    actividad.setTitulo((String) actividadMap.get(
+                            "titulo"));
+                    actividad.setIdEstudiante((Integer) actividadMap.get(
+                            "idEstudiante"));
+                    actividad.setEstudiante((String) actividadMap.get(
+                            "estudiante"));
+                    actividad.setFechaInicio((String) actividadMap.get(
+                            "fechaInicio"));
 
                     actividades.add(actividad);
                 }
 
                 tvActividadesPendientes.setItems(actividades);
-                colTitulo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
-                colEstudiante.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEstudiante()));
-                colFechaInicio.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaInicio()));
+                colTitulo.setCellValueFactory(
+                        cellData -> new SimpleStringProperty(
+                                cellData.getValue().getTitulo()));
+                colEstudiante
+                        .setCellValueFactory(
+                                cellData -> new SimpleStringProperty(
+                                        cellData.getValue().getEstudiante()));
+                colFechaInicio.setCellValueFactory(
+                        cellData -> new SimpleStringProperty(
+                                cellData.getValue().getFechaInicio()));
             } else {
                 String mensajeError = respuesta.get("mensaje").toString();
-                utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+                utilidades.Alertas.mostrarAlerta("Error de conexión",
+                        mensajeError, Alert.AlertType.ERROR);
             }
 
         } catch (Exception e) {
-            e.printStackTrace(); 
-            utilidades.Alertas.mostrarAlerta("Error", "Error inesperado", Alert.AlertType.ERROR);
+            e.printStackTrace();
+            utilidades.Alertas.mostrarAlerta("Error",
+                    "Error inesperado", Alert.AlertType.ERROR);
         }
 
         try {
-            HashMap<String, Object> respuestaEstudiantes = EstudianteDAO.consultarListaEstudiante();
-        
+            HashMap<String, Object> respuestaEstudiantes = EstudianteDAO
+                    .consultarListaEstudiante();
+
             if (!((Boolean) respuestaEstudiantes.get("error"))) {
-                ArrayList<HashMap<String, Object>> listaEstudiantes = 
-                    (ArrayList<HashMap<String, Object>>) respuestaEstudiantes.get("estudiantes");
-        
+                ArrayList<HashMap<String, Object>> listaEstudiantes = (ArrayList<HashMap<String, Object>>) respuestaEstudiantes
+                        .get("estudiantes");
+
                 for (HashMap<String, Object> estudianteMap : listaEstudiantes) {
                     Estudiante estudiante = new Estudiante();
-                    estudiante.setIdEstudiante((int) estudianteMap.get("idEstudiante"));
-                    estudiante.setNombre((String) estudianteMap.get("nombre"));
-                    estudiante.setApellidoPaterno((String) estudianteMap.get("apellidoPaterno"));
-                    estudiante.setApellidoMaterno((String) estudianteMap.get("apellidoMaterno"));
-        
+                    estudiante.setIdEstudiante((int) estudianteMap.get(
+                            "idEstudiante"));
+                    estudiante.setNombre((String) estudianteMap.get(
+                            "nombre"));
+                    estudiante.setApellidoPaterno((String) estudianteMap.get(
+                            "apellidoPaterno"));
+                    estudiante.setApellidoMaterno((String) estudianteMap.get(
+                            "apellidoMaterno"));
+
                     estudiantes.add(estudiante);
                 }
-        
+
                 cbEstudiantes.setItems(estudiantes);
             } else {
-                String mensajeError = respuestaEstudiantes.get("mensaje").toString();
-                utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+                String mensajeError = respuestaEstudiantes.get("mensaje")
+                        .toString();
+                utilidades.Alertas.mostrarAlerta("Error de conexión",
+                        mensajeError, Alert.AlertType.ERROR);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Añadir un manejo de excepciones más adecuado según tus necesidades
-            utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de estudiantes", Alert.AlertType.ERROR);
+            utilidades.Alertas.mostrarAlerta("Error de conexión",
+                    "Error al obtener la lista de estudiantes",
+                    Alert.AlertType.ERROR);
         }
-    
+
     }
 
     @FXML
     private void btnReasignarActividadClic(ActionEvent event) {
 
         TableView<Actividad> tableView = tvActividadesPendientes;
-        Actividad actividadSeleccionada = tableView.getSelectionModel().getSelectedItem();
+        Actividad actividadSeleccionada = tableView.getSelectionModel()
+                .getSelectedItem();
 
         Estudiante estudianteSeleccionado = cbEstudiantes.getValue();
 
@@ -152,7 +182,8 @@ public class FXMLReasignarActividadController implements Initializable {
 
             try {
 
-                modelo.dao.ActividadDAO.reasignarActividad(actividadSeleccionada.getIdActividad(),
+                modelo.dao.ActividadDAO.reasignarActividad(
+                        actividadSeleccionada.getIdActividad(),
                         estudianteSeleccionado.getIdEstudiante());
 
                 utilidades.Alertas.mostrarAlerta("Actividad reasignada",

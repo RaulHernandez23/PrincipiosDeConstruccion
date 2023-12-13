@@ -122,11 +122,7 @@ public class FXMLDetalleActividadController implements Initializable {
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(int idProyecto, boolean esFinalizar) {
-
-        this.esFinalizar = esFinalizar;
-        tfEsfuerzo.setEditable(this.esFinalizar);
-        lblDatosInvalidos.setText("");
+    public void inicializarInformacion(Integer idProyecto) {
         recuperarActividades(idProyecto);
 
     }
@@ -138,23 +134,16 @@ public class FXMLDetalleActividadController implements Initializable {
 
     }
 
-    private void recuperarActividades(int idProyecto) {
-        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
+    private void recuperarActividades(Integer idProyecto) {
+        HashMap<String, Object> respuesta = ActividadDAO
+                .obtenerActividadesProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 
             actividades = FXCollections.observableArrayList();
-            ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
-            if(!esFinalizar){
-                actividades.addAll(lista);
-            } else {
-                for(Actividad actividad : lista){
-                    if(!actividad.getEstadoActividad().equals("Realizada")) {
-                        actividades.add(actividad);
-                    }
-                }
-            }
-            
+            ArrayList<Actividad> lista = (ArrayList) respuesta
+                    .get("actividades");
+            actividades.addAll(lista);
             cbActividades.setItems(actividades);
             cbActividades.getSelectionModel().select(0);
 
@@ -166,31 +155,38 @@ public class FXMLDetalleActividadController implements Initializable {
     }
 
     private void configurarListenerComboActividad() {
-        cbActividades.valueProperty().addListener(new ChangeListener<Actividad>() {
+        cbActividades.valueProperty().addListener(
+                new ChangeListener<Actividad>() {
 
-            @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue,
-                    Actividad newValue) {
-                if (newValue != null) {
-                    dpFechaInicio.setValue(LocalDate.parse(newValue.getFechaInicio()));
-                    if(newValue.getFechaFin() != null){
-                        dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
-                    } else {
-                        dpFechaFin.setValue(null);
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Actividad> observable,
+                            Actividad oldValue,
+                            Actividad newValue) {
+                        if (newValue != null) {
+                            dpFechaInicio
+                                    .setValue(LocalDate.parse(
+                                            newValue.getFechaInicio()));
+                            dpFechaFin
+                                    .setValue(LocalDate.parse(
+                                            newValue.getFechaFin()));
+                            taDescripcion
+                                    .setText(newValue.getDescripcion());
+                            tfEstado
+                                    .setText(newValue.getEstadoActividad());
+                            tfEsfuerzo
+                                    .setText(String.valueOf(
+                                            newValue.getEsfuerzoMinutos()));
+                            btnEliminar.setDisable(false);
+                        }
                     }
-                    taDescripcion.setText(newValue.getDescripcion());
-                    tfEstado.setText(newValue.getEstadoActividad());
-                    tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
-                    tfTipo.setText(newValue.getTipo());
-                    btnEliminar.setDisable(false);
-                }
-            }
-        });
+                });
     }
 
     private void eliminarActividad() {
         HashMap<String, Object> respuesta = ActividadDAO.eliminarActividad(
-            cbActividades.getValue().getIdActividad());
+                cbActividades.getValue()
+                        .getIdActividad());
         if (!(boolean) respuesta.get("error")) {
 
             Utilidades.mostrarAlertaSimple("Actividad eliminada",
