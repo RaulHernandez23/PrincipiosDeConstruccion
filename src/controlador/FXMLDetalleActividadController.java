@@ -28,7 +28,7 @@ import modelo.dao.ActividadDAO;
 import modelo.pojo.Actividad;
 import utilidades.Utilidades;
 
-public class FXMLEliminarActividadController implements Initializable{
+public class FXMLDetalleActividadController implements Initializable {
 
     private ObservableList<Actividad> actividades;
 
@@ -74,15 +74,14 @@ public class FXMLEliminarActividadController implements Initializable{
     @FXML
     private Label lblDerechosReservados;
 
-
     @FXML
     private void btnEliminarClic(ActionEvent event) {
 
-        if(Utilidades.mostrarAlertaConfirmacion("Confirmar", 
-                "¿Seguro que desea eliminar la actividad: " 
-                + cbActividades.getValue().getTitulo() + "?") ) {
-                    eliminarActividad();
-                }
+        if (Utilidades.mostrarAlertaConfirmacion("Confirmar",
+                "¿Seguro que desea eliminar la actividad: "
+                        + cbActividades.getValue().getTitulo() + "?")) {
+            eliminarActividad();
+        }
 
     }
 
@@ -108,7 +107,7 @@ public class FXMLEliminarActividadController implements Initializable{
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(int idProyecto) {
+    public void inicializarInformacion(Integer idProyecto) {
         recuperarActividades(idProyecto);
     }
 
@@ -119,53 +118,68 @@ public class FXMLEliminarActividadController implements Initializable{
 
     }
 
-    private void recuperarActividades(int idProyecto) {
-        HashMap<String, Object> respuesta = ActividadDAO.obtenerActividadesProyecto(idProyecto);
+    private void recuperarActividades(Integer idProyecto) {
+        HashMap<String, Object> respuesta = ActividadDAO
+                .obtenerActividadesProyecto(idProyecto);
 
-        if(!(boolean) respuesta.get("error")) {
+        if (!(boolean) respuesta.get("error")) {
             actividades = FXCollections.observableArrayList();
-            ArrayList<Actividad> lista = (ArrayList) respuesta.get("actividades");
+            ArrayList<Actividad> lista = (ArrayList) respuesta
+                    .get("actividades");
             actividades.addAll(lista);
             cbActividades.setItems(actividades);
-            cbActividades.getSelectionModel().select(0);
+            cbActividades.getSelectionModel().select(1);
+            System.out.println("realiza todo bien");
 
         } else {
-            Utilidades.mostrarAlertaSimple("Error", 
+            Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);
         }
     }
 
     private void configurarListenerComboActividad() {
-        cbActividades.valueProperty().addListener(new ChangeListener<Actividad>() {
-            
-            @Override
-            public void changed(ObservableValue<? extends Actividad> observable, Actividad oldValue, Actividad newValue) {
-                if(newValue != null) {
-                    dpFechaInicio.setValue(LocalDate.parse(newValue.getFechaInicio()));
-                    dpFechaFin.setValue(LocalDate.parse(newValue.getFechaFin()));
-                    taDescripcion.setText(newValue.getDescripcion());
-                    tfEstado.setText(newValue.getEstadoActividad());
-                    tfEsfuerzo.setText(String.valueOf(newValue.getEsfuerzoMinutos()));
-                    btnEliminar.setDisable(false);
-                }
-            }
-        });
+        cbActividades.valueProperty().addListener(
+                new ChangeListener<Actividad>() {
+
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Actividad> observable,
+                            Actividad oldValue,
+                            Actividad newValue) {
+                        if (newValue != null) {
+                            dpFechaInicio
+                                    .setValue(LocalDate.parse(
+                                            newValue.getFechaInicio()));
+                            dpFechaFin
+                                    .setValue(LocalDate.parse(
+                                            newValue.getFechaFin()));
+                            taDescripcion
+                                    .setText(newValue.getDescripcion());
+                            tfEstado
+                                    .setText(newValue.getEstadoActividad());
+                            tfEsfuerzo
+                                    .setText(String.valueOf(
+                                            newValue.getEsfuerzoMinutos()));
+                            btnEliminar.setDisable(false);
+                        }
+                    }
+                });
     }
 
     private void eliminarActividad() {
-        HashMap<String, Object> respuesta = 
-                ActividadDAO.eliminarActividad(cbActividades.getValue()
+        HashMap<String, Object> respuesta = ActividadDAO.eliminarActividad(
+                cbActividades.getValue()
                         .getIdActividad());
-        if(!(boolean) respuesta.get("error")) {
+        if (!(boolean) respuesta.get("error")) {
 
-            Utilidades.mostrarAlertaSimple("Actividad eliminada", 
+            Utilidades.mostrarAlertaSimple("Actividad eliminada",
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.INFORMATION);
             salir();
 
         } else {
-            Utilidades.mostrarAlertaSimple("Error", 
+            Utilidades.mostrarAlertaSimple("Error",
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.ERROR);
         }

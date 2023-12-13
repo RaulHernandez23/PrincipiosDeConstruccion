@@ -30,12 +30,11 @@ import modelo.pojo.Defecto;
 import utilidades.Utilidades;
 import javafx.scene.control.Alert;
 
-
 public class FXMLRegistrarDefectoController implements Initializable {
 
     private Defecto defecto;
     private int idProyecto;
-    private int idEstudiante; 
+    private int idEstudiante;
 
     @FXML
     private VBox vboxEjemplo;
@@ -53,7 +52,7 @@ public class FXMLRegistrarDefectoController implements Initializable {
     private Button btnRegistrar;
 
     @FXML
-    void btnRegistrarClic (ActionEvent event) {
+    void btnRegistrarClic(ActionEvent event) {
         defecto = new Defecto();
         registrarDefecto();
     }
@@ -70,12 +69,14 @@ public class FXMLRegistrarDefectoController implements Initializable {
 
     @FXML
     private void hoverOutSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
     private void hoverInSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir2.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
 
     @Override
@@ -105,8 +106,9 @@ public class FXMLRegistrarDefectoController implements Initializable {
         defecto.setDescripcion(taDescripcion.getText());
         defecto.setIdProyecto(idProyecto);
         defecto.setIdEstudiante(idEstudiante);
-        
-        HashMap<String, Object> respuesta = DefectoDAO.registrarDefecto(defecto);
+
+        HashMap<String, Object> respuesta = DefectoDAO.registrarDefecto(
+                defecto);
 
         if ((Boolean) respuesta.get("error") == false) {
 
@@ -126,14 +128,48 @@ public class FXMLRegistrarDefectoController implements Initializable {
 
     private void configurarTextFields() {
 
-            tfTitulo.textProperty().addListener((observable, oldValue, newValue) -> activarBoton(tfTitulo, taDescripcion, btnRegistrar));
-            taDescripcion.textProperty().addListener((observable, oldValue, newValue) -> activarBoton(tfTitulo, taDescripcion, btnRegistrar));
+        tfTitulo.textProperty()
+                .addListener((observable, oldValue, newValue) -> activarBoton(
+                        tfTitulo, taDescripcion, btnRegistrar));
+        taDescripcion.textProperty()
+                .addListener((observable, oldValue, newValue) -> activarBoton(
+                        tfTitulo, taDescripcion, btnRegistrar));
 
     }
 
-    private void activarBoton(TextField tfTitulo, TextArea taDescripcion, Button btnRegistrar) {
+    // Configurar
+    /*
+     * private void configurarListenerACampos() {
+     * 
+     * ChangeListener<String> cambiosEnCampos = new ChangeListener<String>() {
+     * 
+     * @Override
+     * public void changed(ObservableValue<? extends String> observable, String
+     * oldValue, String newValue) {
+     * // Verificar si todos los campos están llenos y habilitar/deshabilitar el
+     * botón
+     * // en consecuencia
+     * btnAgregarProyecto.setDisable(
+     * tfNombre.getText().isEmpty() ||
+     * tfApellidoPaterno.getText().isEmpty() ||
+     * tfApellidoMaterno.getText().isEmpty() ||
+     * tfMatricula.getText().isEmpty() ||
+     * tfMatricula.getText().isEmpty());
+     * }
+     * };
+     * 
+     * tfNombre.textProperty().addListener(cambiosEnCampos);
+     * tfApellidoPaterno.textProperty().addListener(cambiosEnCampos);
+     * tfApellidoMaterno.textProperty().addListener(cambiosEnCampos);
+     * tfMatricula.textProperty().addListener(cambiosEnCampos);
+     * }
+     */
+    private void activarBoton(TextField tfTitulo,
+            TextArea taDescripcion,
+            Button btnRegistrar) {
 
-        boolean camposLLenos = !tfTitulo.getText().isEmpty() && !taDescripcion.getText().isEmpty();
+        boolean camposLLenos = !tfTitulo.getText().isEmpty() &&
+                !taDescripcion.getText().isEmpty();
         btnRegistrar.setDisable(!camposLLenos);
 
     }

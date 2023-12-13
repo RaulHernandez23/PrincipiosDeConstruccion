@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import modelo.pojo.ResponsableProyecto;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -19,8 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import utilidades.Utilidades;
+import modelo.pojo.ResponsableProyecto;
 
 public class FXMLMenuResponsableController implements Initializable {
+
+    private Integer idProyecto = 1;
 
     @FXML
     private ImageView ivSalir;
@@ -75,7 +77,8 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLRegistrarActividad.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLRegistrarActividadController controlador = fxmlLoader.getController();
+            FXMLRegistrarActividadController controlador = fxmlLoader
+                    .getController();
 
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
@@ -109,12 +112,10 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLEliminarActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLEliminarActividadController controlador = loader.getController();
-            controlador.inicializarInformacion(1);
-            // me falta pasar el idResponsable
+            FXMLDetalleActividadController controlador = loader.getController();
+            controlador.inicializarInformacion(idProyecto);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
-
             escenario.setScene(escena);
             escenario.setTitle("Eliminar Actividad");
             escenario.setResizable(false);
@@ -146,10 +147,30 @@ public class FXMLMenuResponsableController implements Initializable {
 
         Stage escenario = new Stage();
 
-        Utilidades.inicializarVentana(escenario,
-                "/vista/FXMLAsignarEstudianteAProyecto.fxml",
-                "/vista/estilos/escenaFormulario.css",
-                "Asignar estudiante a proyecto", true);
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLAsignarEstudianteAProyecto.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLAsignarEstudianteAProyectoController controlador = loader
+                    .getController();
+            controlador.inicializarVentana(1);
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+
+            escenario.setScene(escena);
+            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            escenario.close();
+
+        }
 
     }
 
@@ -164,7 +185,8 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLAsignarActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLAsignarActividadController controlador = loader.getController();
+            FXMLAsignarActividadController controlador = loader
+                    .getController();
             controlador.inicializarInformacion(1);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
@@ -175,9 +197,9 @@ public class FXMLMenuResponsableController implements Initializable {
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
 
-        } catch (IOException ioE) {
+        } catch (IOException e) {
 
-            ioE.printStackTrace();
+            e.printStackTrace();
             escenario.close();
 
         }
@@ -194,7 +216,8 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLDesasignarEstudiante.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLDesasignarEstudianteController controlador = loader.getController();
+            FXMLDesasignarEstudianteController controlador = loader
+                    .getController();
             controlador.inicializarInformacion(1);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
@@ -224,7 +247,8 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLConsultarDefectos.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLConsultarDefectosController controlador = loader.getController();
+            FXMLConsultarDefectosController controlador = loader
+                    .getController();
             controlador.inicializarVentana(1);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaTabla.css"));
@@ -253,7 +277,8 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLSolicitudesDeCambio.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLSolicitudesDeCambioController controlador = loader.getController();
+            FXMLSolicitudesDeCambioController controlador = loader
+                    .getController();
             controlador.inicializarVentana(1);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaTabla.css"));
@@ -282,7 +307,8 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/FXMLBitacorasEstudiante.fxml");
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLBitacorasEstudianteController controlador = fxmlLoader.getController();
+            FXMLBitacorasEstudianteController controlador = fxmlLoader
+                    .getController();
 
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaTabla.css"));
@@ -309,23 +335,26 @@ public class FXMLMenuResponsableController implements Initializable {
         try {
 
             FXMLLoader loader = Utilidades.getFXMLLoader(
-                    "/vista/FXMLFinalizarActividad.fxml");
+                    "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLFinalizarActividadController controlador = loader.getController();
-            //controlador.inicializarInformacion(1);
+            FXMLDetalleActividadController controlador = loader
+                    .getController();
+
+            controlador.inicializarInformacion(1);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
-            escenario.setTitle("Asignar actividad");
+            escenario.setTitle("Fianlizar actividad");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
-        } catch (IOException ioE) {
 
-            ioE.printStackTrace();
+        } catch (IOException e) {
+
+            e.printStackTrace();
             escenario.close();
-            
+
         }
 
     }
@@ -349,7 +378,8 @@ public class FXMLMenuResponsableController implements Initializable {
                                     "/vista/FXMLMenuResponsableA.fxml"));
             Parent vista = fxmlLoader.load();
             Scene escena = new Scene(vista);
-            FXMLMenuResponsableController controlador = fxmlLoader.getController();
+            FXMLMenuResponsableController controlador = fxmlLoader
+                    .getController();
 
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaMenu.css"));
@@ -363,9 +393,9 @@ public class FXMLMenuResponsableController implements Initializable {
             escenario.setResizable(false);
             escenario.show();
 
-        } catch (IOException ioe) {
+        } catch (IOException e) {
 
-            ioe.printStackTrace();
+            e.printStackTrace();
             escenario.close();
 
         }

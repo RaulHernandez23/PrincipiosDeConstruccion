@@ -30,7 +30,7 @@ public class DefectoDAO {
                         + "idEstadoDefecto, "
                         + "idEstudiante, "
                         + "idProyecto) "
-                        + "VALUES (?, ?, NOW(), 2, ?, ?);";
+                        + "VALUES (?, ?, CURDATE(), 2, ?, ?);";
 
                 PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
                 sentencia.setString(1, defecto.getTitulo());
@@ -39,7 +39,7 @@ public class DefectoDAO {
                 sentencia.setInt(4, defecto.getIdProyecto());
                 int filasAfectadas = sentencia.executeUpdate();
                 conexionBD.close();
-                
+
                 if (filasAfectadas > 0) {
 
                     respuesta.put("error", false);
@@ -63,9 +63,9 @@ public class DefectoDAO {
     public static HashMap<String, Object> consultarDefectos() {
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
-    
+
         Connection conexion = ConectorBaseDatos.obtenerConexion();
-    
+
         if (conexion != null) {
             try {
                 String consulta = "SELECT idDefecto, titulo, d.descripcion, " +
@@ -74,17 +74,17 @@ public class DefectoDAO {
                         "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', " +
                         "e.apellidoMaterno) AS estudiante FROM defecto d INNER JOIN " +
                         "estadodefecto ed ON ed.idEstadoDefecto = d.idEstadoDefecto " +
-                        "INNER JOIN estudiante e ON d.idEstudiante = e.idEstudiante " + 
+                        "INNER JOIN estudiante e ON d.idEstudiante = e.idEstudiante " +
                         "INNER JOIN proyecto p on p.idProyecto = d.idProyecto " +
                         "WHERE p.idProyecto = 1 " +
                         "ORDER BY fechaReporte ASC, estudiante ASC";
-    
+
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-    
+
                 ResultSet resultado = sentencia.executeQuery();
-    
+
                 ArrayList<HashMap<String, Object>> listaDefectos = new ArrayList<>();
-    
+
                 while (resultado.next()) {
                     HashMap<String, Object> defectoMap = new HashMap<>();
                     defectoMap.put("idDefecto", resultado.getInt("idDefecto"));
@@ -97,13 +97,13 @@ public class DefectoDAO {
                     defectoMap.put("idEstudiante", resultado.getInt("idEstudiante"));
                     defectoMap.put("estadoActividad", resultado.getString("estadoActividad"));
                     defectoMap.put("estudiante", resultado.getString("estudiante"));
-    
+
                     listaDefectos.add(defectoMap);
                 }
-    
+
                 respuesta.put("error", false);
                 respuesta.put("defectos", listaDefectos);
-    
+
             } catch (SQLException se) {
                 se.printStackTrace();
                 respuesta.put("mensaje", "Error en la base de datos: " + se.getMessage());
@@ -113,11 +113,12 @@ public class DefectoDAO {
         } else {
             respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
-    
+
         return respuesta;
     }
-    
-    public static HashMap<String, Object> consultarDefectosProyecto(Integer idProyecto) {
+
+    public static HashMap<String, Object> consultarDefectosProyecto(
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
@@ -143,7 +144,9 @@ public class DefectoDAO {
                         "ON d.idEstadoDefecto = ed.idEstadoDefecto " +
                         "WHERE d.idProyecto = ?";
 
-                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                PreparedStatement sentencia = conexionBD.prepareStatement(
+
+                        consulta);
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -153,15 +156,22 @@ public class DefectoDAO {
                 while (resultadoConsulta.next()) {
 
                     Defecto defecto = new Defecto();
-                    defecto.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
-                    defecto.setTitulo(resultadoConsulta.getString("titulo"));
-                    defecto.setDescripcion(resultadoConsulta.getString("descripcion"));
-                    defecto.setEsfuerzoMinutos(resultadoConsulta.getInt("esfuerzoMinutos"));
-                    defecto.setFechaReporte(resultadoConsulta.getString("fechaReporte"));
-                    defecto.setIdEstadoDefecto(resultadoConsulta.getInt("idEstadoDefecto"));
-                    defecto.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
-                    defecto.setEstadoDefecto(resultadoConsulta.getString("estadoDefecto"));
-                    defecto.setNombreEstudiante(resultadoConsulta.getString("nombreEstudiante"));
+                    defecto.setIdDefecto(resultadoConsulta.getInt(
+                            "idDefecto"));
+                    defecto.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    defecto.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    defecto.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    defecto.setFechaReporte(resultadoConsulta.getString(
+                            "fechaReporte"));
+                    defecto.setIdEstadoDefecto(resultadoConsulta.getInt(
+                            "idEstadoDefecto"));
+                    defecto.setIdEstudiante(resultadoConsulta.getInt(
+                            "estadoDefecto"));
+                    defecto.setNombreEstudiante(resultadoConsulta.getString(
+                            "nombreEstudiante"));
 
                     defectos.add(defecto);
 
@@ -179,13 +189,98 @@ public class DefectoDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "Error en la conexión con la base de datos");
+            respuesta.put("mensaje",
+                    "Error en la conexión con la base de datos, "
+                            + "inténtelo más tarde");
         }
 
         return respuesta;
 
     }
-    
+
+    public static HashMap<String, Object> consultarDefectosEstudiante(
+            Integer idEstudiante,
+            Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<String, Object>();
+
+        respuesta.put("error", true);
+
+        Connection conexionBD = ConectorBaseDatos.obtenerConexion();
+
+        if (conexionBD != null) {
+
+            try {
+
+                String consulta = "SELECT d.idDefecto, " +
+                        "d.titulo, d.descripcion, " +
+                        "d.esfuerzoMinutos, d.fechaReporte, " +
+                        "d.idEstadoDefecto, " +
+                        "ed.estado AS estadoDefecto, " +
+                        "d.idEstudiante, " +
+                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, " +
+                        "' ', e.apellidoMaterno) AS nombreEstudiante " +
+                        "FROM defecto d INNER JOIN estudiante e " +
+                        "ON d.idEstudiante = e.idEstudiante " +
+                        "INNER JOIN estadodefecto ed " +
+                        "ON d.idEstadoDefecto = ed.idEstadoDefecto " +
+                        "WHERE d.idProyecto = ? AND d.idEstudiante = ?";
+
+                PreparedStatement sentencia = conexionBD.prepareStatement(
+
+                        consulta);
+                sentencia.setInt(1, idProyecto);
+                sentencia.setInt(2, idEstudiante);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Defecto> defectos = new ArrayList<Defecto>();
+
+                while (resultadoConsulta.next()) {
+
+                    Defecto defecto = new Defecto();
+                    defecto.setIdDefecto(resultadoConsulta.getInt(
+                            "idDefecto"));
+                    defecto.setTitulo(resultadoConsulta.getString(
+                            "titulo"));
+                    defecto.setDescripcion(resultadoConsulta.getString(
+                            "descripcion"));
+                    defecto.setEsfuerzoMinutos(resultadoConsulta.getInt(
+                            "esfuerzoMinutos"));
+                    defecto.setFechaReporte(resultadoConsulta.getString(
+                            "fechaReporte"));
+                    defecto.setIdEstadoDefecto(resultadoConsulta.getInt(
+                            "idEstadoDefecto"));
+                    defecto.setEstadoDefecto(resultadoConsulta.getString(
+                            "estadoDefecto"));
+                    defecto.setNombreEstudiante(resultadoConsulta.getString(
+                            "nombreEstudiante"));
+
+                    defectos.add(defecto);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("defectos", defectos);
+
+            } catch (SQLException se) {
+
+                respuesta.put("mensaje", "Error" + se.getMessage());
+
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
+            }
+
+        } else {
+            respuesta.put("mensaje",
+                    "Error en la conexión con la base de datos, "
+                            + "inténtelo más tarde");
+        }
+
+        return respuesta;
+
+    }
+
     public static HashMap<String, Object> consultarNombresDefectosProyecto(Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();

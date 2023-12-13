@@ -1,32 +1,45 @@
 package controlador;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import modelo.dao.ActividadDAO;
+import modelo.pojo.Actividad;
 import utilidades.Utilidades;
+import javafx.scene.control.Alert;
 
-public class FXMLFinalizarActividadController {
-    @FXML
-    private TableView<?> tvActividades;
+public class FXMLFinalizarActividadController implements Initializable {
 
+    private ObservableList<Actividad> actividades;
     @FXML
-    private TableColumn<?, ?> colTitulo;
-
-    @FXML
-    private TableColumn<?, ?> colFechaInicio;
+    private TableView<Actividad> tvActividades;
 
     @FXML
-    private TableColumn<?, ?> colFechaFin;
+    private TableColumn colTitulo;
 
     @FXML
-    private TableColumn<?, ?> colEstado;
+    private TableColumn colFechaInicio;
 
     @FXML
-    private TableColumn<?, ?> colEsfuerzo;
+    private TableColumn colEstado;
+
+    @FXML
+    private TableColumn colEsfuerzo;
 
     @FXML
     private Button btnFinalizar;
@@ -38,7 +51,7 @@ public class FXMLFinalizarActividadController {
     private ImageView ivSalir;
 
     @FXML
-    private void btnFinalizar() {
+    private void btnFinalizarClic(ActionEvent event) {
         // TODO: Implement the logic for the "Finalizar" button
     }
 
@@ -68,5 +81,67 @@ public class FXMLFinalizarActividadController {
         Stage escenario = (Stage) tvActividades.getScene().getWindow();
 
         escenario.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        configurarTabla();
+
+    }
+
+    public void inicializarInformacion(int idProyecto) {
+
+        obtenerActividadesSinFinalizar(idProyecto);
+
+    }
+
+    private void configurarTabla() {
+
+        colTitulo.setCellValueFactory(new PropertyValueFactory(
+                "titulo"));
+        colFechaInicio.setCellValueFactory(new PropertyValueFactory(
+                "fechaInicio"));
+        colEstado.setCellValueFactory(new PropertyValueFactory(
+                "estadoActividad"));
+        colEsfuerzo.setCellValueFactory(new PropertyValueFactory(
+                "esfuerzoMinutos"));
+
+        tvActividades.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Actividad>() {
+
+            @Override
+            public void changed(
+                    ObservableValue<? extends Actividad> observable,
+                    Actividad oldValue,
+                    Actividad newValue) {
+
+                if (newValue != null) {
+                    btnFinalizar.setDisable(false);
+                }
+            }
+
+        });
+
+    }
+
+    private void obtenerActividadesSinFinalizar(int idProyecto) {
+
+        HashMap<String, Object> respuesta = ActividadDAO
+                .obtenerActividadesSinFinalizar(idProyecto);
+
+        if (!(boolean) respuesta.get("error")) {
+
+            actividades = FXCollections.observableArrayList();
+            ArrayList<Actividad> lista = (ArrayList) respuesta
+                    .get("actividades");
+            actividades.addAll(lista);
+            tvActividades.setItems(actividades);
+
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+        }
+
     }
 }

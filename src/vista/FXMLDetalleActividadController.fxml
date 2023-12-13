@@ -17,17 +17,24 @@
                      <children>
                         <ComboBox fx:id="cbActividades" layoutX="69.0" layoutY="14.0" prefHeight="39.0" prefWidth="582.0" styleClass="listaDesplegable" />
                         <Label layoutX="43.0" layoutY="79.0" text="Fecha de inicio:" />
-                        <Label layoutX="107.0" layoutY="223.0" text="Estado:" />
+                        <Label layoutX="104.0" layoutY="260.0" text="Estado:" />
                         <Label layoutX="69.0" layoutY="125.0" text="Descripción:" />
                         <Label layoutX="381.0" layoutY="79.0" text="Fecha de fin:" />
-                        <Label layoutX="49.0" layoutY="270.0" text="Esfuerzo (min):" />
+                        <Label layoutX="405.0" layoutY="229.0" text="Esfuerzo (min):" />
                         <DatePicker fx:id="dpFechaInicio" editable="false" layoutX="182.0" layoutY="73.0" prefHeight="39.0" prefWidth="164.0" />
                         <DatePicker fx:id="dpFechaFin" editable="false" layoutX="492.0" layoutY="73.0" prefHeight="39.0" prefWidth="185.0" />
-                        <TextArea fx:id="taDescripcion" editable="false" layoutX="182.0" layoutY="125.0" prefHeight="82.0" prefWidth="507.0" styleClass="campoTexto" wrapText="true" />
-                        <TextField fx:id="tfEstado" editable="false" layoutX="182.0" layoutY="217.0" styleClass="campoTexto" />
-                        <TextField fx:id="tfEsfuerzo" editable="false" layoutX="182.0" layoutY="264.0" styleClass="campoTexto" />
+                        <TextArea fx:id="taDescripcion" editable="false" layoutX="182.0" layoutY="125.0" prefHeight="68.0" prefWidth="507.0" styleClass="campoTexto" wrapText="true" />
+                        <TextField fx:id="tfEstado" editable="false" layoutX="179.0" layoutY="260.0" prefHeight="39.0" prefWidth="167.0" styleClass="campoTexto" />
+                        <TextField fx:id="tfEsfuerzo" editable="false" layoutX="538.0" layoutY="223.0" prefHeight="39.0" prefWidth="151.0" styleClass="campoTexto" />
                         <Button fx:id="btnEliminar" layoutX="78.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnEliminarClic" styleClass="botonEliminacion" text="Eliminar" />
                         <Button layoutX="539.0" layoutY="314.0" mnemonicParsing="false" onAction="#btnVolver" styleClass="botonOperacion" text="Volver" />
+                        <Label layoutX="25.0" layoutY="215.0" text="Tipo de actividad:" />
+                        <TextField fx:id="tfTIpo" editable="false" layoutX="179.0" layoutY="209.0" prefHeight="39.0" prefWidth="167.0" styleClass="campoTexto" />
+                        <Label layoutX="538.0" layoutY="274.0" prefHeight="27.0" prefWidth="153.0" text="Label">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
                      </children></Pane>
                </center>
                <top>

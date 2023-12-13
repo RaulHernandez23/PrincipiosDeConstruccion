@@ -32,8 +32,7 @@ import modelo.pojo.Cambio;
 import utilidades.Alertas;
 import utilidades.Utilidades;
 
-
-public class FXMLFinalizarCambioController implements Initializable{
+public class FXMLFinalizarCambioController implements Initializable {
 
     @FXML
     private ImageView ivSalir;
@@ -59,15 +58,15 @@ public class FXMLFinalizarCambioController implements Initializable{
     @FXML
     private Button btnVolver;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnFinalizar.setDisable(true);
 
         tvCambios.getSelectionModel().selectedItemProperty().addListener(
-            (ObservableValue<? extends Cambio> observable, Cambio oldValue, Cambio newValue) -> {
-                btnFinalizar.setDisable(newValue == null);
-            });
+                (ObservableValue<? extends Cambio> observable,
+                        Cambio oldValue, Cambio newValue) -> {
+                    btnFinalizar.setDisable(newValue == null);
+                });
 
         mostrarDatos();
     }
@@ -76,45 +75,58 @@ public class FXMLFinalizarCambioController implements Initializable{
         HashMap<String, Object> respuesta = CambioDAO.consultarCambios();
 
         if (!(Boolean) respuesta.get("error")) {
-            ArrayList<Cambio> listaCambios = (ArrayList<Cambio>) respuesta.get("cambios");
+            ArrayList<Cambio> listaCambios = (ArrayList<Cambio>) respuesta
+                    .get("cambios");
 
-            ObservableList<Cambio> observableListaCambios = FXCollections.observableArrayList();
+            ObservableList<Cambio> observableListaCambios = FXCollections
+                    .observableArrayList();
             observableListaCambios.addAll(listaCambios);
 
-            colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-            colDescripcion.setCellValueFactory(new PropertyValueFactory<>("Descripcion"));
-            colFechaInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
-            colTipoActividad.setCellValueFactory(new PropertyValueFactory<>("tipoActividad"));
+            colTitulo.setCellValueFactory(new PropertyValueFactory<>(
+                    "titulo"));
+            colDescripcion.setCellValueFactory(new PropertyValueFactory<>(
+                    "Descripcion"));
+            colFechaInicio.setCellValueFactory(new PropertyValueFactory<>(
+                    "fechaInicio"));
+            colTipoActividad.setCellValueFactory(new PropertyValueFactory<>(
+                    "tipoActividad"));
 
             tvCambios.setItems(observableListaCambios);
         } else {
             String mensajeError = respuesta.get("mensaje").toString();
-            Alertas.mostrarAlerta("Error", mensajeError, AlertType.ERROR);
+            Alertas.mostrarAlerta("Error",
+                    mensajeError,
+                    AlertType.ERROR);
 
             // Cerrar la ventana actual en caso de error
             Stage escenario = (Stage) tvCambios.getScene().getWindow();
             escenario.close();
         }
-        
+
     }
 
     @FXML
     private void btnFinalizarClic(ActionEvent event) {
-        
+
         LocalDateTime fechaHoraActual = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        
-        HashMap<String, Object> respuesta = CambioDAO.finalizarCambio(tvCambios.getSelectionModel().getSelectedItem().getIdCambio(), fechaHoraActual.format(formatter));
-        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                "yyyy-MM-dd HH:mm:ss");
+
+        HashMap<String, Object> respuesta = CambioDAO.finalizarCambio(
+                tvCambios.getSelectionModel().getSelectedItem().getIdCambio(),
+                fechaHoraActual.format(formatter));
+
         if (!(Boolean) respuesta.get("error")) {
 
-            Alertas.mostrarAlerta("Finalizar Cambio", "Cambio finalizado correctamente", AlertType.INFORMATION);
+            Alertas.mostrarAlerta("Finalizar Cambio",
+                    "Cambio finalizado correctamente",
+                    AlertType.INFORMATION);
 
-        }
-        else {
+        } else {
 
             String mensajeError = respuesta.get("mensaje").toString();
-            Alertas.mostrarAlerta("Error", mensajeError, AlertType.ERROR);
+            Alertas.mostrarAlerta("Error", mensajeError,
+                    AlertType.ERROR);
 
         }
 
@@ -131,7 +143,6 @@ public class FXMLFinalizarCambioController implements Initializable{
         // Código para manejar el evento
         salir(); // Puedes llamar a tu método salir() u otro código que necesites
     }
-
 
     @FXML
     private void hoverInSalir() {

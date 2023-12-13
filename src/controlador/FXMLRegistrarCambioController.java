@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -80,12 +80,14 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     @FXML
     private void hoverOutSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir.png")));
     }
 
     @FXML
     private void hoverInSalir(MouseEvent event) {
-        ivSalir.setImage(new Image(Utilidades.getInputStream("/recursos/imagenes/logoSalir2.png")));
+        ivSalir.setImage(new Image(Utilidades.getInputStream(
+                "/recursos/imagenes/logoSalir2.png")));
     }
 
     @FXML
@@ -100,11 +102,15 @@ public class FXMLRegistrarCambioController implements Initializable {
         if (validarCampos()) {
 
             registrarCambio();
-            Stage escenario = (Stage) vboxRegistrarCambio.getScene().getWindow();
+
+            Stage escenario;
+            escenario = (Stage) vboxRegistrarCambio.getScene().getWindow();
+
             escenario.close();
 
         } else {
-            Alertas.mostrarAlerta("Datos Inválidos", "Ingrese datos válidos",
+            Alertas.mostrarAlerta("Datos Inválidos",
+                    "Ingrese datos válidos",
                     Alert.AlertType.WARNING);
         }
     }
@@ -131,13 +137,17 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private void cargarSolicitudes() {
 
-        HashMap<String, Object> respuesta = SolicitudDeCambioDAO.consultarSolicitudes(idProyecto);
+        HashMap<String, Object> respuesta;
+        respuesta = SolicitudDeCambioDAO.consultarSolicitudes(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
             listaSolicitudes = FXCollections.observableArrayList();
 
-            ArrayList<SolicitudDeCambio> lista = (ArrayList<SolicitudDeCambio>) respuesta.get("solicitudes");
+            ArrayList<SolicitudDeCambio> lista;
+            lista = (ArrayList<SolicitudDeCambio>) respuesta.get(
+                    "solicitudes");
+
             listaSolicitudes.addAll(lista);
             cbSolicitud.setItems(listaSolicitudes);
 
@@ -156,7 +166,8 @@ public class FXMLRegistrarCambioController implements Initializable {
 
             listaEstados = FXCollections.observableArrayList();
 
-            ArrayList<String> lista = (ArrayList<String>) respuesta.get("estados");
+            ArrayList<String> lista = (ArrayList<String>) respuesta.get(
+                    "estados");
             listaEstados.addAll(lista);
             cbEstado.setItems(listaEstados);
 
@@ -169,13 +180,15 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private void cargarTipos() {
 
-        HashMap<String, Object> respuesta = CambioDAO.consultarTiposActividades();
+        HashMap<String, Object> respuesta;
+        respuesta = CambioDAO.consultarTiposActividades();
 
         if (!(Boolean) respuesta.get("error")) {
 
             listaTipos = FXCollections.observableArrayList();
 
-            ArrayList<String> lista = (ArrayList<String>) respuesta.get("tiposActividades");
+            ArrayList<String> lista = (ArrayList<String>) respuesta.get(
+                    "tiposActividades");
             listaTipos.addAll(lista);
             cbTipo.setItems(listaTipos);
 
@@ -188,51 +201,31 @@ public class FXMLRegistrarCambioController implements Initializable {
 
     private void verificarCamposLlenos() {
 
-        ChangeListener<String> camposLlenos = new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                btnRegistrarComponente.setDisable(
-                        tfTitulo.getText().isEmpty() ||
-                                tfDescripcion.getText().isEmpty() ||
-                                tfEsfuerzo.getText().isEmpty() ||
-                                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
-                                cbSolicitud.getSelectionModel().getSelectedIndex() < 0 ||
-                                cbEstado.getSelectionModel().getSelectedIndex() < 0);
-
-            }
-        };
-
-        ChangeListener<SolicitudDeCambio> solicitudElegida = new ChangeListener<SolicitudDeCambio>() {
-            @Override
-            public void changed(ObservableValue<? extends SolicitudDeCambio> observable, SolicitudDeCambio oldValue,
-                    SolicitudDeCambio newValue) {
-
-                btnRegistrarComponente.setDisable(
-                        tfTitulo.getText().isEmpty() ||
-                                tfDescripcion.getText().isEmpty() ||
-                                tfEsfuerzo.getText().isEmpty() ||
-                                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
-                                cbSolicitud.getSelectionModel().getSelectedIndex() < 0 ||
-                                cbEstado.getSelectionModel().getSelectedIndex() < 0);
-
-            }
-        };
+        ChangeListener<String> camposLlenos = ((observable, oldValue,
+                newValue) -> verificar());
 
         tfTitulo.textProperty().addListener(camposLlenos);
         tfDescripcion.textProperty().addListener(camposLlenos);
         tfEsfuerzo.textProperty().addListener(camposLlenos);
-        cbSolicitud.getSelectionModel().selectedItemProperty().addListener(solicitudElegida);
-        cbTipo.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
-        cbEstado.getSelectionModel().selectedItemProperty().addListener(camposLlenos);
 
+    }
+
+    private void verificar() {
+        btnRegistrarComponente.setDisable(tfTitulo.getText().isEmpty() ||
+                tfDescripcion.getText().isEmpty() ||
+                tfEsfuerzo.getText().isEmpty() ||
+                cbTipo.getSelectionModel().getSelectedIndex() < 0 ||
+                cbEstado.getSelectionModel().getSelectedIndex() < 0 ||
+                cbSolicitud.getSelectionModel().getSelectedIndex() < 0);
     }
 
     private boolean validarCampos() {
 
         boolean camposValidos = true;
         Pattern patron = Pattern.compile(
-                "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)?(?: [0-9]+)?$");
+                "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*(?: [a"
+                        + "-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)"
+                        + "?(?: [0-9]+)?$");
         Matcher matcher = patron.matcher(tfTitulo.getText());
 
         if (tfTitulo.getText().length() == 0 || !matcher.matches()) {
@@ -240,7 +233,8 @@ public class FXMLRegistrarCambioController implements Initializable {
         }
 
         patron = Pattern
-                .compile("^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
+                .compile("^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóú"
+                        + "ÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
         matcher = patron.matcher(tfDescripcion.getText());
 
         if (tfDescripcion.getText().length() == 0 || !matcher.matches()) {
@@ -275,30 +269,45 @@ public class FXMLRegistrarCambioController implements Initializable {
     private void registrarCambio() {
 
         Cambio cambio = new Cambio();
+        SingleSelectionModel<SolicitudDeCambio> seleccionSolicitud;
+        seleccionSolicitud = cbSolicitud.getSelectionModel();
+        SolicitudDeCambio itemSolicitud;
+        itemSolicitud = seleccionSolicitud.getSelectedItem();
+
         cambio.setTitulo(tfTitulo.getText());
         cambio.setDescripcion(tfDescripcion.getText());
         cambio.setEsfuerzoMinutos(Integer.parseInt(tfEsfuerzo.getText()));
-        cambio.setIdTipoActividad(cbTipo.getSelectionModel().getSelectedIndex() + 1);
-        cambio.setIdSolicitud(cbSolicitud.getSelectionModel().getSelectedItem().getIdSolicitudDeCambio());
-        cambio.setIdEstadoCambio(cbEstado.getSelectionModel().getSelectedIndex() + 1);
+        cambio.setIdTipoActividad(cbTipo.getSelectionModel().getSelectedIndex()
+                + 1);
+        cambio.setIdSolicitud(
+                itemSolicitud.getIdSolicitudDeCambio());
+        cambio.setIdEstadoCambio(
+                cbEstado.getSelectionModel().getSelectedIndex()
+                        + 1);
         cambio.setFechaInicio(fechaInicio);
         cambio.setIdProyecto(idProyecto);
+        cambio.setIdEstudiante(estudiante.getIdEstudiante());
 
         HashMap<String, Object> respuesta = null;
+
         try {
 
             respuesta = CambioDAO.registrarCambio(cambio);
 
             if (!(Boolean) respuesta.get("error")) {
-                Alertas.mostrarAlerta("Cambio Registrado", respuesta.get(
-                        "mensaje").toString(), Alert.AlertType.INFORMATION);
+                Alertas.mostrarAlerta("Cambio Registrado",
+                        respuesta.get("mensaje").toString(),
+                        Alert.AlertType.INFORMATION);
             } else {
-                Alertas.mostrarAlerta("Error de Conexion", respuesta.get(
-                        "mensaje").toString(), Alert.AlertType.ERROR);
+                Alertas.mostrarAlerta("Error de Conexion",
+                        respuesta.get("mensaje").toString(),
+                        Alert.AlertType.ERROR);
             }
 
         } catch (SQLException e) {
-            Utilidades.mostrarAlertaSimple("Error", "No se pudo conectar a la base de datos, inténtelo más tarde",
+            Utilidades.mostrarAlertaSimple("Error",
+                    "No se pudo conectar a la base de datos,"
+                            + " inténtelo más tarde",
                     Alert.AlertType.ERROR);
         }
 
