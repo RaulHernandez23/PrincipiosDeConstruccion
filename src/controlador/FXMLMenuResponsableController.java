@@ -113,7 +113,7 @@ public class FXMLMenuResponsableController implements Initializable {
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLDetalleActividadController controlador = loader.getController();
-            controlador.inicializarInformacion(idProyecto, false);
+            controlador.inicializarInformacion(idProyecto);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
@@ -341,7 +341,7 @@ public class FXMLMenuResponsableController implements Initializable {
             FXMLDetalleActividadController controlador = loader
                     .getController();
 
-            controlador.inicializarInformacion(idProyecto, true);
+            controlador.inicializarInformacion(idProyecto);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);

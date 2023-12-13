@@ -11,7 +11,6 @@ import java.util.HashMap;
 import modelo.ConectorBaseDatos;
 import modelo.pojo.EstadoSolicitud;
 import modelo.pojo.SolicitudDeCambio;
-import utilidades.Constantes;
 
 public class SolicitudDeCambioDAO {
 
@@ -357,12 +356,12 @@ public class SolicitudDeCambioDAO {
                 respuesta.put("solicitudes", solicitudes);
 
             } catch (SQLException se) {
-                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+                respuesta.put("mensaje", "Error: " + se.getMessage());
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {
-            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
 
         return respuesta;
@@ -408,35 +407,26 @@ public class SolicitudDeCambioDAO {
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Solicitud enviada correctamente");
                 } else {
-                    respuesta.put("mensaje",Constantes.MENSAJE_ERROR_REGISTRO);
+                    respuesta.put("mensaje",
+                            "Hubo un error al intentar registrar la solicitud, "
+                                    + "por favor inténtelo más tarde");
                 }
 
             } catch (SQLException ex) {
-                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+                respuesta.put("mensaje", "No se pudo enviar la solicitud a la base de datos");
                 ex.printStackTrace();
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {
-            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
         }
 
         return respuesta;
     }
-<<<<<<< HEAD
-    
-    
-    public static HashMap<String, Object> 
-        registrarEvaluacionDeSolicitud(int idSolicitud, 
-        String nuevaFechaEvaluacion, 
-        int nuevoIdEstadoSolicitud,
-        int idResponsable) {
-            
-=======
 
     public static HashMap<String, Object> registrarEvaluacionDeSolicitud(int idSolicitud, String nuevaFechaEvaluacion,
             int nuevoIdEstadoSolicitud) {
->>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
         HashMap<String, Object> respuesta = new HashMap<>();
 
         respuesta.put("error", true);
@@ -444,48 +434,32 @@ public class SolicitudDeCambioDAO {
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
-            
             try {
-                
-                String consulta = "UPDATE SolicitudDeCambio "
-                        + "SET fechaEvaluacion = ?,"
-                        + " idEstadoSolicitud = ?, "
-                        + " idResponsableProyecto = ? "
-                        + "WHERE idSolicitudDeCambio = ?";
-                PreparedStatement sentencia = conexionBD
-                        .prepareStatement(consulta);
+                String consulta = "UPDATE SolicitudDeCambio SET fechaEvaluacion = ?, idEstadoSolicitud = ? WHERE idSolicitudDeCambio = ?";
+                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
 
                 sentencia.setString(1, nuevaFechaEvaluacion);
                 sentencia.setInt(2, nuevoIdEstadoSolicitud);
                 sentencia.setInt(3, idSolicitud);
-                sentencia.setInt(4, idResponsable);
 
                 int filasAfectadas = sentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
-                    
                     respuesta.put("error", false);
-                    respuesta.put("mensaje",
-                            "Solicitud evaluada correctamente");
-                    
+                    respuesta.put("mensaje", "Solicitud evaluada correctamente");
                 } else {
-                    respuesta.put("mensaje", 
-                            Constantes.MENSAJE_ERROR_REGISTRO);
+                    respuesta.put("mensaje", "No se encontró la solicitud con ID " + idSolicitud);
                 }
 
             } catch (SQLException ex) {
-                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
-                ex.printStackTrace();
+                respuesta.put("mensaje", "Error al intentar editar la solicitud, inténtelo de nuevo más tarde");
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
-            
         } else {
-            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
         }
 
         return respuesta;
-        
     }
-    
 }
