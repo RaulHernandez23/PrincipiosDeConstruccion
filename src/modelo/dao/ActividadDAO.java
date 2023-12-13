@@ -16,10 +16,10 @@ import utilidades.Utilidades;
 public class ActividadDAO {
 
     public static HashMap<String, Object> consultarActividades() {
-        HashMap<String, Object> respuesta = new HashMap<>();
-        respuesta.put("error", true);
 
-        ArrayList<Actividad> actividades = new ArrayList<>();
+        HashMap<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("error", true);
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
@@ -135,9 +135,6 @@ public class ActividadDAO {
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
-                    // Tal vez sea necesario manejar Integer en lugar de Int,
-                    // para poder manejar
-                    // valores que vienen nulos
                     Actividad actividad = new Actividad();
                     actividad.setIdActividad(resultadoConsulta.getInt(
                             "idActividad"));
