@@ -194,53 +194,38 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     }
 
     private boolean validarCampos() {
-
         boolean esValido = true;
-
-        limpiarEstiloCampos();
-
-        if (tfNombreSolicitud.getText().isEmpty()) {
-
-            tfNombreSolicitud.setStyle("-fx-border-color: red;");
-            esValido = false;
-
-        }
-
-        if (taDescripcionCambio.getText().isEmpty()) {
-            taDescripcionCambio.setStyle("-fx-border-color: red;");
+    
+        String titulo = tfNombreSolicitud.getText().trim();
+        if (titulo.isEmpty() || titulo.length() > 50) {
             esValido = false;
         }
-
-        if (taRazonCambio.getText().isEmpty()) {
-
-            taRazonCambio.setStyle("-fx-border-color: red;");
+    
+        String descripcion = taDescripcionCambio.getText().trim();
+        if (descripcion.isEmpty() || descripcion.length() > 500) {
             esValido = false;
-
         }
-
-        if (taImpactoCambio.getText().isEmpty()) {
-
-            taImpactoCambio.setStyle("-fx-border-color: red;");
+    
+        String razonCambio = taRazonCambio.getText().trim();
+        if (razonCambio.isEmpty() || razonCambio.length() > 500) {
             esValido = false;
-
         }
-
-        if (taAccionPropuesta.getText().isEmpty()) {
-
-            taAccionPropuesta.setStyle("-fx-border-color: red;");
+    
+        String impactoCambio = taImpactoCambio.getText().trim();
+        if (impactoCambio.isEmpty() || impactoCambio.length() > 500) {
             esValido = false;
-
         }
-
+    
+        String accionPropuesta = taAccionPropuesta.getText().trim();
+        if (accionPropuesta.isEmpty() || accionPropuesta.length() > 500) {
+            esValido = false;
+        }
+    
         if (cbDefectos.getValue() == null) {
-
-            cbDefectos.setStyle("-fx-border-color: red;");
             esValido = false;
-
         }
-
+    
         return esValido;
-
     }
 
     private void limpiarEstiloCampos() {
