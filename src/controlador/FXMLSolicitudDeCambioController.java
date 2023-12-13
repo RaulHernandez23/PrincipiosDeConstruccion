@@ -65,15 +65,9 @@ public class FXMLSolicitudDeCambioController implements Initializable {
 
     @FXML
     private ScrollPane scrollPanePanelPrincipal;
-<<<<<<< HEAD
     
     private int idResponsable;
     
-=======
-
-    private Integer idResposable;
-
->>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
     private ObservadorSolicitudesDeCambio observador;
 
     private SolicitudDeCambio solicitudDeCambio;
@@ -135,21 +129,12 @@ public class FXMLSolicitudDeCambioController implements Initializable {
         }
 
     }
-<<<<<<< HEAD
     
     public void inicializarVentana(Integer idResponsable, 
             SolicitudDeCambio solicitud, 
             ObservadorSolicitudesDeCambio observador){
         
         this.idResponsable = idResponsable;
-=======
-
-    public void inicializarVentana(Integer idResposable,
-            SolicitudDeCambio solicitud,
-            ObservadorSolicitudesDeCambio observador) {
-
-        this.idResposable = idResposable;
->>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
         this.solicitudDeCambio = solicitud;
         this.observador = observador;
         cargarInformacionDeSolicitud();
@@ -182,22 +167,7 @@ public class FXMLSolicitudDeCambioController implements Initializable {
         escena.close();
 
     }
-<<<<<<< HEAD
-    
-    private void registrarEvaluacion(int evaluacion){
 
-        HashMap<String,Object> respuesta = SolicitudDeCambioDAO
-            .registrarEvaluacionDeSolicitud
-            (solicitudDeCambio.getIdSolicitudDeCambio(), 
-            Utilidades.obtenerFechaActual(), 
-            evaluacion, idResponsable);
-        
-        if(!(Boolean) respuesta.get("error")){
-            
-            Utilidades.mostrarAlertaSimple("Confirmación correcta", "" 
-                    + respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
-            observador.operacionExitosa("Registro completo de: ", 
-=======
 
     private void registrarEvaluacion(int evaluacion) {
 
@@ -205,7 +175,7 @@ public class FXMLSolicitudDeCambioController implements Initializable {
                 .registrarEvaluacionDeSolicitud(solicitudDeCambio
                         .getIdSolicitudDeCambio(),
                         Utilidades.obtenerFechaActual(),
-                        evaluacion);
+                        evaluacion, idResponsable);
 
         if (!(Boolean) respuesta.get("error")) {
 
@@ -213,7 +183,6 @@ public class FXMLSolicitudDeCambioController implements Initializable {
                     + respuesta.get("mensaje"),
                     Alert.AlertType.INFORMATION);
             observador.operacionExitosa("Registro completo de: ",
->>>>>>> 1541c1527fc19500f441e546839ec03e02f6bfd3
                     solicitudDeCambio.getTitulo());
 
         } else {
