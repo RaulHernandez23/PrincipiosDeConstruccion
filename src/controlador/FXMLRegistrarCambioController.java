@@ -223,33 +223,39 @@ public class FXMLRegistrarCambioController implements Initializable {
 
         boolean camposValidos = true;
         Pattern patron = Pattern.compile(
-                "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*(?: [a"
-                        + "-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)"
-                        + "?(?: [0-9]+)?$");
+                "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*"
+                        + "(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]"
+                        + "[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)*"
+                        + "(?: [0-9]{1,50})?$");
         Matcher matcher = patron.matcher(tfTitulo.getText());
 
         if (tfTitulo.getText().length() == 0 || !matcher.matches()) {
+            System.err.println("Titulo invalido");
             camposValidos = false;
         }
 
         patron = Pattern
-                .compile("^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóú"
-                        + "ÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
+                .compile("^[a-zA-Z0-9,.!?;:'\"()\s'ñáéíóúÁÉÍÓÚ"
+                        + "àèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
         matcher = patron.matcher(tfDescripcion.getText());
 
         if (tfDescripcion.getText().length() == 0 || !matcher.matches()) {
+            System.err.println("Descripcion invalida");
             camposValidos = false;
         }
 
         if (cbTipo.getSelectionModel().getSelectedIndex() < 0) {
+            System.err.println("Tipo invalido");
             camposValidos = false;
         }
 
         if (cbSolicitud.getSelectionModel().getSelectedIndex() < 0) {
+            System.err.println("Solicitud invalida");
             camposValidos = false;
         }
 
         if (cbEstado.getSelectionModel().getSelectedIndex() < 0) {
+            System.err.println("Estado invalido");
             camposValidos = false;
         }
 
@@ -257,10 +263,11 @@ public class FXMLRegistrarCambioController implements Initializable {
         matcher = patron.matcher(tfEsfuerzo.getText());
 
         if (tfEsfuerzo.getText().length() == 0 || !matcher.matches()) {
+            System.err.println("Esfuerzo invalido");
             camposValidos = false;
         }
 
-        fechaInicio = Utilidades.obtenerFechaActual();
+        fechaInicio = Utilidades.obtenerFechaServidor();
 
         return camposValidos;
 

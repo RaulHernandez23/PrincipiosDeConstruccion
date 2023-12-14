@@ -1,6 +1,5 @@
 package modelo.dao;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -219,24 +218,111 @@ public class EstudianteDAO {
 
                 }
 
-                conexionBD.close();
                 respuesta.put("error", false);
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (Exception sqlE) {
-                respuesta.put("mensaje", "Error de conexion en la base de datos");
+
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_SELECT);
                 sqlE.printStackTrace();
+                
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
             }
 
         } else {
-            respuesta.put("mensaje", "Error de conexion en la base de datos, "
-                    + "por favor inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
     }
 
+<<<<<<< HEAD
     public static HashMap<String, Object> registrarEstudianteYAsociarPeriodoEscolar(Estudiante estudiante, int idPeriodoEscolar) {
+=======
+    public static HashMap<String, Object> consultarEstudiantesActivosProyecto(
+            Integer idProyecto) {
+
+        HashMap<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("error", true);
+
+        Connection conexion = ConectorBaseDatos.obtenerConexion();
+
+        if (conexion != null) {
+
+            try {
+
+                String consulta = "WITH RankedPeriodos AS ( "
+                        + "SELECT e.idEstudiante, pe.idPeriodoEscolar, "
+                        + "ROW_NUMBER() OVER (PARTITION BY e.idEstudiante "
+                        + "ORDER BY pe.fechaFin ASC) AS rn "
+                        + "FROM estudiante e "
+                        + "JOIN estudiante_periodoescolar ep ON "
+                        + "e.idEstudiante = ep.idEstudiante "
+                        + "JOIN periodoescolar pe ON "
+                        + "ep.idPeriodoEscolar = pe.idPeriodoEscolar "
+                        + "JOIN proyecto p ON e.idProyecto = p.idProyecto "
+                        + "JOIN proyecto_periodoescolar pp ON "
+                        + "p.idProyecto = pp.idProyecto "
+                        + "WHERE p.idProyecto = ? "
+                        + "AND e.idEstadoEstudiante = 1 "
+                        + ") "
+                        + "SELECT e.idEstudiante, e.nombre, "
+                        + "e.apellidoPaterno, e.apellidoMaterno, e.matricula, "
+                        + "e.idEstadoEstudiante, pe.nombre AS nombrePeriodoEscolar "
+                        + "FROM estudiante e "
+                        + "JOIN RankedPeriodos rp ON e.idEstudiante = rp.idEstudiante "
+                        + "JOIN periodoescolar pe ON rp.idPeriodoEscolar = pe.idPeriodoEscolar "
+                        + "WHERE rp.rn = 1 "
+                        + "ORDER BY pe.fechaFin ASC";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
+
+                sentencia.setInt(1, idProyecto);
+
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<Estudiante> estudiantes = new ArrayList<>();
+
+                while (resultadoConsulta.next()) {
+
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setIdEstudiante(resultadoConsulta.getInt(
+                            "idEstudiante"));
+                    estudiante.setNombre(resultadoConsulta.getString(
+                            "nombre"));
+                    estudiante.setApellidoPaterno(resultadoConsulta.getString(
+                            "apellidoPaterno"));
+                    estudiante.setApellidoMaterno(resultadoConsulta.getString(
+                            "apellidoMaterno"));
+                    estudiante.setMatricula(resultadoConsulta.getString(
+                            "matricula"));
+                    estudiante.setNombrePeriodoEscolar(
+                            resultadoConsulta.getString(
+                                    "nombrePeriodoEscolar"));
+
+                    estudiantes.add(estudiante);
+
+                }
+
+                respuesta.put("error", false);
+                respuesta.put("estudiantes", estudiantes);
+
+            } catch (SQLException se) {
+                respuesta.put("mensaje", "Error: " + se.getMessage());
+                se.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
+            }
+        }
+
+        return respuesta;
+    }
+
+    public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
+
+>>>>>>> 782d9740c65f4f86bd6bd9b0a0cf9942ca516131
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
 
@@ -376,7 +462,7 @@ public class EstudianteDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos");
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
 
         return respuesta;

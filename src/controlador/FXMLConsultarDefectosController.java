@@ -80,8 +80,7 @@ public class FXMLConsultarDefectosController implements Initializable {
             if (!((Boolean) respuestaDefectos.get("error"))) {
 
                 ArrayList<HashMap<String, Object>> listaDefectos;
-                listaDefectos = (ArrayList<HashMap<String, Object>>) 
-                        respuestaDefectos.get("defectos");
+                listaDefectos = (ArrayList<HashMap<String, Object>>) respuestaDefectos.get("defectos");
 
                 for (HashMap<String, Object> defectoMap : listaDefectos) {
 
@@ -125,7 +124,7 @@ public class FXMLConsultarDefectosController implements Initializable {
             }
         } catch (Exception e) {
 
-            e.printStackTrace(); 
+            e.printStackTrace();
 
             utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de defectos",
                     Alert.AlertType.ERROR);
@@ -153,6 +152,8 @@ public class FXMLConsultarDefectosController implements Initializable {
             FXMLConsultarDetallesDefectosController controlador = loader.getController();
             controlador.inicializarVentana(defectoSeleccionado);
 
+            String css = Utilidades.getURLString("/vista/estilos/escenaFormulario.css");
+            escena.getStylesheets().add(css);
             escenario.setScene(escena);
             escenario.setTitle("Consultar defecto");
             escenario.initModality(Modality.APPLICATION_MODAL);
