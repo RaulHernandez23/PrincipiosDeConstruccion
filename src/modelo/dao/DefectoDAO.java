@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: DefectoDAO.java
+ * Autor: Raul Hernandez Olivares
+ * Paquete: modelo/dao
+ * Fecha de creación: 19/11/2023
+ * Fecha de modificación: 13/12/2023
+ * Descripción: Clase que contiene los métodos del defecto
+ *              para realizar las operaciones
+ */
+
 package modelo.dao;
 
 import java.util.ArrayList;
