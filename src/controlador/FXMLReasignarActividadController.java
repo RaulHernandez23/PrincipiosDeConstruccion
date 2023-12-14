@@ -95,11 +95,17 @@ public class FXMLReasignarActividadController implements Initializable {
 
             if (!(Boolean) respuesta.get("error")) {
 
-                ArrayList<HashMap<String, Object>> listaActividades = (ArrayList<HashMap<String, Object>>) respuesta
+                ArrayList<HashMap<String, Object>> listaActividades;
+
+                /*
+                 * No se puede estandarizar a 80 caracteres por linea debido a
+                 * la indentacion y la estructura de los datos
+                 */
+                listaActividades = (ArrayList<HashMap<String, Object>>) respuesta
                         .get("actividades");
 
                 for (HashMap<String, Object> actividadMap : listaActividades) {
-                    
+
                     Actividad actividad = new Actividad();
 
                     actividad.setIdActividad((Integer) actividadMap.get(
@@ -152,12 +158,17 @@ public class FXMLReasignarActividadController implements Initializable {
 
             if (!((Boolean) respuestaEstudiantes.get("error"))) {
 
-                ArrayList<HashMap<String, Object>> listaEstudiantes = 
-                (ArrayList<HashMap<String, Object>>) respuestaEstudiantes
+                ArrayList<HashMap<String, Object>> listaEstudiantes;
+
+                /*
+                 * No se puede estandarizar a 80 caracteres por linea debido a
+                 * la indentacion y la estructura de los datos
+                 */
+                listaEstudiantes = (ArrayList<HashMap<String, Object>>) respuestaEstudiantes
                         .get("estudiantes");
 
                 for (HashMap<String, Object> estudianteMap : listaEstudiantes) {
-                    
+
                     Estudiante estudiante = new Estudiante();
 
                     estudiante.setIdEstudiante((int) estudianteMap.get(
@@ -184,7 +195,7 @@ public class FXMLReasignarActividadController implements Initializable {
             }
         } catch (Exception e) {
 
-            e.printStackTrace(); 
+            e.printStackTrace();
             utilidades.Alertas.mostrarAlerta("Error de conexión",
                     "Error al obtener la lista de estudiantes",
                     Alert.AlertType.ERROR);
@@ -213,7 +224,6 @@ public class FXMLReasignarActividadController implements Initializable {
                         "La actividad se reasigno correctamente",
                         Alert.AlertType.INFORMATION);
 
-
             } catch (Exception e) {
 
                 utilidades.Alertas.mostrarAlerta("Error de conexion",
@@ -229,7 +239,7 @@ public class FXMLReasignarActividadController implements Initializable {
                     Alert.AlertType.WARNING);
 
         }
-        
+
         Stage escenario = (Stage) btnReasignarActividad.getScene().getWindow();
         escenario.close();
 

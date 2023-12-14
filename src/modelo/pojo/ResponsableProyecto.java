@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: ResponsableProyecto.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: modelo.pojo
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase POJO para convertir los datos del responsable
+ * de proyecto
+ */
+
 package modelo.pojo;
 
 public class ResponsableProyecto {
@@ -14,8 +24,9 @@ public class ResponsableProyecto {
     public ResponsableProyecto() {
     }
 
-    public ResponsableProyecto(int idResponsableProyecto, String numPersonal, String nombre, String apellidoPaterno,
-            String apellidoMaterno, String correo, String telefono, String password) {
+    public ResponsableProyecto(int idResponsableProyecto, String numPersonal,
+            String nombre, String apellidoPaterno, String apellidoMaterno,
+            String correo, String telefono, String password) {
 
         this.idResponsableProyecto = idResponsableProyecto;
         this.numPersonal = numPersonal;

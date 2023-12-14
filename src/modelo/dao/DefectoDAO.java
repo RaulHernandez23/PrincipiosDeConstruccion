@@ -33,21 +33,24 @@ public class DefectoDAO {
                         + "idProyecto) "
                         + "VALUES (?, ?, CURDATE(), 2, ?, ?);";
 
-                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                PreparedStatement sentencia = conexionBD.prepareStatement(
+                        consulta);
                 sentencia.setString(1, defecto.getTitulo());
                 sentencia.setString(2, defecto.getDescripcion());
                 sentencia.setInt(3, defecto.getIdEstudiante());
                 sentencia.setInt(4, defecto.getIdProyecto());
-                
+
                 int filasAfectadas = sentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
 
                     respuesta.put("error", false);
-                    respuesta.put("mensaje", "Defecto registrado exitosamente");
+                    respuesta.put("mensaje",
+                            "Defecto registrado exitosamente");
 
                 } else {
-                    respuesta.put("mensaje", "No se pudo registrar el defecto");
+                    respuesta.put("mensaje",
+                            "No se pudo registrar el defecto");
                 }
 
             } catch (SQLException sqlE) {
@@ -75,35 +78,51 @@ public class DefectoDAO {
 
             try {
 
-                String consulta = "SELECT idDefecto, titulo, d.descripcion, " +
-                        "esfuerzoMinutos, fechaReporte, fechaFin, d.idEstadoDefecto, " +
-                        "d.idEstudiante, ed.estado AS estadoActividad, " +
-                        "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', " +
-                        "e.apellidoMaterno) AS estudiante FROM defecto d INNER JOIN " +
-                        "estadodefecto ed ON ed.idEstadoDefecto = d.idEstadoDefecto " +
-                        "INNER JOIN estudiante e ON d.idEstudiante = e.idEstudiante " +
-                        "INNER JOIN proyecto p on p.idProyecto = d.idProyecto " +
-                        "WHERE p.idProyecto = 1 " +
-                        "ORDER BY fechaReporte ASC, estudiante ASC";
-                PreparedStatement sentencia = conexion.prepareStatement(consulta);
+                String consulta = "SELECT idDefecto, titulo, d.descripcion, "
+                        + "esfuerzoMinutos, fechaReporte, "
+                        + "fechaFin, d.idEstadoDefecto, "
+                        + "d.idEstudiante, ed.estado AS estadoActividad, "
+                        + "CONCAT(e.nombre, ' ', e.apellidoPaterno, ' ', "
+                        + "e.apellidoMaterno) AS estudiante "
+                        + "FROM defecto d INNER JOIN "
+                        + "estadodefecto ed ON "
+                        + "ed.idEstadoDefecto = d.idEstadoDefecto "
+                        + "INNER JOIN estudiante e "
+                        + "ON d.idEstudiante = e.idEstudiante "
+                        + "INNER JOIN proyecto p on p.idProyecto = d.idProyecto"
+                        + " WHERE p.idProyecto = 1 "
+                        + "ORDER BY fechaReporte ASC, estudiante ASC";
+                PreparedStatement sentencia = conexion.prepareStatement(
+                        consulta);
 
                 ResultSet resultado = sentencia.executeQuery();
 
+                // No se puede estandarizar en 80 columnas debido al formatter
                 ArrayList<HashMap<String, Object>> listaDefectos = new ArrayList<>();
 
                 while (resultado.next()) {
 
                     HashMap<String, Object> defectoMap = new HashMap<>();
-                    defectoMap.put("idDefecto", resultado.getInt("idDefecto"));
-                    defectoMap.put("titulo", resultado.getString("titulo"));
-                    defectoMap.put("descripcion", resultado.getString("descripcion"));
-                    defectoMap.put("esfuerzoMinutos", resultado.getInt("esfuerzoMinutos"));
-                    defectoMap.put("fechaReporte", resultado.getString("fechaReporte"));
-                    defectoMap.put("fechaFin", resultado.getString("fechaFin"));
-                    defectoMap.put("idEstadoDefecto", resultado.getInt("idEstadoDefecto"));
-                    defectoMap.put("idEstudiante", resultado.getInt("idEstudiante"));
-                    defectoMap.put("estadoActividad", resultado.getString("estadoActividad"));
-                    defectoMap.put("estudiante", resultado.getString("estudiante"));
+                    defectoMap.put("idDefecto", resultado.getInt(
+                            "idDefecto"));
+                    defectoMap.put("titulo", resultado.getString(
+                            "titulo"));
+                    defectoMap.put("descripcion", resultado.getString(
+                            "descripcion"));
+                    defectoMap.put("esfuerzoMinutos", resultado.getInt(
+                            "esfuerzoMinutos"));
+                    defectoMap.put("fechaReporte", resultado.getString(
+                            "fechaReporte"));
+                    defectoMap.put("fechaFin", resultado.getString(
+                            "fechaFin"));
+                    defectoMap.put("idEstadoDefecto", resultado.getInt(
+                            "idEstadoDefecto"));
+                    defectoMap.put("idEstudiante", resultado.getInt(
+                            "idEstudiante"));
+                    defectoMap.put("estadoActividad", resultado.getString(
+                            "estadoActividad"));
+                    defectoMap.put("estudiante", resultado.getString(
+                            "estudiante"));
 
                     listaDefectos.add(defectoMap);
 
@@ -115,14 +134,15 @@ public class DefectoDAO {
             } catch (SQLException se) {
 
                 se.printStackTrace();
-                respuesta.put("mensaje", "Error en la base de datos: " + 
+                respuesta.put("mensaje", "Error en la base de datos: " +
                         se.getMessage());
-            
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
+            respuesta.put("mensaje",
+                    Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
@@ -195,8 +215,7 @@ public class DefectoDAO {
 
         } else {
             respuesta.put("mensaje",
-                    "Error en la conexión con la base de datos, "
-                            + "inténtelo más tarde");
+                    Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
@@ -272,16 +291,15 @@ public class DefectoDAO {
 
         } else {
             respuesta.put("mensaje",
-                    "Error en la conexión con la base de datos, "
-                            + "inténtelo más tarde");
+                    Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
 
     }
 
-    public static HashMap<String, Object> consultarNombresDefectosProyecto
-            (Integer idProyecto) {
+    public static HashMap<String, Object> consultarNombresDefectosProyecto(
+            Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
         respuesta.put("error", true);
@@ -295,7 +313,7 @@ public class DefectoDAO {
                         "FROM defecto " +
                         "WHERE idProyecto = ?";
                 PreparedStatement sentencia = conexionBD
-                .prepareStatement(consulta);
+                        .prepareStatement(consulta);
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -307,9 +325,9 @@ public class DefectoDAO {
                     Defecto defecto = new Defecto();
 
                     defecto.setIdDefecto(resultadoConsulta
-                    .getInt("idDefecto"));
+                            .getInt("idDefecto"));
                     defecto.setTitulo(resultadoConsulta
-                    .getString("titulo"));
+                            .getString("titulo"));
 
                     defectos.add(defecto);
 

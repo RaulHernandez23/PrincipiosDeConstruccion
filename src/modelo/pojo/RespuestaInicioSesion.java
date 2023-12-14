@@ -10,8 +10,8 @@ public class RespuestaInicioSesion {
     public RespuestaInicioSesion() {
     }
 
-    public RespuestaInicioSesion(boolean correcto, String mensaje, Estudiante estudiante,
-            ResponsableProyecto responsableProyecto) {
+    public RespuestaInicioSesion(boolean correcto, String mensaje,
+            Estudiante estudiante, ResponsableProyecto responsableProyecto) {
 
         this.correcto = correcto;
         this.mensaje = mensaje;
@@ -56,7 +56,8 @@ public class RespuestaInicioSesion {
         return responsableProyecto;
     }
 
-    public void setResponsableProyecto(ResponsableProyecto responsableProyecto) {
+    public void setResponsableProyecto(
+            ResponsableProyecto responsableProyecto) {
 
         if (responsableProyecto != null) {
             this.responsableProyecto = responsableProyecto;

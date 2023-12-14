@@ -103,7 +103,8 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
     }
 
-    public void inicializarVentana(Integer idProyecto, Integer idPeriodoProyecto) {
+    public void inicializarVentana(Integer idProyecto,
+            Integer idPeriodoProyecto) {
         this.idProyecto = idProyecto;
         this.idPeriodoProyecto = idPeriodoProyecto;
     }
@@ -123,13 +124,15 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         estudiante.setIdProyecto(idProyecto);
 
         HashMap<String, Object> respuesta = EstudianteDAO
-                .registrarEstudianteYAsociarPeriodoEscolar(estudiante, idPeriodoProyecto);
+                .registrarEstudianteYAsociarPeriodoEscolar(
+                        estudiante, idPeriodoProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
             Utilidades.mostrarAlertaSimple("Registro exitoso",
                     (String) respuesta.get("mensaje")
-                            + "\nLa contraseña del estudiante es: " + password,
+                            + "\nLa contraseña del estudiante es: "
+                            + password,
                     Alert.AlertType.INFORMATION);
             cerrarVentana();
 
@@ -176,19 +179,22 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         boolean esValido = true;
 
         String nombre = tfNombre.getText().trim();
-        if (nombre.isEmpty() || !nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,20}$")) {
+        if (nombre.isEmpty() || !nombre.matches(
+                "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,20}$")) {
             tfNombre.setStyle("-fx-border-color: red;");
             esValido = false;
         }
 
         String apellidoPaterno = tfApellidoPaterno.getText().trim();
-        if (apellidoPaterno.isEmpty() || !apellidoPaterno.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
+        if (apellidoPaterno.isEmpty() || !apellidoPaterno.matches(
+                "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
             tfApellidoPaterno.setStyle("-fx-border-color: red;");
             esValido = false;
         }
 
         String apellidoMaterno = tfApellidoMaterno.getText().trim();
-        if (!apellidoMaterno.isEmpty() && !apellidoMaterno.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
+        if (!apellidoMaterno.isEmpty() && !apellidoMaterno.matches(
+                "^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
             tfApellidoMaterno.setStyle("-fx-border-color: red;");
             esValido = false;
         }

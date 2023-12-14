@@ -1,9 +1,11 @@
 /*
-* Autor: Albhieri Cristoff Villa Contreras
-* Fecha de creación: 03/12/2023
-* Fecha de modificación: 10/12/2023
-* Descripción: Clase del controlador para poder registrar una actividad
-*/
+ * Nombre del archivo: FXMLRegistrarActividadController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase del controlador para poder registrar una actividad
+ */
 
 package controlador;
 

@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: CambioDAO.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: modelo.dao
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase DAO para ejecutar las consultas de la tabla Cambio
+ */
+
 package modelo.dao;
 
 import java.sql.Connection;

@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: FXMLDesasignarEstudianteController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase del controlador para cambiar el estado
+ * de un estudiante a inactivo y desasignarlo de un proyecto
+ */
+
 package controlador;
 
 import java.net.URL;

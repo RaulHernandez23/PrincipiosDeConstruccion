@@ -69,8 +69,9 @@ public class Utilidades {
 
     }
 
-    public static void mostrarAlertaSimple(String titulo, String mensaje, AlertType tipo) {
-        
+    public static void mostrarAlertaSimple(String titulo, String mensaje,
+            AlertType tipo) {
+
         Alert alertaSimple = new Alert(tipo);
         alertaSimple.setTitle(titulo);
         alertaSimple.setContentText(mensaje);
@@ -79,8 +80,9 @@ public class Utilidades {
 
     }
 
-    public static boolean mostrarAlertaConfirmacion(String titulo, String mensaje) {
-        
+    public static boolean mostrarAlertaConfirmacion(String titulo,
+            String mensaje) {
+
         Alert alertaConfirmacion = new Alert(AlertType.CONFIRMATION);
         alertaConfirmacion.setTitle(titulo);
         alertaConfirmacion.setContentText(mensaje);
@@ -95,7 +97,8 @@ public class Utilidades {
 
         LocalDate fecha = LocalDate.now();
 
-        return fecha.getYear() + "-" + fecha.getMonthValue() + "-" + fecha.getDayOfMonth();
+        return fecha.getYear() + "-" + fecha.getMonthValue() + "-"
+                + fecha.getDayOfMonth();
 
     }
 
@@ -108,8 +111,9 @@ public class Utilidades {
         try {
 
             conexion = ConectorBaseDatos.obtenerConexion();
-            PreparedStatement sentencia = conexion.prepareStatement(fechaServidor);
-            
+            PreparedStatement sentencia = conexion.prepareStatement(
+                    fechaServidor);
+
             ResultSet resultado = sentencia.executeQuery(fechaServidor);
 
             if (resultado.next()) {
@@ -117,7 +121,8 @@ public class Utilidades {
             }
 
         } catch (SQLException e) {
-            Utilidades.mostrarAlertaSimple("Error", "No se pudo conectar a la base de datos, inténtelo más tarde",
+            Utilidades.mostrarAlertaSimple("Error",
+                    Constantes.MENSAJE_ERROR_DE_CONEXION,
                     AlertType.ERROR);
         } finally {
             ConectorBaseDatos.cerrarConexion(conexion);
