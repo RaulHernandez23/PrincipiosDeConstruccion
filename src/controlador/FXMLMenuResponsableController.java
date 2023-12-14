@@ -254,7 +254,7 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/estilos/escenaTabla.css"));
 
             escenario.setScene(escena);
-            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setTitle("Consultar Defectos");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
@@ -361,6 +361,30 @@ public class FXMLMenuResponsableController implements Initializable {
 
     @FXML
     private void btnFinalizarCambio(MouseEvent event) {
+        Stage escenario = new Stage();
+
+        try {
+
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLFinalizarCambio.fxml");
+            Parent vista = loader.load();
+            Scene escena = new Scene(vista);
+            FXMLFinalizarCambioController controlador = loader.getController();
+
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
+            escenario.setScene(escena);
+            escenario.setTitle("Finalizar Cambio");
+            escenario.setResizable(false);
+            escenario.initModality(Modality.APPLICATION_MODAL);
+            escenario.showAndWait();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            escenario.close();
+
+        }
     }
 
     @FXML
