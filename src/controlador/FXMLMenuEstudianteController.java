@@ -203,7 +203,7 @@ public class FXMLMenuEstudianteController implements Initializable {
         this.estudiante = estudiante;
         String[] nombreInternacional = estudiante.getNombre().split(" ");
         boolean dosNombres = nombreInternacional.length == 2;
-        this.idProyecto = estudiante.getIdEstudiante();
+        this.idProyecto = 1;
 
         encabezadoEstudiante.setText(
                 estudiante.getApellidoPaterno() + "-" +
