@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vboxRegistrarActividad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLRegistrarActividadController">
+   <children>
+      <AnchorPane prefHeight="480.0" prefWidth="720.0">
+         <children>
+            <BorderPane prefHeight="480.0" prefWidth="720.0">
+               <center>
+                  <Pane prefHeight="350.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextField fx:id="tfTitulo" layoutX="75.0" layoutY="24.0" prefHeight="25.0" prefWidth="327.0" promptText="Título:" styleClass="campoTexto" />
+                        <TextArea fx:id="tfDescripcion" layoutX="75.0" layoutY="78.0" prefHeight="150.0" prefWidth="327.0" promptText="Descripción:" styleClass="campoTexto" wrapText="true" />
+                        <ComboBox fx:id="cbTipo" layoutX="75.0" layoutY="250.0" prefHeight="25.0" prefWidth="150.0" promptText="--Tipo--" styleClass="listaDesplegable" />
+                        <Button fx:id="btnRegistrar" layoutX="252.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnRegistrarClic" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
+                     </children></Pane>
+               </center>
+               <top>
+                  <Pane prefHeight="85.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="44.0" layoutY="7.0" styleClass="sgbp" text="SGBP" />
+                        <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="461.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../recursos/imagenes/logoUV.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="488.0" layoutY="12.0" styleClass="apartado" text="Universidad Veracruzana" />
+                        <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="657.0" layoutY="33.0" onMouseClicked="#btnSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../recursos/imagenes/logoSalir.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label layoutX="74.0" layoutY="61.0" styleClass="apartado" text="Registrar Actividad" />
+                     </children>
+                  </Pane>
+               </top>
+               <bottom>
+                  <Pane prefHeight="28.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="239.0" layoutY="7.0" styleClass="universidadVeracruzana" text="© 2023 Universidad Veracruzana. Derechos reservados" />
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

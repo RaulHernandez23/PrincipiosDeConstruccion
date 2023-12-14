@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLReasignarActividadController">
+   <children>
+      <Label layoutX="24.0" layoutY="14.0" prefHeight="55.0" prefWidth="106.0" text="SGP">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="131.0" layoutY="41.0" prefHeight="35.0" prefWidth="357.0" text="Reasignar actividad">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="501.0" layoutY="25.0" prefHeight="33.0" prefWidth="161.0" text="Universidad veracruzana" textAlignment="CENTER" />
+      <TableView fx:id="tvActividadesPendientes" layoutX="91.0" layoutY="130.0" prefHeight="206.0" prefWidth="538.0">
+        <columns>
+          <TableColumn fx:id="colTitulo" prefWidth="202.0" text="Titulo" />
+            <TableColumn fx:id="colEstudiante" prefWidth="192.0" text="Estudiante asignado" />
+            <TableColumn fx:id="colFechaInicio" prefWidth="143.0" text="Fecha inicio" />
+        </columns>
+      </TableView>
+      <Button layoutX="406.0" layoutY="436.0" mnemonicParsing="false" onAction="#btnVolverClic" prefHeight="30.0" prefWidth="190.0" text="Volver" textOverrun="CLIP" />
+      <Button fx:id="btnReasignarActividad" layoutX="133.0" layoutY="436.0" mnemonicParsing="false" onAction="#btnReasignarActividadClic" prefHeight="30.0" prefWidth="190.0" text="Reasignar actividad" textOverrun="CLIP" />
+      <Label layoutX="91.0" layoutY="107.0" text="Actividades pendientes:" />
+      <ComboBox fx:id="cbEstudiantes" layoutX="213.0" layoutY="370.0" prefHeight="30.0" prefWidth="335.0" />
+      <Label layoutX="95.0" layoutY="368.0" prefHeight="33.0" prefWidth="106.0" text="Reasignar a:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

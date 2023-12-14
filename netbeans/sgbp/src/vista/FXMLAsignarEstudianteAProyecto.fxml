@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" style="-fx-background-color: #00B88F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLAsignarEstudianteAProyectoController">
+   <children>
+      <Button fx:id="btnAgregarProyecto" layoutX="265.0" layoutY="416.0" mnemonicParsing="false" onAction="#clicAgregarAProyecto" prefHeight="30.0" prefWidth="190.0" styleClass="botonOperacion" text="Agregar a proyecto" textOverrun="CLIP" />
+      <TextField fx:id="tfNombre" layoutX="54.0" layoutY="170.0" prefHeight="31.0" prefWidth="326.0" promptText="Nombre:" styleClass="campoTexto" />
+      <TextField fx:id="tfApellidoPaterno" layoutX="54.0" layoutY="224.0" prefHeight="31.0" prefWidth="326.0" promptText="Apellido Paterno:" styleClass="campoTexto" />
+      <TextField fx:id="tfApellidoMaterno" layoutX="54.0" layoutY="279.0" prefHeight="31.0" prefWidth="326.0" promptText="Apellido Materno:" styleClass="campoTexto" />
+      <Label layoutX="31.0" layoutY="15.0" style="-fx-font-size: 36px;" text="SGBP" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="87.0" style="-fx-font-size: 15px;" text="Asignar estudiante a proyecto" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="141.0" style="-fx-font-size: 15px;" styleClass="etiqueta" text="Ingrese la informacion del estudiante:" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfMatricula" layoutX="54.0" layoutY="335.0" prefHeight="31.0" prefWidth="326.0" promptText="Matricula:" styleClass="campoTexto" />
+      <ImageView fx:id="ivSalir" fitHeight="20.0" fitWidth="25.0" layoutX="667.0" layoutY="43.0" onMouseClicked="#clicSalir" onMouseEntered="#hoverInSalir" onMouseExited="#hoverOutSalir" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <image>
+            <Image url="@../recursos/imagenes/logoSalir.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="498.0" layoutY="22.0" style="-fx-font-size: 15px;" styleClass="apartado" text="Universidad Veracruzana" />
+      <ImageView fitHeight="19.0" fitWidth="18.0" layoutX="471.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recursos/imagenes/logoUV.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

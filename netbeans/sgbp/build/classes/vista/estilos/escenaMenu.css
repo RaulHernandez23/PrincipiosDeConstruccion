@@ -1,0 +1,153 @@
+.root {
+  -fx-background-color: #00b88f;
+  background-color: #00b88f;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.universidadVeracruzana {
+  -fx-font-size: 10px;
+  font-size: 10px;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.sgbp {
+  -fx-font-size: 36px;
+  font-size: 36px;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.apartado {
+  -fx-font-size: 15px;
+  font-size: 15px;
+  -fx-text-fill: #efefef;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.panel {
+  -fx-background-color: #efefef;
+  background-color: #efefef;
+  -fx-border-color: #006899;
+  border-color: #006899;
+  -fx-border-width: 2px;
+  border-width: 2px;
+  -fx-background-radius: 5px;
+  -fx-border-radius: 5px;
+  border-radius: 5px;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.panel:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+  -fx-background-color: #e2e2e2;
+  background-color: #e2e2e2;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+  -fx-border-width: 2.5px;
+  border-width: 2.5px;
+}
+
+.panel:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #e2e2e2;
+  background-color: #e2e2e2;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+  -fx-border-width: 2.5px;
+  border-width: 2.5px;
+}
+
+.etiqueta {
+  -fx-font-size: 20px;
+  font-size: 20px;
+  -fx-font-weight: bold;
+  font-weight: bold;
+  -fx-text-fill: #006899;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.etiquetaChica {
+  -fx-font-size: 13px;
+  font-size: 13px;
+  -fx-font-weight: bold;
+  font-weight: bold;
+  -fx-text-fill: #006899;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.verMas {
+  -fx-background-radius: 50%;
+  -fx-border-radius: 50%;
+  border-radius: 50%;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.verMas:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.verMas:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.verMenos {
+  -fx-background-radius: 50%;
+  -fx-border-radius: 50%;
+  border-radius: 50%;
+  -fx-scale-x: 1;
+  -fx-scale-y: 1;
+  -fx-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -fx-rotate: 180deg;
+  rotate: 180deg;
+}
+
+.verMenos:hover {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}
+
+.verMenos:pressed {
+  -fx-cursor: hand;
+  cursor: hand;
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #00699950;
+  background-color: #00699950;
+  -fx-effect: dropshadow(three-pass-box, #0c6955, 10, 0, 0, 0);
+}

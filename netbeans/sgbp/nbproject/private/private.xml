@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/Cambio.java</file>
+            <file>file:/D:/Escuela/sgbp/src/utilidades/Alertas.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLCrearSolicitudDeCambioController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/interfaces/IDefecto.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLMenuEstudianteController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/utilidades/Utilidades.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/Bitacora.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLSolicitudesDeCambioController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLConsultarDefectosController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLDesasignarEstudianteController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLRegistrarDefectoController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/dao/DefectoDAO.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLMenuResponsableController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/utilidades/configuracion.properties</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLDetalleActividadController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/ResponsableProyecto.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/Actividad.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLRegistrarActividadController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/sgbp/SGBP.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/dao/ResponsableProyectoDAO.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLInicioSesionController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/ConectorBaseDatos.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLAsignarActividadController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/SolicitudDeCambio.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLFinalizarCambioController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLConsultarDetallesDefectosController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/RespuestaInicioSesion.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/Estudiante.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/dao/EstudianteDAO.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/EstadoSolicitud.java</file>
+            <file>file:/D:/Escuela/sgbp/src/interfaces/ObservadorSolicitudesDeCambio.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/dao/SolicitudDeCambioDAO.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLAsignarEstudianteAProyectoController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/dao/CambioDAO.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/dao/ActividadDAO.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLReasignarActividadController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/modelo/pojo/Defecto.java</file>
+            <file>file:/D:/Escuela/sgbp/src/utilidades/Constantes.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLRegistrarCambioController.java</file>
+            <file>file:/D:/Escuela/sgbp/src/controlador/FXMLSolicitudDeCambioController.java</file>
+        </group>
+    </open-files>
+</project-private>
