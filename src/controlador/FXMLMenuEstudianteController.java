@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: FXMLMenuEstudianteController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase controlador para la ventana de menú de estudiante
+ */
+
 package controlador;
 
 import java.io.IOException;

@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Utilidades.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: utilidades
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase de utilidades para el proyecto
+ */
+
 package utilidades;
 
 import java.io.IOException;

@@ -6,6 +6,7 @@
  * Fecha de modificación: 23/12/2023
  * Descripción: Interfaz para la actualizar la tabla de solicitudes de cambio.
  */
+
 package interfaces;
 
 public interface ObservadorSolicitudesDeCambio {
