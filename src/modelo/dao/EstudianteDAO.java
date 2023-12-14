@@ -225,7 +225,7 @@ public class EstudianteDAO {
 
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_SELECT);
                 sqlE.printStackTrace();
-                
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
@@ -340,7 +340,8 @@ public class EstudianteDAO {
                         "password = VALUES(password), " +
                         "idProyecto = VALUES(idProyecto)";
 
-                PreparedStatement sentenciaEstudiante = conexionBD.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement sentenciaEstudiante = conexionBD.prepareStatement(consulta,
+                        Statement.RETURN_GENERATED_KEYS);
 
                 sentenciaEstudiante.setString(1, estudiante.getMatricula());
                 sentenciaEstudiante.setString(2, estudiante.getNombre());
@@ -464,5 +465,5 @@ public class EstudianteDAO {
         return respuesta;
 
     }
-    
+
 }
