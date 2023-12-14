@@ -9,7 +9,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib\mysql-connector-java-5.1.49.jar" size="1006904" download="eager" />
-    <jar href="sgbp.jar" size="1571679" download="eager" />
+    <jar href="sgbp.jar" size="1571676" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="sgbp.SGBP"  name="sgbp" />
   <update check="always"/>
