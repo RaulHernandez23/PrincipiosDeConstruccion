@@ -1,6 +1,7 @@
 package modelo.pojo;
 
 public class Actividad {
+
     private Integer idActividad;
     private String titulo;
     private String descripcion;
@@ -27,6 +28,7 @@ public class Actividad {
             Integer idResponsable, Integer idTipo, String estadoActividad,
             String proyecto, String estudiante, String responsable,
             String tipo) {
+
         this.idActividad = idActividad;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -43,6 +45,7 @@ public class Actividad {
         this.estudiante = estudiante;
         this.responsable = responsable;
         this.tipo = tipo;
+
     }
 
     public Integer getIdActividad() {

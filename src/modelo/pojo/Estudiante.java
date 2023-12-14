@@ -1,6 +1,7 @@
 package modelo.pojo;
 
 public class Estudiante {
+    
     private Integer idEstudiante;
     private String matricula;
     private String nombre;

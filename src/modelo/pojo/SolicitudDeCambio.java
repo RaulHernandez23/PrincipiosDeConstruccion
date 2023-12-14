@@ -2,6 +2,7 @@
 package modelo.pojo;
 
 public class SolicitudDeCambio {
+
     private Integer idSolicitudDeCambio;
     private String titulo;
     private String descripcion;
@@ -25,6 +26,7 @@ public class SolicitudDeCambio {
             String impacto, String accionPropuesta, String fechaCreacion, String fechaEvaluacion, Integer idEstudiante,
             String estudiante, Integer idEstadoSolicitud, Integer idProyecto, Integer idResponsable, Integer idDefecto,
             String defecto) {
+
         this.idSolicitudDeCambio = idSolicitudDeCambio;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -40,6 +42,7 @@ public class SolicitudDeCambio {
         this.idResponsable = idResponsable;
         this.idDefecto = idDefecto;
         this.defecto = defecto;
+        
     }
 
     public Integer getIdSolicitudDeCambio() {
