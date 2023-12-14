@@ -128,10 +128,14 @@ public class FXMLDetalleActividadController implements Initializable {
     public void inicializarInformacion(Integer idProyecto, boolean esFinalizar) {
 
         configurarListenerComboActividad();
+        
         this.esFinalizar = esFinalizar;
         if(esFinalizar){
             lblTituloVentana.setText("Finalizar actividad");
+            tfEsfuerzo.setEditable(esFinalizar);
+            configurarListenerEsfuerzo();   
         }
+
         recuperarActividades(idProyecto);
     }
 
@@ -226,7 +230,6 @@ public class FXMLDetalleActividadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //configurarListenerEsfuerzo();
         dpFechaInicio.setDisable(true);
         dpFechaFin.setDisable(true);
         lblDatosInvalidos.setText("");

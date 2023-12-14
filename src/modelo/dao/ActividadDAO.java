@@ -96,7 +96,7 @@ public class ActividadDAO {
         if (conexion != null) {
 
             try {
-
+                
                 String consulta = "SELECT "
                         + "idActividad, "
                         + "titulo, "
@@ -134,7 +134,7 @@ public class ActividadDAO {
                 sentencia.setInt(1, idProyecto);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
                 ArrayList<Actividad> actividades = new ArrayList<>();
-
+                
                 while (resultadoConsulta.next()) {
                         
                     Actividad actividad = new Actividad();
@@ -173,7 +173,7 @@ public class ActividadDAO {
                     actividades.add(actividad);
 
                 }
-
+     
                 respuesta.put("error", false);
                 respuesta.put("actividades", actividades);
 
