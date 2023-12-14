@@ -28,7 +28,7 @@ public class EstudianteDAO {
             try {
 
                 PreparedStatement consulta = (PreparedStatement) conexion.prepareStatement(
-                        "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno, e.idEstadoEstudiante, s.estado, e.password FROM estudiante e INNER JOIN estadoestudiante s ON e.idEstadoEstudiante = s.idEstadoEstudiante WHERE matricula = ? AND password = ?");
+                        "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno, e.idEstadoEstudiante, s.estado, e.password, e.idProyecto FROM estudiante e INNER JOIN estadoestudiante s ON e.idEstadoEstudiante = s.idEstadoEstudiante WHERE matricula = ? AND password = ?");
 
                 consulta.setString(1, matricula);
                 consulta.setString(2, password);
@@ -47,6 +47,7 @@ public class EstudianteDAO {
                     estudiante.setApellidoMaterno(resultado.getString("apellidoMaterno"));
                     estudiante.setIdEstadoEstudiante(resultado.getInt("idEstadoEstudiante"));
                     estudiante.setEstadoEstudiante(resultado.getString("estado"));
+                    estudiante.setIdProyecto(resultado.getInt("idProyecto"));
 
                     if (password.equals(estudiante.getPassword())) {
                         respuesta.setCorrecto(true);
