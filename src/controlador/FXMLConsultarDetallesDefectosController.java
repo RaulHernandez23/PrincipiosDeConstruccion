@@ -62,9 +62,7 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {
-
         salir();
-
     }
 
     private void salir() {
