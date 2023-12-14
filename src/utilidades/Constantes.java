@@ -13,13 +13,10 @@ public class Constantes {
     
     public static final String MENSAJE_DATOS_INVALIDOS 
         = "Ingrese datos válidos";
-<<<<<<< HEAD
-=======
 
     public static final String MENSAJE_ERROR_UPDATE
         = "No se pudo actualizar la informacion en la base de datos,"
         + " inténtelo de nuevo más tarde";
->>>>>>> bd976f069e5232de281f7335416a22219bdba3d8
     
     public static final String MENSAJE_ERROR_DELETE
         = "No se pudo eliminar la informacion en la base de datos,"
