@@ -280,11 +280,12 @@ public class ActividadDAO {
 
             } catch (SQLException sqlE) {
                 sqlE.printStackTrace();
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
             }
         } else {
-            respuesta.put("mensaje",
-                    "No se pudo conectar a la base de datos, "
-                            + "inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
@@ -599,7 +600,6 @@ public class ActividadDAO {
                 sentencia.setInt(1, idEstudiante);
                 sentencia.setInt(2, idActividad);
                 int resultadoConsulta = sentencia.executeUpdate();
-                conexion.close();
 
                 if (resultadoConsulta > 0) {
 
@@ -614,6 +614,8 @@ public class ActividadDAO {
 
             } catch (SQLException sqlE) {
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
             }
         } else {
             respuesta.put("mensaje",

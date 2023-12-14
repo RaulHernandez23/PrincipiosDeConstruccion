@@ -217,18 +217,18 @@ public class EstudianteDAO {
 
                 }
 
-                conexionBD.close();
                 respuesta.put("error", false);
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (Exception sqlE) {
                 respuesta.put("mensaje", "Error de conexion en la base de datos");
                 sqlE.printStackTrace();
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
             }
 
         } else {
-            respuesta.put("mensaje", "Error de conexion en la base de datos, "
-                    + "por favor inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
