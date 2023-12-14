@@ -55,7 +55,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label layoutX="74.0" layoutY="62.0" styleClass="apartado" text="Eliminar actividad" />
+                        <Label fx:id="lblTituloVentana" layoutX="74.0" layoutY="62.0" styleClass="apartado" text="Eliminar actividad" />
                      </children>
                   </Pane>
                </top>

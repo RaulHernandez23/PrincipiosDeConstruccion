@@ -64,6 +64,9 @@ public class FXMLDetalleActividadController implements Initializable {
     private Label lblSGBP;
 
     @FXML
+    private Label lblTituloVentana;
+
+    @FXML
     private ImageView ivLogoUV;
 
     @FXML
@@ -122,9 +125,14 @@ public class FXMLDetalleActividadController implements Initializable {
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(Integer idProyecto) {
-        recuperarActividades(idProyecto);
+    public void inicializarInformacion(Integer idProyecto, boolean esFinalizar) {
 
+        configurarListenerComboActividad();
+        this.esFinalizar = esFinalizar;
+        if(esFinalizar){
+            lblTituloVentana.setText("Finalizar actividad");
+        }
+        recuperarActividades(idProyecto);
     }
 
     public void salir() {
@@ -136,14 +144,22 @@ public class FXMLDetalleActividadController implements Initializable {
 
     private void recuperarActividades(Integer idProyecto) {
         HashMap<String, Object> respuesta = ActividadDAO
-                .obtenerActividadesProyecto(idProyecto);
+                .obtenerTodasActividadesProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 
             actividades = FXCollections.observableArrayList();
             ArrayList<Actividad> lista = (ArrayList) respuesta
                     .get("actividades");
-            actividades.addAll(lista);
+            if(esFinalizar) {
+                for(Actividad actividad : lista) {
+                    if(!actividad.getEstadoActividad().equals("Realizada")) {
+                        actividades.add(actividad);
+                    }
+                }
+            } else {
+                actividades.addAll(lista);
+            }
             cbActividades.setItems(actividades);
             cbActividades.getSelectionModel().select(0);
 
@@ -167,9 +183,13 @@ public class FXMLDetalleActividadController implements Initializable {
                             dpFechaInicio
                                     .setValue(LocalDate.parse(
                                             newValue.getFechaInicio()));
-                            dpFechaFin
+                            if(newValue.getFechaFin() != null) {
+                                dpFechaFin
                                     .setValue(LocalDate.parse(
                                             newValue.getFechaFin()));
+                            } else {
+                                dpFechaFin.setValue(null);
+                            }
                             taDescripcion
                                     .setText(newValue.getDescripcion());
                             tfEstado
@@ -177,6 +197,8 @@ public class FXMLDetalleActividadController implements Initializable {
                             tfEsfuerzo
                                     .setText(String.valueOf(
                                             newValue.getEsfuerzoMinutos()));
+                            tfTipo.setText(String.valueOf(
+                                            newValue.getTipo()));
                             btnEliminar.setDisable(false);
                         }
                     }
@@ -204,10 +226,10 @@ public class FXMLDetalleActividadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        configurarListenerComboActividad();
-        configurarListenerEsfuerzo();
+        //configurarListenerEsfuerzo();
         dpFechaInicio.setDisable(true);
         dpFechaFin.setDisable(true);
+        lblDatosInvalidos.setText("");
 
     }
 
