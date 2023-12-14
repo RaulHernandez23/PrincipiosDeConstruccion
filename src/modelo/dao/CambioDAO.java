@@ -1,7 +1,6 @@
 package modelo.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,6 @@ import java.util.LinkedHashMap;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Cambio;
-import utilidades.Utilidades;
 
 public class CambioDAO {
 
@@ -247,17 +245,6 @@ public class CambioDAO {
 
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
-        String fechaServidor = Utilidades.obtenerFechaServidor();
-
-        Date fechaServidorDate = Date.valueOf(fechaServidor);
-        Date fechaInicioDate = Date.valueOf(cambio.getFechaInicio());
-
-        if (fechaInicioDate.before(fechaServidorDate)) {
-            throw new SQLException(
-                    "Error en la base de datos: La fecha de "
-                            + "inicio no puede ser menor a la fecha actual");
-        }
-
         if (conexion != null) {
 
             try {
@@ -300,30 +287,70 @@ public class CambioDAO {
             conexion = ConectorBaseDatos.obtenerConexion();
 
             try {
-                String consulta = "INSERT INTO estudiante_cambio "
-                        + "(idEstudiante, idCambio) VALUES (?, ?)";
+                String consulta = "SELECT MAX(idCambio) AS idCambio FROM "
+                        + "cambio WHERE "
+                        + "idSolicitudDeCambio = ? AND titulo = ? AND "
+                        + "descripcion = ? AND esfuerzoMinutos = ? AND "
+                        + "idTipoActividad = ? AND idEstadoCambio = ? AND "
+                        + "fechaInicio = ? AND idProyecto = ?;";
 
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
 
-                sentencia.setInt(1, cambio.getIdEstudiante());
-                sentencia.setInt(2, cambio.getIdCambio());
+                sentencia.setInt(1, cambio.getIdSolicitud());
+                sentencia.setString(2, cambio.getTitulo());
+                sentencia.setString(3, cambio.getDescripcion());
+                sentencia.setInt(4, cambio.getEsfuerzoMinutos());
+                sentencia.setInt(5, cambio.getIdTipoActividad());
+                sentencia.setInt(6, cambio.getIdEstadoCambio());
+                sentencia.setString(7, cambio.getFechaInicio());
+                sentencia.setInt(8, cambio.getIdProyecto());
 
-                int resultado = sentencia.executeUpdate();
+                ResultSet resultadoConsulta = sentencia.executeQuery();
 
-                if (resultado > 0) {
-
-                    respuesta.put("error", false);
-                    respuesta.put("mensaje",
-                            "El cambio se registró correctamente");
-
-                } else {
-                    respuesta.put("mensaje",
-                            "No se pudo registrar el cambio");
+                if (resultadoConsulta.next()) {
+                    cambio.setIdCambio(resultadoConsulta.getInt(
+                            "idCambio"));
                 }
 
             } catch (SQLException e) {
                 respuesta.put("mensaje", "Error: " + e.getMessage());
+            }
+
+            conexion = ConectorBaseDatos.obtenerConexion();
+
+            if (conexion != null) {
+
+                try {
+
+                    String consulta = "INSERT INTO Estudiante_Cambio "
+                            + "(idEstudiante, idCambio) VALUES (?, ?);";
+                    PreparedStatement sentencia = conexion.prepareStatement(
+                            consulta);
+
+                    sentencia.setInt(1, cambio
+                            .getIdEstudiante());
+                    sentencia.setInt(2, cambio.getIdCambio());
+
+                    int resultado = sentencia.executeUpdate();
+
+                    if (resultado > 0) {
+
+                        respuesta.put("error", false);
+                        respuesta.put("mensaje",
+                                "El cambio se registró correctamente");
+
+                    } else {
+                        respuesta.put("mensaje",
+                                "No se pudo registrar el cambio");
+                    }
+
+                } catch (SQLException se) {
+                    respuesta.put("mensaje", "Error: " + se.getMessage());
+                } finally {
+                    ConectorBaseDatos.cerrarConexion(conexion);
+                }
+
             }
 
         } else {
@@ -333,6 +360,7 @@ public class CambioDAO {
         }
 
         return respuesta;
+
     }
 
     public static HashMap<String, Object> consultarEstados() {
