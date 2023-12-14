@@ -29,12 +29,12 @@ public class FXMLMenuResponsableController implements Initializable {
     private VBox vboxMenuResponsable;
 
     @FXML
-    private Label encabezadoResponsable;
+    private Label lblEncabezadoResponsable;
 
     private ResponsableProyecto responsable;
-    
+
     private Integer idProyecto = 1;
-    
+
     private Integer idPeriodoProyecto = 2;
 
     @Override
@@ -426,8 +426,6 @@ public class FXMLMenuResponsableController implements Initializable {
 
         }
 
-        
-        
     }
 
     public void inicializarVentana(ResponsableProyecto responsable) {
@@ -435,7 +433,7 @@ public class FXMLMenuResponsableController implements Initializable {
         String[] nombreInternacional = responsable.getNombre().split(" ");
         boolean dosNombres = nombreInternacional.length == 2;
 
-        encabezadoResponsable.setText(
+        lblEncabezadoResponsable.setText(
                 responsable.getApellidoPaterno() + "-"
                         + responsable.getApellidoMaterno() + " "
                         + nombreInternacional[0]

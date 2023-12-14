@@ -55,7 +55,7 @@ public class FXMLRegistrarActividadController implements Initializable {
     private VBox vboxRegistrarActividad;
 
     @FXML
-    private Button btnRegistrarComponente;
+    private Button btnRegistrar;
 
     private ObservableList<String> listaTipos;
 
@@ -74,13 +74,13 @@ public class FXMLRegistrarActividadController implements Initializable {
 
         cargarTipos();
         cbTipo.getSelectionModel().select(0);
-        btnRegistrarComponente.setDisable(true);
+        btnRegistrar.setDisable(true);
         verificarCamposLlenos();
 
     }
 
     @FXML
-    void btnRegistrar(ActionEvent event) {
+    void btnRegistrarClic(ActionEvent event) {
 
         if (validarCampos()) {
 
@@ -240,7 +240,7 @@ public class FXMLRegistrarActividadController implements Initializable {
     }
 
     public void verificar() {
-        btnRegistrarComponente.setDisable(tfTitulo.getText().isEmpty() ||
+        btnRegistrar.setDisable(tfTitulo.getText().isEmpty() ||
                 tfDescripcion.getText().isEmpty() ||
                 cbTipo.getSelectionModel().getSelectedIndex() < 0);
     }

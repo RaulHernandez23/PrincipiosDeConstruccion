@@ -18,7 +18,7 @@
                         <TextField fx:id="tfTitulo" layoutX="75.0" layoutY="24.0" prefHeight="25.0" prefWidth="327.0" promptText="Título:" styleClass="campoTexto" />
                         <TextArea fx:id="tfDescripcion" layoutX="75.0" layoutY="78.0" prefHeight="150.0" prefWidth="327.0" promptText="Descripción:" styleClass="campoTexto" wrapText="true" />
                         <ComboBox fx:id="cbTipo" layoutX="75.0" layoutY="250.0" prefHeight="25.0" prefWidth="150.0" promptText="--Tipo--" styleClass="listaDesplegable" />
-                        <Button fx:id="btnRegistrarComponente" layoutX="252.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnRegistrar" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
+                        <Button fx:id="btnRegistrar" layoutX="252.0" layoutY="297.0" mnemonicParsing="false" onAction="#btnRegistrarClic" prefHeight="26.0" prefWidth="150.0" styleClass="botonOperacion" text="Registrar" />
                      </children></Pane>
                </center>
                <top>
