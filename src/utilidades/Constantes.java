@@ -1,3 +1,11 @@
+/*
+ * Nombre del archivo: Constantes.java
+ * Autor: Raul Hernandez Olivares
+ * Paquete: utilidades
+ * Fecha de creación: 10/12/2023
+ * Fecha de modificación: 13/12/2023
+ * Descripción: Clase que contiene constantes usadas en varias clases
+ */
 
 package utilidades;
 

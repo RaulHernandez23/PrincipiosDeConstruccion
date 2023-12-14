@@ -1,3 +1,12 @@
+/*
+ ** Nombre del archivo: FXMLAsignarActividadController.java
+ * Autor: Raul Hernandez Olivares
+ * Paquete: controlador
+ * Fecha de creación: 20/11/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Controlador para la ventana de asignar actividades
+ */
+
 package controlador;
 
 import java.net.URL;
