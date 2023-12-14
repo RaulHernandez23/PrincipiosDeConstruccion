@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Actividad;
+import utilidades.Constantes;
 import utilidades.Utilidades;
 
 public class ActividadDAO {
@@ -85,7 +86,7 @@ public class ActividadDAO {
         return respuesta;
     }
 
-    public static HashMap<String, Object> obtenerActividadesProyecto(
+    public static HashMap<String, Object> obtenerTodasActividadesProyecto(
             Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
@@ -135,6 +136,7 @@ public class ActividadDAO {
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
+                        
                     Actividad actividad = new Actividad();
                     actividad.setIdActividad(resultadoConsulta.getInt(
                             "idActividad"));
@@ -171,18 +173,21 @@ public class ActividadDAO {
                     actividades.add(actividad);
 
                 }
-                conexion.close();
+
                 respuesta.put("error", false);
                 respuesta.put("actividades", actividades);
 
             } catch (SQLException sqlE) {
+
                 sqlE.printStackTrace();
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexion);
             }
 
         } else {
-            respuesta.put("mensaje",
-                    "No se pudo conectar a la base de datos, "
-                            + "inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;

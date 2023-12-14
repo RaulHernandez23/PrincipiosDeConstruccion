@@ -142,7 +142,7 @@ public class FXMLDetalleActividadController implements Initializable {
 
     private void recuperarActividades(Integer idProyecto) {
         HashMap<String, Object> respuesta = ActividadDAO
-                .obtenerActividadesProyecto(idProyecto);
+                .obtenerTodasActividadesProyecto(idProyecto);
 
         if (!(boolean) respuesta.get("error")) {
 
@@ -173,9 +173,13 @@ public class FXMLDetalleActividadController implements Initializable {
                             dpFechaInicio
                                     .setValue(LocalDate.parse(
                                             newValue.getFechaInicio()));
-                            dpFechaFin
+                            if(newValue.getFechaFin() != null) {
+                                dpFechaFin
                                     .setValue(LocalDate.parse(
                                             newValue.getFechaFin()));
+                            } else {
+                                dpFechaFin.setValue(null);
+                            }
                             taDescripcion
                                     .setText(newValue.getDescripcion());
                             tfEstado
@@ -183,6 +187,8 @@ public class FXMLDetalleActividadController implements Initializable {
                             tfEsfuerzo
                                     .setText(String.valueOf(
                                             newValue.getEsfuerzoMinutos()));
+                            tfTipo.setText(String.valueOf(
+                                            newValue.getTipo()));
                             btnEliminar.setDisable(false);
                         }
                     }
@@ -211,9 +217,10 @@ public class FXMLDetalleActividadController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         configurarListenerComboActividad();
-        configurarListenerEsfuerzo();
+        //configurarListenerEsfuerzo();
         dpFechaInicio.setDisable(true);
         dpFechaFin.setDisable(true);
+        lblDatosInvalidos.setText("");
 
     }
 
