@@ -1,3 +1,4 @@
 .vscode/launch.json
 src/modelo/ConectorBaseDatos.java
 bin
+src/utilidades/configuracion.properties
