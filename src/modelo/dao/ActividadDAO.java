@@ -101,7 +101,7 @@ public class ActividadDAO {
         if (conexion != null) {
 
             try {
-                
+
                 String consulta = "SELECT "
                         + "idActividad, "
                         + "titulo, "
@@ -140,9 +140,9 @@ public class ActividadDAO {
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 
                 ArrayList<Actividad> actividades = new ArrayList<>();
-                
+
                 while (resultadoConsulta.next()) {
-                        
+
                     Actividad actividad = new Actividad();
                     actividad.setIdActividad(resultadoConsulta.getInt(
                             "idActividad"));
@@ -179,7 +179,7 @@ public class ActividadDAO {
                     actividades.add(actividad);
 
                 }
-     
+
                 respuesta.put("error", false);
                 respuesta.put("actividades", actividades);
 
@@ -710,7 +710,8 @@ public class ActividadDAO {
 
     }
 
-    public static HashMap<String, Object> finalizarActividad(int idActividad, int esfuerzoMinutos) {
+    public static HashMap<String, Object> finalizarActividad(int idActividad,
+            int esfuerzoMinutos) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         respuesta.put("error", true);
@@ -746,7 +747,7 @@ public class ActividadDAO {
 
                 sqlE.printStackTrace();
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
-                
+
             }
         } else {
             respuesta.put("mensaje",

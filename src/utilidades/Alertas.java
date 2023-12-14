@@ -5,7 +5,8 @@ import javafx.scene.control.ButtonType;
 
 public class Alertas {
 
-    public static void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+    public static void mostrarAlerta(String titulo, String mensaje,
+            Alert.AlertType tipo) {
 
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
@@ -14,7 +15,8 @@ public class Alertas {
         alerta.showAndWait();
     }
 
-    public static boolean mostrarAlertaConfirmacion(String titulo, String mensaje) {
+    public static boolean mostrarAlertaConfirmacion(String titulo,
+            String mensaje) {
 
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.setTitle(titulo);

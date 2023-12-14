@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: Bitacora.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: modelo.pojo
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase POJO para convertir los datos de las tablas Cambio,
+ * Actividad, Defecto y SolicitudDeCambio
+ */
+
 package modelo.pojo;
 
 public class Bitacora {
@@ -16,8 +26,9 @@ public class Bitacora {
     public Bitacora() {
     }
 
-    public Bitacora(String titulo, String estado, Integer esfuerzo, String tipo, String fechaInicio,
-            String fechaReporte, Integer numeroSolicitud, String fechaSolicitud, Integer idBitacora,
+    public Bitacora(String titulo, String estado, Integer esfuerzo, String tipo,
+            String fechaInicio, String fechaReporte, Integer numeroSolicitud,
+            String fechaSolicitud, Integer idBitacora,
             Integer idProyecto) {
 
         this.titulo = titulo;

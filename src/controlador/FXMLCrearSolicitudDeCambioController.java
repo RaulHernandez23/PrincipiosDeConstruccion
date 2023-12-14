@@ -65,7 +65,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
     @FXML
     private Button btnEnviarSolicitud;
-    
+
     @FXML
     private ScrollPane scrollPanePanelPrincipal;
 
@@ -74,13 +74,13 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     private int idEstudiante;
 
     private ObservableList<Defecto> defectos;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         btnEnviarSolicitud.setDisable(true);
         configurarListenerACampos();
-        
+
         Platform.runLater(() -> {
             scrollPanePanelPrincipal.setVvalue(0);
         });
@@ -104,8 +104,8 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
         if (validarCampos()) {
 
-            boolean confirmacion = Utilidades.
-                    mostrarAlertaConfirmacion("Confirmar registro",
+            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion(
+                    "Confirmar registro",
                     "¿Estás seguro de enviar la solicitud?");
 
             if (confirmacion) {
@@ -167,10 +167,12 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
     private void configurarListenerACampos() {
 
-        ChangeListener<String> cambiosEnCampos = 
-                (observable, oldValue, newValue) -> verificarCampos();
-        ChangeListener<Object> cambiosEnComboBox = 
-                (observable, oldValue, newValue) -> verificarCampos();
+        ChangeListener<String> cambiosEnCampos = (
+                observable,
+                oldValue, newValue) -> verificarCampos();
+        ChangeListener<Object> cambiosEnComboBox = (
+                observable,
+                oldValue, newValue) -> verificarCampos();
 
         cbDefectos.valueProperty().addListener(cambiosEnComboBox);
         tfNombreSolicitud.textProperty().addListener(cambiosEnCampos);
@@ -185,49 +187,49 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
 
         btnEnviarSolicitud.setDisable(
                 cbDefectos.getValue() == null
-                || tfNombreSolicitud.getText().isEmpty()
-                || taDescripcionCambio.getText().isEmpty()
-                || taRazonCambio.getText().isEmpty()
-                || taImpactoCambio.getText().isEmpty()
-                || taAccionPropuesta.getText().isEmpty());
+                        || tfNombreSolicitud.getText().isEmpty()
+                        || taDescripcionCambio.getText().isEmpty()
+                        || taRazonCambio.getText().isEmpty()
+                        || taImpactoCambio.getText().isEmpty()
+                        || taAccionPropuesta.getText().isEmpty());
 
     }
 
     private boolean validarCampos() {
         boolean esValido = true;
-    
+
         String titulo = tfNombreSolicitud.getText().trim();
         if (titulo.isEmpty() || titulo.length() > 50) {
             esValido = false;
         }
-    
+
         String descripcion = taDescripcionCambio.getText().trim();
         if (descripcion.isEmpty() || descripcion.length() > 500) {
             esValido = false;
         }
-    
+
         String razonCambio = taRazonCambio.getText().trim();
         if (razonCambio.isEmpty() || razonCambio.length() > 500) {
             esValido = false;
         }
-    
+
         String impactoCambio = taImpactoCambio.getText().trim();
         if (impactoCambio.isEmpty() || impactoCambio.length() > 500) {
             esValido = false;
         }
-    
+
         String accionPropuesta = taAccionPropuesta.getText().trim();
         if (accionPropuesta.isEmpty() || accionPropuesta.length() > 500) {
             esValido = false;
         }
-    
+
         if (cbDefectos.getValue() == null) {
             esValido = false;
         }
-    
+
         return esValido;
     }
-    
+
     private void registrarSolicitud() {
 
         SolicitudDeCambio solicitudDeCambio = new SolicitudDeCambio();
@@ -249,8 +251,8 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         solicitudDeCambio.setIdEstudiante(idEstudiante);
         solicitudDeCambio.setIdProyecto(idProyecto);
 
-        HashMap<String, Object> respuesta = SolicitudDeCambioDAO.
-                registrarSolicitud(solicitudDeCambio);
+        HashMap<String, Object> respuesta = SolicitudDeCambioDAO
+                .registrarSolicitud(solicitudDeCambio);
 
         if (!(Boolean) respuesta.get("error")) {
 
@@ -261,7 +263,8 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
         } else {
 
             Utilidades.mostrarAlertaSimple("Error en el registro",
-                    (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
 
         }
 

@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: FXMLDesasignarEstudianteController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase del controlador para cambiar el estado
+ * de un estudiante a inactivo y desasignarlo de un proyecto
+ */
+
 package controlador;
 
 import java.net.URL;
@@ -38,16 +48,16 @@ public class FXMLDesasignarEstudianteController implements Initializable {
     private ComboBox<Estudiante> cbEstudiantes;
 
     @FXML
-    private Label lbNombre;
+    private Label lblNombre;
 
     @FXML
-    private Label lbApellidos;
+    private Label lblApellidos;
 
     @FXML
-    private Label lbMatricula;
+    private Label lblMatricula;
 
     @FXML
-    private Label lbSemestre;
+    private Label lblSemestre;
 
     private Integer idProyecto;
 
@@ -77,7 +87,7 @@ public class FXMLDesasignarEstudianteController implements Initializable {
     }
 
     @FXML
-    private void btnRegistrar(ActionEvent event) {
+    private void btnRegistrarClic(ActionEvent event) {
         boolean respuesta = Alertas.mostrarAlertaConfirmacion(
                 null,
                 "¿Está seguro de desasignar al estudiante?");
@@ -104,11 +114,11 @@ public class FXMLDesasignarEstudianteController implements Initializable {
 
             if (newValue != null) {
 
-                lbNombre.setText(newValue.getNombre());
-                lbApellidos.setText(newValue.getApellidoPaterno() + " "
+                lblNombre.setText(newValue.getNombre());
+                lblApellidos.setText(newValue.getApellidoPaterno() + " "
                         + newValue.getApellidoMaterno());
-                lbMatricula.setText(newValue.getMatricula());
-                lbSemestre.setText(newValue.getNombrePeriodoEscolar());
+                lblMatricula.setText(newValue.getMatricula());
+                lblSemestre.setText(newValue.getNombrePeriodoEscolar());
 
             }
 

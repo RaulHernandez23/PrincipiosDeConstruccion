@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: FXMLRegistrarActividadController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase del controlador para poder registrar un cambio
+ */
+
 package controlador;
 
 import java.net.URL;
@@ -60,7 +69,7 @@ public class FXMLRegistrarCambioController implements Initializable {
     private ComboBox<String> cbEstado;
 
     @FXML
-    private Button btnRegistrarComponente;
+    private Button btnRegistrar;
 
     private ObservableList<String> listaTipos;
 
@@ -97,7 +106,7 @@ public class FXMLRegistrarCambioController implements Initializable {
     }
 
     @FXML
-    private void btnRegistrar(ActionEvent event) {
+    private void btnRegistrarClic(ActionEvent event) {
 
         if (validarCampos()) {
 
@@ -130,7 +139,7 @@ public class FXMLRegistrarCambioController implements Initializable {
         cbSolicitud.getSelectionModel().select(0);
         cbTipo.getSelectionModel().select(0);
         cbEstado.getSelectionModel().select(0);
-        btnRegistrarComponente.setDisable(true);
+        btnRegistrar.setDisable(true);
         verificarCamposLlenos();
 
     }
@@ -211,7 +220,7 @@ public class FXMLRegistrarCambioController implements Initializable {
     }
 
     private void verificar() {
-        btnRegistrarComponente.setDisable(tfTitulo.getText().isEmpty() ||
+        btnRegistrar.setDisable(tfTitulo.getText().isEmpty() ||
                 tfDescripcion.getText().isEmpty() ||
                 tfEsfuerzo.getText().isEmpty() ||
                 cbTipo.getSelectionModel().getSelectedIndex() < 0 ||

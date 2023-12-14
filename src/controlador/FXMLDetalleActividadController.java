@@ -86,7 +86,7 @@ public class FXMLDetalleActividadController implements Initializable {
     @FXML
     private Label lblEliminarActividad;
 
-    @FXML 
+    @FXML
     private Label lblDatosInvalidos;
 
     @FXML
@@ -95,7 +95,7 @@ public class FXMLDetalleActividadController implements Initializable {
     @FXML
     private void btnEliminarClic(ActionEvent event) {
         if (esFinalizar) {
-    
+
             if (Utilidades.mostrarAlertaConfirmacion("Confirmar",
                     "¿Seguro que desea finalizar la actividad: "
                             + cbActividades.getValue().getTitulo() + "?")) {
@@ -105,7 +105,8 @@ public class FXMLDetalleActividadController implements Initializable {
             if (Utilidades.mostrarAlertaConfirmacion("Confirmar",
                     "¿Seguro que desea eliminar la actividad: "
                             + cbActividades.getValue().getTitulo() + "?")) {
-                eliminarActividad();;
+                eliminarActividad();
+                ;
             }
         }
 
@@ -136,12 +137,12 @@ public class FXMLDetalleActividadController implements Initializable {
     public void inicializarInformacion(Integer idProyecto, boolean esFinalizar) {
 
         configurarListenerComboActividad();
-        
+
         this.esFinalizar = esFinalizar;
-        if(esFinalizar){
+        if (esFinalizar) {
             lblTituloVentana.setText("Finalizar actividad");
             tfEsfuerzo.setEditable(esFinalizar);
-            configurarListenerEsfuerzo();   
+            configurarListenerEsfuerzo();
         }
 
         recuperarActividades(idProyecto);
@@ -163,9 +164,10 @@ public class FXMLDetalleActividadController implements Initializable {
             actividades = FXCollections.observableArrayList();
             ArrayList<Actividad> lista = (ArrayList) respuesta
                     .get("actividades");
-            if(esFinalizar) {
-                for(Actividad actividad : lista) {
-                    if(!actividad.getEstadoActividad().equals("Realizada")) {
+            if (esFinalizar) {
+                for (Actividad actividad : lista) {
+                    if (!actividad.getEstadoActividad().equals(
+                            "Realizada")) {
                         actividades.add(actividad);
                     }
                 }
@@ -195,10 +197,10 @@ public class FXMLDetalleActividadController implements Initializable {
                             dpFechaInicio
                                     .setValue(LocalDate.parse(
                                             newValue.getFechaInicio()));
-                            if(newValue.getFechaFin() != null) {
+                            if (newValue.getFechaFin() != null) {
                                 dpFechaFin
-                                    .setValue(LocalDate.parse(
-                                            newValue.getFechaFin()));
+                                        .setValue(LocalDate.parse(
+                                                newValue.getFechaFin()));
                             } else {
                                 dpFechaFin.setValue(null);
                             }
@@ -210,8 +212,8 @@ public class FXMLDetalleActividadController implements Initializable {
                                     .setText(String.valueOf(
                                             newValue.getEsfuerzoMinutos()));
                             tfTipo.setText(String.valueOf(
-                                            newValue.getTipo()));
-                            if(!esFinalizar) {
+                                    newValue.getTipo()));
+                            if (!esFinalizar) {
                                 btnEliminar.setDisable(false);
                             }
                         }
@@ -251,20 +253,23 @@ public class FXMLDetalleActividadController implements Initializable {
         tfEsfuerzo.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue,
                     String newValue) {
                 btnEliminar.setDisable(true);
                 if (newValue.length() > 0 && newValue.length() <= 11) {
                     if (newValue.matches("\\d*")) {
-                        if(Integer.parseInt(newValue) >= 0){
+                        if (Integer.parseInt(newValue) >= 0) {
                             btnEliminar.setDisable(false);
                             lblDatosInvalidos.setText("");
                         }
                     } else {
-                        lblDatosInvalidos.setText("Debe ingresar solo numeros");
+                        lblDatosInvalidos.setText(
+                                "Debe ingresar solo numeros");
                     }
                 } else {
-                    lblDatosInvalidos.setText("El esfuerzo no puede ser vacío");
+                    lblDatosInvalidos.setText(
+                            "El esfuerzo no puede ser vacío");
                 }
 
             }
@@ -273,8 +278,8 @@ public class FXMLDetalleActividadController implements Initializable {
 
     private void finalizarActividad() {
 
-        HashMap<String, Object> respuesta = ActividadDAO.finalizarActividad
-                (cbActividades.getValue().getIdActividad(),
+        HashMap<String, Object> respuesta = ActividadDAO.finalizarActividad(
+                cbActividades.getValue().getIdActividad(),
                 Integer.parseInt(tfEsfuerzo.getText()));
         if (!(boolean) respuesta.get("error")) {
 

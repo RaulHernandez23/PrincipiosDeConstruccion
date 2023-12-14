@@ -22,10 +22,12 @@ public class SolicitudDeCambio {
     public SolicitudDeCambio() {
     }
 
-    public SolicitudDeCambio(Integer idSolicitudDeCambio, String titulo, String descripcion, String razon,
-            String impacto, String accionPropuesta, String fechaCreacion, String fechaEvaluacion, Integer idEstudiante,
-            String estudiante, Integer idEstadoSolicitud, Integer idProyecto, Integer idResponsable, Integer idDefecto,
-            String defecto) {
+    public SolicitudDeCambio(Integer idSolicitudDeCambio, String titulo,
+            String descripcion, String razon, String impacto,
+            String accionPropuesta, String fechaCreacion,
+            String fechaEvaluacion, Integer idEstudiante,
+            String estudiante, Integer idEstadoSolicitud, Integer idProyecto,
+            Integer idResponsable, Integer idDefecto, String defecto) {
 
         this.idSolicitudDeCambio = idSolicitudDeCambio;
         this.titulo = titulo;
@@ -42,7 +44,7 @@ public class SolicitudDeCambio {
         this.idResponsable = idResponsable;
         this.idDefecto = idDefecto;
         this.defecto = defecto;
-        
+
     }
 
     public Integer getIdSolicitudDeCambio() {

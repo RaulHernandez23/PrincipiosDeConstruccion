@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Cambio.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: modelo.pojo
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase POJO para convertir los datos de la tabla Cambio
+ */
+
 package modelo.pojo;
 
 public class Cambio {
@@ -20,10 +29,12 @@ public class Cambio {
     public Cambio() {
     }
 
-    public Cambio(int idCambio, String titulo, String Descripcion, int esfuerzoMinutos, String fechaInicio,
-            String fechaFin, int idEstadoCambio, int idSolicitud, int idTipoActividad, Integer idEstudiante,
-            Integer idProyecto, String estadoCambio, String solicitud, String tipoActividad) {
-        
+    public Cambio(int idCambio, String titulo, String Descripcion,
+            int esfuerzoMinutos, String fechaInicio, String fechaFin,
+            int idEstadoCambio, int idSolicitud, int idTipoActividad,
+            Integer idEstudiante, Integer idProyecto, String estadoCambio,
+            String solicitud, String tipoActividad) {
+
         this.idCambio = idCambio;
         this.titulo = titulo;
         this.Descripcion = Descripcion;
@@ -38,7 +49,7 @@ public class Cambio {
         this.estadoCambio = estadoCambio;
         this.solicitud = solicitud;
         this.tipoActividad = tipoActividad;
-        
+
     }
 
     public int getIdCambio() {

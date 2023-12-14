@@ -78,6 +78,11 @@ public class FXMLConsultarDefectosController implements Initializable {
             if (!((Boolean) respuestaDefectos.get("error"))) {
 
                 ArrayList<HashMap<String, Object>> listaDefectos;
+
+                /**
+                 * No se puede estandarizar a 80 caracteres por linea debido
+                 * a la indentación y la estructura de datos
+                 */
                 listaDefectos = (ArrayList<HashMap<String, Object>>) respuestaDefectos.get("defectos");
 
                 for (HashMap<String, Object> defectoMap : listaDefectos) {
@@ -108,22 +113,29 @@ public class FXMLConsultarDefectosController implements Initializable {
 
                 tvDefectos.setItems(defectos);
                 colTituloDefecto
-                        .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitulo()));
+                        .setCellValueFactory(
+                                cellData -> new SimpleStringProperty(
+                                        cellData.getValue().getTitulo()));
                 colEstadoDefectos.setCellValueFactory(
-                        cellData -> new SimpleStringProperty(cellData.getValue().getEstadoDefecto()));
+                        cellData -> new SimpleStringProperty(
+                                cellData.getValue().getEstadoDefecto()));
                 colFechaReporteDefectos.setCellValueFactory(
-                        cellData -> new SimpleStringProperty(cellData.getValue().getFechaReporte()));
+                        cellData -> new SimpleStringProperty(
+                                cellData.getValue().getFechaReporte()));
 
             } else {
 
-                String mensajeError = respuestaDefectos.get("mensaje").toString();
-                utilidades.Alertas.mostrarAlerta("Error de conexión", mensajeError, Alert.AlertType.ERROR);
+                String mensajeError = respuestaDefectos.get("mensaje")
+                        .toString();
+                utilidades.Alertas.mostrarAlerta("Error de conexión",
+                        mensajeError, Alert.AlertType.ERROR);
 
             }
         } catch (Exception e) {
 
             e.printStackTrace();
-            utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de defectos",
+            utilidades.Alertas.mostrarAlerta("Error de conexión",
+                    "Error al obtener la lista de defectos",
                     Alert.AlertType.ERROR);
 
         }
@@ -132,7 +144,8 @@ public class FXMLConsultarDefectosController implements Initializable {
     @FXML
     private void btnAceptarClic(ActionEvent event) {
 
-        Defecto defectoSeleccionado = tvDefectos.getSelectionModel().getSelectedItem();
+        Defecto defectoSeleccionado = tvDefectos.getSelectionModel()
+                .getSelectedItem();
         consultarDefecto(defectoSeleccionado);
 
     }
@@ -143,13 +156,16 @@ public class FXMLConsultarDefectosController implements Initializable {
 
         try {
 
-            FXMLLoader loader = Utilidades.getFXMLLoader("/vista/FXMLConsultarDetallesDefecto.fxml");
+            FXMLLoader loader = Utilidades.getFXMLLoader(
+                    "/vista/FXMLConsultarDetallesDefecto.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
-            FXMLConsultarDetallesDefectosController controlador = loader.getController();
+            FXMLConsultarDetallesDefectosController controlador = loader
+                    .getController();
             controlador.inicializarVentana(defectoSeleccionado);
 
-            String css = Utilidades.getURLString("/vista/estilos/escenaFormulario.css");
+            String css = Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css");
             escena.getStylesheets().add(css);
             escenario.setScene(escena);
             escenario.setTitle("Consultar defecto");

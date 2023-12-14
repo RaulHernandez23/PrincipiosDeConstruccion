@@ -1,3 +1,13 @@
+/*
+ * Nombre del archivo: FXMLBitacorasEstudianteController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase del controlador para observar las bitacoras 
+ * de un estudiante
+ */
+
 package controlador;
 
 import java.net.URL;

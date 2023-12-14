@@ -1,9 +1,11 @@
 /*
-* Autor: Albhieri Cristoff Villa Contreras
-* Fecha de creación: 03/12/2023
-* Fecha de modificación: 10/12/2023
-* Descripción: Clase del controlador para poder registrar una actividad
-*/
+ * Nombre del archivo: FXMLRegistrarActividadController.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: controlador
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase del controlador para poder registrar una actividad
+ */
 
 package controlador;
 
@@ -55,7 +57,7 @@ public class FXMLRegistrarActividadController implements Initializable {
     private VBox vboxRegistrarActividad;
 
     @FXML
-    private Button btnRegistrarComponente;
+    private Button btnRegistrar;
 
     private ObservableList<String> listaTipos;
 
@@ -74,13 +76,13 @@ public class FXMLRegistrarActividadController implements Initializable {
 
         cargarTipos();
         cbTipo.getSelectionModel().select(0);
-        btnRegistrarComponente.setDisable(true);
+        btnRegistrar.setDisable(true);
         verificarCamposLlenos();
 
     }
 
     @FXML
-    void btnRegistrar(ActionEvent event) {
+    void btnRegistrarClic(ActionEvent event) {
 
         if (validarCampos()) {
 
@@ -240,7 +242,7 @@ public class FXMLRegistrarActividadController implements Initializable {
     }
 
     public void verificar() {
-        btnRegistrarComponente.setDisable(tfTitulo.getText().isEmpty() ||
+        btnRegistrar.setDisable(tfTitulo.getText().isEmpty() ||
                 tfDescripcion.getText().isEmpty() ||
                 cbTipo.getSelectionModel().getSelectedIndex() < 0);
     }

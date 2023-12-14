@@ -31,7 +31,7 @@ public class FXMLMenuEstudianteController implements Initializable {
     private ImageView ivSalir;
 
     @FXML
-    private Label encabezadoEstudiante;
+    private Label lblEncabezadoEstudiante;
 
     private Estudiante estudiante;
 
@@ -205,7 +205,7 @@ public class FXMLMenuEstudianteController implements Initializable {
         boolean dosNombres = nombreInternacional.length == 2;
         this.idProyecto = estudiante.getIdProyecto();
 
-        encabezadoEstudiante.setText(
+        lblEncabezadoEstudiante.setText(
                 estudiante.getApellidoPaterno() + "-" +
                         estudiante.getApellidoMaterno() + " " +
                         nombreInternacional[0] +
