@@ -11,7 +11,7 @@
  Target Server Version : 100323 (10.3.23-MariaDB-log)
  File Encoding         : 65001
 
- Date: 14/12/2023 00:52:55
+ Date: 14/12/2023 08:11:29
 */
 
 SET NAMES utf8mb4;
@@ -44,19 +44,20 @@ CREATE TABLE `actividad`  (
   CONSTRAINT `fk_actividad_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_actividad_responsableProyecto` FOREIGN KEY (`idResponsable`) REFERENCES `responsableproyecto` (`idResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_actividad_tipoActividad` FOREIGN KEY (`idTipoActividad`) REFERENCES `tipoactividad` (`idTipoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of actividad
 -- ----------------------------
 INSERT INTO `actividad` VALUES (1, 'Plan de pruebas', 'creacion del plan de pruebas de las interfaces', 60, '2023-08-15', '2023-08-16', 1, 1, 2, 1, 1);
 INSERT INTO `actividad` VALUES (2, 'Creacion de requerimientos', 'Identificacion de requerimientos del cliente', NULL, '2023-09-20', NULL, 2, 2, 1, 1, 1);
-INSERT INTO `actividad` VALUES (4, 'Clase Empresa', 'Creacion de la clase Empresa', 240, '2023-10-25', '2023-10-26', 1, 4, 1, 1, 1);
 INSERT INTO `actividad` VALUES (5, 'Diagramas Actividad', 'Creacion de diagrama de actividad de Arquitecto', NULL, '2023-11-05', NULL, 2, 5, 3, 1, 1);
-INSERT INTO `actividad` VALUES (6, 'base de datos', 'Creacion de la base de datos', 0, '2023-12-13', '2023-12-14', 1, 2, 1, 1, 1);
 INSERT INTO `actividad` VALUES (7, 'Diagramas Actividad', 'Creacion de diagrama de actividad de artista', NULL, '2023-12-13', NULL, 3, 3, 2, 1, 1);
 INSERT INTO `actividad` VALUES (9, 'Clase Artista', 'La clase \"Artista\" será responsable de almacenar información detallada sobre los artistas, lo que incluye un nombre, biografía y contacto. Realiza los métodos necesarios para realizar la venta de una obra a la galería.', 100, '2023-12-14', '2023-12-14', 1, 1, NULL, 1, 1);
-INSERT INTO `actividad` VALUES (10, 'Clase Arquitecto', 'Crear la clase arquitecto en la base de datos para poder usarla dentro del programa', NULL, '2023-12-14', NULL, 3, 2, 1, 1, 1);
+INSERT INTO `actividad` VALUES (10, 'Clase Arquitecto', 'Crear la clase arquitecto en la base de datos para poder usarla dentro del programa', 100, '2023-12-14', '2023-12-14', 1, 2, 2, 1, 1);
+INSERT INTO `actividad` VALUES (13, 'Actividad sin asignar', 'Esta actividad esta sin asignar', 0, '2023-12-14', '2023-12-14', 1, 1, NULL, 1, 1);
+INSERT INTO `actividad` VALUES (14, 'Actividad de creacion de BD', 'Crea la BD', NULL, '2023-12-14', NULL, 3, 2, 60, 1, 1);
+INSERT INTO `actividad` VALUES (15, 'Actividad de registro', 'registro de informacion en la base de datos', NULL, '2023-12-14', NULL, 3, 1, NULL, 1, 1);
 
 -- ----------------------------
 -- Table structure for cambio
@@ -82,7 +83,7 @@ CREATE TABLE `cambio`  (
   CONSTRAINT `fk_cambio_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_cambio_solicitudDeCambio` FOREIGN KEY (`idSolicitudDeCambio`) REFERENCES `solicituddecambio` (`idSolicitudDeCambio`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_cambio_tipoActividad` FOREIGN KEY (`idTipoActividad`) REFERENCES `tipoactividad` (`idTipoActividad`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cambio
@@ -90,10 +91,14 @@ CREATE TABLE `cambio`  (
 INSERT INTO `cambio` VALUES (1, 'Escritura poco practica', 'Combinacion del camel case, pascal y snake', 60, 1, '2023-08-01', '2023-08-02', 1, 1, 1);
 INSERT INTO `cambio` VALUES (2, 'Modificar tabla', 'Modificar la tabla mamiferos', NULL, 1, '2023-08-03', '2023-12-13', 1, 2, 1);
 INSERT INTO `cambio` VALUES (3, 'Actualizar requisitos', 'El cliente pidio nuevos requisitos por lo cual se debe de actualizar el documento de requisitos', 180, 1, '2023-08-05', '2023-08-06', 1, 3, 1);
-INSERT INTO `cambio` VALUES (4, 'Agregar atributo', 'Agregar atributo de la familia de los mamiferos', NULL, 2, '2023-08-07', NULL, 2, 3, 1);
+INSERT INTO `cambio` VALUES (4, 'Agregar atributo', 'Agregar atributo de la familia de los mamiferos', NULL, 1, '2023-08-07', '2023-12-14', 2, 3, 1);
 INSERT INTO `cambio` VALUES (5, 'Actulizar Clase ', 'Se debe de actulizar la clase de Arquitecto ya que presenta errores puesto que pone atributos publicos', 300, 1, '2023-08-09', '2023-08-10', 3, 1, 1);
-INSERT INTO `cambio` VALUES (8, 'Mejorar prototipos', 'Los prototipos del usuario presentan deficiencias, no se muestra el diseño', 30, 1, '2023-12-14', NULL, 2, 3, 1);
-INSERT INTO `cambio` VALUES (9, 'Actualizar tabla ObraDonada', 'Agregar un campo más a la tabla \"ObraDonada\" para permitir al cliente elegir a que organización irán las ganancias recaudadas en la subasta de la obra de arte.', 60, 1, '2023-12-14', NULL, 4, 2, 1);
+INSERT INTO `cambio` VALUES (8, 'Mejorar prototipos', 'Los prototipos del usuario presentan deficiencias, no se muestra el diseño', 30, 2, '2023-12-14', NULL, 2, 3, 1);
+INSERT INTO `cambio` VALUES (9, 'Actualizar tabla ObraDonada', 'Agregar un campo más a la tabla \"ObraDonada\" para permitir al cliente elegir a que organización irán las ganancias recaudadas en la subasta de la obra de arte.', 60, 2, '2023-12-14', NULL, 4, 2, 1);
+INSERT INTO `cambio` VALUES (10, 'Actualizar el cliente', 'Se cambió el cliente al nuevo cliente', 120, 2, '2023-12-14', NULL, 3, 1, 1);
+INSERT INTO `cambio` VALUES (11, 'Agregué más diseño', 'Agregue mas diseño al diseño', 240, 1, '2023-12-14', '2023-12-14', 1, 3, 1);
+INSERT INTO `cambio` VALUES (12, 'Cambio en el desgloce de trabajo', 'Se cambio la forma de trabajo', 60, 2, '2023-12-14', NULL, 1, 3, 1);
+INSERT INTO `cambio` VALUES (13, 'Cambio de servidor', 'Se solicito a los clientes cambiar de servidor por uno el cual fuera mas optimo para el desarrollo de cambio', 54, 2, '2023-12-14', NULL, 4, 1, 1);
 
 -- ----------------------------
 -- Table structure for defecto
@@ -116,7 +121,7 @@ CREATE TABLE `defecto`  (
   CONSTRAINT `fk_defecto_estadoDefecto` FOREIGN KEY (`idEstadoDefecto`) REFERENCES `estadodefecto` (`idEstadoDefecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_defecto_estudiante` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_defecto_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of defecto
@@ -127,6 +132,7 @@ INSERT INTO `defecto` VALUES (3, 'Fallo de implementacion', 'Error al establecer
 INSERT INTO `defecto` VALUES (4, 'Despliegue insuficiente', 'No se puede acceder al DAO mamiferos', 240, '2023-08-07', '2023-08-08', 1, 3, 1);
 INSERT INTO `defecto` VALUES (5, 'Diseños incompleto', 'Se necesita que se especifiquen mejor los casos de uso del diseño', NULL, '2023-08-09', NULL, 2, 3, 1);
 INSERT INTO `defecto` VALUES (8, 'Error en la base de datos en tabla Perro', 'El perro debe relacionarse con el dueño y con su veterinario', NULL, '2023-12-14', NULL, 2, 2, 1);
+INSERT INTO `defecto` VALUES (9, 'BD incompleta', 'La base de datos se encuentra incompleta en tablas', NULL, '2023-12-14', NULL, 2, 2, 1);
 
 -- ----------------------------
 -- Table structure for estadoactividad
@@ -246,25 +252,26 @@ CREATE TABLE `estudiante`  (
   INDEX `fk_estudiante_proyecto`(`idProyecto`) USING BTREE,
   CONSTRAINT `fk_estudiante_estadoEstudiante` FOREIGN KEY (`idEstadoEstudiante`) REFERENCES `estadoestudiante` (`idEstadoEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_estudiante_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of estudiante
 -- ----------------------------
 INSERT INTO `estudiante` VALUES (1, 's21013876', 'Albhieri Cristoff', 'Villa', 'Contreras', 'radisa94', 1, 1);
-INSERT INTO `estudiante` VALUES (2, 'S21026432', 'Raul', 'Hernandez', 'Olivares', 'pass', 1, 1);
+INSERT INTO `estudiante` VALUES (2, 'S21026432', 'Raul', 'Hernandez', 'Olivares', 'raulHernandez', 1, 1);
 INSERT INTO `estudiante` VALUES (3, 'S21026433', 'Miguel', 'Morales', 'Cruz', 'miguelMorales', 1, 1);
 INSERT INTO `estudiante` VALUES (4, 'S21026430', 'Camila', 'Morales', 'Cruz', 'camilaMorales', 1, 1);
 INSERT INTO `estudiante` VALUES (9, 's22010001', 'Julian', 'Lopez', 'Garrido', 'julianLopez', 1, 1);
 INSERT INTO `estudiante` VALUES (11, 'S21026436', 'Jorge', 'Perez', 'Lopez', 'jorgePerez', 1, 1);
-INSERT INTO `estudiante` VALUES (12, 'S21026437', 'dcwew', 'dxew', 'edw', 'dcwewdxew', 2, NULL);
-INSERT INTO `estudiante` VALUES (17, 'S21057433', 'sfcefe', 'ceed', 'cedcedc', 'sfcefeceed', 1, 1);
-INSERT INTO `estudiante` VALUES (18, 'S21036548', 'fecec', 'ecdc', 'edced', 'fecececdc', 1, 1);
 INSERT INTO `estudiante` VALUES (20, 'S22046538', 'Luis', 'Perez', 'Martinez', 'luisPerez', 1, 1);
-INSERT INTO `estudiante` VALUES (25, 'S09864792', 'Prueba', 'cedcew', 'cewdcew', 'pruebacedcew', 1, 1);
-INSERT INTO `estudiante` VALUES (31, 'S21874540', 'dfvedfve', 'evefver', 'erverv', 'dfvedfveevefver', 1, 1);
+INSERT INTO `estudiante` VALUES (25, 'S09864792', 'Prueba', 'cedcew', 'cewdcew', 'pruebacedcew', 2, NULL);
+INSERT INTO `estudiante` VALUES (31, 'S21874540', 'dfvedfve', 'evefver', 'erverv', 'dfvedfveevefver', 2, NULL);
 INSERT INTO `estudiante` VALUES (35, 'S74834566', 'Estudiante', 'Prueba', 'Prueba', 'estudiantePrueba', 1, 1);
 INSERT INTO `estudiante` VALUES (36, 's21010002', 'Ramona', 'Lima', 'Salinas', 'ramonaLima', 1, 1);
+INSERT INTO `estudiante` VALUES (40, 's21020001', 'Gales', 'Milato', 'Serbon', 'galesMilato', 1, 1);
+INSERT INTO `estudiante` VALUES (41, 'S21026445', 'Miguel', 'Morales', 'Cruz', 'miguelMorales', 1, 1);
+INSERT INTO `estudiante` VALUES (48, 'S85730234', 'Porfirio', 'Diaz', 'Miron', 'cedcrecececrec', 2, NULL);
+INSERT INTO `estudiante` VALUES (60, 'S19023590', 'Cesar', 'Gonzalez ', 'Lopez', 'prueba', 1, 1);
 
 -- ----------------------------
 -- Table structure for estudiante_cambio
@@ -279,7 +286,7 @@ CREATE TABLE `estudiante_cambio`  (
   INDEX `fk_estudiantecambio_cambio`(`idCambio`) USING BTREE,
   CONSTRAINT `fk_estudiantecambio_cambio` FOREIGN KEY (`idCambio`) REFERENCES `cambio` (`idCambio`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_estudiantecambio_estudiante` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of estudiante_cambio
@@ -294,6 +301,10 @@ INSERT INTO `estudiante_cambio` VALUES (7, 1, 5);
 INSERT INTO `estudiante_cambio` VALUES (8, 3, 3);
 INSERT INTO `estudiante_cambio` VALUES (10, 1, 8);
 INSERT INTO `estudiante_cambio` VALUES (11, 1, 9);
+INSERT INTO `estudiante_cambio` VALUES (12, 2, 10);
+INSERT INTO `estudiante_cambio` VALUES (13, 2, 11);
+INSERT INTO `estudiante_cambio` VALUES (14, 1, 12);
+INSERT INTO `estudiante_cambio` VALUES (15, 1, 13);
 
 -- ----------------------------
 -- Table structure for estudiante_periodoescolar
@@ -308,29 +319,34 @@ CREATE TABLE `estudiante_periodoescolar`  (
   INDEX `fk_estudianteperiodoescolar_periodoescolar`(`idPeriodoEscolar`) USING BTREE,
   CONSTRAINT `fk_estudianteperiodoescolar_estudiante` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_estudianteperiodoescolar_periodoescolar` FOREIGN KEY (`idPeriodoEscolar`) REFERENCES `periodoescolar` (`idPeriodoEscolar`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of estudiante_periodoescolar
 -- ----------------------------
-INSERT INTO `estudiante_periodoescolar` VALUES (1, 2, 1);
 INSERT INTO `estudiante_periodoescolar` VALUES (2, 1, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (3, 2, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (4, 3, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (7, 11, 2);
-INSERT INTO `estudiante_periodoescolar` VALUES (11, 18, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (12, 4, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (13, 20, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (14, 4, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (15, 4, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (16, 4, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (17, 4, 2);
-INSERT INTO `estudiante_periodoescolar` VALUES (18, 25, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (19, 4, 2);
-INSERT INTO `estudiante_periodoescolar` VALUES (20, 31, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (21, 4, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (22, 35, 2);
 INSERT INTO `estudiante_periodoescolar` VALUES (23, 36, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (24, 2, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (25, 2, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (27, 41, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (29, 3, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (30, 3, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (31, 3, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (32, 3, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (33, 3, 2);
+INSERT INTO `estudiante_periodoescolar` VALUES (34, 40, 2);
 
 -- ----------------------------
 -- Table structure for periodoescolar
@@ -463,16 +479,17 @@ CREATE TABLE `solicituddecambio`  (
   CONSTRAINT `fk_solicituddecambio_estudiante` FOREIGN KEY (`idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_solicituddecambio_proyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyecto` (`idProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_solicituddecambio_responsableproyecto` FOREIGN KEY (`idResponsableProyecto`) REFERENCES `responsableproyecto` (`idResponsableProyecto`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of solicituddecambio
 -- ----------------------------
-INSERT INTO `solicituddecambio` VALUES (1, 'Modificar diseño', 'El usuario solicita meterle mas diseño', 'poco diseño', 'gustos del cliente', 'Crearle mas colores', '2023-08-01', '2023-08-02', 2, 1, 1, 1, 1);
-INSERT INTO `solicituddecambio` VALUES (2, 'Botones poco eficaces', 'los botones se quieren cambiar a azul', 'no se ven lindos en el programa', 'gustos del cliente', 'cambio de color', '2023-08-03', '2023-08-04', 1, 2, 1, 1, 1);
-INSERT INTO `solicituddecambio` VALUES (3, 'actualizar cliente', 'Se nombro un cliente equivocado', 'no se copio el nombre del ine', 'estructura del contrato', 'analizar el INE del cliente', '2023-08-05', '2023-08-06', 3, 1, 1, 1, 2);
-INSERT INTO `solicituddecambio` VALUES (4, 'Solicitud de prueba', 'Faltaron mas pruebas', 'Se tenia poco tiempo', 'Razon simple', 'Solicitar mas tiempo para pruebas', '2023-12-13', '2023-12-13', 3, 1, 1, 1, 1);
-INSERT INTO `solicituddecambio` VALUES (5, 'Solicitud de mas tiempo', 'Se necesita mas tiempo para la entrega de actividad', 'poco tiempo de realizacion', 'Descripcion simple ', 'mas tiempo', '2023-12-13', '2023-12-13', 3, 2, 1, 1, 1);
+INSERT INTO `solicituddecambio` VALUES (1, 'Modificar diseño', 'El usuario solicita meterle mas diseño', 'poco diseño', 'gustos del cliente', 'Crearle mas colores', '2023-08-01', '2023-08-02', 2, 3, 1, 1, 1);
+INSERT INTO `solicituddecambio` VALUES (2, 'Botones poco eficaces', 'los botones se quieren cambiar a azul', 'no se ven lindos en el programa', 'gustos del cliente', 'cambio de color', '2023-08-03', '2023-12-14', 1, 2, 1, 1, 1);
+INSERT INTO `solicituddecambio` VALUES (3, 'actualizar cliente', 'Se nombro un cliente equivocado', 'no se copio el nombre del ine', 'estructura del contrato', 'analizar el INE del cliente', '2023-08-05', '2023-12-14', 3, 2, 1, 1, 2);
+INSERT INTO `solicituddecambio` VALUES (4, 'Solicitud de prueba', 'Faltaron mas pruebas', 'Se tenia poco tiempo', 'Razon simple', 'Solicitar mas tiempo para pruebas', '2023-12-13', '2023-12-14', 3, 1, 1, 1, 1);
+INSERT INTO `solicituddecambio` VALUES (5, 'Solicitud de mas tiempo', 'Se necesita mas tiempo para la entrega de actividad', 'poco tiempo de realizacion', 'Descripcion simple ', 'mas tiempo', '2023-12-13', '2023-12-14', 3, 1, 1, 1, 1);
+INSERT INTO `solicituddecambio` VALUES (6, 'Solicitud numero 1', 'Descripcion simple', 'Razon simple', 'Impacto simple ', 'Accion propuesta', '2023-12-14', NULL, 3, 3, 1, NULL, 1);
 
 -- ----------------------------
 -- Table structure for tipoactividad
