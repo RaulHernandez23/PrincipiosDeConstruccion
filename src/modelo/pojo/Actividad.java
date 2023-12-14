@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Actividad.java
+ * Autor: Raul Hernandez Olivares
+ * Paquete: modelo/pojo
+ * Fecha de creación: 19/11/2023
+ * Fecha de modificación: 13/12/2023
+ * Descripción: Clase que contiene los métodos de una actividad
+ */
+
 package modelo.pojo;
 
 public class Actividad {

@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Estudiante.java
+ * Autor: Raul Hernandez Olivares
+ * Paquete: modelo/pojo
+ * Fecha de creación: 19/11/2023
+ * Fecha de modificación: 3/12/2023
+ * Descripción: Clase que contiene los atributos de un estudiante
+ */
+
 package modelo.pojo;
 
 public class Estudiante {
