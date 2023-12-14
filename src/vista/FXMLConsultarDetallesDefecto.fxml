@@ -21,7 +21,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button layoutX="293.0" layoutY="429.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="135.0" styleClass="botonOperacion" text="Cerrar">
+      <Button layoutX="293.0" layoutY="429.0" mnemonicParsing="false" onAction="#btnCerrarClic" prefHeight="37.0" prefWidth="135.0" styleClass="botonOperacion" text="Cerrar">
          <font>
             <Font size="16.0" />
          </font>
