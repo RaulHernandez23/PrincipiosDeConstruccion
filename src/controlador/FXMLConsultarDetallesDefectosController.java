@@ -6,10 +6,12 @@
 */
 package controlador;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import modelo.pojo.Defecto;
 
 import java.net.URL;
@@ -55,6 +57,21 @@ public class FXMLConsultarDetallesDefectosController implements Initializable {
         tfEsfuerzo.setText(String.valueOf(defectoSeleccionado
                 .getEsfuerzoMinutos()));
         tfEstado.setText(defectoSeleccionado.getEstadoDefecto());
+
+    }
+
+    @FXML
+    private void btnCerrarClic(ActionEvent event) {
+
+        salir();
+
+    }
+
+    private void salir() {
+
+        Stage escenario = (Stage) tfTitulo.getScene().getWindow();
+
+        escenario.close();
 
     }
 }
