@@ -38,8 +38,8 @@ public class DefectoDAO {
                 sentencia.setString(2, defecto.getDescripcion());
                 sentencia.setInt(3, defecto.getIdEstudiante());
                 sentencia.setInt(4, defecto.getIdProyecto());
+                
                 int filasAfectadas = sentencia.executeUpdate();
-                conexionBD.close();
 
                 if (filasAfectadas > 0) {
 
@@ -51,8 +51,10 @@ public class DefectoDAO {
                 }
 
             } catch (SQLException sqlE) {
+
                 sqlE.printStackTrace();
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
@@ -64,13 +66,15 @@ public class DefectoDAO {
     }
 
     public static HashMap<String, Object> consultarDefectos() {
+
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
+
             try {
+
                 String consulta = "SELECT idDefecto, titulo, d.descripcion, " +
                         "esfuerzoMinutos, fechaReporte, fechaFin, d.idEstadoDefecto, " +
                         "d.idEstudiante, ed.estado AS estadoActividad, " +
@@ -81,7 +85,6 @@ public class DefectoDAO {
                         "INNER JOIN proyecto p on p.idProyecto = d.idProyecto " +
                         "WHERE p.idProyecto = 1 " +
                         "ORDER BY fechaReporte ASC, estudiante ASC";
-
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
 
                 ResultSet resultado = sentencia.executeQuery();
@@ -89,6 +92,7 @@ public class DefectoDAO {
                 ArrayList<HashMap<String, Object>> listaDefectos = new ArrayList<>();
 
                 while (resultado.next()) {
+
                     HashMap<String, Object> defectoMap = new HashMap<>();
                     defectoMap.put("idDefecto", resultado.getInt("idDefecto"));
                     defectoMap.put("titulo", resultado.getString("titulo"));
@@ -102,14 +106,18 @@ public class DefectoDAO {
                     defectoMap.put("estudiante", resultado.getString("estudiante"));
 
                     listaDefectos.add(defectoMap);
+
                 }
 
                 respuesta.put("error", false);
                 respuesta.put("defectos", listaDefectos);
 
             } catch (SQLException se) {
+
                 se.printStackTrace();
-                respuesta.put("mensaje", "Error en la base de datos: " + se.getMessage());
+                respuesta.put("mensaje", "Error en la base de datos: " + 
+                        se.getMessage());
+            
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -124,9 +132,7 @@ public class DefectoDAO {
             Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
@@ -146,9 +152,7 @@ public class DefectoDAO {
                         "INNER JOIN estadodefecto ed " +
                         "ON d.idEstadoDefecto = ed.idEstadoDefecto " +
                         "WHERE d.idProyecto = ?";
-
                 PreparedStatement sentencia = conexionBD.prepareStatement(
-
                         consulta);
                 sentencia.setInt(1, idProyecto);
 
@@ -184,9 +188,7 @@ public class DefectoDAO {
                 respuesta.put("defectos", defectos);
 
             } catch (SQLException se) {
-
                 respuesta.put("mensaje", "Error" + se.getMessage());
-
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
@@ -206,9 +208,7 @@ public class DefectoDAO {
             Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
@@ -228,9 +228,7 @@ public class DefectoDAO {
                         "INNER JOIN estadodefecto ed " +
                         "ON d.idEstadoDefecto = ed.idEstadoDefecto " +
                         "WHERE d.idProyecto = ? AND d.idEstudiante = ?";
-
                 PreparedStatement sentencia = conexionBD.prepareStatement(
-
                         consulta);
                 sentencia.setInt(1, idProyecto);
                 sentencia.setInt(2, idEstudiante);
@@ -267,9 +265,7 @@ public class DefectoDAO {
                 respuesta.put("defectos", defectos);
 
             } catch (SQLException se) {
-
                 respuesta.put("mensaje", "Error" + se.getMessage());
-
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
@@ -288,9 +284,7 @@ public class DefectoDAO {
             (Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
@@ -300,10 +294,8 @@ public class DefectoDAO {
                 String consulta = "SELECT idDefecto, titulo " +
                         "FROM defecto " +
                         "WHERE idProyecto = ?";
-
                 PreparedStatement sentencia = conexionBD
                 .prepareStatement(consulta);
-                
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
