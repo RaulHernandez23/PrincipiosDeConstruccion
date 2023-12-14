@@ -37,7 +37,17 @@ Este proyecto está estrechamente relacionado con la materia de "Principios de D
 
 3. Abre tu NetBeans y selecciona la carpeta que está dentro de la carpeta netbeans llamada "sgbp".
 
-4. Compila y ejecuta la aplicación.
+4. Busca en la carpeta bd del repositorio el archivo llamado "sgbp.sql" y copialo y ejecutalo en tu instancia de MySQL Workbench, Navicat o cualquier otro gestor de bases de datos en el hostname "localhost" con el puerto "3306".
+
+5. Modifica el archivo configuracion.properties que se encuentra en el paquete utilidades y cambia los valores de las variables por los de tu instancia de MySQL.
+
+6. Modifica el archivo ConectorBaseDatos.java que se encuentra en el paquete modelo y cambia el valor de int usuarioActual por el indice del usuario que hayas agregado en el configuracion.properties. (Recomendación: Pon tu usuario al principio de usuarios y tu contraseña al principio de passwords para que tu indice sea el 0, deberas poner una coma ',' al final para separalos de los demás valores tanto de los usuarios como de las contraseñas, puedes cambiar los que dicen tuUsuario y tuPassword).
+
+7. Dale a guardar a todos los archivos modificados.
+
+8. Dale a la opción de "Clean and Build" en la parte superior de NetBeans.
+
+9. Compila y ejecuta la aplicación.
 
 ## Instrucciones de Despliegue en Visual Studio Code (Windows)
 
@@ -95,11 +105,11 @@ Este proyecto está estrechamente relacionado con la materia de "Principios de D
 
 16. Copia estos archivos y pegalos en la carpeta lib del repositorio si no se encuentran.
 
-17. Busca en la carpeta bd del repositorio el archivo llamado "sgbp.sql" y copialo y ejecutalo en tu instancia de MySQL Workbench, Navicat o cualquier otro gestor de bases de datos.
+17. Busca en la carpeta bd del repositorio el archivo llamado "sgbp.sql" y copialo y ejecutalo en tu instancia de MySQL Workbench, Navicat o cualquier otro gestor de bases de datos en el hostname "localhost" con el puerto "3306".
 
 18. Modifica el archivo configuracion.properties que se encuentra en la carpeta src/utilidades y cambia los valores de las variables por los de tu instancia de MySQL.
 
-19. Modifica el archivo ConectorBaseDatos.java que se encuentra en la carpeta src/modelo y cambia el valor de int usuarioActual por el indice del usuario que hayas agregado en el configuracion.properties. (Recomendación: Pon tu usuario al principio de usuarios y tu contraseña al principio de passwords para que tu indice sea el 0, deberas poner una coma ',' al final para separalos de los demás valores tanto de los usuarios como de las contraseñas).
+19. Modifica el archivo ConectorBaseDatos.java que se encuentra en la carpeta src/modelo y cambia el valor de int usuarioActual por el indice del usuario que hayas agregado en el configuracion.properties. (Recomendación: Pon tu usuario al principio de usuarios y tu contraseña al principio de passwords para que tu indice sea el 0, deberas poner una coma ',' al final para separalos de los demás valores tanto de los usuarios como de las contraseñas, puedes cambiar los que dicen tuUsuario y tuPassword).
 
 20. Dale a guardar a todos los archivos modificados.
 
@@ -167,11 +177,11 @@ Este proyecto está estrechamente relacionado con la materia de "Principios de D
 
 16. Copia estos archivos y pegalos en la carpeta lib del repositorio si no se encuentran.
 
-17. Busca en la carpeta bd del repositorio el archivo llamado "sgbp.sql" y copialo y ejecutalo en tu instancia de MySQL Workbench, Navicat o cualquier otro gestor de bases de datos.
+17. Busca en la carpeta bd del repositorio el archivo llamado "sgbp.sql" y copialo y ejecutalo en tu instancia de MySQL Workbench, Navicat o cualquier otro gestor de bases de datos en el hostname "localhost" con el puerto "3306".
 
 18. Modifica el archivo configuracion.properties que se encuentra en la carpeta src/utilidades y cambia los valores de las variables por los de tu instancia de MySQL.
 
-19. Modifica el archivo ConectorBaseDatos.java que se encuentra en la carpeta src/modelo y cambia el valor de int usuarioActual por el indice del usuario que hayas agregado en el configuracion.properties. (Recomendación: Pon tu usuario al principio de usuarios y tu contraseña al principio de passwords para que tu indice sea el 0, deberas poner una coma ',' al final para separalos de los demás valores tanto de los usuarios como de las contraseñas).
+19. Modifica el archivo ConectorBaseDatos.java que se encuentra en la carpeta src/modelo y cambia el valor de int usuarioActual por el indice del usuario que hayas agregado en el configuracion.properties. (Recomendación: Pon tu usuario al principio de usuarios y tu contraseña al principio de passwords para que tu indice sea el 0, deberas poner una coma ',' al final para separalos de los demás valores tanto de los usuarios como de las contraseñas, puedes cambiar los que dicen tuUsuario y tuPassword).
 
 20. Dale a guardar a todos los archivos modificados.
 
