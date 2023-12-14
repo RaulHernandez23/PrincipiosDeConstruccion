@@ -60,6 +60,7 @@ public class FXMLFinalizarCambioController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         btnFinalizar.setDisable(true);
 
         tvCambios.getSelectionModel().selectedItemProperty().addListener(
@@ -72,9 +73,11 @@ public class FXMLFinalizarCambioController implements Initializable {
     }
 
     private void mostrarDatos() {
+
         HashMap<String, Object> respuesta = CambioDAO.consultarCambios();
 
         if (!(Boolean) respuesta.get("error")) {
+
             ArrayList<Cambio> listaCambios = (ArrayList<Cambio>) respuesta
                     .get("cambios");
 
@@ -92,13 +95,14 @@ public class FXMLFinalizarCambioController implements Initializable {
                     "tipoActividad"));
 
             tvCambios.setItems(observableListaCambios);
+
         } else {
+
             String mensajeError = respuesta.get("mensaje").toString();
             Alertas.mostrarAlerta("Error",
                     mensajeError,
                     AlertType.ERROR);
 
-            // Cerrar la ventana actual en caso de error
             Stage escenario = (Stage) tvCambios.getScene().getWindow();
             escenario.close();
         }
@@ -140,8 +144,7 @@ public class FXMLFinalizarCambioController implements Initializable {
 
     @FXML
     private void btnSalir(MouseEvent event) {
-        // Código para manejar el evento
-        salir(); // Puedes llamar a tu método salir() u otro código que necesites
+        salir(); 
     }
 
     @FXML
