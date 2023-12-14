@@ -566,23 +566,27 @@ public class FXMLBitacorasEstudianteController implements Initializable {
                 oldValue,
                 newValue) -> {
 
-            switch (newValue) {
+            if (newValue != null) {
 
-                case "Cambios":
-                    cambiarTablaCambios();
-                    break;
+                switch (newValue) {
 
-                case "Defectos":
-                    cambiarTablaDefectos();
-                    break;
+                    case "Cambios":
+                        cambiarTablaCambios();
+                        break;
 
-                case "Solicitudes de cambio":
-                    cambiarTablaSolicitudes();
-                    break;
+                    case "Defectos":
+                        cambiarTablaDefectos();
+                        break;
 
-                case "Actividades":
-                    cambiarTablaActividades();
-                    break;
+                    case "Solicitudes de cambio":
+                        cambiarTablaSolicitudes();
+                        break;
+
+                    case "Actividades":
+                        cambiarTablaActividades();
+                        break;
+
+                }
 
             }
 

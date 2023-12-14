@@ -10,6 +10,7 @@ import java.util.HashMap;
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Estudiante;
 import modelo.pojo.RespuestaInicioSesion;
+import utilidades.Constantes;
 
 public class EstudianteDAO {
 
@@ -216,18 +217,20 @@ public class EstudianteDAO {
 
                 }
 
-                conexionBD.close();
                 respuesta.put("error", false);
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (Exception sqlE) {
-                respuesta.put("mensaje", "Error de conexion en la base de datos");
+
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_SELECT);
                 sqlE.printStackTrace();
+                
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
             }
 
         } else {
-            respuesta.put("mensaje", "Error de conexion en la base de datos, "
-                    + "por favor inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
@@ -316,7 +319,6 @@ public class EstudianteDAO {
     public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
-
         respuesta.put("error", true);
 
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
@@ -324,41 +326,58 @@ public class EstudianteDAO {
         if (conexionBD != null) {
 
             try {
+
                 String sentencia = "INSERT INTO estudiante( matricula, nombre, "
                         + "apellidoPaterno, apellidoMaterno, "
                         + "idEstadoEstudiante, password, idProyecto) "
-                        + "values (?,?,?,?,?,?,?)";
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE " +
+                        "nombre = VALUES(nombre), " +
+                        "apellidoPaterno = VALUES(apellidoPaterno), " +
+                        "apellidoMaterno = VALUES(apellidoMaterno), " +
+                        "idEstadoEstudiante = VALUES(idEstadoEstudiante), " +
+                        "password = VALUES(password), " +
+                        "idProyecto = VALUES(idProyecto)";
 
-                PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
+                PreparedStatement prepararSentencia = conexionBD
+                        .prepareStatement(sentencia);
 
-                prepararSentencia.setString(1, estudiante.getMatricula());
-                prepararSentencia.setString(2, estudiante.getNombre());
-                prepararSentencia.setString(3, estudiante.getApellidoPaterno());
-                prepararSentencia.setString(4, estudiante.getApellidoMaterno());
-                prepararSentencia.setInt(5, estudiante.getIdEstadoEstudiante());
-                prepararSentencia.setString(6, estudiante.getPassword());
-                prepararSentencia.setInt(7, estudiante.getIdProyecto());
+                prepararSentencia.setString(1, estudiante
+                        .getMatricula());
+                prepararSentencia.setString(2, estudiante
+                        .getNombre());
+                prepararSentencia.setString(3, estudiante
+                        .getApellidoPaterno());
+                prepararSentencia.setString(4, estudiante
+                        .getApellidoMaterno());
+                prepararSentencia.setInt(5, estudiante
+                        .getIdEstadoEstudiante());
+                prepararSentencia.setString(6, estudiante
+                        .getPassword());
+                prepararSentencia.setInt(7, estudiante
+                        .getIdProyecto());
 
                 int filasAfectadas = prepararSentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
+
                     respuesta.put("error", false);
-                    respuesta.put("mensaje",
-                            "Estudiante agregado correctamente");
+                    respuesta.put("mensaje", "Estudiante registrado"
+                            + " anteriormente actualización y reasignación "
+                            + "completa");
+
                 } else {
-                    respuesta.put("mensaje",
-                            "Hubo un error al intentar registrar la información del estudiante, "
-                                    + "por favor inténtelo más tarde");
+                    respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 }
+
             } catch (SQLException e) {
-                respuesta.put("mensaje", "Error de conexion en la base de datos");
-                e.printStackTrace();
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
+
         } else {
-            respuesta.put("mensaje", "Error de conexion en la base de datos, "
-                    + "por favor inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;

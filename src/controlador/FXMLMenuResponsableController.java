@@ -109,11 +109,11 @@ public class FXMLMenuResponsableController implements Initializable {
         try {
 
             FXMLLoader loader = Utilidades.getFXMLLoader(
-                    "/vista/FXMLEliminarActividad.fxml");
+                    "/vista/FXMLDetalleActividad.fxml");
             Parent vista = loader.load();
             Scene escena = new Scene(vista);
             FXMLDetalleActividadController controlador = loader.getController();
-            controlador.inicializarInformacion(idProyecto);
+            controlador.inicializarInformacion(idProyecto, false);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
@@ -284,7 +284,7 @@ public class FXMLMenuResponsableController implements Initializable {
                     "/vista/estilos/escenaTabla.css"));
 
             escenario.setScene(escena);
-            escenario.setTitle("Desasignar estudiante de proyecto");
+            escenario.setTitle("Solicitudes de cambio");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();
@@ -341,11 +341,11 @@ public class FXMLMenuResponsableController implements Initializable {
             FXMLDetalleActividadController controlador = loader
                     .getController();
 
-            controlador.inicializarInformacion(1);
+            controlador.inicializarInformacion(idProyecto, true);
             escena.getStylesheets().add(Utilidades.getURLString(
                     "/vista/estilos/escenaFormulario.css"));
             escenario.setScene(escena);
-            escenario.setTitle("Fianlizar actividad");
+            escenario.setTitle("Finalizar actividad");
             escenario.setResizable(false);
             escenario.initModality(Modality.APPLICATION_MODAL);
             escenario.showAndWait();

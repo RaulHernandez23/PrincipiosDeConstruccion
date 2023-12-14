@@ -174,7 +174,8 @@ public class FXMLSolicitudDeCambioController implements Initializable {
                 .registrarEvaluacionDeSolicitud(solicitudDeCambio
                         .getIdSolicitudDeCambio(),
                         Utilidades.obtenerFechaActual(),
-                        evaluacion);
+                        evaluacion,
+                        idResposable);
 
         if (!(Boolean) respuesta.get("error")) {
 

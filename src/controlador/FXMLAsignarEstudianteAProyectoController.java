@@ -3,7 +3,7 @@
  * Autor: Miguel Angel Morales Cruz
  * Paquete: controlador
  * Fecha de creación: 20/11/2023
- * Fecha de modificación: 11/12/2023
+ * Fecha de modificación: 12/12/2023
  * Descripción: Controlador para la ventana de asignar estudiante a proyecto.
  */
 package controlador;
@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.dao.EstudianteDAO;
 import modelo.pojo.Estudiante;
+import utilidades.Constantes;
 import utilidades.Utilidades;
 
 public class FXMLAsignarEstudianteAProyectoController implements Initializable {
@@ -93,22 +94,14 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
         } else {
             Utilidades.mostrarAlertaSimple("Advertencia",
-                    "Ingrese datos validos", Alert.AlertType.WARNING);
+                    Constantes.MENSAJE_DATOS_INVALIDOS,
+                    Alert.AlertType.WARNING);
         }
 
     }
 
     public void inicializarVentana(Integer idProyecto) {
         this.idProyecto = idProyecto;
-    }
-
-    private void limpiarEstiloCampos() {
-
-        tfNombre.setStyle("");
-        tfApellidoPaterno.setStyle("");
-        tfApellidoMaterno.setStyle("");
-        tfMatricula.setStyle("");
-
     }
 
     private void registrarEstudiante() {
@@ -121,7 +114,7 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         estudiante.setApellidoPaterno(tfApellidoPaterno.getText());
         estudiante.setApellidoMaterno(tfApellidoMaterno.getText());
         estudiante.setMatricula(tfMatricula.getText());
-        estudiante.setIdEstadoEstudiante(2);
+        estudiante.setIdEstadoEstudiante(1);
         estudiante.setPassword(password);
         estudiante.setIdProyecto(idProyecto);
 
@@ -176,40 +169,37 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     }
 
     private boolean validarCampos() {
-
         boolean esValido = true;
-        limpiarEstiloCampos();
-
-        if (tfNombre.getText().isEmpty()
-                || !tfNombre.getText()
-                        .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+"
-                                + "( [a-zA-ZáéíóúÁÉÍÓÚüÜ]+)?")) {
+    
+        String nombre = tfNombre.getText().trim();
+        if (nombre.isEmpty() || !nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,20}$")) {
+            tfNombre.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-
-        if (tfApellidoPaterno.getText().isEmpty()
-                || !tfApellidoPaterno.getText()
-                        .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+")) {
+    
+        String apellidoPaterno = tfApellidoPaterno.getText().trim();
+        if (apellidoPaterno.isEmpty() || !apellidoPaterno.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
+            tfApellidoPaterno.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-
-        if (!tfApellidoMaterno.getText().isEmpty()
-                && !tfApellidoMaterno.getText()
-                        .matches("[a-zA-ZáéíóúÁÉÍÓÚüÜ]+")) {
+    
+        String apellidoMaterno = tfApellidoMaterno.getText().trim();
+        if (!apellidoMaterno.isEmpty() && !apellidoMaterno.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
+            tfApellidoMaterno.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-
-        if (tfMatricula.getText().isEmpty()
-                || !tfMatricula.getText().matches("[sS]\\d+")) {
+    
+        String matricula = tfMatricula.getText().trim();
+        if (matricula.isEmpty() || !matricula.matches("^[sS]\\d{8}$")) {
+            tfMatricula.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-
+    
         return esValido;
-
     }
 
     private String crearPasswordEstudiante() {
-        return tfNombre.getText().toLowerCase() + tfMatricula.getText();
+        return tfNombre.getText().toLowerCase() + tfApellidoPaterno.getText();
     }
 
 }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Defecto;
+import utilidades.Constantes;
 
 public class DefectoDAO {
 
@@ -281,7 +282,8 @@ public class DefectoDAO {
 
     }
 
-    public static HashMap<String, Object> consultarNombresDefectosProyecto(Integer idProyecto) {
+    public static HashMap<String, Object> consultarNombresDefectosProyecto
+            (Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
 
@@ -297,7 +299,9 @@ public class DefectoDAO {
                         "FROM defecto " +
                         "WHERE idProyecto = ?";
 
-                PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+                PreparedStatement sentencia = conexionBD
+                .prepareStatement(consulta);
+                
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -307,8 +311,11 @@ public class DefectoDAO {
                 while (resultadoConsulta.next()) {
 
                     Defecto defecto = new Defecto();
-                    defecto.setIdDefecto(resultadoConsulta.getInt("idDefecto"));
-                    defecto.setTitulo(resultadoConsulta.getString("titulo"));
+
+                    defecto.setIdDefecto(resultadoConsulta
+                    .getInt("idDefecto"));
+                    defecto.setTitulo(resultadoConsulta
+                    .getString("titulo"));
 
                     defectos.add(defecto);
 
@@ -318,15 +325,13 @@ public class DefectoDAO {
                 respuesta.put("defectos", defectos);
 
             } catch (SQLException se) {
-
-                respuesta.put("mensaje", "Error" + se.getMessage());
-
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
 
         } else {
-            respuesta.put("mensaje", "Error en la conexión con la base de datos");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
         }
 
         return respuesta;

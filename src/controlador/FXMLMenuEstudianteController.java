@@ -80,7 +80,7 @@ public class FXMLMenuEstudianteController implements Initializable {
             controlador = fxmlLoader.getController();
 
             escena.getStylesheets().add(Utilidades.getURLString(
-                    "/vista/estilos/escenaBitacorasEstudiante.css"));
+                    "/vista/estilos/escenaTabla.css"));
             controlador.inicializarVentana(idProyecto);
             escenario.setScene(escena);
             escenario.setTitle("Bitácoras");
@@ -113,8 +113,8 @@ public class FXMLMenuEstudianteController implements Initializable {
             FXMLCrearSolicitudDeCambioController controlador;
             controlador = fxmlLoader.getController();
 
-            // escena.getStylesheets().add(Utilidades.getURLString(
-            // "/vista/estilos/escenaBitacorasEstudiante.css"));
+            escena.getStylesheets().add(Utilidades.getURLString(
+                    "/vista/estilos/escenaFormulario.css"));
             controlador.inicializarVentana(
                     1, estudiante.getIdEstudiante());
             escenario.setScene(escena);
@@ -203,7 +203,7 @@ public class FXMLMenuEstudianteController implements Initializable {
         this.estudiante = estudiante;
         String[] nombreInternacional = estudiante.getNombre().split(" ");
         boolean dosNombres = nombreInternacional.length == 2;
-        idProyecto = estudiante.getIdProyecto();
+        this.idProyecto = estudiante.getIdEstudiante();
 
         encabezadoEstudiante.setText(
                 estudiante.getApellidoPaterno() + "-" +

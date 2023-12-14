@@ -70,8 +70,7 @@ public class FXMLAsignarActividadController implements Initializable {
                     (String) respuesta.get("mensaje"),
                     Alert.AlertType.INFORMATION);
 
-            obtenerActividadesSinAsignarProyecto(estudiante.getIdProyecto());
-            cargarEstudiantes(estudiante.getIdProyecto());
+            salir();
 
         } else {
             Utilidades.mostrarAlertaSimple("Error",
