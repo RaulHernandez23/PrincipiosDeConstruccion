@@ -199,10 +199,10 @@ public class FXMLRegistrarActividadController implements Initializable {
         boolean camposValidos = true;
         Pattern patron = Pattern
                 .compile(
-                        "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]"
-                                + "[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*"
+                        "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ][a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*"
                                 + "(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]"
-                                + "[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)?(?: [0-9]+)?$");
+                                + "[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]*)*"
+                                + "(?: [0-9]{1,50})?$");
         Matcher matcher = patron.matcher(tfTitulo.getText());
 
         if (tfTitulo.getText().length() == 0 || !matcher.matches()) {
@@ -211,8 +211,8 @@ public class FXMLRegistrarActividadController implements Initializable {
 
         patron = Pattern
                 .compile(
-                        "^[a-zA-Z0-9,.!?;:'\"()\\s'ñáéíóúÁÉ"
-                                + "ÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
+                        "^[a-zA-Z0-9,.!?;:'\"()\s*'ñáéíó"
+                                + "úÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛçÇ-]*$");
         matcher = patron.matcher(tfDescripcion.getText());
 
         if (tfDescripcion.getText().length() == 0 || !matcher.matches()) {

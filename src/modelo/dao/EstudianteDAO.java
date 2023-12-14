@@ -442,7 +442,7 @@ public class EstudianteDAO {
             }
 
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos");
+            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo más tarde");
         }
 
         return respuesta;
