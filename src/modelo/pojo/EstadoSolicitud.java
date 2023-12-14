@@ -10,8 +10,10 @@ public class EstadoSolicitud {
     }
 
     public EstadoSolicitud(int idEstadoSolicitud, String estado) {
+
         this.idEstadoSolicitud = idEstadoSolicitud;
         this.estado = estado;
+        
     }
 
     public int getIdEstadoSolicitud() {

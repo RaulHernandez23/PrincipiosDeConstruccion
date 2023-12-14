@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: FXMLDetalleActividadController.java
+ * Nombre del autor: Raul Hernandez Olivares
+ * Paquete: controlador
+ * Fecha de creacion: 12/12/2023
+ * Fecha de modificacion: 14/12/2023
+ * Controlador para la vista DetalleActividad
+ */
+
 package controlador;
 
 import java.net.URL;
@@ -5,7 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -128,10 +136,14 @@ public class FXMLDetalleActividadController implements Initializable {
     public void inicializarInformacion(Integer idProyecto, boolean esFinalizar) {
 
         configurarListenerComboActividad();
+        
         this.esFinalizar = esFinalizar;
         if(esFinalizar){
             lblTituloVentana.setText("Finalizar actividad");
+            tfEsfuerzo.setEditable(esFinalizar);
+            configurarListenerEsfuerzo();   
         }
+
         recuperarActividades(idProyecto);
     }
 
@@ -199,7 +211,9 @@ public class FXMLDetalleActividadController implements Initializable {
                                             newValue.getEsfuerzoMinutos()));
                             tfTipo.setText(String.valueOf(
                                             newValue.getTipo()));
-                            btnEliminar.setDisable(false);
+                            if(!esFinalizar) {
+                                btnEliminar.setDisable(false);
+                            }
                         }
                     }
                 });
@@ -226,10 +240,10 @@ public class FXMLDetalleActividadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //configurarListenerEsfuerzo();
         dpFechaInicio.setDisable(true);
         dpFechaFin.setDisable(true);
         lblDatosInvalidos.setText("");
+        btnEliminar.setDisable(true);
 
     }
 
@@ -239,13 +253,12 @@ public class FXMLDetalleActividadController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                     String newValue) {
-
+                btnEliminar.setDisable(true);
                 if (newValue.length() > 0 && newValue.length() <= 11) {
                     if (newValue.matches("\\d*")) {
                         if(Integer.parseInt(newValue) >= 0){
+                            btnEliminar.setDisable(false);
                             lblDatosInvalidos.setText("");
-                        } else {
-                            lblDatosInvalidos.setText("El esfuerzo no puede ser negativo");
                         }
                     } else {
                         lblDatosInvalidos.setText("Debe ingresar solo numeros");
@@ -263,7 +276,18 @@ public class FXMLDetalleActividadController implements Initializable {
         HashMap<String, Object> respuesta = ActividadDAO.finalizarActividad
                 (cbActividades.getValue().getIdActividad(),
                 Integer.parseInt(tfEsfuerzo.getText()));
+        if (!(boolean) respuesta.get("error")) {
 
+            Utilidades.mostrarAlertaSimple("Actividad finalizada",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.INFORMATION);
+            salir();
 
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    (String) respuesta.get("mensaje"),
+                    Alert.AlertType.ERROR);
+
+        }
     }
 }

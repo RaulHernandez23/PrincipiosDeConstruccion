@@ -63,9 +63,7 @@ public class FXMLConsultarDefectosController implements Initializable {
     }
 
     public void inicializarVentana(Integer idProyecto) {
-
         this.idProyecto = idProyecto;
-
     }
 
     private void mostrarDatos() {
@@ -125,7 +123,6 @@ public class FXMLConsultarDefectosController implements Initializable {
         } catch (Exception e) {
 
             e.printStackTrace();
-
             utilidades.Alertas.mostrarAlerta("Error de conexión", "Error al obtener la lista de defectos",
                     Alert.AlertType.ERROR);
 
@@ -160,17 +157,14 @@ public class FXMLConsultarDefectosController implements Initializable {
             escenario.showAndWait();
 
         } catch (IOException ex) {
-
             ex.printStackTrace();
-
         }
+
     }
 
     @FXML
     private void btnCerrarClic(ActionEvent event) {
-
         salir();
-
     }
 
     private void salir() {

@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,7 +56,15 @@ public class FXMLRegistrarDefectoController implements Initializable {
     @FXML
     void btnRegistrarClic(ActionEvent event) {
         defecto = new Defecto();
-        registrarDefecto();
+        if(tfTitulo.getText().length() < 50
+                && taDescripcion.getText().length() < 500){
+            registrarDefecto();
+        } else {
+            Utilidades.mostrarAlertaSimple("Error",
+                    "Nombre o descripcion demasiado largos",
+                    Alert.AlertType.ERROR);
+        }
+        
     }
 
     @FXML
@@ -82,13 +92,12 @@ public class FXMLRegistrarDefectoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnRegistrar.setDisable(true);
-        configurarTextFields();
+        configurarListenerACampos();
     }
 
     public void salir() {
 
         Stage escenario = (Stage) vboxEjemplo.getScene().getWindow();
-
         escenario.close();
 
     }
@@ -126,51 +135,20 @@ public class FXMLRegistrarDefectoController implements Initializable {
 
     }
 
-    private void configurarTextFields() {
+    private void configurarListenerACampos() {
 
-        tfTitulo.textProperty()
-                .addListener((observable, oldValue, newValue) -> activarBoton(
-                        tfTitulo, taDescripcion, btnRegistrar));
-        taDescripcion.textProperty()
-                .addListener((observable, oldValue, newValue) -> activarBoton(
-                        tfTitulo, taDescripcion, btnRegistrar));
+        ChangeListener<String> cambiosEnCampos = new ChangeListener<String>() {
 
-    }
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                btnRegistrar.setDisable(
+                    tfTitulo.getText().isEmpty() ||
+                    taDescripcion.getText().isEmpty());
+            }
 
-    // Configurar
-    /*
-     * private void configurarListenerACampos() {
-     * 
-     * ChangeListener<String> cambiosEnCampos = new ChangeListener<String>() {
-     * 
-     * @Override
-     * public void changed(ObservableValue<? extends String> observable, String
-     * oldValue, String newValue) {
-     * // Verificar si todos los campos están llenos y habilitar/deshabilitar el
-     * botón
-     * // en consecuencia
-     * btnAgregarProyecto.setDisable(
-     * tfNombre.getText().isEmpty() ||
-     * tfApellidoPaterno.getText().isEmpty() ||
-     * tfApellidoMaterno.getText().isEmpty() ||
-     * tfMatricula.getText().isEmpty() ||
-     * tfMatricula.getText().isEmpty());
-     * }
-     * };
-     * 
-     * tfNombre.textProperty().addListener(cambiosEnCampos);
-     * tfApellidoPaterno.textProperty().addListener(cambiosEnCampos);
-     * tfApellidoMaterno.textProperty().addListener(cambiosEnCampos);
-     * tfMatricula.textProperty().addListener(cambiosEnCampos);
-     * }
-     */
-    private void activarBoton(TextField tfTitulo,
-            TextArea taDescripcion,
-            Button btnRegistrar) {
+        };
 
-        boolean camposLLenos = !tfTitulo.getText().isEmpty() &&
-                !taDescripcion.getText().isEmpty();
-        btnRegistrar.setDisable(!camposLLenos);
-
+        tfTitulo.textProperty().addListener(cambiosEnCampos);
+        taDescripcion.textProperty().addListener(cambiosEnCampos);
     }
 }

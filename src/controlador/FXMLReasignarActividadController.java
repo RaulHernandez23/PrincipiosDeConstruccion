@@ -59,6 +59,7 @@ public class FXMLReasignarActividadController implements Initializable {
 
         tvActividadesPendientes.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<Actividad>() {
+
                     @Override
                     public void changed(
                             ObservableValue<? extends Actividad> observable,
@@ -68,32 +69,39 @@ public class FXMLReasignarActividadController implements Initializable {
                         btnReasignarActividad.setDisable(newValue == null);
 
                     }
+
                 });
 
         mostrarDatos();
 
         ObservableList<Estudiante> estudiantes = cbEstudiantes.getItems();
+
         if (!estudiantes.isEmpty()) {
             cbEstudiantes.getSelectionModel().select(0);
         }
     }
 
     private void mostrarDatos() {
+
         ObservableList<Actividad> actividades = FXCollections
                 .observableArrayList();
         ObservableList<Estudiante> estudiantes = FXCollections
                 .observableArrayList();
 
         try {
+
             HashMap<String, Object> respuesta = modelo.dao.ActividadDAO
                     .consultarActividades();
 
             if (!(Boolean) respuesta.get("error")) {
+
                 ArrayList<HashMap<String, Object>> listaActividades = (ArrayList<HashMap<String, Object>>) respuesta
                         .get("actividades");
 
                 for (HashMap<String, Object> actividadMap : listaActividades) {
+                    
                     Actividad actividad = new Actividad();
+
                     actividad.setIdActividad((Integer) actividadMap.get(
                             "idActividad"));
                     actividad.setTitulo((String) actividadMap.get(
@@ -106,6 +114,7 @@ public class FXMLReasignarActividadController implements Initializable {
                             "fechaInicio"));
 
                     actividades.add(actividad);
+
                 }
 
                 tvActividadesPendientes.setItems(actividades);
@@ -119,29 +128,38 @@ public class FXMLReasignarActividadController implements Initializable {
                 colFechaInicio.setCellValueFactory(
                         cellData -> new SimpleStringProperty(
                                 cellData.getValue().getFechaInicio()));
+
             } else {
+
                 String mensajeError = respuesta.get("mensaje").toString();
                 utilidades.Alertas.mostrarAlerta("Error de conexión",
                         mensajeError, Alert.AlertType.ERROR);
+
             }
 
         } catch (Exception e) {
+
             e.printStackTrace();
             utilidades.Alertas.mostrarAlerta("Error",
                     "Error inesperado", Alert.AlertType.ERROR);
+
         }
 
         try {
+
             HashMap<String, Object> respuestaEstudiantes = EstudianteDAO
                     .consultarListaEstudiante();
 
             if (!((Boolean) respuestaEstudiantes.get("error"))) {
+
                 ArrayList<HashMap<String, Object>> listaEstudiantes = 
                 (ArrayList<HashMap<String, Object>>) respuestaEstudiantes
                         .get("estudiantes");
 
                 for (HashMap<String, Object> estudianteMap : listaEstudiantes) {
+                    
                     Estudiante estudiante = new Estudiante();
+
                     estudiante.setIdEstudiante((int) estudianteMap.get(
                             "idEstudiante"));
                     estudiante.setNombre((String) estudianteMap.get(
@@ -152,20 +170,25 @@ public class FXMLReasignarActividadController implements Initializable {
                             "apellidoMaterno"));
 
                     estudiantes.add(estudiante);
+
                 }
 
                 cbEstudiantes.setItems(estudiantes);
             } else {
+
                 String mensajeError = respuestaEstudiantes.get("mensaje")
                         .toString();
                 utilidades.Alertas.mostrarAlerta("Error de conexión",
                         mensajeError, Alert.AlertType.ERROR);
+
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Añadir un manejo de excepciones más adecuado según tus necesidades
+
+            e.printStackTrace(); 
             utilidades.Alertas.mostrarAlerta("Error de conexión",
                     "Error al obtener la lista de estudiantes",
                     Alert.AlertType.ERROR);
+
         }
 
     }
@@ -176,7 +199,6 @@ public class FXMLReasignarActividadController implements Initializable {
         TableView<Actividad> tableView = tvActividadesPendientes;
         Actividad actividadSeleccionada = tableView.getSelectionModel()
                 .getSelectedItem();
-
         Estudiante estudianteSeleccionado = cbEstudiantes.getValue();
 
         if (actividadSeleccionada != null && estudianteSeleccionado != null) {
@@ -190,6 +212,7 @@ public class FXMLReasignarActividadController implements Initializable {
                 utilidades.Alertas.mostrarAlerta("Actividad reasignada",
                         "La actividad se reasigno correctamente",
                         Alert.AlertType.INFORMATION);
+
 
             } catch (Exception e) {
 
@@ -206,6 +229,7 @@ public class FXMLReasignarActividadController implements Initializable {
                     Alert.AlertType.WARNING);
 
         }
+        
         Stage escenario = (Stage) btnReasignarActividad.getScene().getWindow();
         escenario.close();
 

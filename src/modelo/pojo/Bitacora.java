@@ -19,6 +19,7 @@ public class Bitacora {
     public Bitacora(String titulo, String estado, Integer esfuerzo, String tipo, String fechaInicio,
             String fechaReporte, Integer numeroSolicitud, String fechaSolicitud, Integer idBitacora,
             Integer idProyecto) {
+
         this.titulo = titulo;
         this.estado = estado;
         this.esfuerzo = esfuerzo;
@@ -29,6 +30,7 @@ public class Bitacora {
         this.fechaSolicitud = fechaSolicitud;
         this.idBitacora = idBitacora;
         this.idProyecto = idProyecto;
+
     }
 
     public String getTitulo() {

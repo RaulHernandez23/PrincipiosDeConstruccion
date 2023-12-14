@@ -18,9 +18,7 @@ public class EstudianteDAO {
     public static RespuestaInicioSesion iniciarSesionEstudiante(String matricula, String password) {
 
         RespuestaInicioSesion respuesta = new RespuestaInicioSesion();
-
         respuesta.setCorrecto(false);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -50,9 +48,11 @@ public class EstudianteDAO {
                     estudiante.setIdProyecto(resultado.getInt("idProyecto"));
 
                     if (password.equals(estudiante.getPassword())) {
+
                         respuesta.setCorrecto(true);
                         respuesta.setMensaje("Inicio de sesión correcto");
                         respuesta.setEstudiante(estudiante);
+
                     } else {
                         respuesta.setMensaje("La matrícula y/o la contraseña son incorrectos");
                     }
@@ -76,21 +76,22 @@ public class EstudianteDAO {
     }
 
     public static HashMap<String, Object> consultarListaEstudiante() {
+
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
-
         ArrayList<HashMap<String, Object>> listaEstudiantes = new ArrayList<>();
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
+
             try {
+
                 String consulta = "SELECT idEstudiante, nombre, apellidoPaterno, apellidoMaterno FROM estudiante ORDER BY nombre ASC";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 
                 while (resultadoConsulta.next()) {
+
                     HashMap<String, Object> estudianteMap = new HashMap<>();
                     estudianteMap.put("idEstudiante", resultadoConsulta.getInt("idEstudiante"));
                     estudianteMap.put("nombre", resultadoConsulta.getString("nombre"));
@@ -98,14 +99,18 @@ public class EstudianteDAO {
                     estudianteMap.put("apellidoMaterno", resultadoConsulta.getString("apellidoMaterno"));
 
                     listaEstudiantes.add(estudianteMap);
+
                 }
 
                 respuesta.put("error", false);
                 respuesta.put("estudiantes", listaEstudiantes);
 
             } catch (SQLException se) {
+
                 se.printStackTrace();
-                respuesta.put("mensaje", "Error en la base de datos: " + se.getMessage());
+                respuesta.put("mensaje", "Error en la base de datos: "
+                        + se.getMessage());
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -123,7 +128,9 @@ public class EstudianteDAO {
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
+
             try {
+
                 String sentencia = "SELECT "
                         + "idEstudiante, "
                         + "matricula, "
@@ -141,10 +148,13 @@ public class EstudianteDAO {
 
                 PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
                 prepararSentencia.setInt(1, idProyecto);
+
                 ResultSet resultadoConsulta = prepararSentencia.executeQuery();
+
                 ArrayList<Estudiante> estudiantes = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
+
                     Estudiante estudiante = new Estudiante();
                     estudiante.setIdEstudiante(resultadoConsulta.getInt("idEstudiante"));
                     estudiante.setMatricula(resultadoConsulta.getString("matricula"));
@@ -156,6 +166,7 @@ public class EstudianteDAO {
                     estudiante.setIdProyecto(resultadoConsulta.getInt("idProyecto"));
                     estudiante.setNombreProyecto(resultadoConsulta.getString("nombreProyecto"));
                     estudiantes.add(estudiante);
+
                 }
 
                 conexionBD.close();
@@ -163,8 +174,10 @@ public class EstudianteDAO {
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (Exception e) {
+
                 respuesta.put("mensaje", "Error de conexion en la base de datos");
                 e.printStackTrace();
+
             }
 
         } else {
@@ -182,7 +195,9 @@ public class EstudianteDAO {
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
+
             try {
+
                 String sentencia = "SELECT "
                         + "idEstudiante, "
                         + "matricula, "
@@ -197,10 +212,11 @@ public class EstudianteDAO {
                         + "JOIN estadoestudiante ee ON e.idEstadoEstudiante = ee.idEstadoEstudiante "
                         + "JOIN proyecto p ON e.idProyecto = p.idProyecto "
                         + "WHERE e.idProyecto = ? AND e.idEstadoEstudiante = 1;";
-
                 PreparedStatement prepararSentencia = conexionBD.prepareStatement(sentencia);
                 prepararSentencia.setInt(1, idProyecto);
+
                 ResultSet resultadoConsulta = prepararSentencia.executeQuery();
+
                 ArrayList<Estudiante> estudiantes = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
@@ -242,9 +258,7 @@ public class EstudianteDAO {
             Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -276,7 +290,6 @@ public class EstudianteDAO {
                         + "ORDER BY pe.fechaFin ASC";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -308,8 +321,10 @@ public class EstudianteDAO {
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (SQLException se) {
+
                 respuesta.put("mensaje", "Error: " + se.getMessage());
                 se.printStackTrace();
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -323,11 +338,12 @@ public class EstudianteDAO {
 
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
-
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
+
             try {
+
                 conexionBD.setAutoCommit(false);
 
                 // Registrar el estudiante
@@ -341,10 +357,8 @@ public class EstudianteDAO {
                         "idEstadoEstudiante = VALUES(idEstadoEstudiante), " +
                         "password = VALUES(password), " +
                         "idProyecto = VALUES(idProyecto)";
-
                 PreparedStatement sentenciaEstudiante = conexionBD.prepareStatement(consulta,
                         Statement.RETURN_GENERATED_KEYS);
-
                 sentenciaEstudiante.setString(1, estudiante.getMatricula());
                 sentenciaEstudiante.setString(2, estudiante.getNombre());
                 sentenciaEstudiante.setString(3, estudiante.getApellidoPaterno());
@@ -356,20 +370,21 @@ public class EstudianteDAO {
                 int filasAfectadasEstudiante = sentenciaEstudiante.executeUpdate();
 
                 if (filasAfectadasEstudiante > 0) {
+
                     ResultSet generatedKeys = sentenciaEstudiante.getGeneratedKeys();
 
                     if (generatedKeys.next()) {
-                        int idEstudiante = generatedKeys.getInt(1);
 
+                        int idEstudiante = generatedKeys.getInt(1);
                         String consultaAsociacion = "INSERT INTO Estudiante_PeriodoEscolar (idEstudiante, idPeriodoEscolar) VALUES (?, ?)";
                         PreparedStatement sentenciaAsociacion = conexionBD.prepareStatement(consultaAsociacion);
-
                         sentenciaAsociacion.setInt(1, idEstudiante);
                         sentenciaAsociacion.setInt(2, idPeriodoEscolar);
 
                         int filasAfectadasAsociacion = sentenciaAsociacion.executeUpdate();
 
                         if (filasAfectadasAsociacion > 0) {
+
                             conexionBD.commit();
                             respuesta.put("error", false);
 
@@ -379,8 +394,10 @@ public class EstudianteDAO {
                                 respuesta.put("mensaje", "Estudiante actualizado correctamente.");
                             }
                         } else {
+
                             conexionBD.rollback();
                             respuesta.put("mensaje", "No se pudo asociar el estudiante al periodo escolar.");
+
                         }
                     } else {
                         respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
@@ -390,8 +407,10 @@ public class EstudianteDAO {
                 }
 
             } catch (SQLException e) {
+
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 e.printStackTrace();
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
@@ -406,9 +425,7 @@ public class EstudianteDAO {
             Integer idEstudiante) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -418,14 +435,15 @@ public class EstudianteDAO {
                 String consulta = "UPDATE estudiante SET idEstadoEstudiante = 2," +
                         "idProyecto = NULL WHERE idEstudiante = ?";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
                 sentencia.setInt(1, idEstudiante);
 
                 int filasAfectadas = sentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
+
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "El estudiante fue desasignado con éxito");
+
                 } else {
                     respuesta.put("mensaje", "No se pudo desasignar al estudiante");
                 }
@@ -442,14 +460,15 @@ public class EstudianteDAO {
 
                 String consulta = "DELETE FROM estudiante_periodoescolar WHERE idEstudiante = ?";
                 PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
                 sentencia.setInt(1, idEstudiante);
 
                 int filasAfectadas = sentencia.executeUpdate();
 
                 if (filasAfectadas > 0) {
+
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Estudiante desasignado correctamente");
+
                 } else {
                     respuesta.put("mensaje", "No se pudo desasignar al estudiante");
                 }
