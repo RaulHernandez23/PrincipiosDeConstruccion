@@ -52,10 +52,12 @@ public class DefectoDAO {
 
             } catch (SQLException sqlE) {
                 sqlE.printStackTrace();
-                respuesta.put("mensaje", "Error al registrar el defecto");
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+            } finally {
+                ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, intentélo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
