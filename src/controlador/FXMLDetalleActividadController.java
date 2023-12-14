@@ -126,11 +126,13 @@ public class FXMLDetalleActividadController implements Initializable {
     }
 
     public void inicializarInformacion(Integer idProyecto, boolean esFinalizar) {
-        recuperarActividades(idProyecto);
+
+        configurarListenerComboActividad();
         this.esFinalizar = esFinalizar;
         if(esFinalizar){
             lblTituloVentana.setText("Finalizar actividad");
         }
+        recuperarActividades(idProyecto);
     }
 
     public void salir() {
@@ -149,7 +151,15 @@ public class FXMLDetalleActividadController implements Initializable {
             actividades = FXCollections.observableArrayList();
             ArrayList<Actividad> lista = (ArrayList) respuesta
                     .get("actividades");
-            actividades.addAll(lista);
+            if(esFinalizar) {
+                for(Actividad actividad : lista) {
+                    if(!actividad.getEstadoActividad().equals("Realizada")) {
+                        actividades.add(actividad);
+                    }
+                }
+            } else {
+                actividades.addAll(lista);
+            }
             cbActividades.setItems(actividades);
             cbActividades.getSelectionModel().select(0);
 
@@ -216,7 +226,6 @@ public class FXMLDetalleActividadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        configurarListenerComboActividad();
         //configurarListenerEsfuerzo();
         dpFechaInicio.setDisable(true);
         dpFechaFin.setDisable(true);
