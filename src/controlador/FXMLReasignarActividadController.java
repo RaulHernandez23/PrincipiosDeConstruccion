@@ -1,9 +1,11 @@
 /*
-* Autor: Cesar Gonzalez Lopez
-* Fecha de creación: 24/11/2023
-* Fecha de modificación: 09/12/2023
-* Descripción: clase para reasignar actividades a los estudiantes
-*/
+ * Nombre del archivo: FXMLReasignarActividadController.java
+ * Autor: Cesar Gonzalez Lopez
+ * Paquete: controlador
+ * Fecha de creación: 24/11/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: clase para reasignar actividades a los estudiantes
+ */
 
 package controlador;
 

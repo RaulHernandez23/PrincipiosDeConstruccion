@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Alertas.java
+ * Autor: Miguel Angel Morales Cruz
+ * Paquete: utilidades
+ * Fecha de creación: 25/11/2023
+ * Fecha de modificación: 5/12/2023
+ * Descripción: Clase para mostrar alertas.
+ */
+
 package utilidades;
 
 import javafx.scene.control.Alert;

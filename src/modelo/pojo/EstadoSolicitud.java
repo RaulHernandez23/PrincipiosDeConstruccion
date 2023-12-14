@@ -1,8 +1,17 @@
+/*
+ * Nombre del archivo: EstadoSolicitudDeCambio.java
+ * Autor: Miguel Angel Morales Cruz
+ * Paquete: modelo.pojo
+ * Fecha de creación: 20/11/2023
+ * Fecha de modificación: 10/12/2023
+ * Descripción: Clase que contiene todos los datos para modelar 
+ * los estados de la solicitud de cambio.
+ */
 
 package modelo.pojo;
 
 public class EstadoSolicitud {
-    
+
     private int idEstadoSolicitud;
     private String estado;
 
@@ -13,7 +22,7 @@ public class EstadoSolicitud {
 
         this.idEstadoSolicitud = idEstadoSolicitud;
         this.estado = estado;
-        
+
     }
 
     public int getIdEstadoSolicitud() {
@@ -31,5 +40,5 @@ public class EstadoSolicitud {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
 }

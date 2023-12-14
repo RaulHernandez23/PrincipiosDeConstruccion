@@ -5,8 +5,9 @@
  * Fecha de creación: 20/11/2023
  * Fecha de modificación: 10/12/2023
  * Descripción: Controlador para la ventana de creación de 
- *              solicitudes de cambio.
+ * solicitudes de cambio.
  */
+
 package controlador;
 
 import java.net.URL;

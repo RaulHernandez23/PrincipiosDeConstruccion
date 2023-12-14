@@ -1,9 +1,12 @@
 /*
-* Autor: Cesar Gonzalez Lopez
-* Fecha de creación: 25/11/2023
-* Fecha de modificación: 12/12/2023
-* Descripción: Muestra la información los defectos de un proyecto
-*/
+ * Nombre del archivo: FXMLConsultarDefectosController.java
+ * Autor: Cesar Gonzalez Lopez
+ * Paquete: controlador
+ * Fecha de creación: 25/11/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Muestra la información los defectos de un proyecto
+ */
+
 package controlador;
 
 import java.io.IOException;

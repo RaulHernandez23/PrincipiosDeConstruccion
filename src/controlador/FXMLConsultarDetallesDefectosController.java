@@ -1,9 +1,12 @@
 /*
-* Autor: Cesar Gonzalez Lopez
-* Fecha de creación: 25/11/2023
-* Fecha de modificación: 12/12/2023
-* Descripción: Muestra detalladamente la información de un defecto
-*/
+ * Nombre del archivo: FXMLConsultarDetallesDefectosController.java
+ * Autor: Cesar Gonzalez Lopez
+ * Paquete: controlador
+ * Fecha de creación: 25/11/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Muestra detalladamente la información de un defecto
+ */
+
 package controlador;
 
 import javafx.event.ActionEvent;

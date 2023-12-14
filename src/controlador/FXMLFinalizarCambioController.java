@@ -1,9 +1,12 @@
 /*
-* Autor: Cesar Gonzalez Lopez
-* Fecha de creación: 24/11/2023
-* Fecha de modificación: 09/12/2023
-* Descripción: clase para poder finalizar los cambios
-*/
+ * Nombre del archivo: FXMLFinalizarCambioController.java
+ * Autor: Cesar Gonzalez Lopez
+ * Paquete: controlador
+ * Fecha de creación: 24/11/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: clase para poder finalizar los cambios
+ */
+
 package controlador;
 
 import java.net.URL;
@@ -34,135 +37,135 @@ import utilidades.Utilidades;
 
 public class FXMLFinalizarCambioController implements Initializable {
 
-    @FXML
-    private ImageView ivSalir;
+        @FXML
+        private ImageView ivSalir;
 
-    @FXML
-    private TableView<Cambio> tvCambios;
+        @FXML
+        private TableView<Cambio> tvCambios;
 
-    @FXML
-    private TableColumn<Cambio, String> colTitulo;
+        @FXML
+        private TableColumn<Cambio, String> colTitulo;
 
-    @FXML
-    private TableColumn<Cambio, String> colDescripcion;
+        @FXML
+        private TableColumn<Cambio, String> colDescripcion;
 
-    @FXML
-    private TableColumn<Cambio, String> colFechaInicio;
+        @FXML
+        private TableColumn<Cambio, String> colFechaInicio;
 
-    @FXML
-    private TableColumn<Cambio, String> colTipoActividad;
+        @FXML
+        private TableColumn<Cambio, String> colTipoActividad;
 
-    @FXML
-    private Button btnFinalizar;
+        @FXML
+        private Button btnFinalizar;
 
-    @FXML
-    private Button btnVolver;
+        @FXML
+        private Button btnVolver;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+        @Override
+        public void initialize(URL location, ResourceBundle resources) {
 
-        btnFinalizar.setDisable(true);
+                btnFinalizar.setDisable(true);
 
-        tvCambios.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends Cambio> observable,
-                        Cambio oldValue, Cambio newValue) -> {
-                    btnFinalizar.setDisable(newValue == null);
-                });
+                tvCambios.getSelectionModel().selectedItemProperty().addListener(
+                                (ObservableValue<? extends Cambio> observable,
+                                                Cambio oldValue, Cambio newValue) -> {
+                                        btnFinalizar.setDisable(newValue == null);
+                                });
 
-        mostrarDatos();
-    }
-
-    private void mostrarDatos() {
-
-        HashMap<String, Object> respuesta = CambioDAO.consultarCambios();
-
-        if (!(Boolean) respuesta.get("error")) {
-
-            ArrayList<Cambio> listaCambios = (ArrayList<Cambio>) respuesta
-                    .get("cambios");
-
-            ObservableList<Cambio> observableListaCambios = FXCollections
-                    .observableArrayList();
-            observableListaCambios.addAll(listaCambios);
-
-            colTitulo.setCellValueFactory(new PropertyValueFactory<>(
-                    "titulo"));
-            colDescripcion.setCellValueFactory(new PropertyValueFactory<>(
-                    "Descripcion"));
-            colFechaInicio.setCellValueFactory(new PropertyValueFactory<>(
-                    "fechaInicio"));
-            colTipoActividad.setCellValueFactory(new PropertyValueFactory<>(
-                    "tipoActividad"));
-
-            tvCambios.setItems(observableListaCambios);
-
-        } else {
-
-            String mensajeError = respuesta.get("mensaje").toString();
-            Alertas.mostrarAlerta("Error",
-                    mensajeError,
-                    AlertType.ERROR);
-
-            Stage escenario = (Stage) tvCambios.getScene().getWindow();
-            escenario.close();
+                mostrarDatos();
         }
 
-    }
+        private void mostrarDatos() {
 
-    @FXML
-    private void btnFinalizarClic(ActionEvent event) {
+                HashMap<String, Object> respuesta = CambioDAO.consultarCambios();
 
-        LocalDateTime fechaHoraActual = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
-                "yyyy-MM-dd HH:mm:ss");
+                if (!(Boolean) respuesta.get("error")) {
 
-        HashMap<String, Object> respuesta = CambioDAO.finalizarCambio(
-                tvCambios.getSelectionModel().getSelectedItem().getIdCambio(),
-                fechaHoraActual.format(formatter));
+                        ArrayList<Cambio> listaCambios = (ArrayList<Cambio>) respuesta
+                                        .get("cambios");
 
-        if (!(Boolean) respuesta.get("error")) {
+                        ObservableList<Cambio> observableListaCambios = FXCollections
+                                        .observableArrayList();
+                        observableListaCambios.addAll(listaCambios);
 
-            Alertas.mostrarAlerta("Finalizar Cambio",
-                    "Cambio finalizado correctamente",
-                    AlertType.INFORMATION);
+                        colTitulo.setCellValueFactory(new PropertyValueFactory<>(
+                                        "titulo"));
+                        colDescripcion.setCellValueFactory(new PropertyValueFactory<>(
+                                        "Descripcion"));
+                        colFechaInicio.setCellValueFactory(new PropertyValueFactory<>(
+                                        "fechaInicio"));
+                        colTipoActividad.setCellValueFactory(new PropertyValueFactory<>(
+                                        "tipoActividad"));
 
-        } else {
+                        tvCambios.setItems(observableListaCambios);
 
-            String mensajeError = respuesta.get("mensaje").toString();
-            Alertas.mostrarAlerta("Error", mensajeError,
-                    AlertType.ERROR);
+                } else {
+
+                        String mensajeError = respuesta.get("mensaje").toString();
+                        Alertas.mostrarAlerta("Error",
+                                        mensajeError,
+                                        AlertType.ERROR);
+
+                        Stage escenario = (Stage) tvCambios.getScene().getWindow();
+                        escenario.close();
+                }
 
         }
 
-        salir();
-    }
+        @FXML
+        private void btnFinalizarClic(ActionEvent event) {
 
-    @FXML
-    private void btnVolverClic(ActionEvent event) {
-        salir();
-    }
+                LocalDateTime fechaHoraActual = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                                "yyyy-MM-dd HH:mm:ss");
 
-    @FXML
-    private void btnSalir(MouseEvent event) {
-        salir(); 
-    }
+                HashMap<String, Object> respuesta = CambioDAO.finalizarCambio(
+                                tvCambios.getSelectionModel().getSelectedItem().getIdCambio(),
+                                fechaHoraActual.format(formatter));
 
-    @FXML
-    private void hoverInSalir() {
-        ivSalir.setImage(new Image(Utilidades.getInputStream(
-                "/recursos/imagenes/logoSalir2.png")));
-    }
+                if (!(Boolean) respuesta.get("error")) {
 
-    @FXML
-    private void hoverOutSalir() {
-        ivSalir.setImage(new Image(Utilidades.getInputStream(
-                "/recursos/imagenes/logoSalir.png")));
-    }
+                        Alertas.mostrarAlerta("Finalizar Cambio",
+                                        "Cambio finalizado correctamente",
+                                        AlertType.INFORMATION);
 
-    private void salir() {
-        Stage escenario = (Stage) tvCambios.getScene().getWindow();
+                } else {
 
-        escenario.close();
-    }
+                        String mensajeError = respuesta.get("mensaje").toString();
+                        Alertas.mostrarAlerta("Error", mensajeError,
+                                        AlertType.ERROR);
+
+                }
+
+                salir();
+        }
+
+        @FXML
+        private void btnVolverClic(ActionEvent event) {
+                salir();
+        }
+
+        @FXML
+        private void btnSalir(MouseEvent event) {
+                salir();
+        }
+
+        @FXML
+        private void hoverInSalir() {
+                ivSalir.setImage(new Image(Utilidades.getInputStream(
+                                "/recursos/imagenes/logoSalir2.png")));
+        }
+
+        @FXML
+        private void hoverOutSalir() {
+                ivSalir.setImage(new Image(Utilidades.getInputStream(
+                                "/recursos/imagenes/logoSalir.png")));
+        }
+
+        private void salir() {
+                Stage escenario = (Stage) tvCambios.getScene().getWindow();
+
+                escenario.close();
+        }
 
 }

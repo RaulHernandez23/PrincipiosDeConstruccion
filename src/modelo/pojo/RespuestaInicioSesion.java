@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: RespuestaInicioSesion.java
+ * Autor: Albhieri Cristoff Villa Contreras
+ * Paquete: modelo.pojo
+ * Fecha de creación: 03/12/2023
+ * Fecha de modificación: 14/12/2023
+ * Descripción: Clase POJO auxiliar para el inicio de sesión
+ */
+
 package modelo.pojo;
 
 public class RespuestaInicioSesion {

@@ -5,7 +5,7 @@
  * Fecha de creación: 19/11/2023
  * Fecha de modificación: 13/12/2023
  * Descripción: Clase que contiene los métodos de la actividad
- *              para realizar las operaciones
+ * para realizar las operaciones
  */
 
 package modelo.dao;

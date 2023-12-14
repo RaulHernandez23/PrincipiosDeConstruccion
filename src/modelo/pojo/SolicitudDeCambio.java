@@ -1,3 +1,11 @@
+/*
+ * Nombre del archivo: SolcitudDeCambio.java
+ * Autor: Miguel Angel Morales Cruz
+ * Paquete: modelo.pojo
+ * Fecha de creación: 20/11/2023
+ * Fecha de modificación: 10/12/2023
+ * Descripción: POJO de la tabla solicitud de cambio.
+ */
 
 package modelo.pojo;
 

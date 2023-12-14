@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: SolicitudDeCambioDAO.java
+ * Autor: Miguel Angel Morales Cruz
+ * Paquete: modelo.dao
+ * Fecha de creación: 28/11/2023
+ * Fecha de modificación: 13/12/2023
+ * Descripción: Clase que contiene todos los metodos para registrar, consultar, 
+ * evaluar una solicitud de cambio.
+ */
 
 package modelo.dao;
 
