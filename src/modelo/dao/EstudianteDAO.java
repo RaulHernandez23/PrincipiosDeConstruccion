@@ -1,6 +1,5 @@
 package modelo.dao;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -315,8 +314,7 @@ public class EstudianteDAO {
         return respuesta;
     }
 
-    public static HashMap<String, Object> registrarEstudiante
-            (Estudiante estudiante) {
+    public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
@@ -382,7 +380,6 @@ public class EstudianteDAO {
 
         return respuesta;
     }
-
 
     public static HashMap<String, Object> desasignarEstudiante(
             Integer idEstudiante) {

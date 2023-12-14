@@ -260,7 +260,7 @@ public class FXMLRegistrarCambioController implements Initializable {
             camposValidos = false;
         }
 
-        fechaInicio = Utilidades.obtenerFechaActual();
+        fechaInicio = Utilidades.obtenerFechaServidor();
 
         return camposValidos;
 
@@ -306,8 +306,7 @@ public class FXMLRegistrarCambioController implements Initializable {
 
         } catch (SQLException e) {
             Utilidades.mostrarAlertaSimple("Error",
-                    "No se pudo conectar a la base de datos,"
-                            + " inténtelo más tarde",
+                    "Error:" + e.getMessage(),
                     Alert.AlertType.ERROR);
         }
 

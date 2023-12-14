@@ -223,7 +223,7 @@ public class FXMLRegistrarActividadController implements Initializable {
             camposValidos = false;
         }
 
-        fechaInicio = Utilidades.obtenerFechaActual();
+        fechaInicio = Utilidades.obtenerFechaServidor();
 
         return camposValidos;
 
