@@ -225,7 +225,7 @@ public class EstudianteDAO {
 
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_SELECT);
                 sqlE.printStackTrace();
-                
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
@@ -237,9 +237,6 @@ public class EstudianteDAO {
         return respuesta;
     }
 
-<<<<<<< HEAD
-    public static HashMap<String, Object> registrarEstudianteYAsociarPeriodoEscolar(Estudiante estudiante, int idPeriodoEscolar) {
-=======
     public static HashMap<String, Object> consultarEstudiantesActivosProyecto(
             Integer idProyecto) {
 
@@ -320,9 +317,9 @@ public class EstudianteDAO {
         return respuesta;
     }
 
-    public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
+    public static HashMap<String, Object> registrarEstudianteYAsociarPeriodoEscolar(Estudiante estudiante,
+            Integer idPeriodoEscolar) {
 
->>>>>>> 782d9740c65f4f86bd6bd9b0a0cf9942ca516131
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
 
@@ -344,7 +341,8 @@ public class EstudianteDAO {
                         "password = VALUES(password), " +
                         "idProyecto = VALUES(idProyecto)";
 
-                PreparedStatement sentenciaEstudiante = conexionBD.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement sentenciaEstudiante = conexionBD.prepareStatement(consulta,
+                        Statement.RETURN_GENERATED_KEYS);
 
                 sentenciaEstudiante.setString(1, estudiante.getMatricula());
                 sentenciaEstudiante.setString(2, estudiante.getNombre());
@@ -468,5 +466,5 @@ public class EstudianteDAO {
         return respuesta;
 
     }
-    
+
 }

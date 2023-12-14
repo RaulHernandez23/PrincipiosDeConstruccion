@@ -123,7 +123,7 @@ public class FXMLDesasignarEstudianteController implements Initializable {
     private void cargarEstudiantes() {
 
         HashMap<String, Object> respuesta = EstudianteDAO
-                .recuperarEstudiantesActivosProyecto(
+                .consultarEstudiantesActivosProyecto(
                         idProyecto);
         if (!(Boolean) respuesta.get("error")) {
 
