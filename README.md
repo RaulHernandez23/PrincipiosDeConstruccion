@@ -35,11 +35,11 @@ Este proyecto está estrechamente relacionado con la materia de "Principios de D
 
 2. El proyecto en NetBeans para MacOS, Windows y Linux se encuentra en la carpeta "netbeans" del repositorio.
 
-3. Abre tu NetBeans y selecciona la carpeta que está dentro de la carpeta netbeans llamada "sgbp".
+3. Abre el repositorio y selecciona la carpeta que está dentro de la carpeta netbeans llamada "sgbp".
 
 4. Busca en la carpeta bd del repositorio el archivo llamado "sgbp.sql" y copialo y ejecutalo en tu instancia de MySQL Workbench, Navicat o cualquier otro gestor de bases de datos en el hostname "localhost" con el puerto "3306".
 
-5. Modifica el archivo configuracion.properties que se encuentra en el paquete utilidades y cambia los valores de las variables por los de tu instancia de MySQL.
+5. Modifica el archivo configuracion.properties de NetBeans que se encuentra en el paquete utilidades y cambia los valores de las variables por los de tu instancia de MySQL.
 
 6. Modifica el archivo ConectorBaseDatos.java que se encuentra en el paquete modelo y cambia el valor de int usuarioActual por el indice del usuario que hayas agregado en el configuracion.properties. (Recomendación: Pon tu usuario al principio de usuarios y tu contraseña al principio de passwords para que tu indice sea el 0, deberas poner una coma ',' al final para separalos de los demás valores tanto de los usuarios como de las contraseñas, puedes cambiar los que dicen tuUsuario y tuPassword).
 
