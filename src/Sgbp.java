@@ -1,3 +1,12 @@
+/*
+ * Nombre del archivo: Sgbp.java
+ * Autor: Raul Hernandez Olivares
+ * Paquete: Sgbp
+ * Fecha de creación: 15/11/2023
+ * Fecha de modificación: 9/12/2023
+ * Descripción: Clase principal del proyecto
+ */
+
 import javafx.application.Application;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
