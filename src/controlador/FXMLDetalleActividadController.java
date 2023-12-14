@@ -64,6 +64,9 @@ public class FXMLDetalleActividadController implements Initializable {
     private Label lblSGBP;
 
     @FXML
+    private Label lblTituloVentana;
+
+    @FXML
     private ImageView ivLogoUV;
 
     @FXML
@@ -122,9 +125,12 @@ public class FXMLDetalleActividadController implements Initializable {
                 "/recursos/imagenes/logoSalir.png")));
     }
 
-    public void inicializarInformacion(Integer idProyecto) {
+    public void inicializarInformacion(Integer idProyecto, boolean esFinalizar) {
         recuperarActividades(idProyecto);
-
+        this.esFinalizar = esFinalizar;
+        if(esFinalizar){
+            lblTituloVentana.setText("Finalizar actividad");
+        }
     }
 
     public void salir() {
