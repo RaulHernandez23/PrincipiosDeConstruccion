@@ -227,18 +227,7 @@ public class FXMLCrearSolicitudDeCambioController implements Initializable {
     
         return esValido;
     }
-
-    private void limpiarEstiloCampos() {
-
-        cbDefectos.setStyle("");
-        tfNombreSolicitud.setStyle("");
-        taDescripcionCambio.setStyle("");
-        taRazonCambio.setStyle("");
-        taImpactoCambio.setStyle("");
-        taAccionPropuesta.setStyle("");
-
-    }
-
+    
     private void registrarSolicitud() {
 
         SolicitudDeCambio solicitudDeCambio = new SolicitudDeCambio();

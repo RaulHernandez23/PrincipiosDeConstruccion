@@ -191,5 +191,5 @@ public class FXMLSolicitudDeCambioController implements Initializable {
         }
 
     }
-
+    
 }

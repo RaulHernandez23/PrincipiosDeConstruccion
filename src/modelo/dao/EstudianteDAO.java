@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -316,7 +317,7 @@ public class EstudianteDAO {
         return respuesta;
     }
 
-    public static HashMap<String, Object> registrarEstudiante(Estudiante estudiante) {
+    public static HashMap<String, Object> registrarEstudianteYAsociarPeriodoEscolar(Estudiante estudiante, Integer idPeriodoEscolar) {
 
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
@@ -324,13 +325,13 @@ public class EstudianteDAO {
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
-
             try {
+                conexionBD.setAutoCommit(false);
 
-                String sentencia = "INSERT INTO estudiante( matricula, nombre, "
-                        + "apellidoPaterno, apellidoMaterno, "
-                        + "idEstadoEstudiante, password, idProyecto) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                // Registrar el estudiante
+                String consulta = "INSERT INTO Estudiante (matricula, nombre, apellidoPaterno, " +
+                        "apellidoMaterno, idEstadoEstudiante, password, idProyecto) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                         "ON DUPLICATE KEY UPDATE " +
                         "nombre = VALUES(nombre), " +
                         "apellidoPaterno = VALUES(apellidoPaterno), " +
@@ -339,43 +340,58 @@ public class EstudianteDAO {
                         "password = VALUES(password), " +
                         "idProyecto = VALUES(idProyecto)";
 
-                PreparedStatement prepararSentencia = conexionBD
-                        .prepareStatement(sentencia);
+                PreparedStatement sentenciaEstudiante = conexionBD.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
 
-                prepararSentencia.setString(1, estudiante
-                        .getMatricula());
-                prepararSentencia.setString(2, estudiante
-                        .getNombre());
-                prepararSentencia.setString(3, estudiante
-                        .getApellidoPaterno());
-                prepararSentencia.setString(4, estudiante
-                        .getApellidoMaterno());
-                prepararSentencia.setInt(5, estudiante
-                        .getIdEstadoEstudiante());
-                prepararSentencia.setString(6, estudiante
-                        .getPassword());
-                prepararSentencia.setInt(7, estudiante
-                        .getIdProyecto());
+                sentenciaEstudiante.setString(1, estudiante.getMatricula());
+                sentenciaEstudiante.setString(2, estudiante.getNombre());
+                sentenciaEstudiante.setString(3, estudiante.getApellidoPaterno());
+                sentenciaEstudiante.setString(4, estudiante.getApellidoMaterno());
+                sentenciaEstudiante.setInt(5, estudiante.getIdEstadoEstudiante());
+                sentenciaEstudiante.setString(6, estudiante.getPassword());
+                sentenciaEstudiante.setInt(7, estudiante.getIdProyecto());
 
-                int filasAfectadas = prepararSentencia.executeUpdate();
+                int filasAfectadasEstudiante = sentenciaEstudiante.executeUpdate();
 
-                if (filasAfectadas > 0) {
+                if (filasAfectadasEstudiante > 0) {
+                    ResultSet generatedKeys = sentenciaEstudiante.getGeneratedKeys();
 
-                    respuesta.put("error", false);
-                    respuesta.put("mensaje", "Estudiante registrado"
-                            + " anteriormente actualización y reasignación "
-                            + "completa");
+                    if (generatedKeys.next()) {
+                        int idEstudiante = generatedKeys.getInt(1);
 
+                        String consultaAsociacion = "INSERT INTO Estudiante_PeriodoEscolar (idEstudiante, idPeriodoEscolar) VALUES (?, ?)";
+                        PreparedStatement sentenciaAsociacion = conexionBD.prepareStatement(consultaAsociacion);
+
+                        sentenciaAsociacion.setInt(1, idEstudiante);
+                        sentenciaAsociacion.setInt(2, idPeriodoEscolar);
+
+                        int filasAfectadasAsociacion = sentenciaAsociacion.executeUpdate();
+
+                        if (filasAfectadasAsociacion > 0) {
+                            conexionBD.commit();
+                            respuesta.put("error", false);
+
+                            if (filasAfectadasEstudiante == 1) {
+                                respuesta.put("mensaje", "Estudiante registrado correctamente.");
+                            } else {
+                                respuesta.put("mensaje", "Estudiante actualizado correctamente.");
+                            }
+                        } else {
+                            conexionBD.rollback();
+                            respuesta.put("mensaje", "No se pudo asociar el estudiante al periodo escolar.");
+                        }
+                    } else {
+                        respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+                    }
                 } else {
                     respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 }
 
             } catch (SQLException e) {
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
+                e.printStackTrace();
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
-
         } else {
             respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
@@ -448,4 +464,5 @@ public class EstudianteDAO {
         return respuesta;
 
     }
+    
 }
