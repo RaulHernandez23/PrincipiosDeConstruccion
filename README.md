@@ -27,7 +27,7 @@ Este proyecto está estrechamente relacionado con la materia de "Principios de D
 
 ## Instrucciones de Despliegue en NetBeans
 
-1. Clona el repositorio en tu entorno de desarrollo local:
+1. Clona el repositorio en tu entorno de desarrollo local (procura que la carpeta y la ruta anterior a ella donde se clone no tenga espacios en el nombre, ni simbolos raros, ni acentos, ni ñ):
 
    ```bash
    git clone https://github.com/RaulHernandez23/PrincipiosDeConstruccion.git
