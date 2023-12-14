@@ -221,8 +221,10 @@ public class EstudianteDAO {
                 respuesta.put("estudiantes", estudiantes);
 
             } catch (Exception sqlE) {
-                respuesta.put("mensaje", "Error de conexion en la base de datos");
+
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_SELECT);
                 sqlE.printStackTrace();
+                
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
