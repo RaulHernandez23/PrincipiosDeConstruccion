@@ -254,9 +254,6 @@ public class EstudianteDAO {
         return respuesta;
     }
 
-<<<<<<< HEAD
-    public static HashMap<String, Object> registrarEstudianteYAsociarPeriodoEscolar(Estudiante estudiante, int idPeriodoEscolar) {
-=======
     public static HashMap<String, Object> consultarEstudiantesActivosProyecto(
             Integer idProyecto) {
 
@@ -339,7 +336,6 @@ public class EstudianteDAO {
     public static HashMap<String, Object> registrarEstudianteYAsociarPeriodoEscolar(Estudiante estudiante,
             Integer idPeriodoEscolar) {
 
->>>>>>> bd976f069e5232de281f7335416a22219bdba3d8
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
@@ -401,13 +397,8 @@ public class EstudianteDAO {
                         } else {
 
                             conexionBD.rollback();
-<<<<<<< HEAD
-                            respuesta.put("mensaje", "No se pudo asociar" 
-                            + "el estudiante al periodo escolar.");
-=======
                             respuesta.put("mensaje", "No se pudo asociar el estudiante al periodo escolar.");
 
->>>>>>> bd976f069e5232de281f7335416a22219bdba3d8
                         }
                     } else {
                         respuesta.put("error", false);
