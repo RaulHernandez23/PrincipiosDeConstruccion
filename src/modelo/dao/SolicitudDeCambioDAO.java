@@ -428,13 +428,13 @@ public class SolicitudDeCambioDAO {
                 }
 
             } catch (SQLException ex) {
-                respuesta.put("mensaje", "No se pudo enviar la solicitud a la base de datos");
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
                 ex.printStackTrace();
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexionBD);
             }
         } else {
-            respuesta.put("mensaje", "No se pudo conectar a la base de datos, inténtelo de nuevo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_REGISTRO);
         }
 
         return respuesta;

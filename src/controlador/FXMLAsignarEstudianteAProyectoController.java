@@ -43,11 +43,16 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
     @FXML
     private Button btnAgregarProyecto;
-
-    private Integer idProyecto;
+    
     @FXML
     private ImageView ivSalir;
+    
+    private Integer idProyecto;
 
+    private Integer idPeriodoProyecto;
+
+
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -100,8 +105,9 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
     }
 
-    public void inicializarVentana(Integer idProyecto) {
+    public void inicializarVentana(Integer idProyecto, Integer idPeriodoProyecto) {
         this.idProyecto = idProyecto;
+        this.idPeriodoProyecto = idPeriodoProyecto;
     }
 
     private void registrarEstudiante() {
@@ -119,7 +125,8 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         estudiante.setIdProyecto(idProyecto);
 
         HashMap<String, Object> respuesta = EstudianteDAO
-                .registrarEstudiante(estudiante);
+                .registrarEstudianteYAsociarPeriodoEscolar
+                (estudiante,idPeriodoProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
@@ -201,5 +208,5 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
     private String crearPasswordEstudiante() {
         return tfNombre.getText().toLowerCase() + tfApellidoPaterno.getText();
     }
-
+    
 }

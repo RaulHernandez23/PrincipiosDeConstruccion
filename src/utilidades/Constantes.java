@@ -12,6 +12,6 @@ public class Constantes {
             + " inténtelo de nuevo más tarde";
     
     public static final String MENSAJE_DATOS_INVALIDOS 
-            = "Ingrese datos válidos";
+        = "Ingrese datos válidos";
     
 }
