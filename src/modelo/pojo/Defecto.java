@@ -10,6 +10,7 @@
 package modelo.pojo;
 
 public class Defecto {
+    
     private Integer idDefecto;
     private String titulo;
     private String descripcion;
@@ -28,6 +29,7 @@ public class Defecto {
 
     public Defecto(Integer idDefecto, String titulo, String descripcion, Integer esfuerzoMinutos, String fechaReporte,
             Integer idEstadoDefecto, Integer idEstudiante, String estadoDefecto, String nombreEstudiante, Integer idProyecto) {
+        
         this.idDefecto = idDefecto;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -38,6 +40,7 @@ public class Defecto {
         this.estadoDefecto = estadoDefecto;
         this.nombreEstudiante = nombreEstudiante;
         this.idProyecto = idProyecto;
+
     }
 
     public Integer getIdDefecto() {
@@ -45,7 +48,7 @@ public class Defecto {
     }
 
     public void setIdDefecto(Integer idDefecto) {
-            this.idDefecto = idDefecto;
+        this.idDefecto = idDefecto;
     }
 
     public String getTitulo() {
@@ -161,6 +164,7 @@ public class Defecto {
     }
 
     public void setFechaFin(String fechaFin) {
+    
         if (fechaFin != null) {
             this.fechaFin = fechaFin;            
         }

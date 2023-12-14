@@ -14,14 +14,16 @@ import modelo.pojo.Cambio;
 public class CambioDAO {
 
     public static HashMap<String, Object> consultarCambios() {
+
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
-
         ArrayList<Cambio> cambios = new ArrayList<Cambio>();
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
+
             try {
+
                 String consulta = "SELECT c.idCambio, c.titulo, c.descripcion, "
                         + "fechaInicio, ta.tipo FROM cambio c INNER JOIN "
                         + "tipoactividad ta ON "
@@ -38,6 +40,7 @@ public class CambioDAO {
                 ResultSet resultadoConsulta = sentencia.executeQuery();
 
                 while (resultadoConsulta.next()) {
+
                     Cambio cambio = new Cambio();
                     cambio.setIdCambio(resultadoConsulta.getInt(
                             "idCambio"));
@@ -51,6 +54,7 @@ public class CambioDAO {
                             "tipo"));
 
                     cambios.add(cambio);
+
                 }
 
                 respuesta.put("error", false);
@@ -74,9 +78,7 @@ public class CambioDAO {
             Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -95,7 +97,6 @@ public class CambioDAO {
                         + "WHERE c.idProyecto = ? ORDER BY c.fechaInicio DESC";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
@@ -154,9 +155,7 @@ public class CambioDAO {
             Integer idProyecto) {
 
         HashMap<String, Object> respuesta = new HashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -180,7 +179,6 @@ public class CambioDAO {
                         + "ORDER BY c.fechaInicio DESC";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setInt(1, idEstudiante);
                 sentencia.setInt(2, idProyecto);
 
@@ -220,8 +218,10 @@ public class CambioDAO {
                 respuesta.put("cambios", cambios);
 
             } catch (SQLException e) {
+
                 respuesta.put("mensaje", "Error: " + e.getMessage());
                 e.printStackTrace();
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -240,9 +240,7 @@ public class CambioDAO {
             Cambio cambio) throws SQLException {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -255,7 +253,6 @@ public class CambioDAO {
                         + " idProyecto) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setInt(1, cambio.getIdSolicitud());
                 sentencia.setString(2, cambio.getTitulo());
                 sentencia.setString(3, cambio.getDescripcion());
@@ -287,16 +284,15 @@ public class CambioDAO {
             conexion = ConectorBaseDatos.obtenerConexion();
 
             try {
+
                 String consulta = "SELECT MAX(idCambio) AS idCambio FROM "
                         + "cambio WHERE "
                         + "idSolicitudDeCambio = ? AND titulo = ? AND "
                         + "descripcion = ? AND esfuerzoMinutos = ? AND "
                         + "idTipoActividad = ? AND idEstadoCambio = ? AND "
                         + "fechaInicio = ? AND idProyecto = ?;";
-
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setInt(1, cambio.getIdSolicitud());
                 sentencia.setString(2, cambio.getTitulo());
                 sentencia.setString(3, cambio.getDescripcion());
@@ -327,7 +323,6 @@ public class CambioDAO {
                             + "(idEstudiante, idCambio) VALUES (?, ?);";
                     PreparedStatement sentencia = conexion.prepareStatement(
                             consulta);
-
                     sentencia.setInt(1, cambio
                             .getIdEstudiante());
                     sentencia.setInt(2, cambio.getIdCambio());
@@ -364,19 +359,21 @@ public class CambioDAO {
     }
 
     public static HashMap<String, Object> consultarEstados() {
+
         HashMap<String, Object> respuesta = new LinkedHashMap<String, Object>();
-
         respuesta.put("error", true);
-
         Connection conexionBD = ConectorBaseDatos.obtenerConexion();
 
         if (conexionBD != null) {
+
             try {
 
                 String consulta = "SELECT estado FROM EstadoCambio";
                 PreparedStatement sentencia = conexionBD.prepareStatement(
                         consulta);
+
                 ResultSet resultadoConsulta = sentencia.executeQuery();
+
                 ArrayList<String> estados = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
@@ -408,9 +405,7 @@ public class CambioDAO {
     public static HashMap<String, Object> consultarTiposActividades() {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -420,7 +415,9 @@ public class CambioDAO {
                 String consulta = "SELECT tipo FROM TipoActividad;";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
+
                 ResultSet resultadoConsulta = sentencia.executeQuery();
+
                 ArrayList<String> tiposActividades = new ArrayList<>();
 
                 respuesta.put("error", false);
@@ -452,9 +449,7 @@ public class CambioDAO {
             String fechaFin) {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -465,7 +460,6 @@ public class CambioDAO {
                         + " fechaFin= ? WHERE idCambio = ?;";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setString(1, fechaFin);
                 sentencia.setInt(2, idCambio);
 

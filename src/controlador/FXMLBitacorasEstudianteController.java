@@ -634,7 +634,7 @@ public class FXMLBitacorasEstudianteController implements Initializable {
     private void cargarEstudiantes() {
 
         HashMap<String, Object> respuesta = EstudianteDAO
-                .recuperarEstudiantesActivosProyecto(idProyecto);
+                .consultarEstudiantesActivosProyecto(idProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 

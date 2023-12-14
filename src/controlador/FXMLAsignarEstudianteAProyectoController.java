@@ -43,16 +43,14 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
     @FXML
     private Button btnAgregarProyecto;
-    
+
     @FXML
     private ImageView ivSalir;
-    
+
     private Integer idProyecto;
 
     private Integer idPeriodoProyecto;
 
-
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -125,8 +123,7 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
         estudiante.setIdProyecto(idProyecto);
 
         HashMap<String, Object> respuesta = EstudianteDAO
-                .registrarEstudianteYAsociarPeriodoEscolar
-                (estudiante,idPeriodoProyecto);
+                .registrarEstudianteYAsociarPeriodoEscolar(estudiante, idPeriodoProyecto);
 
         if (!(Boolean) respuesta.get("error")) {
 
@@ -177,36 +174,36 @@ public class FXMLAsignarEstudianteAProyectoController implements Initializable {
 
     private boolean validarCampos() {
         boolean esValido = true;
-    
+
         String nombre = tfNombre.getText().trim();
         if (nombre.isEmpty() || !nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,20}$")) {
             tfNombre.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-    
+
         String apellidoPaterno = tfApellidoPaterno.getText().trim();
         if (apellidoPaterno.isEmpty() || !apellidoPaterno.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
             tfApellidoPaterno.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-    
+
         String apellidoMaterno = tfApellidoMaterno.getText().trim();
         if (!apellidoMaterno.isEmpty() && !apellidoMaterno.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,40}$")) {
             tfApellidoMaterno.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-    
+
         String matricula = tfMatricula.getText().trim();
         if (matricula.isEmpty() || !matricula.matches("^[sS]\\d{8}$")) {
             tfMatricula.setStyle("-fx-border-color: red;");
             esValido = false;
         }
-    
+
         return esValido;
     }
 
     private String crearPasswordEstudiante() {
         return tfNombre.getText().toLowerCase() + tfApellidoPaterno.getText();
     }
-    
+
 }

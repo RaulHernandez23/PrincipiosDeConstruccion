@@ -27,10 +27,8 @@ public class Sgbp extends Application {
 
         Font.loadFont(Utilidades.getInputStream(
                 "/recursos/fuentes/Poppins-Regular.ttf"), 12);
-
         Font.loadFont(Utilidades.getInputStream(
                 "/recursos/fuentes/Poppins-Italic.ttf"), 12);
-
         Font.loadFont(Utilidades.getInputStream(
                 "/recursos/fuentes/Poppins-Bold.ttf"), 12);
 

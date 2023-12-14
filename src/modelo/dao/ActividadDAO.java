@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import modelo.ConectorBaseDatos;
 import modelo.pojo.Actividad;
 import utilidades.Constantes;
@@ -25,7 +24,9 @@ public class ActividadDAO {
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
+
             try {
+
                 String consulta = "SELECT idActividad, titulo, a.idEstudiante, "
                         + "CONCAT(e.nombre, ' ', e.apellidoPaterno, "
                         + "' ', e.apellidoMaterno) AS Estudiante, "
@@ -42,6 +43,7 @@ public class ActividadDAO {
                 listaActividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
+
                     HashMap<String, Object> actividadMap = new HashMap<>();
                     actividadMap.put(
                             "idActividad",
@@ -65,15 +67,18 @@ public class ActividadDAO {
                                     "fechaInicio"));
 
                     listaActividades.add(actividadMap);
+
                 }
 
                 respuesta.put("error", false);
                 respuesta.put("actividades", listaActividades);
 
             } catch (SQLException se) {
+
                 se.printStackTrace();
                 respuesta.put("mensaje", "Error en la base de datos: "
                         + se.getMessage());
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -96,7 +101,7 @@ public class ActividadDAO {
         if (conexion != null) {
 
             try {
-
+                
                 String consulta = "SELECT "
                         + "idActividad, "
                         + "titulo, "
@@ -133,8 +138,9 @@ public class ActividadDAO {
                         consulta);
                 sentencia.setInt(1, idProyecto);
                 ResultSet resultadoConsulta = sentencia.executeQuery();
-                ArrayList<Actividad> actividades = new ArrayList<>();
 
+                ArrayList<Actividad> actividades = new ArrayList<>();
+                
                 while (resultadoConsulta.next()) {
                         
                     Actividad actividad = new Actividad();
@@ -173,7 +179,7 @@ public class ActividadDAO {
                     actividades.add(actividad);
 
                 }
-
+     
                 respuesta.put("error", false);
                 respuesta.put("actividades", actividades);
 
@@ -236,7 +242,9 @@ public class ActividadDAO {
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
                 sentencia.setInt(1, idProyecto);
+
                 ResultSet resultadoConsulta = sentencia.executeQuery();
+
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
@@ -278,8 +286,10 @@ public class ActividadDAO {
                 respuesta.put("actividades", actividades);
 
             } catch (SQLException sqlE) {
+
                 sqlE.printStackTrace();
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_SELECT);
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -339,6 +349,7 @@ public class ActividadDAO {
                 sentencia.setInt(1, idProyecto);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
+
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
@@ -439,11 +450,11 @@ public class ActividadDAO {
                         + "ORDER BY fechaInicio DESC;";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setInt(1, idProyecto);
                 sentencia.setInt(2, idEstudiante);
 
                 ResultSet resultadoConsulta = sentencia.executeQuery();
+
                 ArrayList<Actividad> actividades = new ArrayList<>();
 
                 while (resultadoConsulta.next()) {
@@ -506,9 +517,7 @@ public class ActividadDAO {
     public static HashMap<String, Object> consultarTiposActividades() {
 
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
 
         if (conexion != null) {
@@ -518,9 +527,10 @@ public class ActividadDAO {
                 String consulta = "SELECT tipo FROM tipoactividad;";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-                ResultSet resultadoConsulta = sentencia.executeQuery();
-                ArrayList<String> tiposActividades = new ArrayList<>();
 
+                ResultSet resultadoConsulta = sentencia.executeQuery();
+
+                ArrayList<String> tiposActividades = new ArrayList<>();
                 respuesta.put("error", false);
 
                 while (resultadoConsulta.next()) {
@@ -598,6 +608,7 @@ public class ActividadDAO {
                         consulta);
                 sentencia.setInt(1, idEstudiante);
                 sentencia.setInt(2, idActividad);
+
                 int resultadoConsulta = sentencia.executeUpdate();
 
                 if (resultadoConsulta > 0) {
@@ -612,8 +623,10 @@ public class ActividadDAO {
                 }
 
             } catch (SQLException sqlE) {
+
                 sqlE.printStackTrace();
                 respuesta.put("mensaje", Constantes.MENSAJE_ERROR_UPDATE);
+
             } finally {
                 ConectorBaseDatos.cerrarConexion(conexion);
             }
@@ -629,13 +642,9 @@ public class ActividadDAO {
             Actividad actividad) throws SQLException {
 
         HashMap<String, Object> respuesta = new HashMap<>();
-
         respuesta.put("error", true);
-
         Connection conexion = ConectorBaseDatos.obtenerConexion();
-
         String fechaServidor = Utilidades.obtenerFechaServidor();
-
         Date fechaServidorDate = Date.valueOf(fechaServidor);
         Date fechaInicioDate = Date.valueOf(actividad.getFechaInicio());
 
@@ -657,7 +666,6 @@ public class ActividadDAO {
                         + "idEstadoActividad) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement sentencia = conexion.prepareStatement(
                         consulta);
-
                 sentencia.setString(1, actividad.getTitulo());
                 sentencia.setString(2,
                         actividad.getDescripcion());
@@ -680,8 +688,10 @@ public class ActividadDAO {
                             "La actividad fue registrada con éxito");
 
                 } else {
+
                     respuesta.put("mensaje",
                             "No se pudo registrar la actividad");
+
                 }
 
             } catch (SQLException se) {
@@ -717,6 +727,7 @@ public class ActividadDAO {
                         consulta);
                 sentencia.setInt(1, esfuerzoMinutos);
                 sentencia.setInt(2, idActividad);
+
                 int resultadoConsulta = sentencia.executeUpdate();
                 conexion.close();
 
@@ -732,8 +743,10 @@ public class ActividadDAO {
                 }
 
             } catch (SQLException sqlE) {
+
                 sqlE.printStackTrace();
                 respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+                
             }
         } else {
             respuesta.put("mensaje",
@@ -774,12 +787,11 @@ public class ActividadDAO {
                 }
 
             } catch (SQLException sqlE) {
-                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+                sqlE.printStackTrace();
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DELETE);
             }
         } else {
-            respuesta.put("mensaje",
-                    "No se pudo conectar a la base de datos, "
-                            + "inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;
