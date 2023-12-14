@@ -787,12 +787,11 @@ public class ActividadDAO {
                 }
 
             } catch (SQLException sqlE) {
-                respuesta.put("mensaje", "Error: " + sqlE.getMessage());
+                sqlE.printStackTrace();
+                respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DELETE);
             }
         } else {
-            respuesta.put("mensaje",
-                    "No se pudo conectar a la base de datos, "
-                            + "inténtelo más tarde");
+            respuesta.put("mensaje", Constantes.MENSAJE_ERROR_DE_CONEXION);
         }
 
         return respuesta;

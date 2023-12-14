@@ -182,3 +182,11 @@
   -fx-font-family: "Poppins", sans-serif;
   font-family: "Poppins", sans-serif;
 }
+
+.etiquetaRoja {
+  -fx-font-size: 8px;
+  font-size: 8px;
+  -fx-text-fill: #e40303;
+  -fx-font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
